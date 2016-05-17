@@ -32,7 +32,7 @@
                         <div class="quote-form">
                             {{--<fieldset>
                                 <div class="form-bottom">
-                                    --}}{{--<h3 class="steps">Step 1 / 8</h3>--}}{{--
+                                    <div class="validationError"></div>
                                     <h3 class="instruction">Please select one of the following to begin</h3>
                                     <div class="form-group solutions_type_id size-15" style="text-align:center !important;">
                                         @foreach($data['solution_types'] as $solution_type)
@@ -46,9 +46,8 @@
                                         <button id="solutionTypeNextBtn" href="#quote-div" type="button" class="btn new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
                                     </div>
                                 </div>
-                            </fieldset>--}}
-
-                            {{--<fieldset>
+                            </fieldset>
+                            <fieldset>
                                 <div class="form-bottom">
                                     --}}{{--<h3 class="steps">Step 2 / 8</h3>--}}{{--
                                     <h3 class="instruction">Property Details</h3>
@@ -93,7 +92,7 @@
                                         <div class="col-sm-12">
                                             <h4>Will the property require pro-photography ?</h4>
                                             <label>
-                                                <input type="radio" name="pro-photographyChooseBtn" value="0" class="noBtn btn-next">
+                                                <input type="radio" name="pro-photographyChooseBtn" value="0" class="noBtn btn-next" checked="checked">
                                                 No
                                             </label>
                                             <label>
@@ -132,10 +131,10 @@
 
 
                                 </div>
-                            </fieldset>--}}
+                            </fieldset>
                             <fieldset>
                                 <div class="form-bottom">
-                                    {{--<h3 class="steps">Step 4 / 8</h3>--}}
+                                    --}}{{--<h3 class="steps">Step 4 / 8</h3>--}}{{--
                                     <h3 class="instruction">SIGNBOARD</h3>
 
                                     <div class="row">
@@ -143,7 +142,7 @@
                                             <div class="validationError"></div>
                                             <h4>Will require signboard ?</h4>
                                             <label>
-                                                <input name="signboardChooseBtn" type="radio" value="0" class="noBtn">
+                                                <input name="signboardChooseBtn" type="radio" value="0" class="noBtn btn-next">
                                                 No
                                             </label>
                                             <label>
@@ -190,31 +189,33 @@
 
 
                                 </div>
-                            </fieldset>
-                            <fieldset>
+                            </fieldset>--}}
+                            {{--<fieldset>
                                 <div class="form-bottom">
-                                    {{--<h3 class="steps">Step 5 / 8</h3>--}}
-                                    <h3 class="instruction">PRINT MATERIAL</h3>
+                                    --}}{{--<h3 class="steps">Step 5 / 8</h3>--}}{{--
+                                    <h3 class="instruction">PRINT MATERIAL</h3>                                            <div class="validationError"></div>
+
                                     <div class="row">
                                         <div class="col-sm-12 size-16">
                                             <h4>Will you require print material ?</h4>
                                             <label>
-                                                <input class="yesBtn" type="radio" name="print_materialChooseBtn" value="1">
-                                                Yes
-                                            </label>
-                                            <label>
-                                                <input class="noBtn" type="radio" name="print_materialChooseBtn" value="0">
+                                                <input class="noBtn btn-next" type="radio" name="printMaterialChooseBtn" value="0" checked="checked">
                                                 No
                                             </label>
+                                            <label>
+                                                <input class="yesBtn" type="radio" name="printMaterialChooseBtn" value="1">
+                                                Yes
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="optionalContentDiv optional-content-div">
                                             <p class="white size-13">All printed material will be 2side print and the orientation (landscape or portriat) of the material will depend on the artowk set up for your agency, please
                                                 ensure that check it is the required orientation, For specific requirement for orientation, stock or other requirements please state in the “note” section.
                                             </p>
                                             <p class="white size-13">Also if you wish to have more then 1 printed material and wish to have dit distributed, please sepcify which print material will be used for distribution by
                                                 selecting the distribution.</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="optionalContentDiv optional-content-div">
                                             @foreach($data['print_materials'] as $print_material)
                                             <div class="col-sm-4">
                                                 <label>
@@ -246,24 +247,25 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button type="button" class="btn btn-next pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    <button id="printMaterialNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
 
                                 </div>
-                            </fieldset>
-                            <fieldset>
+                            </fieldset>--}}
+                            {{--<fieldset>
                                 <div class="form-bottom">
-                                    {{--<h3 class="steps">Step 6 / 8</h3>--}}
+                                    --}}{{--<h3 class="steps">Step 6 / 8</h3>--}}{{--
                                     <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
+                                    <div class="validationError"></div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h4>Will you require print material ?</h4>
+                                            <h4>Will you require distribution of print materia ?</h4>
                                             <label>
-                                                <input class="yesBtn" type="radio" name="print_materialChooseBtn" value="1">
-                                                Yes
+                                                <input class="noBtn btn-next" type="radio" name="distributedPrintMaterialChooseBtn" value="0" checked="checked">
+                                                No
                                             </label>
                                             <label>
-                                                <input class="noBtn" type="radio" name="print_materialChooseBtn" value="0">
-                                                No
+                                                <input class="yesBtn" type="radio" name="distributedPrintMaterialChooseBtn" value="1">
+                                                Yes
                                             </label>
 
                                         </div>
@@ -275,7 +277,7 @@
                                             <div class="form-group">
                                                 {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location
 (Remainder will be sent to you the agency)') !!}
-                                                {!! Form::select('quantity', array('quantity' => 'Quantity'),['class'=>'form-control']) !!}
+                                                {!! Form::select('quantity', array('select' => 'Please Select','quantity' => 'Quantity'),['class'=>'form-control','id'=>'quantity']) !!}
                                             </div>
                                             <div class="form-group">
                                                 <label>NOTE</label>
@@ -285,25 +287,26 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button type="button" class="btn btn-next pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    <button id="distributedPrintMaterialNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
 
 
                                 </div>
-                            </fieldset>
-                            <fieldset>
+                            </fieldset>--}}
+                            {{--<fieldset>
                                 <div class="form-bottom">
-                                    {{--<h3 class="steps">Step 7 / 8</h3>--}}
+                                    --}}{{--<h3 class="steps">Step 7 / 8</h3>--}}{{--
                                     <h3 class="instruction">Digital media</h3>
+                                    <div class="validationError"></div>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h4>Will you require digital media ?</h4>
                                             <label>
-                                                <input class="yesBtn" type="radio" name="print_materialChooseBtn" value="1">
-                                                Yes
+                                                <input class="noBtn btn-next" type="radio" name="digitalMediaChooseBtn" value="0" checked="checked">
+                                                No
                                             </label>
                                             <label>
-                                                <input class="noBtn" type="radio" name="print_materialChooseBtn" value="0">
-                                                No
+                                                <input class="yesBtn" type="radio" name="digitalMediaChooseBtn" value="1">
+                                                Yes
                                             </label>
 
                                         </div>
@@ -326,25 +329,25 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button type="button" class="btn btn-next pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    <button id="digitalMediaNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
 
 
                                 </div>
-                            </fieldset>
+                            </fieldset>--}}
                             <fieldset>
                                 <div class="form-bottom">
                                     {{--<h3 class="steps">Step 8 / 8</h3>--}}
                                     <h3 class="instruction">Local newsprint media advertising</h3>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h4>Will you require digital media ?</h4>
+                                            <h4>Your choice of local newsprint advertisement ?</h4>
                                             <label>
-                                                <input class="yesBtn" type="radio" name="digital_mediaChooseBtn" value="1">
-                                                Yes
+                                                <input class="noBtn btn-next" type="radio" name="localMediaChooseBtn" value="0" checked="checked">
+                                                No
                                             </label>
                                             <label>
-                                                <input class="noBtn" type="radio" name="digital_mediaChooseBtn" value="0">
-                                                No
+                                                <input class="yesBtn" type="radio" name="localMediaChooseBtn" value="1">
+                                                Yes
                                             </label>
 
                                         </div>
