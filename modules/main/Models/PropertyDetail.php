@@ -20,7 +20,7 @@ class PropertyDetail extends Model
     protected $fillable = [
         'owner_name','address','vendor_name','vendor_email','vendor_phone','vendor_signature_path',
         'signature_date','agent_signature_path','main_selling_line','property_description',
-        'inspection_features','other_features','selling_price','auction_time','offer','note'
+        'inspection_features','	inspection_date','other_features','selling_price','auction_time','offer','note'
     ];
 
 }

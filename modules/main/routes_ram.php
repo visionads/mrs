@@ -69,7 +69,7 @@
 
     /*------------Order Router---------------*/
 
-    Route::get('place-order', [
+    Route::any('place-order', [
         'as'    => 'place-order',
         'uses'  => 'OrderController@index'
     ]);
@@ -77,7 +77,7 @@
         'as'    =>  'property-details',
         'uses'  =>  'OrderController@property_details'
     ]);
-    Route::get('place-order-store',[
+    Route::any('place-order-store',[
         'as'    =>  'place-order-store',
         'uses'  =>  'OrderController@store'
     ]);

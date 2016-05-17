@@ -116,7 +116,8 @@
     }
 
     form .form-bottom .input-error {
-        border-color: #19b9e7;
+        border-color: red;
+        background-color: yellow;
     }
 
     form .quote-form fieldset {
@@ -140,8 +141,9 @@
         color: white;
     }
     .optional-content-div{
-        opacity: 0.4;
-        filter: alpha(opacity=40); /* For IE8 and earlier */
+        display: none;
+        /*opacity: 0.4;*/
+        /*filter: alpha(opacity=40); /!* For IE8 and earlier *!/*/
         /*background-color: rgba(248, 247, 216, 0.7);*/
         /*position: absolute;*/
         /*top: 250px;*/
@@ -151,5 +153,8 @@
     }
     .text-center-label{
         margin-left: 20%;
+    }
+    .required{
+        color: red;
     }
 </style>

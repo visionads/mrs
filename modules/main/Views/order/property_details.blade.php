@@ -48,7 +48,7 @@
                     <div class="col-sm-12">
                         {!! Form::label('date', 'Inspection dates and times :', []) !!}
                         <div class="input-group date">
-                            {!! Form::text('date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['date'], ['class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
+                            {!! Form::text('inspection_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['inspection_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
                             {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
@@ -181,7 +181,7 @@
             <div class="col-sm-12">
                 {!! Form::label('date', 'Preferred date of distribution (please not distribution date is subject to Australia post approval, please ensure to allow sometime for booking dates) :', []) !!}
                 <div class="input-group date">
-                    {!! Form::text('date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['date'], ['class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                    {!! Form::text('date_of_distribution', @$generate_voucher_number? date('Y/m/d') : @$data[0]['date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
                     {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>

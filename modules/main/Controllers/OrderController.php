@@ -9,8 +9,10 @@ use App\Http\Controllers\Controller;
 //use App\Order;
 use App\PropertyDetail;
 use App\PrintMaterialDistribution;
+use App\Quote;
 use Auth;
 use DB;
+use PhpParser\Node\Stmt\Property;
 use Session;
 
 class OrderController extends Controller
@@ -59,51 +61,56 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $input_one = [
-            //'owner_name',
-            //'address',
-            //'vendor_name',
-            //'vendor_email',
-            //'vendor_phone',
-            //'vendor_signature_path',
-            'signature_date'=>$input['date'],
-            //'agent_signature_path',
-            'main_selling_line'=>$input['main_selling_line'],
-            'property_description'=>$input['property_description'],
-            'inspection_features'=>$input['inspection_features'],
-            'other_features'=>$input['other_features'],
-            'selling_price'=>$input['selling_price'],
-            'auction_time'=>$input['auction_time'],
-            'offer'=>['offer'],
-            'note'=>['note']
+
+        $input_pd = [
+            'main_selling_line'     => $input['main_selling_line'],
+            'property_description'  => $input['property_description'],
+            'inspection_date'       => $input['inspection_date'],
+            'inspection_features'   => $input['inspection_features'],
+            'other_features'        => $input['other_features'],
+            'selling_price'         => $input['selling_price'],
+            'auction_time'          => $input['auction_time'],
+            'offer'                 => $input['offer'],
+            'note'                  => $input['note']
         ];
 
-        if(!empty($input['is_surrounded'])){ $surrouded = $input['is_surrounded']; }else{ $surrouded = '1';}
-        $input_two = [
-            'quantity'=>$input['quantity'],
-            'is_surrounded'=>$surrouded,
-            'other_address'=>$input['other_address'],
-            //'date_of_distribution'=>$input['date'],
-            'note'=>$input['note']
+        $input_pmd = [
+            'quantity'              => $input['quantity'],
+            'is_surrounded'         => $input['is_surrounded'],
+            'other_address'         => $input['other_address'],
+            'date_of_distribution'  => $input['date_of_distribution'],
+            'note'                  => $input['note'],
         ];
-        //$signature_date = [ 'signature_date'=>$input['date'] ];
-        //$date_of_distribution = [ 'date_of_distribution'=>$input['date'] ];
 
-        $model_one = new PropertyDetail();
-        $model_two = new PrintMaterialDistribution();
+
         DB::beginTransaction();
         try{
-            $model_one->create($input);
-            $model_two->create($input);
+
+            $model_pd = new PropertyDetail();
+            $pd = $model_pd->create($input_pd);
+
+            $model_pmd = new PrintMaterialDistribution();
+            $pmd = $model_pmd->create($input_pmd);
+
+            if($pd && $pmd)
+            {
+                $model_quote = new Quote();
+                $model_quote->property_detail_id = $pd->id;
+                $model_quote->print_material_distribution = $pmd->id;
+                $model_quote->save();
+            }
+
             DB::commit();
             Session::flash('message', 'Successfully added!');
         }catch(\Exception $e){
             DB::rollback();
             Session::flash('danger', $e->getMessage());
         }
-        //return redirect('index');
-        return redirect('main/place-order');
-        //return redirect()->back();
+
+        $pageTitle = 'Agreement';
+        $data_pd = PropertyDetail::where('id',$pd->id)->get();
+        $data_pmd = PrintMaterialDistribution::where('id',$pmd->id)->get();
+        return view('main::order.order',['pageTitle'=>$pageTitle,'data_pd'=>$data_pd,'data_pmd'=>$data_pmd]);
     }
 
     /**

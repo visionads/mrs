@@ -15,6 +15,7 @@
 
     </style>
 
+
     <div id="container" class="container pages new_order font-droid">
         <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label size-25">{{ $pageTitle }}</span><br><br></div>
@@ -23,17 +24,36 @@
             <div class="col-sm-6">
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
-                        <h1>Details of the order summary</h1>
-                        <ul class="size-13" style="color:#909090">
-                            @if(isset($data1))
-                                <li>{{ $data1['main_selling_line'] }}</li>
-                                <li>{{ $data1['property_description'] }}</li>
-                                <li>{{ $data1['inspection_features'] }}</li>
-                                <li>{{ $data1['other_features'] }}</li>
-                                <li>{{ $data1['main_selling_line'] }}</li>
-                                <li>{{ $data1['main_selling_line'] }}</li>
+                        <h1 class="size-20">Details of the order summary</h1>
+                        <style>
+                            .commtable tr td { background:#303030; color:#d0d0d0; border-bottom: 1px solid #404040 !important;}
+                        </style>
+                        <table class="table table-striped size-13 commtable">
+                            @if(isset($data_pd))
+                                @foreach($data_pd as $row_pd)
+                                    <tr><td>Main Selling Line</td><td>:</td><td>{{ $row_pd->main_selling_line }}</td></tr>
+                                    <tr><td>Property Description</td><td>:</td><td>{{ $row_pd->property_description }}</td></tr>
+                                    <tr><td>Inspection Date</td><td>:</td><td>{{ $row_pd->inspection_date }}</td></tr>
+                                    <tr><td>Inspection Features</td><td>:</td><td>{{ $row_pd->inspection_features }}</td></tr>
+                                    <tr><td>Other Features</td><td>:</td><td>{{ $row_pd->other_features }}</td></tr>
+                                    <tr><td>Selling Price</td><td>:</td><td>{{ $row_pd->selling_price }}</td></tr>
+                                    <tr><td>Auction Time</td><td>:</td><td>{{ $row_pd->auction_time }}</td></tr>
+                                    <tr><td>Offer</td><td>:</td><td>{{ $row_pd->offer }}</td></tr>
+                                    <tr><td>Note</td><td>:</td><td>{{ $row_pd->note }}</td></tr>
+                                @endforeach
                             @endif
-                        </ul>
+                                <tr><td colspan="3" class="center">Print Material Distribution </td></tr>
+                            @if(isset($data_pmd))
+                                @foreach($data_pmd as $row_pmd)
+                                    <tr><td>Quantity</td><td>:</td><td>{{ $row_pmd->quantity }}</td></tr>
+                                    <tr><td>Is Surrounded</td><td>:</td><td>{{ $row_pmd->is_surrounded }}</td></tr>
+                                    <tr><td>Other Address</td><td>:</td><td>{{ $row_pmd->other_address }}</td></tr>
+                                    <tr><td>Date of Distribution</td><td>:</td><td>{{ $row_pmd->date_of_distribution }}</td></tr>
+                                    <tr><td>Note</td><td>:</td><td>{{ $row_pmd->note }}</td></tr>
+                                @endforeach
+                            @endif
+
+                        </table>
 
                         <h2 style="color:#f36f21">Total: $1234</h2>
                         <h2 style="color:#f36f21">GST:$</h2>
@@ -78,12 +98,12 @@
                 </div>
 
                 <div class="form-group">
-                    {{--<div class="col-sm-12" id="submit_button">
-                        {!! Form::submit('Confirm', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;
-                    </div>--}}
                     <div class="col-sm-12" id="submit_button">
-                        <a href="{{ route('payment') }}" class="btn new_button" onclick="return confirm('Are You Sure ! ')"> Confirm </a>
+                        {!! Form::submit('Confirm Quote', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;
                     </div>
+                    {{--<div class="col-sm-12" id="submit_button">
+                        <a href="{{ route('payment') }}" class="btn new_button" onclick="return confirm('Are You Sure ! ')"> Confirm </a>
+                    </div>--}}
                 </div>
             </div>
         </div>

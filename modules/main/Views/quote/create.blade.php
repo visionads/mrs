@@ -30,9 +30,9 @@
                     <form role="form" action="" method="post" class="">
 
                         <div class="quote-form">
-                            <fieldset>
+                            {{--<fieldset>
                                 <div class="form-bottom">
-                                    {{--<h3 class="steps">Step 1 / 8</h3>--}}
+                                    --}}{{--<h3 class="steps">Step 1 / 8</h3>--}}{{--
                                     <h3 class="instruction">Please select one of the following to begin</h3>
                                     <div class="form-group solutions_type_id size-15" style="text-align:center !important;">
                                         @foreach($data['solution_types'] as $solution_type)
@@ -43,21 +43,20 @@
                                         @endforeach
                                     </div>
                                     <div class="center">
-                                        <button href="#quote-div" type="button" class="btn btn-next new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                        <button id="solutionTypeNextBtn" href="#quote-div" type="button" class="btn new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
                                     </div>
-                                    {{--<button href="#quote-div" type="button" class="btn btn-next pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
                                 </div>
-                            </fieldset>
+                            </fieldset>--}}
 
-                            <fieldset>
+                            {{--<fieldset>
                                 <div class="form-bottom">
-                                    {{--<h3 class="steps">Step 2 / 8</h3>--}}
+                                    --}}{{--<h3 class="steps">Step 2 / 8</h3>--}}{{--
                                     <h3 class="instruction">Property Details</h3>
                                     <br>
                                     <div class="row">
                                         <div class="col-sm-6 size-13">
                                             <div class="form-group">
-                                                <label for="owner_name">Property Owners Name</label>
+                                                <label for="owner_name">Property Owners Name <span class="required">(Required)</span></label>
                                                 <input type="text" name="owner_name" placeholder="Owner Name" class="form-control" id="owner_name">
                                             </div>
                                             <div class="form-group">
@@ -71,8 +70,8 @@
                                                 <input type="text" name="vendor_name" placeholder="Vendor Name" class="form-control" id="vendor_name">
                                             </div>
                                             <div class="form-group">
-                                                <label for="vendor_email">Vendor Email</label>
-                                                <input type="text" name="vendor_email" placeholder="Vendor Number" class="form-control" id="vendor_email">
+                                                <label for="vendor_email">Vendor Email  <span class="required">(Required)</span></label>
+                                                <input type="email" name="vendor_email" placeholder="Vendor Email" class="form-control" id="vendor_email">
                                             </div>
                                             <div class="form-group">
                                                 <label for="vendor_phone">Vendor Contact Number</label>
@@ -81,24 +80,25 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button type="button" class="btn btn-next pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    <button id="propertyDetailsNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
                                 </div>
-                            </fieldset>
-                            <fieldset>
+                            </fieldset>--}}
+                            {{--<fieldset>
                                 <div class="form-bottom">
-                                    {{--<h3 class="steps">Step 3 / 8</h3>--}}
+                                    --}}{{--<h3 class="steps">Step 3 / 8</h3>--}}{{--
                                     <h3 class="instruction">Photography</h3>
                                     <br>
+                                    <div class="validationError"></div>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h4>Will the property require pro-photography ?</h4>
                                             <label>
-                                                <input type="radio" name="pro-photographyChooseBtn" value="1" class="yesBtn">
-                                                Yes
+                                                <input type="radio" name="pro-photographyChooseBtn" value="0" class="noBtn btn-next">
+                                                No
                                             </label>
                                             <label>
-                                                <input type="radio" name="pro-photographyChooseBtn" value="0" class="btn-next noBtn">
-                                                No
+                                                <input type="radio" name="pro-photographyChooseBtn" value="1" class="yesBtn">
+                                                Yes
                                             </label>
                                         </div>
                                     </div>
@@ -128,35 +128,38 @@
                                     </div>
 
                                     <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button type="button" class="btn btn-next pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    <button id="photographyNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
 
 
                                 </div>
-                            </fieldset>
+                            </fieldset>--}}
                             <fieldset>
                                 <div class="form-bottom">
                                     {{--<h3 class="steps">Step 4 / 8</h3>--}}
                                     <h3 class="instruction">SIGNBOARD</h3>
+
                                     <div class="row">
                                         <div class="col-sm-12">
+                                            <div class="validationError"></div>
                                             <h4>Will require signboard ?</h4>
                                             <label>
-                                                <input name="signboardChooseBtn" type="radio" class="yesBtn">
-                                                Yes
-                                            </label>
-                                            <label>
-                                                <input name="signboardChooseBtn" type="radio" class="btn-next noBtn">
+                                                <input name="signboardChooseBtn" type="radio" value="0" class="noBtn">
                                                 No
                                             </label>
-                                            <h3 class="center size-16">FOR SPECS & FEATURES PLEASE CLICK ON THE LINK BELOW</h3>
+                                            <label>
+                                                <input name="signboardChooseBtn" type="radio" value="1" class="yesBtn">
+                                                Yes
+                                            </label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="optionalContentDiv optional-content-div">
+                                            <h3 class="center size-16">FOR SPECS & FEATURES PLEASE CLICK ON THE LINK BELOW</h3>
                                             @foreach($data['signboard_packages'] as $signboard_package)
                                             <div class="col-sm-4">
                                                 <label class="text-center-label">
                                                     <input type="radio" name="signboard_package_id" value="{{ $signboard_package->id }}">
+
                                                     {{ $signboard_package->title }}
                                                 </label>
                                                 <div class="panel-body">
@@ -183,7 +186,7 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-previous pull-left new_button"> <span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button type="button" class="btn btn-next pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    <button id="signboardNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
 
 
                                 </div>
@@ -200,7 +203,7 @@
                                                 Yes
                                             </label>
                                             <label>
-                                                <input class="noBtn btn-next" type="radio" name="print_materialChooseBtn" value="0">
+                                                <input class="noBtn" type="radio" name="print_materialChooseBtn" value="0">
                                                 No
                                             </label>
                                             <p class="white size-13">All printed material will be 2side print and the orientation (landscape or portriat) of the material will depend on the artowk set up for your agency, please
@@ -259,7 +262,7 @@
                                                 Yes
                                             </label>
                                             <label>
-                                                <input class="noBtn btn-next" type="radio" name="print_materialChooseBtn" value="0">
+                                                <input class="noBtn" type="radio" name="print_materialChooseBtn" value="0">
                                                 No
                                             </label>
 
@@ -299,7 +302,7 @@
                                                 Yes
                                             </label>
                                             <label>
-                                                <input class="noBtn btn-next" type="radio" name="print_materialChooseBtn" value="0">
+                                                <input class="noBtn" type="radio" name="print_materialChooseBtn" value="0">
                                                 No
                                             </label>
 
