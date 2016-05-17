@@ -26,7 +26,7 @@
                 </thead>
 
                 <tbody>
-                @if(isset($data))
+                {{--@if(isset($data))
                     @foreach($data as $row)
                         <tr>
                             <td class="text-center"><a href="{{ route('retrieve-quote-details/'.$row->id) }}" class="underline"> {{ $row->quote_number }} </a></td>
@@ -34,7 +34,7 @@
                             <td class="text-center">{{ $row->created_at }}</td>
                         </tr>
                     @endforeach
-                @endif
+                @endif--}}
                 @for($i=0; $i<5; $i++)
                     <tr>
                         <td class="text-center"><a href="{{ route('retrieve-quote-details-demo') }}" class="underline"> 1234567 </a></td>

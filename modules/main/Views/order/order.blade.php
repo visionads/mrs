@@ -29,7 +29,7 @@
                             .commtable tr td { background:#303030; color:#d0d0d0; border-bottom: 1px solid #404040 !important;}
                         </style>
                         <table class="table table-striped size-13 commtable">
-                            @if(isset($data_pd))
+                            {{--@if(isset($data_pd))
                                 @foreach($data_pd as $row_pd)
                                     <tr><td>Main Selling Line</td><td>:</td><td>{{ $row_pd->main_selling_line }}</td></tr>
                                     <tr><td>Property Description</td><td>:</td><td>{{ $row_pd->property_description }}</td></tr>
@@ -51,7 +51,7 @@
                                     <tr><td>Date of Distribution</td><td>:</td><td>{{ $row_pmd->date_of_distribution }}</td></tr>
                                     <tr><td>Note</td><td>:</td><td>{{ $row_pmd->note }}</td></tr>
                                 @endforeach
-                            @endif
+                            @endif--}}
 
                         </table>
 
@@ -63,12 +63,25 @@
                 </div>
             </div>
 
+            {!! Form::open(['route' => 'agreement', 'method' => 'post','id' => 'jq-validation-form']) !!}
             <div class="col-sm-6" id="submit_button_div">
                 <p style="color:#f36f21;">Vendor Acknowledgment  : I Hereby agree to the outlined marketing campaign above</p>
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('vendor_name', 'Vendor Name :', []) !!}
                         {!! Form::text('vendor_name', Input::old('vendor_name'), ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
+                    </div>
+                </div>
+                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-sm-12">
+                        {!! Form::label('vendor_email', 'Vendor Email :', []) !!}
+                        {!! Form::text('vendor_email', Input::old('vendor_email'), ['id'=>'vendor_email', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
+                    </div>
+                </div>
+                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-sm-12">
+                        {!! Form::label('vendor_phone', 'Vendor Phone :', []) !!}
+                        {!! Form::text('vendor_phone', Input::old('vendor_phone'), ['id'=>'vendor_phone', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
                     </div>
                 </div>
 
@@ -83,7 +96,7 @@
                     <div class="col-sm-12">
                         {!! Form::label('date', 'Date :', []) !!}
                         <div class="input-group date">
-                            {!! Form::text('date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['date'], ['class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
+                            {!! Form::text('signature_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
                             {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
@@ -92,7 +105,7 @@
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
-                        {!! Form::label('description', 'Agent Signature :', ['class' => 'control-label']) !!}
+                        {!! Form::label('agent_signature_path', 'Agent Signature :', ['class' => 'control-label']) !!}
                         {!! Form::textarea('agent_signature', Input::old('agent_signature'),['size' => '6x2','title'=>'Agent Signature','id'=>'agent_signature','placeholder'=>'Agent Signature here..','spellcheck'=>'true','class' => 'form-control radius-10','required']) !!}
                     </div>
                 </div>
@@ -108,7 +121,7 @@
             </div>
         </div>
     </div>
-
+    {!! Form::close() !!}
 
 
     @if($errors->any())

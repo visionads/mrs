@@ -58,10 +58,55 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function agreement(Request $request)
     {
         $input = $request->all();
 
+        $input_confirm = [
+
+            'vendor_name'              => $input['vendor_name'],
+            'vendor_email'              => $input['vendor_email'],
+            'vendor_phone'              => $input['vendor_phone'],
+            //'vendor_signature_path'    => $input['vendor_signature'],
+            'signature_date'           => $input['signature_date']
+            //'agent_signature_path'     => $input['description'],
+        ];
+
+
+        DB::beginTransaction();
+        try{
+
+            $model_pd = new PropertyDetail();
+            //$pd = $model_pd->create($input_pd);
+            $confirm = $model_pd->create($input_confirm);
+
+            if($confirm)
+            {
+                $model_quote = new Quote();
+                $model_quote->property_detail_id = $confirm->id;
+                $model_quote->save();
+            }
+            $quote_id = $model_quote->id;
+            $property_id = $confirm->id;
+
+            DB::commit();
+            Session::flash('message', 'Successfully added!');
+        }catch(\Exception $e){
+            DB::rollback();
+            Session::flash('danger', $e->getMessage());
+        }
+
+        $pageTitle = 'Agreement';
+        return view('main::order.property_details',['pageTitle'=>$pageTitle, 'quote_id'=>$quote_id, 'property_id'=>$property_id]);
+    }
+
+
+    public function store(Request $request)
+    {
+        $input = $request->all();
+        $property_id = $input['property_detail_id'];
+        $quote_id = $input['quote_id'];
+        //print_r($property_id);
         $input_pd = [
             'main_selling_line'     => $input['main_selling_line'],
             'property_description'  => $input['property_description'],
@@ -81,6 +126,7 @@ class OrderController extends Controller
             'date_of_distribution'  => $input['date_of_distribution'],
             'note'                  => $input['note'],
         ];
+
 
 
         DB::beginTransaction();

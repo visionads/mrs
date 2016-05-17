@@ -62,6 +62,7 @@
         'as'    => 'retrieve-quote-details-demo',
         'uses'  => 'QuoteController@retrieve_details_demo'
     ]);
+
     Route::get('quote-summary',[
         'as'    =>  'quote_summary',
         'uses'  =>  'QuoteController@quote_summary'
@@ -80,6 +81,11 @@
     Route::any('place-order-store',[
         'as'    =>  'place-order-store',
         'uses'  =>  'OrderController@store'
+    ]);
+
+    Route::any('agreement',[
+        'as'    =>  'agreement',
+        'uses'  =>  'OrderController@agreement'
     ]);
 
     /*-----------Payment Router--------------*/

@@ -48,7 +48,9 @@
 
                 <div class="text-right">
                     <a href="{{ route('retrieve-quote') }}" class="btn new_button">Save Quote</a>
-                    <a href="{{ route('property-details') }}" class="btn new_button">Proceed with Order</a>
+                    <a href="{{ route('place-order') }}" class="btn new_button">Continue</a>
+
+                    {{--<a href="{{ route('property-details') }}" class="btn new_button">Continue</a>--}}
                 </div>
                {{-- <div class="form-group">
                     <div class="col-sm-12" id="submit_button">
