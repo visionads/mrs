@@ -1,0 +1,348 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateAdmin extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        //Solution Type
+        Schema::create('solution_type', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 64)->nullable();
+            $table->string('description',128)->nullable();
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+        //Photography Package
+        Schema::create('photography_package', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 64)->nullable();
+            $table->float('price')->nullable();
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+
+        //Photography Options
+        Schema::create('photography_options', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('photography_package_id')->nullable();
+            $table->string('items', 64)->nullable();
+            $table->string('description',128)->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+        Schema::table('photography_options', function($table) {
+            /*if 'photography_package' table  exists */
+            if(Schema::hasTable('photography_package'))
+            {
+                $table->foreign('photography_package_id')->references('id')->on('photography_package');
+            }
+        });
+
+
+
+
+        //print_material
+        Schema::create('print_material', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 64)->nullable();
+            $table->string('image_path', 128)->nullable();
+            $table->string('image_thumb', 128)->nullable();
+            $table->boolean('is_distribution')->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+
+        //print_material_size
+        Schema::create('print_material_size', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('print_material_id')->nullable();
+            $table->string('title', 64)->nullable();
+            $table->float('price')->nullable();
+            $table->string('description',128)->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+        Schema::table('print_material_size', function($table) {
+            /*if 'print_material' table  exists */
+            if(Schema::hasTable('print_material'))
+            {
+                $table->foreign('print_material_id')->references('id')->on('print_material');
+            }
+        });
+
+
+        //signboard_package
+        Schema::create('print_material_distribution', function (Blueprint $table) {
+            $table->increments('id');
+            $table->boolean('quantity')->nullable();
+            $table->boolean('is_surrounded')->nullable();
+            $table->text('other_address')->nullable();
+            $table->dateTime('date_of_distribution')->nullable();
+            $table->string('note', 128)->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+
+
+        //signboard_package
+        Schema::create('signboard_package', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 64)->nullable();
+            $table->string('image_path', 128)->nullable();
+            $table->string('image_thumb', 128)->nullable();
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+
+        //signboard_package_size
+        Schema::create('signboard_package_size', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('signboard_package_id')->nullable();
+            $table->string('title', 64)->nullable();
+            $table->float('price')->nullable();
+            $table->string('description',128)->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+        Schema::table('signboard_package_size', function($table) {
+            /*if 'signboard_package' table  exists */
+            if(Schema::hasTable('signboard_package'))
+            {
+                $table->foreign('signboard_package_id')->references('id')->on('signboard_package');
+            }
+        });
+
+
+
+        //digital_media
+        Schema::create('digital_media', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 64)->nullable();
+            $table->string('url', 128)->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+
+        //local_media
+        Schema::create('local_media', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 64)->nullable();
+            $table->string('description', 128)->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+
+        //signboard_package_size
+        Schema::create('local_media_option', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('local_media_id')->nullable();
+            $table->string('title', 64)->nullable();
+            $table->float('price')->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+        Schema::table('local_media_option', function($table) {
+            /*if 'local_media' table  exists */
+            if(Schema::hasTable('local_media'))
+            {
+                $table->foreign('local_media_id')->references('id')->on('local_media');
+            }
+        });
+
+
+
+
+        //property_detail
+        Schema::create('property_detail', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('owner_name', 64)->nullable();
+            $table->text('address')->nullable();
+            $table->string('vendor_name', 64)->nullable();
+
+            $table->string('vendor_email', 64)->nullable();
+            $table->string('vendor_phone', 64)->nullable();
+            $table->string('vendor_signature_path', 128)->nullable();
+
+            $table->dateTime('signature_date')->nullable();
+            $table->string('agent_signature_path', 128)->nullable();
+
+            $table->string('main_selling_line', 256)->nullable();
+            $table->text('property_description')->nullable();
+            $table->dateTime('inspection_date')->nullable();
+            $table->text('inspection_features')->nullable();
+            $table->text('other_features')->nullable();
+            $table->float('selling_price')->nullable();
+            $table->dateTime('auction_time')->nullable();
+            $table->string('offer', 64)->nullable();
+            $table->text('note')->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+
+        //quote
+        Schema::create('quote', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->unsignedInteger('solution_type_id')->nullable();
+            $table->unsignedInteger('property_detail_id')->nullable();
+            $table->unsignedInteger('photography_package_id')->nullable();
+            $table->text('photography_package_comments')->nullable();
+
+            $table->unsignedInteger('signboard_package_id')->nullable();
+            $table->text('signboard_package_comments')->nullable();
+
+            $table->unsignedInteger('print_material_id')->nullable();
+            $table->text('print_material_comments')->nullable();
+            $table->string('print_material_distribution', 128)->nullable();
+            $table->string('quote_number', 128)->nullable();
+
+            $table->unsignedInteger('digital_media_id')->nullable();
+            $table->text('digital_media_note')->nullable();
+
+            $table->unsignedInteger('local_media_id')->nullable();
+            $table->unsignedInteger('local_media_option_id')->nullable();
+            $table->text('local_media_note')->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+        Schema::table('quote', function($table) {
+            $table->foreign('solution_type_id')->references('id')->on('solution_type');
+
+            $table->foreign('property_detail_id')->references('id')->on('property_detail');
+
+            $table->foreign('photography_package_id')->references('id')->on('photography_package');
+
+            $table->foreign('signboard_package_id')->references('id')->on('signboard_package');
+
+            $table->foreign('print_material_id')->references('id')->on('print_material');
+
+            $table->foreign('digital_media_id')->references('id')->on('digital_media');
+
+            $table->foreign('local_media_id')->references('id')->on('local_media');
+
+            $table->foreign('local_media_option_id')->references('id')->on('local_media_option');
+
+        });
+
+
+
+        //transaction
+        Schema::create('transaction', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('quote_id')->nullable();
+
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+        Schema::table('transaction', function($table) {
+            /*if 'quote' table  exists */
+            if(Schema::hasTable('quote'))
+            {
+                $table->foreign('quote_id')->references('id')->on('quote');
+            }
+        });
+
+
+        //payment
+        Schema::create('payment', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('transaction_id')->nullable();
+
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+        Schema::table('payment', function($table) {
+            /*if 'transaction' table  exists */
+            if(Schema::hasTable('transaction'))
+            {
+                $table->foreign('transaction_id')->references('id')->on('transaction');
+            }
+        });
+
+
+
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('solution_type');
+        Schema::drop('photography_package');
+        Schema::drop('photography_options');
+        Schema::drop('print_material');
+        Schema::drop('print_material_size');
+        Schema::drop('print_material_distribution');
+        Schema::drop('signboard_package');
+        Schema::drop('signboard_package_size');
+        Schema::drop('digital_media');
+        Schema::drop('local_media');
+        Schema::drop('local_media_option');
+        Schema::drop('property_detail');
+        Schema::drop('quote');
+
+        Schema::drop('transaction');
+        Schema::drop('payment');
+    }
+}

@@ -1,0 +1,756 @@
+body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    /*color: #f5f6f7;*/
+    background-color: black;
+    margin: 0; padding: 0;
+    height: 100%;
+}
+
+p {
+    font-size: 16px;
+}
+
+.header-fluid {
+    padding-top: 70px;
+}
+
+.col-md-4 {
+    padding-top: 20px;
+}
+
+table{
+    background: white;
+    color: black;
+}
+.container-fluid{
+    padding: 2%;
+    width: 96%;
+    height: auto;
+}
+
+.modal-header {
+    background: #f8f8f8;
+    padding: 12px 20px;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    font-size: 12px;
+}
+.modal-header {
+    min-height: 16.43px;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-header .close {
+    margin-top: -2px;
+}
+button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+}
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+h4 {
+    font-size: 18px;
+}
+
+
+.modal-body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #E9EAED;
+    padding: 15px;
+    position: relative;
+
+}
+
+.modal-content {
+    border: none;
+    /*border-radius: 2px;*/
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+
+.required {
+    color: orangered;
+}
+.narration{
+    color:lightseagreen;
+}
+.s-btn{
+    padding-top: 1%;
+}
+.form-margin-btn{
+    margin-left: 77%;
+}
+.footer-margin-btn{
+    margin-left: 83%;
+}
+.message-width{
+    /*width:80%;*/
+}
+
+select.input-sm, select.form-group-sm .form-control {
+    height: 22px;
+}
+
+.input-sm, .form-group-sm .form-control {
+    height: 23px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+
+}
+
+.form-control{
+    height: 30px;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+.input-sm{
+    height: 23px;
+}
+
+.footer-form-margin-btn{
+    margin-left: 75%;
+}
+
+.text-center {
+    text-align: left;
+}
+
+.text-center-header {
+    text-align: center;
+}
+
+.panel {
+    opacity: 0.9
+}
+
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+
+/* For font sizes*/
+
+.size-13{ font-size: 13px!important;}
+.size-14{ font-size: 14px!important;}
+.size-15{ font-size: 15px!important;}
+.size-16{ font-size: 16px!important;}
+.size-17{ font-size: 17px!important;}
+.size-18{ font-size: 18px!important;}
+.size-19{ font-size: 19px!important;}
+.size-20{ font-size: 20px!important;}
+.size-25{ font-size: 25px!important;}
+
+/* For Background Colors */
+
+.gray-bg { background:#dedede;}
+.gray-bg-grad { background: linear-gradient(0deg,#dedede,#efefef);}
+.blue-bg { background: linear-gradient(0deg,#469,#79c); color: #FFFFFF;}
+.blue-bg-grad { background: linear-gradient(0deg,#469,#79c); color: #FFFFFF;}
+.border-bottom {border-bottom:1px solid #d0d0d0;}
+
+/* For table search*/
+#example_filter label { font-size:13px;}
+#example_filter label input { border:1px solid #d0d0d0; padding:5px; border-radius:3px;}
+#example_filter label input:hover { border:1px solid #c0c0c0;}
+
+/* Form Pagination positions*/
+
+.paginate-right-top-40 { float: right!important; margin-top:-40px!important; }
+.paginate-right { float: right!important; }
+.dataTables_info { font-size:13px!important;}
+
+div.dataTables_wrapper div.dataTables_length{
+    display: none;
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+    /*margin: 0;
+    white-space: nowrap;
+    text-align: right;*/
+    display: none;
+}
+
+
+
+.fileupload {
+    margin-bottom: 9px;
+}
+
+.fileupload .thumbnail {
+    display: inline-block;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+}
+.thumbnail {
+    display: inline-block;
+    display: block;
+    height: auto;
+    max-width: 100%;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.fileupload-exists {
+    display: none;
+}
+.fileupload .thumbnail {
+    display: inline-block;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+}
+.thumbnail {
+    display: inline-block;
+    display: block;
+    height: auto;
+    max-width: 100%;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.fileupload .btn {
+    vertical-align: middle;
+    font-family: 'Droid Serif', serif;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+    font-family: 'Droid Serif', serif;
+}
+.btn-white {
+    background-clip: padding-box;
+    background-color: #FFFFFF;
+    border-color: rgba(150, 160, 180, 0.3);
+    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.05) inset;
+    font-family: 'Droid Serif', serif;
+}
+.btn-white {
+    box-shadow: none !important;
+    font-family: 'Droid Serif', serif;
+}
+.fileupload-exists {
+    display: none;
+}
+.fileupload .btn {
+    vertical-align: middle;
+    font-family: 'Droid Serif', serif;
+}
+.btn-danger {
+    background-color: #ff6c60;
+    border-color: #ff6c60;
+    color: #FFFFFF;
+    font-family: 'Droid Serif', serif;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    font-family: 'Droid Serif', serif;
+}
+
+.fileupload-exists .fileupload-new, .fileupload-new .fileupload-exists {
+    display: none;
+}
+.fileupload .btn {
+    vertical-align: middle;
+}
+.btn-danger {
+    background-color: #ff6c60;
+    border-color: #ff6c60;
+    color: #FFFFFF;
+    font-family: 'Droid Serif', serif;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    font-family: 'Droid Serif', serif;
+}
+
+.image-center {
+    text-align: center;
+
+}
+
+/*-----sign in form start------*/
+
+/*login*/
+
+#login_signin .form-control {
+
+    border-radius: 18px;
+    width: 290px;
+    height: 50px;
+}
+
+#sign1 .form-control{
+    text-align: center;
+    border-radius: 18px;
+    width: 370px;
+    height: 50px;
+    font-size: 20px;
+}
+
+#sign {
+    text-align: center;
+}
+
+input.sign_button {
+    background-color: #f36f21;
+    border: solid 1px #000;
+    border-radius: 25px;
+    padding: 3px 25px;
+    color: black;
+    text-decoration: underline;
+    font-size: 30px;
+    width: 185px;
+}
+
+.navbar {
+    padding-top:0px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+    background: #ffff00 !important;
+}
+
+nav { background:none; height:60px;}
+nav ul.nav { }
+nav ul.nav li a { /*transition: ease-in-out 0.3s;*/ }
+
+.nav li, .nav li.dropdown { float:left !important;}
+.nav li a { /*transition: ease-in-out 0.3s;*/ border-radius:20px;}
+
+.nav li a:hover, .nav li.dropdown a:hover { padding: 13px !important;}
+
+/*.navbar-nav  li a:hover {
+    color: white !important;
+    padding: px;
+}*/
+
+
+/*.profile-photo img { border-radius:50% 50%;  }*/
+
+.navbar-nav  li  a .menu_underline{
+    padding: 0px;
+    color: white;
+    text-decoration: underline;
+    font-family: 'Droid Serif', serif;
+    font-size: 1em;
+}
+
+#setting_dropdown.dropdown-menu li {
+    display: block;
+}
+#setting_dropdown.dropdown-menu li  a {
+    padding: 15px;
+    color: black;
+    font-family: 'Droid Serif', serif;
+    font-size: 1em;
+
+}
+
+p{
+    color: #2b669a;
+}
+
+#setting_dropdown.dropdown-menu > li > a:hover {
+    padding: 15px;
+    color:#fff !important;
+    font-family: 'Droid Serif', serif;
+    font-size: 1em;
+    background: #f36f21 !important;
+}
+.sign_button{
+    width: 160px;
+}
+
+
+
+.nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: #f36f21;
+    border: solid 2px #000;
+    border-radius: 20px;
+}
+
+.active {
+    text-decoration: none;
+    background-color: #f36f21;
+    border: solid 2px #000;
+    border-radius: 20px;
+}
+
+/*----------Profile Nav------*/
+ul.profile-nav { padding: 0; margin: 0;}
+
+ul.profile-nav li {
+    list-style: none;
+    float: left;
+    padding: 0 !important;
+    margin-bottom: 3px;
+}
+ul.profile-nav li a {
+    text-decoration: none;
+    border: solid 0px #000;
+    border-radius: 20px;
+    padding: 5px 15px !important; color: #fff;
+    display: block;
+    margin-top:0px !important;
+    position: relative;
+}
+ul.profile-nav li a:hover {
+    background-color: #f36f21 !important;
+}
+ul.profile-nav li a.active {
+    text-decoration: none;
+    background-color: #f36f21 !important;
+    border: solid 0px #000;
+    border-radius: 20px;
+    display: block;
+    padding: 20px!important;
+}
+/*---------End of Profile Nav-----*/
+/*div.profile-content > ul.profile-nav > li a {
+    text-decoration: none;
+    background-color: #f36f21 !important;
+    border: solid 0px #000;
+    border-radius: 20px;
+}
+div.profile-content > ul.profile-nav > li a:hover {
+    text-decoration: none;
+    background-color: #f36f21 !important;
+    border: solid 0px #000;
+    border-radius: 20px;
+}*/
+
+#main-navbar .user-menu>img {
+    border-radius: 20px;
+    height: 25px;
+    width: 60px;
+}
+
+/*dashboad*/
+
+#new_quote .quote{
+    font-family: 'Droid Serif', serif;
+    text-align: center;
+    width: 330px;
+    line-height: 1.86em;
+    border: solid 1px #000;
+    padding: 10px 25px;
+    color: white;
+    font-size: 30px;
+
+}
+#new_quote a { display:block; border-radius: 18px; background-color: #f36f21;}
+
+.font-droid { font-family: 'Droid Serif', serif !important;}
+.no-bg { background:none !important;}
+.no-border-bottom { border-bottom:0px !important; }
+
+#job_status .quote {
+
+    text-align: center;
+    width: 207px;
+    line-height: 2.3em;
+    background-color: #f36f21;
+    border: solid 1px #000;
+    border-radius: 18px;
+    padding: 3px 25px;
+    color: white;
+    font-size: 30px;
+    /*margin-left: -140px;*/
+    margin-top: 23px;
+}
+
+.page-profile #image_resize {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    border: 5px solid #f36f21;
+    padding:0;
+}
+
+.page-profile #image_resize img {
+
+    /*margin: 27px 4px 4px 4px;*/
+}
+
+.page-profile #block {
+    margin-top: -40px;
+}
+
+#jhon .label{
+    font-family: 'Droid Serif', serif;
+    color: #f36f21;
+    font-size:40px;
+    font-weight: 200;
+    text-height: font-size;
+    line-height: 1em;
+}
+
+
+#job_progress .label5{
+    font-family: 'Droid Serif', serif;
+    color: #f36f21;
+    font-size:20px;
+    font-weight: 100;
+    line-height: 2em;
+    margin-left: 89px;
+}
+
+#job_progress .label6{
+    font-family: 'Droid Serif', serif;
+    color: red;
+    font-size:20px;
+    font-weight: 100;
+    line-height: 2em;
+
+}
+
+#agent .label{
+    font-family: 'Droid Serif', serif;
+    color: #f36f21;
+    font-size:20px;
+    font-weight: 200;
+    text-height: font-size;
+    line-height: 1em;
+}
+
+#agent .label {
+    font-family: 'Droid Serif', serif;
+    color: red;
+    font-size: 40px;
+    font-weight: 200;
+    text-height: font-size;
+    line-height: 4em;
+    margin-left: -35px;
+}
+
+#marketing_material .marketing{
+    padding: 3px 17px;
+    background-color: #f36f21;
+    border: solid 1px #000;
+    border-radius: 18px;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    line-height: 1.5em;
+    width: 420px;
+}
+
+#marketing_image {
+    margin-top: 150px;
+}
+
+/*order*/
+
+
+
+
+/*-----------settings dashboard---------------*/
+
+#settings_button .btn{
+    background-color: #f36f21;
+    border: solid 1px #000;
+    color: white;
+    width: 280px;
+    line-height: 3.2em;
+    font-size: 15px;
+    border-radius: 18px;
+    font-family: 'Droid Serif', serif;
+}
+
+#button_align .text-center{
+    text-align: center;
+}
+
+#button_heading .panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #d0d0d0;
+}
+
+#report-button .text-xs {
+    font-size: 13px;
+}
+
+#button_heading .text-light-gray, .text-light-gray a, .text-light-gray a:focus, .text-light-gray:active, .text-light-gray:focus, .text-light-gray:hover {
+    color: #bbb;
+}
+#button_heading .text-semibold {
+    font-weight: 600!important;
+}
+
+#button_heading #setting_bottons{
+    font-family: 'Droid Serif', serif;
+    font-size:40px;
+    font-weight: 200;
+    text-align: center;
+    line-height: 1em;
+}
+
+#new_order_title{
+    font-family: 'Droid Serif', serif;
+    font-size:25px;
+    text-align: center;
+}
+#new_order_title .label{
+    color: #f36f21;
+}
+
+#setting_bottons .label{
+    color: #f36f21;
+}
+
+#button_align #settings_button{
+    line-height: .5em;
+}
+
+#back_button .btn{
+    background-color: #f36f21;
+    border: solid 1px #000;
+    color: white;
+    width: 150px;
+    line-height: 2em;
+    font-size: 15px;
+    border-radius: 18px;
+}
+
+#back_button2 .btn{
+    background-color: #f36f21;
+    border: solid 1px #000;
+    color: white;
+    width: 150px;
+    line-height: 2em;
+    font-size: 15px;
+    border-radius: 18px;
+    font-family: 'Droid Serif', serif;
+}
+
+#back_button2{
+    height: 57px;
+}
+
+
+
+/*------------General Pages*/
+
+div.pages h1 { color:#f36f21 !important;}
+div.pages p { color:#909090;}
+div.pages .content { background:#202020;}
+
+a.underline { text-decoration: underline;}
+
+.general-table thead tr th { border:1px solid #202020; border-bottom: 0px !important;}
+.general-table thead tr { border-bottom: 0px !important; border-left: 1px solid #202020; border-bottom: 1px solid #202020;}
+.general-table tbody tr td {border-top:0px !important; background: linear-gradient(0deg, #101010,#202020);}
+.general-table tbody tr td a { color:#909090; display: block !important;}
+.general-table tbody tr td a:hover { /*background: linear-gradient(0deg, #909090,#d0d0d0);*/ color:#fff;}
+
+.center { text-align: center !important;}
+.white { color:#ffffff !important;}
+
+/*-----sign in form end------*/
+
+
+/*-----------New Order Page-------------*/
+
+.new_order label{
+    color: white;
+    font-size: 14px;
+}
+
+#new_order{
+    text-align: right;
+    background-color: #f36f21;
+}
+
+#submit_button{
+    text-align: right;
+}
+
+.new_button{
+    background-color: #f36f21;
+    width: auto;
+    border-radius : 10px;
+    color:#fff;
+    margin: 10px 0 !important;
+    padding: 8px 20px;
+    transition: ease-in-out 0.5s;
+}
+.new_button:hover { background-color: #f47f32;}
+.radius-10 { border-radius: 10px !important; padding: 5px !important;}
+
+/*------------Quote Steps------------*/
+.steps {background:linear-gradient(0deg,#909090,#606060); color:#ffffff; font-size:17px; padding:10px; margin:0;}
+.instruction1 { background:linear-gradient(45deg,#f36f21,#f47f32); color:#ffffff; margin:0; padding: 10px; font-size:17px; text-align: center; }
+.instruction { background:none; color:#f36f21; margin:0; padding: 10px; font-size:25px; text-align: center; }
+
+
+/*---------- Quote Retrieves----------*/
+.quote-list { border:0px; !important; background: black; color: #909090;}
+
+.quote-list thead tr { background:linear-gradient(45deg,#f36f21,#f47f32); color:#ffffff;}
+.quote-list thead.head-top tr { background:linear-gradient(0deg,#909090,#606060); color:#ffffff;}
+
+.quote-list thead tr th { border:1px solid #202020; border-bottom: 0px !important;}
+.quote-list thead tr { border-bottom: 0px !important; border-left: 1px solid #202020; border-bottom: 1px solid #202020;}
+.quote-list tbody tr td {border-top:0px !important; background: linear-gradient(0deg, #101010,#202020);}
+.quote-list tbody tr td a { color:#909090; display: block !important;}
+.quote-list tbody tr td a:hover { /*background: linear-gradient(0deg, #909090,#d0d0d0);*/ color:#fff;}
+
+.no-border { border:0px !important; }
+.quote-list h1, .table thead tr th { text-shadow:1px 1px 3px #404040;}
+.quote-list h1 {padding: 10px; margin:0; font-size:20px; }

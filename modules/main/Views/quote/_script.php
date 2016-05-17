@@ -1,0 +1,10 @@
+<script>
+    $(function(){
+        $('.yesBtn').click(function(){
+            $(this).parent().parent().parent().parent().find('.optionalContentDiv').removeClass('optional-content-div');
+        });
+        $('.noBtn').click(function(){
+            $(this).parent().parent().parent().parent().find('.optionalContentDiv').addClass('optional-content-div');
+        });
+    });
+</script>

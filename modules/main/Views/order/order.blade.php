@@ -1,0 +1,125 @@
+@extends('admin::layouts.master')
+
+@section('content')
+    <style>
+        .new_order label{
+            color: white;
+            font-size: 14px;
+        }
+
+        #new_order{
+            text-align: right;
+            background-color: #f36f21;
+        }
+
+
+    </style>
+
+    <div id="container" class="container pages new_order font-droid">
+        <div class="col-md-12">
+            <div class="col-sm-12" id="new_order_title"><span class="label size-25">{{ $pageTitle }}</span><br><br></div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-sm-6">
+                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-sm-12">
+                        <h1>Details of the order summary</h1>
+                        <ul class="size-13" style="color:#909090">
+                            @if(isset($data1))
+                                <li>{{ $data1['main_selling_line'] }}</li>
+                                <li>{{ $data1['property_description'] }}</li>
+                                <li>{{ $data1['inspection_features'] }}</li>
+                                <li>{{ $data1['other_features'] }}</li>
+                                <li>{{ $data1['main_selling_line'] }}</li>
+                                <li>{{ $data1['main_selling_line'] }}</li>
+                            @endif
+                        </ul>
+
+                        <h2 style="color:#f36f21">Total: $1234</h2>
+                        <h2 style="color:#f36f21">GST:$</h2>
+                        <h2 style="color:#f36f21">Total COST Inc GST: $</h2>
+                        <a href="{{ route('property-details') }}" class="btn new_button"> <span class="glyphicon glyphicon-edit"></span> &nbsp; Edit</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6" id="submit_button_div">
+                <p style="color:#f36f21;">Vendor Acknowledgment  : I Hereby agree to the outlined marketing campaign above</p>
+                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-sm-12">
+                        {!! Form::label('vendor_name', 'Vendor Name :', []) !!}
+                        {!! Form::text('vendor_name', Input::old('vendor_name'), ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
+                    </div>
+                </div>
+
+                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-sm-12">
+                        {!! Form::label('vendor_signature', 'Vendor Signature :', ['class' => 'control-label']) !!}
+                        {!! Form::textarea('vendor_signature', Input::old('vendor_signature'),['size' => '6x3','title'=>'Vendor Signature','id'=>'description','placeholder'=>'Vendor Signature here..','spellcheck'=>'true','class' => 'form-control radius-10','required']) !!}
+                    </div>
+                </div>
+
+                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-sm-12">
+                        {!! Form::label('date', 'Date :', []) !!}
+                        <div class="input-group date">
+                            {!! Form::text('date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['date'], ['class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
+                            {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-sm-12">
+                        {!! Form::label('description', 'Agent Signature :', ['class' => 'control-label']) !!}
+                        {!! Form::textarea('agent_signature', Input::old('agent_signature'),['size' => '6x2','title'=>'Agent Signature','id'=>'agent_signature','placeholder'=>'Agent Signature here..','spellcheck'=>'true','class' => 'form-control radius-10','required']) !!}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{--<div class="col-sm-12" id="submit_button">
+                        {!! Form::submit('Confirm', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;
+                    </div>--}}
+                    <div class="col-sm-12" id="submit_button">
+                        <a href="{{ route('payment') }}" class="btn new_button" onclick="return confirm('Are You Sure ! ')"> Confirm </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @if($errors->any())
+        <script type="text/javascript">
+            $(function(){
+                alert('sdkjf');
+                $("#addData").modal('show');
+
+            });
+        </script>
+    @endif
+
+    <script>
+        // tooltip for buttons
+        $(".btn").popover({ trigger: "manual" , html: true, animation:false})
+                .on("mouseenter", function () {
+                    var _this = this;
+                    $(this).popover("show");
+                    $(".popover").on("mouseleave", function () {
+                        $(_this).popover('hide');
+                    });
+                }).on("mouseleave", function () {
+            var _this = this;
+            setTimeout(function () {
+                if (!$(".popover:hover").length) {
+                    $(_this).popover("hide");
+                }
+            }, 300);
+        });
+        // tooltip for input field
+        $(".form-control").tooltip();
+    </script>
+
+@stop
