@@ -22,15 +22,15 @@
         {{--</div>--}}
 @include('main::quote._style')
 
-        <div class="form-group col-sm-12 font-droid" id="quote-div">
+        <div class="col-sm-12 font-droid" id="quote-div">
 
            {{-- <div class="row">--}}
                 <div class="col-sm-12">
-
-                    <form role="form" action="" method="post" class="">
+                    {!! Form::open(['route'=>'new-quote-store']) !!}
+                    {{--<form role="form" method="post" class="">--}}
 
                         <div class="quote-form">
-                            {{--<fieldset>
+                            <fieldset>
                                 <div class="form-bottom">
                                     <div class="validationError"></div>
                                     <h3 class="instruction">Please select one of the following to begin</h3>
@@ -38,7 +38,7 @@
                                         @foreach($data['solution_types'] as $solution_type)
                                         <label>
                                             {{ $solution_type->title }}<br>
-                                            <input type="radio" name="solutions_type_id" value="{{ $solution_type->id }}">
+                                            <input required type="radio" name="solutions_type_id" value="{{ $solution_type->id }}">
                                         </label>
                                         @endforeach
                                     </div>
@@ -49,14 +49,13 @@
                             </fieldset>
                             <fieldset>
                                 <div class="form-bottom">
-                                    --}}{{--<h3 class="steps">Step 2 / 8</h3>--}}{{--
                                     <h3 class="instruction">Property Details</h3>
                                     <br>
                                     <div class="row">
                                         <div class="col-sm-6 size-13">
                                             <div class="form-group">
                                                 <label for="owner_name">Property Owners Name <span class="required">(Required)</span></label>
-                                                <input type="text" name="owner_name" placeholder="Owner Name" class="form-control" id="owner_name">
+                                                <input type="text" name="owner_name" placeholder="Owner Name" class="form-control" id="owner_name" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="address">Property Address</label>
@@ -70,7 +69,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="vendor_email">Vendor Email  <span class="required">(Required)</span></label>
-                                                <input type="email" name="vendor_email" placeholder="Vendor Email" class="form-control" id="vendor_email">
+                                                <input type="email" name="vendor_email" placeholder="Vendor Email" class="form-control" id="vendor_email" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="vendor_phone">Vendor Contact Number</label>
@@ -81,10 +80,9 @@
                                     <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
                                     <button id="propertyDetailsNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
                                 </div>
-                            </fieldset>--}}
-                            {{--<fieldset>
+                            </fieldset>
+                            <fieldset>
                                 <div class="form-bottom">
-                                    --}}{{--<h3 class="steps">Step 3 / 8</h3>--}}{{--
                                     <h3 class="instruction">Photography</h3>
                                     <br>
                                     <div class="validationError"></div>
@@ -134,7 +132,6 @@
                             </fieldset>
                             <fieldset>
                                 <div class="form-bottom">
-                                    --}}{{--<h3 class="steps">Step 4 / 8</h3>--}}{{--
                                     <h3 class="instruction">SIGNBOARD</h3>
 
                                     <div class="row">
@@ -189,10 +186,9 @@
 
 
                                 </div>
-                            </fieldset>--}}
-                            {{--<fieldset>
+                            </fieldset>
+                            <fieldset>
                                 <div class="form-bottom">
-                                    --}}{{--<h3 class="steps">Step 5 / 8</h3>--}}{{--
                                     <h3 class="instruction">PRINT MATERIAL</h3>                                            <div class="validationError"></div>
 
                                     <div class="row">
@@ -250,10 +246,9 @@
                                     <button id="printMaterialNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
 
                                 </div>
-                            </fieldset>--}}
-                            {{--<fieldset>
+                            </fieldset>
+                            <fieldset>
                                 <div class="form-bottom">
-                                    --}}{{--<h3 class="steps">Step 6 / 8</h3>--}}{{--
                                     <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
                                     <div class="validationError"></div>
                                     <div class="row">
@@ -291,10 +286,9 @@
 
 
                                 </div>
-                            </fieldset>--}}
-                            {{--<fieldset>
+                            </fieldset>
+                            <fieldset>
                                 <div class="form-bottom">
-                                    --}}{{--<h3 class="steps">Step 7 / 8</h3>--}}{{--
                                     <h3 class="instruction">Digital media</h3>
                                     <div class="validationError"></div>
                                     <div class="row">
@@ -333,10 +327,9 @@
 
 
                                 </div>
-                            </fieldset>--}}
+                            </fieldset>
                             <fieldset>
                                 <div class="form-bottom">
-                                    {{--<h3 class="steps">Step 8 / 8</h3>--}}
                                     <h3 class="instruction">Local newsprint media advertising</h3>
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -388,8 +381,8 @@
                                     </div>--}}
                                     <div class="row">
                                         <div class="col-sm-5 col-sm-offset-7">
-                                            <a href="{{ URL::to('main/quote-summary') }}" class="btn new_button"> Save </a>
-                                            <a href="{{ URL::to('main/new-order') }}" class="btn new_button"> Quote </a>
+                                            <input value="Save" name="save" type="submit" class="btn new_button proceedBtn">
+                                            <input name="quote" value="Quote" type="submit" class="btn new_button proceedBtn">
                                         </div>
                                     </div>
 
@@ -403,36 +396,8 @@
             {{--</div>--}}
         </div>
 <div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 </div>
-        <script type="text/javascript" src="{{ URL::asset('assets/quote/js/jquery.backstretch.min.js') }}"></script>
-        <script type="text/javascript" src="{{ URL::asset('assets/quote/js/scripts.js') }}"></script>
+        {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/jquery.backstretch.min.js') }}"></script>--}}
+        {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/scripts.js') }}"></script>--}}
         @include('main::quote._script')
 @stop

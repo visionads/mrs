@@ -238,6 +238,7 @@ class CreateAdmin extends Migration
             $table->text('photography_package_comments')->nullable();
 
             $table->unsignedInteger('signboard_package_id')->nullable();
+            $table->unsignedInteger('signboard_package_size_id')->nullable();
             $table->text('signboard_package_comments')->nullable();
 
             $table->unsignedInteger('print_material_id')->nullable();

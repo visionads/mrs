@@ -204,5 +204,30 @@
                 });
             }
         });
+        $('.proceedBtnN').click(function(){
+            $('.alert').remove();
+            var parent_fieldset = $(this).parents('fieldset');
+            var next_step = true;
+            var value=$("input[name='localMediaChooseBtn']:checked").val();
+            if(value==undefined){
+                $('.validationError').append('<div class="alert alert-danger">Please Check Yes/No.</div>');
+                next_step= false;
+            }
+            if (value==1){
+                var local_media_id=$("input[name='local_media_id']:checked").val();
+                if(local_media_id==undefined)
+                {
+                    $('.validationError').append('<div class="alert alert-danger">Please check any package</div>');
+                    next_step= false;
+                }
+            }
+
+
+            if( next_step ) {
+                parent_fieldset.fadeOut(400, function() {
+                    $(this).next().fadeIn();
+                });
+            }
+        });
     });
 </script>

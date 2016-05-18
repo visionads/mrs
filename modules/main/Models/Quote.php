@@ -22,6 +22,7 @@ class Quote extends Model
         'photography_package_id',
         'photography_package_comments',
         'signboard_package_id',
+        'signboard_package_size_id',
         'signboard_package_comments',
         'print_material_id',
         'print_material_comments',

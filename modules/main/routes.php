@@ -12,6 +12,7 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
     //Your routes belong to this module.
 
     include 'routes_ram.php';
+    include 'routes_sha1.php';
 
 
     Route::any('test', [

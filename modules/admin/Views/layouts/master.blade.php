@@ -41,6 +41,7 @@
 
         <!-- Container -->
         <div class="container-fluid text-center content-height-100">
+            @include('admin::layouts.messages')
                 @yield('content')
 
         </div>

@@ -121,7 +121,7 @@
     }
 
     form .quote-form fieldset {
-        display: none;
+        /*display: none;*/
     }
     .form-top{
         background: black;
