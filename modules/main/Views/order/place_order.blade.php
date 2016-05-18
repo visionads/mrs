@@ -28,8 +28,11 @@
                             space provided. (please ensure to check all details are correct)</p>
                     </div>
                 </div>
-                {!! Form::hidden('quote_id',$quote_id, ['class'=>'coa-id-val']) !!}
-                {!! Form::hidden('property_detail_id',$property_id, ['class'=>'coa-id-val']) !!}
+
+                {!! Form::hidden('quote_id',$quote_id) !!}
+                {!! Form::hidden('quote_no', $quote_no ) !!}
+                {!! Form::hidden('property_detail_id',$property_detail_id) !!}
+
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('main_selling_line', 'Main selling line:', ['class' => 'control-label']) !!}

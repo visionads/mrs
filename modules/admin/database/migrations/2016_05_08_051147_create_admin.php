@@ -232,6 +232,7 @@ class CreateAdmin extends Migration
         Schema::create('quote', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->string('quote_number', 16)->unique();
             $table->unsignedInteger('solution_type_id')->nullable();
             $table->unsignedInteger('property_detail_id')->nullable();
             $table->unsignedInteger('photography_package_id')->nullable();
@@ -242,9 +243,12 @@ class CreateAdmin extends Migration
             $table->text('signboard_package_comments')->nullable();
 
             $table->unsignedInteger('print_material_id')->nullable();
+            $table->unsignedInteger('print_material_size_id')->nullable();
             $table->text('print_material_comments')->nullable();
-            $table->string('print_material_distribution', 128)->nullable();
-            $table->string('quote_number', 128)->nullable();
+            $table->smallInteger('is_distributed')->nullable();
+
+
+            $table->unsignedInteger('print_material_distribution_id')->nullable();
 
             $table->unsignedInteger('digital_media_id')->nullable();
             $table->text('digital_media_note')->nullable();
@@ -268,6 +272,7 @@ class CreateAdmin extends Migration
             $table->foreign('signboard_package_id')->references('id')->on('signboard_package');
 
             $table->foreign('print_material_id')->references('id')->on('print_material');
+            $table->foreign('print_material_distribution_id')->references('id')->on('print_material_distribution');
 
             $table->foreign('digital_media_id')->references('id')->on('digital_media');
 

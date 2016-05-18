@@ -23,4 +23,9 @@ class PropertyDetail extends Model
         'inspection_features','	inspection_date','other_features','selling_price','auction_time','offer','note'
     ];
 
+    public function quote()
+    {
+        return $this->belongsTo('App\Quote','id','property_type_id');
+    }
+
 }

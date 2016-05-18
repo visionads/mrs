@@ -14,6 +14,7 @@ use Auth;
 use DB;
 use PhpParser\Node\Stmt\Property;
 use Session;
+use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
 {
@@ -22,35 +23,20 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //$pageTitle = 'MRS - Place Order Page';
-        $pageTitle = 'Agreement';
-        //$model = new PrintMaterialDistribution();
-        $data = PrintMaterialDistribution::get()->last(); //->with('PropertyDetail')->get()->last();
-//        dd($data);
-        $data1 = PropertyDetail::get()->last();
-//        dd($data1);
-        return view('main::order.order',['pageTitle'=>$pageTitle,'data'=>$data,'data1'=>$data1]);
-    }
-    public function property_details()
-    {
-        $pageTitle = 'Property Detail For Marketing Material';
-        $data = '';
-        return view('main::order.property_details',['pageTitle'=>$pageTitle, 'data'=>$data]);
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        /*$pageTitle = 'MRS - Quote';
-        $user_image = UserImage::where('user_id',Auth::user()->id)->first();
 
-        return view('main::quote.create',['pageTitle'=>$pageTitle,'user_image'=>$user_image]);*/
+    public function quote_confirm($quote_id, $quote_no)
+    {
+        $pageTitle = 'Agreement';
+
+        //TODO:: Must be calculate price
+
+        return view('main::order.quote_confirm',[
+            'pageTitle'=>$pageTitle,
+            'quote_id'=>$quote_id,
+            'quote_no'=>$quote_no,
+            ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -58,36 +44,31 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function agreement(Request $request)
+    public function place_order(Request $request)
     {
         $input = $request->all();
 
-        $input_confirm = [
+        $quote_id = $input['quote_id'];
+        $quote_no = $input['quote_no'];
 
+
+        $input_confirm = [
             'vendor_name'              => $input['vendor_name'],
-            //'vendor_email'              => $input['vendor_email'],
             'vendor_phone'              => $input['vendor_phone'],
-            //'vendor_signature_path'    => $input['vendor_signature'],
+            //'vendor_signature_path'    => $input['vendor_signature'], TODO:: image upload
             'signature_date'           => $input['signature_date']
-            //'agent_signature_path'     => $input['description'],
+            //'agent_signature_path'     => $input['description'], TODO:: image upload
         ];
+
+        $quote_data = Quote::findOrFail($quote_id);
+        $property_detail_id =$quote_data->property_detail_id;
 
 
         DB::beginTransaction();
         try{
-
-            $model_property_details = new PropertyDetail();
-            //$pd = $model_pd->create($input_pd);
-            $confirm = $model_property_details->create($input_confirm);
-
-            if($confirm)
-            {
-                $model_quote = new Quote();
-                $model_quote->property_detail_id = $confirm->id;
-                $model_quote->save();
-            }
-            $quote_id = $model_quote->id;
-            $property_id = $confirm->id;
+            //$model_property_details = new PropertyDetail();
+            $model_property_details = PropertyDetail::findOrFail($property_detail_id);
+            $model_property_details->update($input_confirm);
 
             DB::commit();
             Session::flash('message', 'Successfully added!');
@@ -97,7 +78,32 @@ class OrderController extends Controller
         }
 
         $pageTitle = 'Property Detail For Marketing Material';
-        return view('main::order.property_details',['pageTitle'=>$pageTitle, 'quote_id'=>$quote_id, 'property_id'=>$property_id]);
+
+        return redirect()->route('page-place-order', [
+            'quote_id'=>$quote_id,
+            'quote_no'=>$quote_no
+        ]);
+
+    }
+
+
+
+    public function page_place_order($quote_id, $quote_no)
+    {
+        $pageTitle = 'Place Order';
+
+        $quote_data = Quote::findOrFail($quote_id);
+
+        $property_detail_id = $quote_data->property_detail_id;
+
+        //TODO:: Must be calculate price
+
+        return view('main::order.place_order',[
+            'pageTitle'=>$pageTitle,
+            'quote_id'=>$quote_id,
+            'quote_no'=>$quote_no,
+            'property_detail_id'=>$property_detail_id,
+        ]);
     }
 
 
@@ -106,9 +112,9 @@ class OrderController extends Controller
         $input = $request->all();
         $property_details_id = $input['property_detail_id'];
         $quote_id = $input['quote_id'];
+        $quote_no = $input['quote_no'];
 
-        //print_r($property_id);
-        //exit;
+        //return $quote_id; exit;
         $input_property_details = [
             'main_selling_line'     => $input['main_selling_line'],
             'property_description'  => $input['property_description'],
@@ -130,87 +136,50 @@ class OrderController extends Controller
         ];
 
 
-
         DB::beginTransaction();
         try{
 
+            // update property detail
             $model_property_details = PropertyDetail::findOrFail($property_details_id);
             $property_details = $model_property_details->update($input_property_details);
 
+            // new entry in print_material_distribution
             $model_print_material_distribution = new PrintMaterialDistribution();
             $print_material_distribution = $model_print_material_distribution->create($input_print_material_distribution);
 
+            //check if stored above model(s)
             if($property_details && $print_material_distribution)
             {
-                //$model_quote = new Quote();
-                //$model_quote->where('id',$quote_id);
+                //update quote table
                 $model_quote = Quote::findOrFail($quote_id);
-                $quote_input_arr = [
-                    //'property_detail_id' => $property_details->id,
-                    'print_material_distribution' => $print_material_distribution->id
-                ];
-                //$model_quote->property_detail_id = $pd->id;
-                //$model_quote->print_material_distribution = $pmd->id;
-                //$model_quote->save();
-                $model_quote->update($quote_input_arr);
+                $model_quote->print_material_distribution_id = $print_material_distribution->id;
+                $model_quote->save();
             }
-
+            // commit the changes
             DB::commit();
             Session::flash('message', 'Successfully added!');
         }catch(\Exception $e){
+            // If fails rollback the database
             DB::rollback();
             Session::flash('danger', $e->getMessage());
         }
 
+        return redirect()->route('payment-procedure', [
+            'quote_id'=>$quote_id,
+            'quote_no'=>$quote_no
+        ]);
+
+
+    }
+
+
+    public function payment_procedure($quote_id, $quote_no){
+
         $pageTitle = 'Payment';
-        //$data_pd = PropertyDetail::where('id',$pd->id)->get();
-        //$data_pmd = PrintMaterialDistribution::where('id',$pmd->id)->get();
-        //return view('main::order.order',['pageTitle'=>$pageTitle,'data_pd'=>$data_pd,'data_pmd'=>$data_pmd]);
+
+        //TODO:: calculate GST (10%) : 
+
         return view('main::payment.index',['pageTitle'=>$pageTitle]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -19,7 +19,7 @@
                 <thead>
                 <tr>
                     <th>Quote No.</th>
-                    <th>Property</th>
+                    <th>Solution Type</th>
                     <th>Date</th>
                     <th>Action</th>
                 </tr>
@@ -35,14 +35,14 @@
                         </tr>
                     @endforeach
                 @endif--}}
-                @for($i=0; $i<5; $i++)
+                @foreach($data as $quote)
                     <tr>
-                        <td class="text-center"><a href="{{ route('retrieve-quote-details-demo') }}" class="underline"> 1234567 </a></td>
-                        <td style="font-weight:normal;"> Property Details </td>
-                        <td class="text-center">10.05.2016</td>
-                        <td><a class="btn btn-primary" data-placement="left" data-content="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>
+                        <td class="text-center"><a href="{{ route('quote-details', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="underline"> 1234567 </a></td>
+                        <td style="font-weight:normal;">{{ $quote->relSolutionType['title'] }}</td>
+                        <td class="text-center">{{ date('d M Y',strtotime($quote->created_at)) }}</td>
+                        <td><a href="{{ URL::to('main/edit_quote/'.$quote->id) }}" class="btn btn-primary" data-placement="left" data-content="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>
                     </tr>
-                @endfor
+                @endforeach
                 </tbody>
             </table>
 

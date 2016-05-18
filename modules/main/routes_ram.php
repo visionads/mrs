@@ -48,47 +48,71 @@
         'uses' => 'QuoteController@create'
     ]);
 
-    Route::get('retrieve-quote', [
-        'as'    => 'retrieve-quote',
+    Route::get('quote-list', [
+        'as'    => 'quote-list',
         'uses'  => 'QuoteController@retrieve'
     ]);
 
-    Route::get('retrieve-quote-details/{id}', [
+    /*Route::get('retrieve-quote-details/{id}', [
         'as'    => 'retrieve-quote-details',
         'uses'  => 'QuoteController@retrieve_details'
-    ]);
+    ]);*/
 
-    Route::get('retrieve-quote-details-demo', [
-        'as'    => 'retrieve-quote-details-demo',
+    Route::get('quote-details/{quote_id}/{quote_no}', [
+        'as'    => 'quote-details',
         'uses'  => 'QuoteController@retrieve_details_demo'
     ]);
 
-    Route::get('quote-summary',[
+    Route::get('quote-summary/{quote_id}/{quote_no}',[
         'as'    =>  'quote_summary',
         'uses'  =>  'QuoteController@quote_summary'
     ]);
 
     /*------------Order Router---------------*/
 
-    Route::any('place-order', [
+    /*Route::any('place-order', [ ///{quote_id}/(quote_no)
         'as'    => 'place-order',
         'uses'  => 'OrderController@index'
+    ]);*/
+
+    Route::any('quote-confirm/{quote_id}/{quote_no}', [ ///{quote_id}/(quote_no)
+        'as'    => 'quote-confirm',
+        'uses'  => 'OrderController@quote_confirm'
     ]);
-    Route::get('property-details',[
+    Route::any('property-details/{quote_id}/{quote_no}',[
         'as'    =>  'property-details',
         'uses'  =>  'OrderController@property_details'
     ]);
+
+    //page for place order
+    Route::any('page-place-order/{quote_id}/{quote_no}',[
+        'as'    =>  'page-place-order',
+        'uses'  =>  'OrderController@page_place_order'
+    ]);
+
+    Route::any('place-order/{quote_id}/{quote_no}',[
+        'as'    =>  'place-order',
+        'uses'  =>  'OrderController@place_order'
+    ]);
+
+
     Route::any('place-order-store',[
         'as'    =>  'place-order-store',
         'uses'  =>  'OrderController@store'
     ]);
 
-    Route::any('agreement',[
+    /*Route::any('agreement',[
         'as'    =>  'agreement',
         'uses'  =>  'OrderController@agreement'
-    ]);
+    ]);*/
 
     /*-----------Payment Router--------------*/
+
+    Route::any('payment-procedure/{quote_id}/{quote_no}',[
+        'as'    =>  'payment-procedure',
+        'uses'  =>  'OrderController@payment_procedure'
+    ]);
+
     Route::get('payment',[
         'as'    =>  'payment',
         'uses'  =>  'PaymentController@index'

@@ -86,8 +86,8 @@
                 <h2 style="color:#f36f21">GST:$</h2>
                 <h2 style="color:#f36f21">Total COST Inc GST: $</h2>
 
-                <a href="{{ route('retrieve-quote') }}" class="btn new_button ">Back To Quote</a>&nbsp;
-                <a href="{{ route('place-order') }}" class="btn new_button ">Proceed Order</a>
+                <a href="{{ route('quote-list') }}" class="btn new_button ">Back To Quote</a>&nbsp;
+                <a href="{{ route('quote-confirm', ['quote_id'=>101, 'quote_no'=>'QN--00001' ]) }}" class="btn new_button ">Proceed Order</a>
             </div>
         </div>
         </div>
