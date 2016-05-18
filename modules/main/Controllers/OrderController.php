@@ -106,7 +106,9 @@ class OrderController extends Controller
         $input = $request->all();
         $property_id = $input['property_detail_id'];
         $quote_id = $input['quote_id'];
+
         //print_r($property_id);
+        //exit;
         $input_pd = [
             'main_selling_line'     => $input['main_selling_line'],
             'property_description'  => $input['property_description'],
@@ -133,7 +135,8 @@ class OrderController extends Controller
         try{
 
             $model_pd = new PropertyDetail();
-            $pd = $model_pd->create($input_pd);
+            $pd = $model_pd->where('id',$property_id)->update($input_pd);
+            //$pd = $model_pd->create($input_pd);
 
             $model_pmd = new PrintMaterialDistribution();
             $pmd = $model_pmd->create($input_pmd);
@@ -141,6 +144,7 @@ class OrderController extends Controller
             if($pd && $pmd)
             {
                 $model_quote = new Quote();
+                $model_quote->where('id',$quote_id);
                 $model_quote->property_detail_id = $pd->id;
                 $model_quote->print_material_distribution = $pmd->id;
                 $model_quote->save();
@@ -153,10 +157,11 @@ class OrderController extends Controller
             Session::flash('danger', $e->getMessage());
         }
 
-        $pageTitle = 'Agreement';
+        $pageTitle = 'Payment';
         $data_pd = PropertyDetail::where('id',$pd->id)->get();
         $data_pmd = PrintMaterialDistribution::where('id',$pmd->id)->get();
-        return view('main::order.order',['pageTitle'=>$pageTitle,'data_pd'=>$data_pd,'data_pmd'=>$data_pmd]);
+        //return view('main::order.order',['pageTitle'=>$pageTitle,'data_pd'=>$data_pd,'data_pmd'=>$data_pmd]);
+        return view('main::payment.payment',['pageTitle'=>$pageTitle]);
     }
 
     /**

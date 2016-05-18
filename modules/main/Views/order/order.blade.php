@@ -75,7 +75,7 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('vendor_email', 'Vendor Email :', []) !!}
-                        {!! Form::text('vendor_email', Input::old('vendor_email'), ['id'=>'vendor_email', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
+                        {!! Form::email('vendor_email', Input::old('vendor_email'), ['id'=>'vendor_email', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
                     </div>
                 </div>
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">

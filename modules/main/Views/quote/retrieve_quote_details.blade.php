@@ -74,13 +74,14 @@
             </table>
             <div style="text-align: right">
                 <a href="{{ route('retrieve-quote') }}" class="btn new_button ">Back To Quote</a>&nbsp;
-                <a href="{{ route('property-details') }}" class="btn new_button ">Proceed Order</a>
+                <a href="{{ route('place-order') }}" class="btn new_button ">Proceed Order</a>
+                {{--<a href="{{ route('property-details') }}" class="btn new_button ">Proceed Order</a>--}}
             </div>
         </div>
     </div>
 
 
-    <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.12.0.min.js') }}"></script>
+    {{--<script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.12.0.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-ui.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
@@ -113,6 +114,6 @@
         });
         // tooltip for input field
         $(".form-control").tooltip();
-    </script>
+    </script>--}}
 
 @stop
