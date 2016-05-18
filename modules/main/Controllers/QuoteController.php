@@ -245,7 +245,7 @@ class QuoteController extends Controller
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         $data['digital_medias']= DigitalMedia::get();
-        $data['quote']= Quote::where('id',$id)->with('property_detail','print_material_distribution')->first();
+        $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution')->first();
 //        dd($data['quote']);
         return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
@@ -261,6 +261,7 @@ class QuoteController extends Controller
     {
         \DB::beginTransaction();
         $received=$request->except('_token');
+        $quote= Quote::find($id);
 //        dd($received);
         try {
             $data['solution_type_id'] = $received['solution_type_id'];
@@ -273,8 +274,9 @@ class QuoteController extends Controller
             $property['vendor_name'] = $received['vendor_name'];
             $property['vendor_email'] = $received['vendor_email'];
             $property['vendor_phone'] = $received['vendor_phone'];
-            $property_id = PropertyDetail::create($property);
-            $data['property_detail_id'] = $property_id->id;
+
+            $property_id = PropertyDetail::find($quote->property_detail_id);
+            $property_id->update($property);
 
             /*
              * getting photography info
@@ -285,6 +287,9 @@ class QuoteController extends Controller
                     $data['photography_package_id'] = $received['photography_package_id'];
                 }
                 $data['photography_package_comments'] = $received['photography_package_comments'];
+            }else{
+                $data['photography_package_id'] = null;
+                $data['photography_package_comments'] = '';
             }
             /*
              * getting signboard info
@@ -300,6 +305,10 @@ class QuoteController extends Controller
                     }
                 }
                 $data['signboard_package_comments'] = $received['signboard_package_comments'];
+            }else{
+                $data['signboard_package_id'] = null;
+                $data['signboard_package_size_id'] = null;
+                $data['signboard_package_comments'] = '';
             }
             /*
              * getting print material info
@@ -327,6 +336,12 @@ class QuoteController extends Controller
 
                 }
                 $data['print_material_comments'] = $received['print_material_comments'];
+            }else{
+                $data['print_material_id'] = null;
+                $data['print_material_size_id'] = null;
+                $data['is_distributed'] = 0;
+                $data['print_material_comments'] = '';
+
             }
             /*
              * getting distributed print material info
@@ -334,9 +349,12 @@ class QuoteController extends Controller
             if (isset($received['distributedPrintMaterialChooseBtn']) && !empty($received['distributedPrintMaterialChooseBtn']) && $received['distributedPrintMaterialChooseBtn'] == 1) {
                 $distribution['quantity'] = $received['quantity'];
                 $distribution['note'] = $received['note'];
-                $distribution_id=PrintMaterialDistribution::create($distribution);
-                $data['print_material_distribution_id']=$distribution_id->id;
-
+                $distribution_id=PrintMaterialDistribution::find($quote->print_material_distribution_id);
+                $distribution_id->update($distribution);
+            }else{
+                $distribution_id=PrintMaterialDistribution::find($quote->print_material_distribution_id);
+                $distribution_id->delete();
+                $data['print_material_distribution_id']=null;
             }
             /*
              * getting distributed print material info
@@ -347,6 +365,10 @@ class QuoteController extends Controller
                     $data['digital_media_id'] = $received['digital_media_id'];
                 }
                 $data['digital_media_note'] = $received['digital_media_note'];
+            }else{
+                $data['digital_media_id'] = null;
+                $data['digital_media_note'] = '';
+
             }
             /*
              * getting local media info
@@ -362,9 +384,13 @@ class QuoteController extends Controller
                     }
                 }
                 $data['local_media_note'] = $received['local_media_note'];
+            }else{
+                $data['local_media_id'] = null;
+                $data['local_media_option_id'] = null;
+                $data['local_media_note'] = '';
+
             }
 //            dd($data);
-            $quote= Quote::find($id);
             $quote->update($data);
             \DB::commit();
             Session::flash('message','Data has been successfully updated');

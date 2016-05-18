@@ -55,25 +55,25 @@
                             <div class="col-sm-6 size-13">
                                 <div class="form-group">
                                     <label for="owner_name">Property Owners Name <span class="required">(Required)</span></label>
-                                    <input type="text" name="owner_name" placeholder="Owner Name" class="form-control" id="owner_name" value="{{ $data['quote']->property_detail['owner_name'] }}" required>
+                                    <input type="text" name="owner_name" placeholder="Owner Name" class="form-control" id="owner_name" value="{{ $data['quote']->relPropertyDetail['owner_name'] }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Property Address</label>
-                                    <textarea type="text" name="address" placeholder="Address" class="form-control" id="address">{{ $data['quote']->property_detail['address'] }}</textarea>
+                                    <textarea type="text" name="address" placeholder="Address" class="form-control" id="address">{{ $data['quote']->relPropertyDetail['address'] }}</textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6 size-13">
                                 <div class="form-group">
                                     <label for="vendor_name">Vendor Name</label>
-                                    <input type="text" name="vendor_name" placeholder="Vendor Name" class="form-control" id="vendor_name" value="{{ $data['quote']->property_detail['vendor_name'] }}" >
+                                    <input type="text" name="vendor_name" placeholder="Vendor Name" class="form-control" id="vendor_name" value="{{ $data['quote']->relPropertyDetail['vendor_name'] }}" >
                                 </div>
                                 <div class="form-group">
                                     <label for="vendor_email">Vendor Email  <span class="required">(Required)</span></label>
-                                    <input type="email" name="vendor_email" placeholder="Vendor Email" class="form-control" id="vendor_email" value="{{ $data['quote']->property_detail['vendor_email'] }}" required>
+                                    <input type="email" name="vendor_email" placeholder="Vendor Email" class="form-control" id="vendor_email" value="{{ $data['quote']->relPropertyDetail['vendor_email'] }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="vendor_phone">Vendor Contact Number</label>
-                                    <input type="text" name="vendor_phone" placeholder="Vendor Number" class="form-control" id="vendor_phone" value="{{ $data['quote']->property_detail['vendor_phone'] }}" >
+                                    <input type="text" name="vendor_phone" placeholder="Vendor Number" class="form-control" id="vendor_phone" value="{{ $data['quote']->relPropertyDetail['vendor_phone'] }}" >
                                 </div>
                             </div>
                         </div>
@@ -269,17 +269,17 @@
                                         {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location
 (Remainder will be sent to you the agency)') !!}
                                         <select class="quantity" name="quantity" style="color: black">
-                                            <option @if($data['quote']->print_material_distribution['quantity'] == 0) selected="selected" @endif value="select">Please Select</option>
-                                            <option @if($data['quote']->print_material_distribution['quantity'] == 1) selected="selected" @endif value="1">1</option>
-                                            <option @if($data['quote']->print_material_distribution['quantity'] == 2) selected="selected" @endif value="2">2</option>
-                                            <option @if($data['quote']->print_material_distribution['quantity'] == 3) selected="selected" @endif value="3">3</option>
-                                            <option @if($data['quote']->print_material_distribution['quantity'] == 4) selected="selected" @endif value="4">4</option>
-                                            <option @if($data['quote']->print_material_distribution['quantity'] == 5) selected="selected" @endif value="5">5</option>
+                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 0) selected="selected" @endif value="select">Please Select</option>
+                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 1) selected="selected" @endif value="1">1</option>
+                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 2) selected="selected" @endif value="2">2</option>
+                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 3) selected="selected" @endif value="3">3</option>
+                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 4) selected="selected" @endif value="4">4</option>
+                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 5) selected="selected" @endif value="5">5</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>NOTE</label>
-                                        <textarea type="text" name="note" placeholder="Note" class="form-control" id="note">{{ $data['quote']->print_material_distribution['note'] }}</textarea>
+                                        <textarea type="text" name="note" placeholder="Note" class="form-control" id="note">{{ $data['quote']->relPrintMaterialDistribution['note'] }}</textarea>
                                     </div>
                                 </div>
                             </div>
