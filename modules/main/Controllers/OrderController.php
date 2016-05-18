@@ -96,7 +96,7 @@ class OrderController extends Controller
             Session::flash('danger', $e->getMessage());
         }
 
-        $pageTitle = 'Agreement';
+        $pageTitle = 'Property Detail For Marketing Material';
         return view('main::order.property_details',['pageTitle'=>$pageTitle, 'quote_id'=>$quote_id, 'property_id'=>$property_id]);
     }
 
