@@ -17,3 +17,7 @@
         'as' => 'edit_quote',
         'uses' => 'QuoteController@edit'
     ]);
+    Route::patch('new_quote_store/{id}', [
+        'as' => 'new_quote_store',
+        'uses' => 'QuoteController@update'
+    ]);

@@ -26,7 +26,7 @@
 
         {{-- <div class="row">--}}
         <div class="col-sm-12">
-            {!! Form::open(['route'=>'new-quote-store']) !!}
+            {!! Form::open(['route' => ['new_quote_store', $data['quote']->id], 'method' => 'PATCH' ]) !!}
             {{--<form role="form" method="post" class="">--}}
             <h2 style="color: #fff;text-align: center;">Edit Quote</h2>
             <div class="quote-form">
@@ -353,15 +353,14 @@
                                 @foreach($data['local_medias'] as $local_media)
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <input  type="radio" value="$local_media->id" name="local_media_id"  @if($data['quote']->local_media_id == $local_media->id) checked="checked" @endif>
+                                            <input  type="radio" value="{{ $local_media->id }}" name="local_media_id"  @if($data['quote']->local_media_id == $local_media->id) checked="checked" @endif>
                                              {{ $local_media->title }}
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 @foreach($local_media->relLocalMedia as $relLocalMedia)
-                                                    {{--<input type="radio">--}}
-                                                    <input  type="radio" value="$local_media->id" name="local_media_option_id[{{  $local_media->id }}]"  @if($data['quote']->local_media_id == $local_media->id) checked="checked" @endif>
-                                                    {!! Form::radio('local_media_option_id['.$local_media->id.']',$relLocalMedia->id) !!} {{ $relLocalMedia->title }}<br>
+                                                    <input  type="radio" value="{{ $relLocalMedia->id }}" name="local_media_option_id[{{  $local_media->id }}]"  @if($data['quote']->local_media_option_id == $relLocalMedia->id) checked="checked" @endif>
+                                                     {{ $relLocalMedia->title }}<br>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -370,7 +369,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>NOTE</label>
-                                        <textarea type="text" name="local_media_note" placeholder="Local Media Note" class="form-control" id="local_media_note"></textarea>
+                                        <textarea type="text" name="local_media_note" placeholder="Local Media Note" class="form-control" id="local_media_note">{{ $data['quote']->local_media_note }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -387,8 +386,7 @@
                         </div>--}}
                         <div class="row">
                             <div class="col-sm-5 col-sm-offset-7">
-                                <input value="Save" name="save" type="submit" class="btn new_button proceedBtn">
-                                <input name="quote" value="Quote" type="submit" class="btn new_button proceedBtn">
+                                <input name="quote" value="Update" type="submit" class="btn new_button proceedBtn">
                             </div>
                         </div>
 

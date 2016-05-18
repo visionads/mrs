@@ -387,7 +387,7 @@
                                     <div class="row">
                                         <div class="col-sm-5 col-sm-offset-7">
                                             <input value="Save" name="save" type="submit" class="btn new_button proceedBtn">
-                                            <input name="quote" value="Quote" type="submit" class="btn new_button proceedBtn">
+                                            <input name="quote" value="Continue" type="submit" class="btn new_button proceedBtn">
                                         </div>
                                     </div>
 
