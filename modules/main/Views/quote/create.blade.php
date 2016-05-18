@@ -38,13 +38,13 @@
                                         @foreach($data['solution_types'] as $solution_type)
                                         <label>
                                             {{ $solution_type->title }}<br>
-                                            <input required type="radio" name="solutions_type_id" value="{{ $solution_type->id }}">
+                                            <input required type="radio" name="solution_type_id" value="{{ $solution_type->id }}">
                                         </label>
                                         @endforeach
                                     </div>
-                                    <div class="center">
+                                    {{--<div class="center">
                                         <button id="solutionTypeNextBtn" href="#quote-div" type="button" class="btn new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
-                                    </div>
+                                    </div>--}}
                                 </div>
                             </fieldset>
                             <fieldset>
@@ -77,8 +77,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button id="propertyDetailsNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
+                                    <button id="propertyDetailsNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
                                 </div>
                             </fieldset>
                             <fieldset>
@@ -124,8 +124,8 @@
                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button id="photographyNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
+                                    <button id="photographyNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
 
 
                                 </div>
@@ -181,8 +181,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-previous pull-left new_button"> <span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button id="signboardNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    {{--<button type="button" class="btn btn-previous pull-left new_button"> <span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
+                                    <button id="signboardNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
 
 
                                 </div>
@@ -215,7 +215,7 @@
                                             @foreach($data['print_materials'] as $print_material)
                                             <div class="col-sm-4">
                                                 <label>
-                                                    <input type="radio" name="print_material_id" value="1">
+                                                    <input type="radio" name="print_material_id" value="{{ $print_material->id }}">
                                                     {{ $print_material->title }}
                                                 </label><br>
                                                 <label style="margin-left: 10%">
@@ -242,8 +242,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button id="printMaterialNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
+                                    <button id="printMaterialNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
 
                                 </div>
                             </fieldset>
@@ -281,8 +281,8 @@
                                         </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button id="distributedPrintMaterialNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
+                                    <button id="distributedPrintMaterialNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
 
 
                                 </div>
@@ -322,8 +322,8 @@
                                         </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button id="digitalMediaNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                                    {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
+                                    <button id="digitalMediaNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
 
 
                                 </div>
@@ -369,9 +369,9 @@
                                         </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    {{--<div class="row">
                                         <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    </div>
+                                    </div>--}}
                                     {{--<div class="row">
                                         <div class="col-sm-5 col-sm-offset-7">
 

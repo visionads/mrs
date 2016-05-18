@@ -92,7 +92,7 @@ class QuoteController extends Controller
         $received=$request->except('_token');
 
         try {
-            $data['solutions_type_id'] = $received['solutions_type_id'];
+            $data['solution_type_id'] = $received['solution_type_id'];
 
             /*
              * store property details
@@ -151,14 +151,15 @@ class QuoteController extends Controller
                 $data['local_media_option_id'] = $received['local_media_option_id'];
                 $data['local_media_note'] = $received['local_media_note'];
             }
+//            dd($data);
             Quote::create($data);
             \DB::commit();
             Session::flash('message','Data has been successfully stored');
             if(isset($received['quote']))
             {
-                return Redirect::to('place-order');
+                return Redirect::to('main/place-order');
             }else{
-                return Redirect::to('retrieve-quote');
+                return Redirect::to('main/retrieve-quote');
             }
 
         }catch (Exception $e)
