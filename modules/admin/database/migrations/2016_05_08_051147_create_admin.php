@@ -232,6 +232,7 @@ class CreateAdmin extends Migration
         Schema::create('quote', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->string('quote_number', 16)->unique();
             $table->unsignedInteger('solution_type_id')->nullable();
             $table->unsignedInteger('property_detail_id')->nullable();
             $table->unsignedInteger('photography_package_id')->nullable();
@@ -245,7 +246,7 @@ class CreateAdmin extends Migration
             $table->unsignedInteger('print_material_size_id')->nullable();
             $table->text('print_material_comments')->nullable();
             $table->smallInteger('is_distributed')->nullable();
-            $table->string('quote_number', 128)->nullable();
+
 
             $table->unsignedInteger('print_material_distribution_id')->nullable();
 
