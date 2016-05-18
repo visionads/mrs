@@ -76,7 +76,8 @@ class QuoteController extends Controller
         $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->get();
         return view('main::quote.retrieve_quote_details',[
             'pageTitle'=>$pageTitle,
-            'quote'=>$quote
+            'quote'=>$quote,
+            'quote_number'=>$quote_number
         ]);
     }
 

@@ -68,7 +68,7 @@
                         <h1 class="size-25">Details of the order summary</h1>
 
                         <p class="size-13">
-                        + Quote No. : 009898<br>
+                        + Quote No. : {{ $quote_number }}<br>
                         + Photography Package Comments : photography_package_comments<br>
                         + Signboard Package Comments : signboard_package_comments<br>
                         + Print Material Comments : print_material_comments<br>

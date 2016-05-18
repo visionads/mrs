@@ -26,15 +26,6 @@
                 </thead>
 
                 <tbody>
-                {{--@if(isset($data))
-                    @foreach($data as $row)
-                        <tr>
-                            <td class="text-center"><a href="{{ route('retrieve-quote-details/'.$row->id) }}" class="underline"> {{ $row->quote_number }} </a></td>
-                            <td style="font-weight:normal;">{{ $row->property_detail_id }}</td>
-                            <td class="text-center">{{ $row->created_at }}</td>
-                        </tr>
-                    @endforeach
-                @endif--}}
                 @foreach($data as $quote)
                     <tr>
                         <td class="text-center"><a href="{{ route('quote-details', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="underline"> 1234567 </a></td>

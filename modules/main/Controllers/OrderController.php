@@ -177,7 +177,7 @@ class OrderController extends Controller
 
         $pageTitle = 'Payment';
 
-        //TODO:: calculate GST (10%) : 
+        //TODO:: calculate GST (10%) :
 
         return view('main::payment.index',['pageTitle'=>$pageTitle]);
     }
