@@ -109,24 +109,40 @@ class QuoteController extends Controller
              * getting photography info
              * */
             if (isset($received['pro-photographyChooseBtn']) && !empty($received['pro-photographyChooseBtn']) && $received['pro-photographyChooseBtn'] == 1) {
-                $data['photography_package_id'] = $received['photography_package_id'];
+                if(isset($received['photography_package_id']))
+                {
+                    $data['photography_package_id'] = $received['photography_package_id'];
+                }
                 $data['photography_package_comments'] = $received['photography_package_comments'];
             }
             /*
              * getting signboard info
              * */
             if (isset($received['signboardChooseBtn']) && !empty($received['signboardChooseBtn']) && $received['signboardChooseBtn'] == 1) {
-                $data['signboard_package_id'] = $received['signboard_package_id'];
-                $data['signboard_package_size_id'] = $received['signboard_package_size_id'];
+                if(isset($received['signboard_package_id'])){
+
+                    $data['signboard_package_id'] = $received['signboard_package_id'];
+                }
+                if(isset($received['signboard_package_size_id'])){
+                    $data['signboard_package_size_id'] = $received['signboard_package_size_id'];
+                }
                 $data['signboard_package_comments'] = $received['signboard_package_comments'];
             }
             /*
              * getting print material info
              * */
             if (isset($received['printMaterialChooseBtn']) && !empty($received['printMaterialChooseBtn']) && $received['printMaterialChooseBtn'] == 1) {
-                $data['print_material_size_id'] = $received['print_material_size_id'];
-                $data['print_material_id'] = $received['print_material_id'];
-                $data['print_material_distribution'] = $received['print_material_distribution'];
+                if(isset($received['print_material_size_id']))
+                {
+                    $data['print_material_size_id'] = $received['print_material_size_id'];
+                }
+                if(isset($received['print_material_id'])){
+                    $data['print_material_id'] = $received['print_material_id'];
+                }
+                if(isset($received['print_material_distribution']))
+                {
+                    $data['print_material_distribution'] = $received['print_material_distribution'];
+                }
                 $data['print_material_comments'] = $received['print_material_comments'];
             }
             /*
@@ -140,15 +156,24 @@ class QuoteController extends Controller
              * getting distributed print material info
              * */
             if (isset($received['digitalMediaChooseBtn']) && !empty($received['digitalMediaChooseBtn']) && $received['digitalMediaChooseBtn'] == 1) {
-                $data['digital_media_id'] = $received['digital_media_id'];
+                if(isset($received['digital_media_id']))
+                {
+                    $data['digital_media_id'] = $received['digital_media_id'];
+                }
                 $data['digital_media_note'] = $received['digital_media_note'];
             }
             /*
              * getting local media info
              * */
             if (isset($received['localMediaChooseBtn']) && !empty($received['localMediaChooseBtn']) && $received['localMediaChooseBtn'] == 1) {
-                $data['local_media_id'] = $received['local_media_id'];
-                $data['local_media_option_id'] = $received['local_media_option_id'];
+                if(isset($received['local_media_id']))
+                {
+                    $data['local_media_id'] = $received['local_media_id'];
+                }
+                if(isset($received['local_media_option_id']))
+                {
+                    $data['local_media_option_id'] = $received['local_media_option_id'];
+                }
                 $data['local_media_note'] = $received['local_media_note'];
             }
 //            dd($data);

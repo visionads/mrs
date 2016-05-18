@@ -36,7 +36,7 @@
 </div>
 <div class="form-group col-sm-5">
         <div class="form-group" id="new_quote">
-                <a href="{{ url('main/new-quote#quote-div') }}" class="quote">New Quote</a>
+                <a href="{{ url('main/new-quote') }}" class="quote">New Quote</a>
         </div>
         <div class="form-group" id="new_quote">
                 <a href="{{route('retrieve-quote')}}" class="quote">Retrieve Quote</a>
