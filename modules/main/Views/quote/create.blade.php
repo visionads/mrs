@@ -28,9 +28,9 @@
                 <div class="col-sm-12">
                     {!! Form::open(['route'=>'new-quote-store']) !!}
                     {{--<form role="form" method="post" class="">--}}
-
+                        <h2 style="color: #fff;text-align: center;">Add New Quote</h2>
                         <div class="quote-form">
-                            <fieldset>
+                            <fieldset><hr>
                                 <div class="form-bottom">
                                     <div class="validationError"></div>
                                     <h3 class="instruction">Please select one of the following to begin</h3>
@@ -47,7 +47,7 @@
                                     </div>--}}
                                 </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Property Details</h3>
                                     <br>
@@ -81,7 +81,7 @@
                                     <button id="propertyDetailsNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
                                 </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Photography</h3>
                                     <br>
@@ -130,7 +130,7 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">SIGNBOARD</h3>
 
@@ -139,7 +139,7 @@
                                             <div class="validationError"></div>
                                             <h4>Will require signboard ?</h4>
                                             <label>
-                                                <input name="signboardChooseBtn" type="radio" value="0" class="noBtn btn-next">
+                                                <input name="signboardChooseBtn" type="radio" value="0" class="noBtn btn-next" checked="checked">
                                                 No
                                             </label>
                                             <label>
@@ -187,7 +187,7 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">PRINT MATERIAL</h3>                                            <div class="validationError"></div>
 
@@ -247,7 +247,7 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
                                     <div class="validationError"></div>
@@ -287,7 +287,7 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Digital media</h3>
                                     <div class="validationError"></div>
@@ -328,7 +328,7 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset>
+                            <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Local newsprint media advertising</h3>
                                     <div class="row">
