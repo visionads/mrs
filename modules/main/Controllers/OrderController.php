@@ -65,7 +65,7 @@ class OrderController extends Controller
         $input_confirm = [
 
             'vendor_name'              => $input['vendor_name'],
-            'vendor_email'              => $input['vendor_email'],
+            //'vendor_email'              => $input['vendor_email'],
             'vendor_phone'              => $input['vendor_phone'],
             //'vendor_signature_path'    => $input['vendor_signature'],
             'signature_date'           => $input['signature_date']

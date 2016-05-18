@@ -63,6 +63,18 @@
                     </div>
                 </div>
 
+                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-sm-12">
+                    <h4 style="color:#f31f21">Will you require distribution of print material </h4>
+                    <label>
+                        <input type="radio" name="print-distribution-material" value="1" class="" id="step-no"> &nbsp; No
+                    </label>
+                    <label>
+                        <input type="radio" name="print-distribution-material" value="0" class="btn-next" id="last_step"> &nbsp; Yes
+                    </label>
+                    </div>
+                </div>
+
             </div>
 
             {{--Right Pan--}}
@@ -113,9 +125,9 @@
                     {{--<div class="col-sm-12" id="submit_button">
                         {!! Form::submit('Place Order', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click place order button']) !!}&nbsp;
                     </div>--}}
-                    <div class="col-sm-12 text-right">
+                    {{--<div class="col-sm-12 text-right">
                         <button class="btn new_button" id="next_step" type="button"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
-                    </div>
+                    </div>--}}
 
                 </div>
             </div>
@@ -123,29 +135,11 @@
     </div>
 
 
-    {{--2nd Step of the form--}}
-    <div class="container pages new_order font-droid step-two" style="display: none" >
-        <div class="col-md-12">
-            <div class="col-sm-12" id="new_order_title"><span class="label size-25">DISTRIBUTION OF PRINT MATERIAL</span><br><br></div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-bottom">
-                    <div class="col-sm-12">
-                        <h4 style="color:#f31f21">Will you require distribution of print material </h4>
-                        <label>
-                            <input type="radio" name="print-distribution-material" value="1" class="" id="step-no"> &nbsp; No
-                        </label>
-                        <label>
-                            <input type="radio" name="print-distribution-material" value="0" class="btn-next" id="last_step"> &nbsp; Yes
-                        </label>
-                    </div>
-                    <button type="button" class="btn pull-left new_button" id="back_to_first"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-            </div>
-        </div>
-    </div>
-
     {{--3rd Step of the form--}}
     <div class="container pages new_order font-droid step-three" style="display: none">
+        <div class="col-md-12">
+            <div class="col-sm-12" id="new_order_title"><span class="label size-18">DISTRIBUTION OF PRINT MATERIAL</span><br><br></div>
+        </div>
         <div class="col-sm-12">
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">

@@ -72,12 +72,12 @@
                         {!! Form::text('vendor_name', Input::old('vendor_name'), ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
                     </div>
                 </div>
-                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('vendor_email', 'Vendor Email :', []) !!}
                         {!! Form::email('vendor_email', Input::old('vendor_email'), ['id'=>'vendor_email', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
                     </div>
-                </div>
+                </div>--}}
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('vendor_phone', 'Vendor Phone :', []) !!}
@@ -88,7 +88,7 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('vendor_signature', 'Vendor Signature :', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('vendor_signature', Input::old('vendor_signature'),['size' => '6x3','title'=>'Vendor Signature','id'=>'description','placeholder'=>'Vendor Signature here..','spellcheck'=>'true','class' => 'form-control radius-10','required']) !!}
+                        {!! Form::textarea('vendor_signature', Input::old('vendor_signature'),['size' => '6x3','title'=>'Vendor Signature','id'=>'description','placeholder'=>'Vendor Signature here..','spellcheck'=>'true','class' => 'form-control radius-10']) !!}
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@
                     <div class="col-sm-12">
                         {!! Form::label('date', 'Date :', []) !!}
                         <div class="input-group date">
-                            {!! Form::text('signature_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
+                            {!! Form::text('signature_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
                             {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
@@ -106,7 +106,7 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('agent_signature_path', 'Agent Signature :', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('agent_signature', Input::old('agent_signature'),['size' => '6x2','title'=>'Agent Signature','id'=>'agent_signature','placeholder'=>'Agent Signature here..','spellcheck'=>'true','class' => 'form-control radius-10','required']) !!}
+                        {!! Form::textarea('agent_signature', Input::old('agent_signature'),['size' => '6x2','title'=>'Agent Signature','id'=>'agent_signature','placeholder'=>'Agent Signature here..','spellcheck'=>'true','class' => 'form-control radius-10']) !!}
                     </div>
                 </div>
 
@@ -122,6 +122,8 @@
         </div>
     </div>
     {!! Form::close() !!}
+
+
 
 
     @if($errors->any())
