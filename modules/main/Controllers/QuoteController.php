@@ -103,7 +103,7 @@ class QuoteController extends Controller
             $property['vendor_email'] = $received['vendor_email'];
             $property['vendor_phone'] = $received['vendor_phone'];
             $property_id = PropertyDetail::create($property);
-            $data['property_detail_id'] = $property_id->id;
+//            $data['property_detail_id'] = $property_id->id;
 
             /*
              * getting photography info
@@ -141,7 +141,15 @@ class QuoteController extends Controller
                 }
                 if(isset($received['print_material_distribution']))
                 {
-                    $data['print_material_distribution'] = $received['print_material_distribution'];
+                    foreach ($received['print_material_distribution'] as $print_id) {
+                        if($print_id==$received['print_material_id'])
+                        {
+                            $data['print_material_distribution'] = 1;
+                        }else{
+                            $data['print_material_distribution'] = 0;
+                        }
+                    }
+
                 }
                 $data['print_material_comments'] = $received['print_material_comments'];
             }
@@ -176,7 +184,7 @@ class QuoteController extends Controller
                 }
                 $data['local_media_note'] = $received['local_media_note'];
             }
-//            dd($data);
+            dd($data);
             Quote::create($data);
             \DB::commit();
             Session::flash('message','Data has been successfully stored');

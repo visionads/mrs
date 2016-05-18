@@ -153,15 +153,13 @@
                                             <h3 class="center size-16">FOR SPECS & FEATURES PLEASE CLICK ON THE LINK BELOW</h3>
                                             @foreach($data['signboard_packages'] as $signboard_package)
                                             <div class="col-sm-4">
-                                                <label class="text-center-label">
+                                                <label class="">
+                                                    <span class="text-center-label">
                                                     <input type="radio" name="signboard_package_id" value="{{ $signboard_package->id }}">
-
-                                                    {{ $signboard_package->title }}
+{{ $signboard_package->title }}</span>
+                                                    <img width="100%" height="100" src="{{ asset($signboard_package->image_path) }}">
                                                 </label>
                                                 <div class="panel-body">
-                                                    <img width="100%" height="100" src="{{ asset($signboard_package->image_path) }}">
-                                                    <br>
-                                                    <br>
                                                     <div class="form-group">
 
                                                         <select name="signboard_package_size_id" class="form-control">
@@ -217,21 +215,19 @@
                                                 <label>
                                                     <input type="radio" name="print_material_id" value="{{ $print_material->id }}">
                                                     {{ $print_material->title }}
-                                                </label><br>
                                                 <label style="margin-left: 10%">
-                                                    <input type="checkbox" name="print_material_distribution" value="1">
+                                                    <input type="checkbox" name="print_material_distribution[]" value="{{ $print_material->id }}">
                                                     USE FOR DISTRIBUTION
                                                 </label>
-                                                <div class="panel-body">
                                                     <img width="100%" height="150" src="{{ asset($print_material->image_path) }}">
-                                                    <br>
-                                                    <br>
+                                                    <div class="panel-body">
                                                     <select name="print_material_size_id" class="form-control">
                                                         @foreach($print_material->relPrintMaterial as $relPrintMaterial)
                                                         <option value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                </label>
                                             </div>
                                             @endforeach
                                             <div class="col-sm-4">
