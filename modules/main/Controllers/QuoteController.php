@@ -58,7 +58,7 @@ class QuoteController extends Controller
     {
         $pageTitle = 'MRS - Retrieve Quote';
 //        $data = DB::table('quote')->orderBy('id','DESC')->paginate(30);
-        $data = Quote::with('solution_type')->orderBy('id','DESC')->paginate(30);
+        $data = Quote::with('relSolutionType')->orderBy('id','DESC')->paginate(30);
 //        dd($data);
         return view('main::quote.retrieve_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
@@ -207,7 +207,7 @@ class QuoteController extends Controller
             {
                 return Redirect::to('main/place-order');
             }else{
-                return Redirect::to('main/retrieve-quote');
+                return Redirect::to('main/quote-list');
             }
 
         }catch (Exception $e)
@@ -368,7 +368,7 @@ class QuoteController extends Controller
             $quote->update($data);
             \DB::commit();
             Session::flash('message','Data has been successfully updated');
-                return Redirect::to('main/retrieve-quote');
+                return Redirect::to('main/quote-list');
 
         }catch (Exception $e)
         {
