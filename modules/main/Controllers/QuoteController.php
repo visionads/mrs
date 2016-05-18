@@ -139,7 +139,10 @@ class QuoteController extends Controller
                 if(isset($received['print_material_id'])){
                     $data['print_material_id'] = $received['print_material_id'];
                 }
-                $data['print_material_distribution'] = $received['print_material_distribution'];
+                if(isset($received['print_material_distribution']))
+                {
+                    $data['print_material_distribution'] = $received['print_material_distribution'];
+                }
                 $data['print_material_comments'] = $received['print_material_comments'];
             }
             /*
