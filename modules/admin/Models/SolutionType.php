@@ -17,4 +17,8 @@ class SolutionType extends Model
         'description'
     ];
 
+    public function quote(){
+        return $this->belongsTo('App\Quote','id','solution_type_id');
+    }
+
 }

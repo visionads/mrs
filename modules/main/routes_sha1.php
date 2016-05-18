@@ -12,3 +12,8 @@
         'as' => 'new-quote-store',
         'uses' => 'QuoteController@store'
     ]);
+
+    Route::get('edit_quote/{id}', [
+        'as' => 'edit_quote',
+        'uses' => 'QuoteController@edit'
+    ]);

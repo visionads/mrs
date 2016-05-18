@@ -162,9 +162,9 @@
                                                 <div class="panel-body">
                                                     <div class="form-group">
 
-                                                        <select name="signboard_package_size_id" class="form-control">
+                                                        <select name="signboard_package_size_id[{{ $signboard_package->id }}]" class="form-control">
                                                             @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
-                                                                <option>{{ $relSignboardPackage->title }}</option>
+                                                                <option value="{{ $relSignboardPackage->id }}">{{ $relSignboardPackage->title }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -216,12 +216,12 @@
                                                     <input type="radio" name="print_material_id" value="{{ $print_material->id }}">
                                                     {{ $print_material->title }}
                                                 <label style="margin-left: 10%">
-                                                    <input type="checkbox" name="print_material_distribution[]" value="{{ $print_material->id }}">
+                                                    <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
                                                     USE FOR DISTRIBUTION
                                                 </label>
                                                     <img width="100%" height="150" src="{{ asset($print_material->image_path) }}">
                                                     <div class="panel-body">
-                                                    <select name="print_material_size_id" class="form-control">
+                                                    <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
                                                         @foreach($print_material->relPrintMaterial as $relPrintMaterial)
                                                         <option value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title }}</option>
                                                         @endforeach
@@ -249,7 +249,7 @@
                                     <div class="validationError"></div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h4>Will you require distribution of print materia ?</h4>
+                                            <h4>Will you require distribution of print material ?</h4>
                                             <label>
                                                 <input class="noBtn btn-next" type="radio" name="distributedPrintMaterialChooseBtn" value="0" checked="checked">
                                                 No
@@ -268,7 +268,15 @@
                                             <div class="form-group">
                                                 {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location
 (Remainder will be sent to you the agency)') !!}
-                                                {!! Form::select('quantity', array('select' => 'Please Select','quantity' => 'Quantity'),['class'=>'form-control','id'=>'quantity']) !!}
+
+                                                <select class="quantity" name="quantity"  style="color: black">
+                                                    <option value="select">Please Select</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label>NOTE</label>
@@ -307,7 +315,7 @@
                                             <div class="form-group">
                                                 {!! Form::label('digital_media_id','Most popular websites') !!}<br>
                                                 @foreach($data['digital_medias'] as $digital_media)
-                                                {!! Form::radio('digital_media_id',$digital_media->id,['class'=>'form-control']) !!} {{ $digital_media->title }} <br>
+                                                {!! Form::radio('digital_media_id','',['class'=>'form-control']) !!} {{ $digital_media->title }} <br>
                                                 @endforeach
 
                                             </div>
@@ -351,7 +359,8 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         @foreach($local_media->relLocalMedia as $relLocalMedia)
-                                                        {!! Form::radio('local_media_option_id',$relLocalMedia->id) !!} {{ $relLocalMedia->title }}<br>
+                                                            {{--<input type="radio">--}}
+                                                        {!! Form::radio('local_media_option_id['.$local_media->id.']',$relLocalMedia->id) !!} {{ $relLocalMedia->title }}<br>
                                                         @endforeach
                                                     </div>
                                                 </div>

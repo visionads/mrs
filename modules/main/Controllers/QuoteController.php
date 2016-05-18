@@ -15,6 +15,7 @@ use App\DigitalMedia;
 use App\LocalMedia;
 use App\PropertyDetail;
 use App\Quote;
+use App\PrintMaterialDistribution;
 use Auth;
 use DB;
 use Illuminate\Support\Facades\Redirect;
@@ -56,24 +57,26 @@ class QuoteController extends Controller
     public function retrieve()
     {
         $pageTitle = 'MRS - Retrieve Quote';
-        $data = DB::table('quote')->orderBy('id','DESC')->paginate(30);
+//        $data = DB::table('quote')->orderBy('id','DESC')->paginate(30);
+        $data = Quote::with('solution_type')->orderBy('id','DESC')->paginate(30);
+//        dd($data);
         return view('main::quote.retrieve_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
 
     public function retrieve_details($id)
     {
         $pageTitle = 'MRS - Retrieve Quote Details';
-        $data = DB::table('quote')-where('id', $id)->orderBy('id','DESC')->get();
+        $data = DB::table('quote')->where('id', $id)->orderBy('id','DESC')->get();
         return view('main::quote.retrieve_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
-    public function retrieve_details_demo()
+    public function retrieve_details_demo($quote_id, $quote_number)
     {
         $pageTitle = 'MRS - Retrieve Quote Details-demo';
         $data = '';
         return view('main::quote.retrieve_quote_details',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
 
-    public function quote_summary()
+    public function quote_summary($quote_id, $quote_number)
     {
         $pageTitle = 'Summary of Marketing';
         $data = '';
@@ -103,7 +106,7 @@ class QuoteController extends Controller
             $property['vendor_email'] = $received['vendor_email'];
             $property['vendor_phone'] = $received['vendor_phone'];
             $property_id = PropertyDetail::create($property);
-//            $data['property_detail_id'] = $property_id->id;
+            $data['property_detail_id'] = $property_id->id;
 
             /*
              * getting photography info
@@ -122,9 +125,11 @@ class QuoteController extends Controller
                 if(isset($received['signboard_package_id'])){
 
                     $data['signboard_package_id'] = $received['signboard_package_id'];
-                }
-                if(isset($received['signboard_package_size_id'])){
-                    $data['signboard_package_size_id'] = $received['signboard_package_size_id'];
+
+                    if(isset($received['signboard_package_size_id'])){
+
+                        $data['signboard_package_size_id'] = $received['signboard_package_size_id'][$received['signboard_package_id']];
+                    }
                 }
                 $data['signboard_package_comments'] = $received['signboard_package_comments'];
             }
@@ -132,21 +137,23 @@ class QuoteController extends Controller
              * getting print material info
              * */
             if (isset($received['printMaterialChooseBtn']) && !empty($received['printMaterialChooseBtn']) && $received['printMaterialChooseBtn'] == 1) {
-                if(isset($received['print_material_size_id']))
-                {
-                    $data['print_material_size_id'] = $received['print_material_size_id'];
-                }
                 if(isset($received['print_material_id'])){
                     $data['print_material_id'] = $received['print_material_id'];
+
+                    if(isset($received['print_material_size_id']))
+                    {
+
+                        $data['print_material_size_id'] = $received['print_material_size_id'][$received["print_material_id"]];
+                    }
                 }
-                if(isset($received['print_material_distribution']))
+                if(isset($received['is_distributed']))
                 {
-                    foreach ($received['print_material_distribution'] as $print_id) {
+                    foreach ($received['is_distributed'] as $print_id) {
                         if($print_id==$received['print_material_id'])
                         {
-                            $data['print_material_distribution'] = 1;
+                            $data['is_distributed'] = 1;
                         }else{
-                            $data['print_material_distribution'] = 0;
+                            $data['is_distributed'] = 0;
                         }
                     }
 
@@ -157,8 +164,11 @@ class QuoteController extends Controller
              * getting distributed print material info
              * */
             if (isset($received['distributedPrintMaterialChooseBtn']) && !empty($received['distributedPrintMaterialChooseBtn']) && $received['distributedPrintMaterialChooseBtn'] == 1) {
-                $data['quantity'] = $received['quantity'];
-                $data['note'] = $received['note'];
+                $distribution['quantity'] = $received['quantity'];
+                $distribution['note'] = $received['note'];
+                $distribution_id=PrintMaterialDistribution::create($distribution);
+                $data['print_material_distribution_id']=$distribution_id->id;
+
             }
             /*
              * getting distributed print material info
@@ -177,14 +187,15 @@ class QuoteController extends Controller
                 if(isset($received['local_media_id']))
                 {
                     $data['local_media_id'] = $received['local_media_id'];
-                }
-                if(isset($received['local_media_option_id']))
-                {
-                    $data['local_media_option_id'] = $received['local_media_option_id'];
+
+                    if(isset($received['local_media_option_id']))
+                    {
+                        $data['local_media_option_id'] = $received['local_media_option_id'][$received['local_media_id']];
+                    }
                 }
                 $data['local_media_note'] = $received['local_media_note'];
             }
-            dd($data);
+//            dd($data);
             Quote::create($data);
             \DB::commit();
             Session::flash('message','Data has been successfully stored');
@@ -222,7 +233,17 @@ class QuoteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pageTitle = 'MRS - Edit Quote';
+        $user_image = UserImage::where('user_id',Auth::user()->id)->first();
+        $data['solution_types']= SolutionType::get();
+        $data['photography_packages']= PhotographyPackage::with('relPhotographyPackage')->get();
+        $data['signboard_packages']= SignboardPackage::with('relSignboardPackage')->get();
+        $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
+        $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
+        $data['digital_medias']= DigitalMedia::get();
+        $data['quote']= Quote::where('id',$id)->with('property_detail','print_material_distribution')->first();
+//        dd($data['quote']);
+        return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
 
     /**
