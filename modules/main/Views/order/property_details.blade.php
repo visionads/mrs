@@ -63,18 +63,6 @@
                     </div>
                 </div>
 
-                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                    <div class="col-sm-12">
-                    <h4 style="color:#f31f21">Will you require distribution of print material </h4>
-                    <label>
-                        <input type="radio" name="print-distribution-material" value="1" class="" id="step-no"> &nbsp; No
-                    </label>
-                    <label>
-                        <input type="radio" name="print-distribution-material" value="0" class="btn-next" id="last_step"> &nbsp; Yes
-                    </label>
-                    </div>
-                </div>
-
             </div>
 
             {{--Right Pan--}}
@@ -127,12 +115,27 @@
         </div>
     </div>
 
+    <div class="container pages new_order font-droid">
+        <hr>
+        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+            <div class="col-md-12">
+                <div class="col-sm-12" id="new_order_title"><span class="label size-18">DISTRIBUTION OF PRINT MATERIAL</span><br><br></div>
+            </div>
+            <div class="col-sm-12">
+                <h4 style="color:#f31f21">Will you require distribution of print material </h4>
+                <label>
+                    <input type="radio" name="print-distribution-material" value="1" class="" id="step-no"> &nbsp; No
+                </label>
+                <label>
+                    <input type="radio" name="print-distribution-material" value="0" class="btn-next" id="last_step"> &nbsp; Yes
+                </label>
+            </div>
+        </div>
+    </div>
 
     {{--3rd Step of the form--}}
     <div class="container pages new_order font-droid step-three" style="display: none">
-        <div class="col-md-12">
-            <div class="col-sm-12" id="new_order_title"><span class="label size-18">DISTRIBUTION OF PRINT MATERIAL</span><br><br></div>
-        </div>
+
         <div class="col-sm-12">
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
@@ -194,7 +197,7 @@
     </div>
 
     {{--If choose No--}}
-    <div class="container pages new_order font-droid step-no-submit" style="display: none">
+    <div class="container pages new_order font-droid step-no-submit">
         <div class="col-sm-12">
             <div class="form-group">
                 <div class="col-sm-12 center" id="submit_button">

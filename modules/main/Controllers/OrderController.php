@@ -76,9 +76,9 @@ class OrderController extends Controller
         DB::beginTransaction();
         try{
 
-            $model_pd = new PropertyDetail();
+            $model_property_details = new PropertyDetail();
             //$pd = $model_pd->create($input_pd);
-            $confirm = $model_pd->create($input_confirm);
+            $confirm = $model_property_details->create($input_confirm);
 
             if($confirm)
             {
@@ -104,12 +104,12 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $property_id = $input['property_detail_id'];
+        $property_details_id = $input['property_detail_id'];
         $quote_id = $input['quote_id'];
 
         //print_r($property_id);
         //exit;
-        $input_pd = [
+        $input_property_details = [
             'main_selling_line'     => $input['main_selling_line'],
             'property_description'  => $input['property_description'],
             'inspection_date'       => $input['inspection_date'],
@@ -121,7 +121,7 @@ class OrderController extends Controller
             'note'                  => $input['note']
         ];
 
-        $input_pmd = [
+        $input_print_material_distribution = [
             'quantity'              => $input['quantity'],
             'is_surrounded'         => $input['is_surrounded'],
             'other_address'         => $input['other_address'],
@@ -134,20 +134,25 @@ class OrderController extends Controller
         DB::beginTransaction();
         try{
 
-            $model_pd = new PropertyDetail();
-            $pd = $model_pd->where('id',$property_id)->update($input_pd);
-            //$pd = $model_pd->create($input_pd);
+            $model_property_details = PropertyDetail::findOrFail($property_details_id);
+            $property_details = $model_property_details->update($input_property_details);
 
-            $model_pmd = new PrintMaterialDistribution();
-            $pmd = $model_pmd->create($input_pmd);
+            $model_print_material_distribution = new PrintMaterialDistribution();
+            $print_material_distribution = $model_print_material_distribution->create($input_print_material_distribution);
 
-            if($pd && $pmd)
+            if($property_details && $print_material_distribution)
             {
-                $model_quote = new Quote();
-                $model_quote->where('id',$quote_id);
-                $model_quote->property_detail_id = $pd->id;
-                $model_quote->print_material_distribution = $pmd->id;
-                $model_quote->save();
+                //$model_quote = new Quote();
+                //$model_quote->where('id',$quote_id);
+                $model_quote = Quote::findOrFail($quote_id);
+                $quote_input_arr = [
+                    //'property_detail_id' => $property_details->id,
+                    'print_material_distribution' => $print_material_distribution->id
+                ];
+                //$model_quote->property_detail_id = $pd->id;
+                //$model_quote->print_material_distribution = $pmd->id;
+                //$model_quote->save();
+                $model_quote->update($quote_input_arr);
             }
 
             DB::commit();
@@ -158,10 +163,10 @@ class OrderController extends Controller
         }
 
         $pageTitle = 'Payment';
-        $data_pd = PropertyDetail::where('id',$pd->id)->get();
-        $data_pmd = PrintMaterialDistribution::where('id',$pmd->id)->get();
+        //$data_pd = PropertyDetail::where('id',$pd->id)->get();
+        //$data_pmd = PrintMaterialDistribution::where('id',$pmd->id)->get();
         //return view('main::order.order',['pageTitle'=>$pageTitle,'data_pd'=>$data_pd,'data_pmd'=>$data_pmd]);
-        return view('main::payment.payment',['pageTitle'=>$pageTitle]);
+        return view('main::payment.index',['pageTitle'=>$pageTitle]);
     }
 
     /**
