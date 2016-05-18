@@ -12,7 +12,7 @@
             background-color: #f36f21;
         }
     </style>
-    {!! Form::open(['method'=>'GET','route'=>'place-order-store']) !!}
+    {!! Form::open(['method'=>'POST','route'=>'place-order-store']) !!}
     {{--1st Step of the form--}}
     <div id="step-one" class="container pages new_order font-droid step-one">
         <div class="col-md-12">
@@ -124,7 +124,7 @@
             <div class="col-sm-12">
                 <h4 style="color:#f31f21">Will you require distribution of print material </h4>
                 <label>
-                    <input type="radio" name="print-distribution-material" value="1" class="" id="step-no"> &nbsp; No
+                    <input type="radio" name="print-distribution-material" value="1" class="" id="step-no" checked> &nbsp; No
                 </label>
                 <label>
                     <input type="radio" name="print-distribution-material" value="0" class="btn-next" id="last_step"> &nbsp; Yes
@@ -154,7 +154,7 @@
                 <div class="col-sm-12">
                     {!! Form::label('is_surrounded', 'location of distribution in the surrounding the property :', ['class' => 'control-label']) !!}<br>
                     <label>
-                        <input type="radio" name="is_surrounded" value="1" > &nbsp; No
+                        <input type="radio" name="is_surrounded" value="1" checked> &nbsp; No
                     </label>
                     <label>
                         <input type="radio" name="is_surrounded" value="2" > &nbsp; Yes
