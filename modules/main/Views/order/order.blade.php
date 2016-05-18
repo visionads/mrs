@@ -67,7 +67,8 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('vendor_name', 'Vendor Name :', []) !!}
-                        {!! Form::text('vendor_name', Input::old('vendor_name'), ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
+                        <small class="required size-13">(Required)</small>
+                        {!! Form::text('vendor_name', Input::old('vendor_name'), ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
                     </div>
                 </div>
                 {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
@@ -79,7 +80,8 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('vendor_phone', 'Vendor Phone :', []) !!}
-                        {!! Form::text('vendor_phone', Input::old('vendor_phone'), ['id'=>'vendor_phone', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
+                        <small class="required size-13">(Required)</small>
+                        {!! Form::text('vendor_phone', Input::old('vendor_phone'), ['id'=>'vendor_phone', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
                     </div>
                 </div>
 
@@ -93,8 +95,9 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('date', 'Date :', []) !!}
+                        <small class="required size-13">(Required)</small>
                         <div class="input-group date">
-                            {!! Form::text('signature_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                            {!! Form::text('signature_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date','required']) !!}
                             {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
@@ -134,25 +137,6 @@
         </script>
     @endif
 
-    <script>
-        // tooltip for buttons
-        $(".btn").popover({ trigger: "manual" , html: true, animation:false})
-                .on("mouseenter", function () {
-                    var _this = this;
-                    $(this).popover("show");
-                    $(".popover").on("mouseleave", function () {
-                        $(_this).popover('hide');
-                    });
-                }).on("mouseleave", function () {
-            var _this = this;
-            setTimeout(function () {
-                if (!$(".popover:hover").length) {
-                    $(_this).popover("hide");
-                }
-            }, 300);
-        });
-        // tooltip for input field
-        $(".form-control").tooltip();
-    </script>
+    @include('main::order._script')
 
 @stop
