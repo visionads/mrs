@@ -18,8 +18,8 @@
         <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label size-25">{{ $pageTitle }}</span><br><br></div>
         </div>
-        <div class="col-md-12">
-            <div class="col-sm-6">
+        <div class="row">
+            <div class="col-sm-6 no-padding">
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         <h1 class="size-20">Details of the order summary</h1>
@@ -56,13 +56,13 @@
                         <h2 style="color:#f36f21">Total: $1234</h2>
                         <h2 style="color:#f36f21">GST:$</h2>
                         <h2 style="color:#f36f21">Total COST Inc GST: $</h2>
-                        <a href="{{ route('property-details') }}" class="btn new_button"> <span class="glyphicon glyphicon-edit"></span> &nbsp; Edit</a>
+                        <a href="#{{--{{ route('property-details') }}--}}" class="btn new_button"> <span class="glyphicon glyphicon-edit"></span> &nbsp; Edit</a>
                     </div>
                 </div>
             </div>
 
             {!! Form::open(['route' => 'agreement', 'method' => 'post','id' => 'jq-validation-form']) !!}
-            <div class="col-sm-6" id="submit_button_div">
+            <div class="col-sm-6 no-padding" id="submit_button_div">
                 <p style="color:#f36f21;">Vendor Acknowledgment  : I Hereby agree to the outlined marketing campaign above</p>
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
@@ -108,8 +108,8 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-sm-12" id="submit_button">
+                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-sm-12 text-right">
                         {!! Form::submit('Confirm Quote', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;
                     </div>
                     {{--<div class="col-sm-12" id="submit_button">
