@@ -49,7 +49,7 @@
                     <div class="col-sm-12">
                         {!! Form::label('date', 'Inspection dates and times :', []) !!}
                         <div class="input-group date">
-                            {!! Form::text('inspection_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['inspection_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
+                            {!! Form::text('inspection_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['inspection_date'], ['id'=>'date_id','placeholder'=>'Click here to choose Date','class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
                             {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
@@ -70,42 +70,35 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('other_features', 'Other Features:', []) !!}
-                        {!! Form::text('other_features', Input::old('other_features'), ['id'=>'other_features', 'class' => 'form-control','maxlength'=>'64','title'=>'enter other features']) !!}
+                        {!! Form::text('other_features', Input::old('other_features'), ['id'=>'other_features', 'class' => 'form-control','placeholder'=>'Other Features','title'=>'enter other features']) !!}
                     </div>
                 </div>
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('selling_price', 'selling Price:', []) !!}
-                        {!! Form::text('selling_price', Input::old('selling_price'), ['id'=>'selling_price', 'class' => 'form-control','maxlength'=>'64','title'=>'enter selling price']) !!}
+                        {!! Form::input('number','selling_price', Input::old('selling_price'), ['id'=>'selling_price', 'class' => 'form-control','placeholder'=>'Numeric Value only e.g.- 1100','title'=>'enter selling price']) !!}
                     </div>
                 </div>
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('auction_time', 'Auction times:', []) !!}
-                        {!! Form::text('auction_time', Input::old('auction_time'), ['id'=>'auction_time', 'class' => 'form-control','maxlength'=>'64','title'=>'enter auction time']) !!}
+                        {!! Form::text('auction_time', Input::old('auction_time'), ['id'=>'auction_time', 'class' => 'form-control', 'placeholder'=>'e.g.- 20 days','title'=>'enter auction time']) !!}
                     </div>
                 </div>
-
-                {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                    <div class="col-sm-12">
-                        {!! Form::label('price', 'Price :', []) !!}
-                        {!! Form::text('price', Input::old('price'), ['id'=>'price', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
-                    </div>
-                </div>--}}
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('offer', 'Offer:', []) !!}
-                        {!! Form::text('offer', Input::old('offer'), ['id'=>'offer', 'class' => 'form-control','maxlength'=>'64','title'=>'enter offer']) !!}
+                        {!! Form::text('offer', Input::old('offer'), ['id'=>'offer', 'class' => 'form-control', 'placeholder'=>'Offer','maxlength'=>'64','title'=>'enter offer']) !!}
                     </div>
                 </div>
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('note', 'Note :', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('note', Input::old('note'),['size' => '6x13','title'=>'Type note','id'=>'note','placeholder'=>'note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                        {!! Form::textarea('note', Input::old('note'),['size' => '6x13','title'=>'Type note','id'=>'note','placeholder'=>'Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
                     </div>
                 </div>
 
@@ -113,39 +106,36 @@
                     {{--<div class="col-sm-12" id="submit_button">
                         {!! Form::submit('Place Order', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click place order button']) !!}&nbsp;
                     </div>--}}
-                    <div class="col-sm-12 text-right">
+                    {{--<div class="col-sm-12 text-right">
                         <button class="btn new_button" id="next_step" type="button"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
-                    </div>
+                    </div>--}}
 
                 </div>
             </div>
         </div>
     </div>
 
-
-    {{--2nd Step of the form--}}
-    <div class="container pages new_order font-droid step-two" style="display: none" >
-        <div class="col-md-12">
-            <div class="col-sm-12" id="new_order_title"><span class="label size-25">DISTRIBUTION OF PRINT MATERIAL</span><br><br></div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-bottom">
-                    <div class="col-sm-12">
-                        <h4 style="color:#f31f21">Will you require distribution of print material </h4>
-                        <label>
-                            <input type="radio" name="print-distribution-material" value="1" class="" id="step-no"> &nbsp; No
-                        </label>
-                        <label>
-                            <input type="radio" name="print-distribution-material" value="0" class="btn-next" id="last_step"> &nbsp; Yes
-                        </label>
-                    </div>
-                    <button type="button" class="btn pull-left new_button" id="back_to_first"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
+    <div class="container pages new_order font-droid">
+        <hr>
+        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+            <div class="col-md-12">
+                <div class="col-sm-12" id="new_order_title"><span class="label size-18">DISTRIBUTION OF PRINT MATERIAL</span><br><br></div>
+            </div>
+            <div class="col-sm-12">
+                <h4 style="color:#f31f21">Will you require distribution of print material </h4>
+                <label>
+                    <input type="radio" name="print-distribution-material" value="1" class="" id="step-no"> &nbsp; No
+                </label>
+                <label>
+                    <input type="radio" name="print-distribution-material" value="0" class="btn-next" id="last_step"> &nbsp; Yes
+                </label>
             </div>
         </div>
     </div>
 
     {{--3rd Step of the form--}}
     <div class="container pages new_order font-droid step-three" style="display: none">
+
         <div class="col-sm-12">
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
@@ -207,7 +197,7 @@
     </div>
 
     {{--If choose No--}}
-    <div class="container pages new_order font-droid step-no-submit" style="display: none">
+    <div class="container pages new_order font-droid step-no-submit">
         <div class="col-sm-12">
             <div class="form-group">
                 <div class="col-sm-12 center" id="submit_button">

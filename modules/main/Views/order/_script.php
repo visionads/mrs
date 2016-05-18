@@ -19,7 +19,7 @@
         $("#last_step").click(function(){
             $(".step-three").fadeIn();
             $(".step-two").fadeOut();
-            $(".step-one").fadeOut();
+            //$(".step-one").fadeIn();
             $(".step-no-submit").fadeIn();
         });
         $("#step-no").click(function(){
