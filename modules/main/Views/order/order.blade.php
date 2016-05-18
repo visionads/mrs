@@ -18,8 +18,8 @@
         <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label size-25">{{ $pageTitle }}</span><br><br></div>
         </div>
-        <div class="col-md-12">
-            <div class="col-sm-6">
+        <div class="row">
+            <div class="col-sm-6 no-padding">
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         <h1 class="size-20">Details of the order summary</h1>
@@ -56,18 +56,19 @@
                         <h2 style="color:#f36f21">Total: $1234</h2>
                         <h2 style="color:#f36f21">GST:$</h2>
                         <h2 style="color:#f36f21">Total COST Inc GST: $</h2>
-                        <a href="{{ route('property-details') }}" class="btn new_button"> <span class="glyphicon glyphicon-edit"></span> &nbsp; Edit</a>
+                        <a href="#{{--{{ route('property-details') }}--}}" class="btn new_button"> <span class="glyphicon glyphicon-edit"></span> &nbsp; Edit</a>
                     </div>
                 </div>
             </div>
 
             {!! Form::open(['route' => 'agreement', 'method' => 'post','id' => 'jq-validation-form']) !!}
-            <div class="col-sm-6" id="submit_button_div">
+            <div class="col-sm-6 no-padding" id="submit_button_div">
                 <p style="color:#f36f21;">Vendor Acknowledgment  : I Hereby agree to the outlined marketing campaign above</p>
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('vendor_name', 'Vendor Name :', []) !!}
-                        {!! Form::text('vendor_name', Input::old('vendor_name'), ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
+                        <small class="required size-13">(Required)</small>
+                        {!! Form::text('vendor_name', Input::old('vendor_name'), ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
                     </div>
                 </div>
                 {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
@@ -79,7 +80,8 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('vendor_phone', 'Vendor Phone :', []) !!}
-                        {!! Form::text('vendor_phone', Input::old('vendor_phone'), ['id'=>'vendor_phone', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
+                        <small class="required size-13">(Required)</small>
+                        {!! Form::text('vendor_phone', Input::old('vendor_phone'), ['id'=>'vendor_phone', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
                     </div>
                 </div>
 
@@ -93,8 +95,9 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('date', 'Date :', []) !!}
+                        <small class="required size-13">(Required)</small>
                         <div class="input-group date">
-                            {!! Form::text('signature_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                            {!! Form::text('signature_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date','required']) !!}
                             {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
@@ -108,8 +111,8 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-sm-12" id="submit_button">
+                <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-sm-12 text-right">
                         {!! Form::submit('Confirm Quote', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;
                     </div>
                     {{--<div class="col-sm-12" id="submit_button">
@@ -134,25 +137,6 @@
         </script>
     @endif
 
-    <script>
-        // tooltip for buttons
-        $(".btn").popover({ trigger: "manual" , html: true, animation:false})
-                .on("mouseenter", function () {
-                    var _this = this;
-                    $(this).popover("show");
-                    $(".popover").on("mouseleave", function () {
-                        $(_this).popover('hide');
-                    });
-                }).on("mouseleave", function () {
-            var _this = this;
-            setTimeout(function () {
-                if (!$(".popover:hover").length) {
-                    $(_this).popover("hide");
-                }
-            }, 300);
-        });
-        // tooltip for input field
-        $(".form-control").tooltip();
-    </script>
+    @include('main::order._script')
 
 @stop

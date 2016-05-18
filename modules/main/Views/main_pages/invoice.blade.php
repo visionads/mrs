@@ -4,6 +4,7 @@
 
 
 
+    <div class="container-fluid">
     <div class="theme-default main-menu-animated page-invoice gray-bg">
         <div id="main-wrapper">
             <div id="content-wrapper">
@@ -115,6 +116,7 @@
         <![endif]-->
 
 
+    </div>
     </div>
 
 

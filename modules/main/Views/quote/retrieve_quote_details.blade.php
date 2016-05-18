@@ -15,7 +15,8 @@
         .commtable tr td { background:#303030; color:#d0d0d0; border-bottom: 1px solid #404040 !important;}
     </style>
 
-    <div id="container" class="container pages new_order font-droid">
+    <div class="container pages font-droid">
+        <div class="row">
         <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label size-25">{{ $pageTitle }}</span><br><br></div>
         </div>
@@ -23,8 +24,8 @@
             <div class="col-sm-6">
 
                     <div class="col-sm-12">
-                        <table class="table table-striped size-13 commtable">
-                            {{--@if(isset($data_pd))
+                        {{--<table class="table table-striped size-13 commtable">
+                            --}}{{--@if(isset($data_pd))
                                 @foreach($data_pd as $row_pd)
                                     <tr><td>Main Selling Line</td><td>:</td><td>{{ $row_pd->main_selling_line }}</td></tr>
                                     <tr><td>Property Description</td><td>:</td><td>{{ $row_pd->property_description }}</td></tr>
@@ -46,11 +47,11 @@
                                     <tr><td>Date of Distribution</td><td>:</td><td>{{ $row_pmd->date_of_distribution }}</td></tr>
                                     <tr><td>Note</td><td>:</td><td>{{ $row_pmd->note }}</td></tr>
                                 @endforeach
-                            @endif--}}
+                            @endif--}}{{--
 
-                        </table>
-                        <table class="table table-striped size-13 commtable">
-                            {{--<tr><td colspan="3"><h1 class="size-16"><span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }}</h1></td></tr>--}}
+                        </table>--}}
+                        {{--<table class="table table-striped size-13 commtable">
+                            --}}{{--<tr><td colspan="3"><h1 class="size-16"><span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }}</h1></td></tr>--}}{{--
                             <tr><td colspan="3"><h1 class="size-16"><span class="glyphicon glyphicon-list">&nbsp;</span> Details of the order summary</h1></td></tr>
 
                             <tr><th colspan="3">{{ $pageTitle }}</th></tr>
@@ -62,13 +63,25 @@
                             <tr><td>Print Material Distribution</td><td> : </td><td>print_material_distribution</td></tr>
                             <tr><td>Digital Media Note</td><td> : </td><td>digital_media_note</td></tr>
                             <tr><td>Local Media Note</td><td> : </td><td>local_media_note</td></tr>
-                        </table>
+                        </table>--}}
+
+                        <h1 class="size-25">Details of the order summary</h1>
+
+                        <p class="size-13">
+                        + Quote No. : 009898<br>
+                        + Photography Package Comments : photography_package_comments<br>
+                        + Signboard Package Comments : signboard_package_comments<br>
+                        + Print Material Comments : print_material_comments<br>
+                        + Print Material Distribution : print_material_distribution<br>
+                        + Digital Media Note : digital_media_note<br>
+                        + Local Media Note : local_media_note
+                        </p>
                     </div>
 
             </div>
 
 
-            <div class="col-sm-6">
+            <div class="col-sm-6 text-right">
                 <h2 style="color:#f36f21">Total: $1234</h2>
                 <h2 style="color:#f36f21">GST:$</h2>
                 <h2 style="color:#f36f21">Total COST Inc GST: $</h2>
@@ -76,6 +89,7 @@
                 <a href="{{ route('retrieve-quote') }}" class="btn new_button ">Back To Quote</a>&nbsp;
                 <a href="{{ route('place-order') }}" class="btn new_button ">Proceed Order</a>
             </div>
+        </div>
         </div>
     </div>
 

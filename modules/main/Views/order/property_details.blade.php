@@ -18,13 +18,12 @@
         <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label size-25">{{ $pageTitle }}</span><br><br></div>
         </div>
-        <div class="col-md-12">
+        <div class="row">
             {{--Left pan--}}
-            <div class="col-sm-6">
-
+            <div class="col-sm-6 no-padding">
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
-                        <p>Details will be used to for all marketing marterial unless specified.
+                        <p class="size-13">Details will be used to for all marketing marterial unless specified.
                             If you wish to have details other then stated here please specify in the “note”
                             space provided. (please ensure to check all details are correct)</p>
                     </div>
@@ -33,7 +32,8 @@
                 {!! Form::hidden('property_detail_id',$property_id, ['class'=>'coa-id-val']) !!}
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
-                        {!! Form::label('main_selling_line', 'Main selling line:', []) !!}
+                        {!! Form::label('main_selling_line', 'Main selling line:', ['class' => 'control-label']) !!}
+                        <small class="required size-13">(Required)</small>
                         {!! Form::text('main_selling_line', Input::old('main_selling_line'), ['id'=>'main_selling_line', 'placeholder'=>'Main selling line', 'class' => 'form-control','maxlength'=>'64','title'=>'enter main selling line','required']) !!}
                     </div>
                 </div>
@@ -41,15 +41,16 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('property_description', 'Property description :', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('property_description', Input::old('property_description'),['size' => '6x10','title'=>'Type property description','id'=>'property_description','placeholder'=>'property description here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                        <small class="required size-13">(Required)</small>
+                        {!! Form::textarea('property_description', Input::old('property_description'),['size' => '6x9','title'=>'Type property description','id'=>'property_description','placeholder'=>'property description here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
                     </div>
                 </div>
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
-                        {!! Form::label('date', 'Inspection dates and times :', []) !!}
+                        {!! Form::label('inspection_date', 'Inspection dates and times :', ['class' => 'control-label']) !!}
                         <div class="input-group date">
-                            {!! Form::text('inspection_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['inspection_date'], ['id'=>'date_id','placeholder'=>'Click here to choose Date','class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
+                            {!! Form::text('inspection_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['inspection_date'], ['id'=>'date_id','placeholder'=>'Click here to choose Inspection Date','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
                             {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
@@ -66,31 +67,37 @@
             </div>
 
             {{--Right Pan--}}
-            <div class="col-sm-6" id="submit_button_div">
+            <div class="col-sm-6 no-padding" id="submit_button_div">
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
-                        {!! Form::label('other_features', 'Other Features:', []) !!}
+                        {!! Form::label('other_features', 'Other Features:', ['class' => 'control-label']) !!}
                         {!! Form::text('other_features', Input::old('other_features'), ['id'=>'other_features', 'class' => 'form-control','placeholder'=>'Other Features','title'=>'enter other features']) !!}
                     </div>
                 </div>
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
-                        {!! Form::label('selling_price', 'selling Price:', []) !!}
-                        {!! Form::input('number','selling_price', Input::old('selling_price'), ['id'=>'selling_price', 'class' => 'form-control','placeholder'=>'Numeric Value only e.g.- 1100','title'=>'enter selling price']) !!}
+                        {!! Form::label('selling_price', 'selling Price:', ['class' => 'control-label']) !!}
+                        <small class="required size-13">(Required)</small>
+                        {!! Form::input('number','selling_price', Input::old('selling_price'), ['id'=>'selling_price', 'class' => 'form-control','placeholder'=>'Numeric Value only e.g.- 1100','title'=>'enter selling price','required']) !!}
                     </div>
                 </div>
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
-                        {!! Form::label('auction_time', 'Auction times:', []) !!}
-                        {!! Form::text('auction_time', Input::old('auction_time'), ['id'=>'auction_time', 'class' => 'form-control', 'placeholder'=>'e.g.- 20 days','title'=>'enter auction time']) !!}
+                        {!! Form::label('auction_time', 'Auction Times :', ['class' => 'control-label']) !!}
+                        <small class="required size-13">(Required)</small>
+                        <div class="input-group date">
+                            {!! Form::text('auction_time', @$generate_voucher_number? date('Y/m/d') : @$data[0]['auction_time'], ['id'=>'date_id','placeholder'=>'Click here to choose Auction Date','class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
+                            {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
-                        {!! Form::label('offer', 'Offer:', []) !!}
+                        {!! Form::label('offer', 'Offer:', ['class' => 'control-label']) !!}
                         {!! Form::text('offer', Input::old('offer'), ['id'=>'offer', 'class' => 'form-control', 'placeholder'=>'Offer','maxlength'=>'64','title'=>'enter offer']) !!}
                     </div>
                 </div>
@@ -116,10 +123,10 @@
     </div>
 
     <div class="container pages new_order font-droid">
-        <hr>
-        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+        <hr class="common-hr">
+        <div class="row form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
             <div class="col-md-12">
-                <div class="col-sm-12" id="new_order_title"><span class="label size-18">DISTRIBUTION OF PRINT MATERIAL</span><br><br></div>
+                <div class="col-sm-12" id="new_order_title"><span class="label size-25">DISTRIBUTION OF PRINT MATERIAL</span><br><br></div>
             </div>
             <div class="col-sm-12">
                 <h4 style="color:#f31f21">Will you require distribution of print material </h4>
@@ -183,16 +190,6 @@
                     {!! Form::textarea('note', Input::old('note'),['size' => '6x10','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
                 </div>
             </div>
-
-            {{--<div class="form-group">
-                --}}{{--<div class="col-sm-12" id="submit_button">
-                    <a href="{{ route('place-order') }}" class="btn new_button">Place Order</a>
-                </div>--}}{{--
-                <div class="col-sm-12" id="submit_button">
-                    {!! Form::submit('Place Order', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click place order button']) !!}&nbsp;
-                </div>
-            </div>--}}
-
         </div>
     </div>
 
@@ -201,6 +198,7 @@
         <div class="col-sm-12">
             <div class="form-group">
                 <div class="col-sm-12 center" id="submit_button">
+                    <br>
                     {!! Form::submit('Place Order', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click place order button']) !!}&nbsp;
                 </div>
             </div>
