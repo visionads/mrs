@@ -39,7 +39,7 @@
                 <a href="{{ url('main/new-quote') }}" class="quote">New Quote</a>
         </div>
         <div class="form-group" id="new_quote">
-                <a href="{{route('retrieve-quote')}}" class="quote">Retrieve Quote</a>
+                <a href="{{route('quote-list')}}" class="quote">Retrieve Quote</a>
         </div>
         {{--<div class="form-group" id="new_quote">
                 <a href="{{route('new-order')}}" class="quote">NEW ORDER</a>

@@ -24,21 +24,28 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //$pageTitle = 'MRS - Place Order Page';
+        /*//$pageTitle = 'MRS - Place Order Page';
         $pageTitle = 'Agreement';
         //$model = new PrintMaterialDistribution();
         $data = PrintMaterialDistribution::get()->last(); //->with('PropertyDetail')->get()->last();
 //        dd($data);
         $data1 = PropertyDetail::get()->last();
 //        dd($data1);
-        return view('main::order.order',['pageTitle'=>$pageTitle,'data'=>$data,'data1'=>$data1]);
+        return view('main::order.order',['pageTitle'=>$pageTitle,'data'=>$data,'data1'=>$data1]);*/
     }
-    public function property_details()
+    public function quote_confirm()
+    {
+        $pageTitle = 'Agreement';
+        $data = PrintMaterialDistribution::get()->last(); //->with('PropertyDetail')->get()->last();
+        $data1 = PropertyDetail::get()->last();
+        return view('main::order.quote_confirm',['pageTitle'=>$pageTitle,'data'=>$data,'data1'=>$data1]);
+    }
+    /*public function property_details()
     {
         $pageTitle = 'Property Detail For Marketing Material';
         $data = '';
         return view('main::order.property_details',['pageTitle'=>$pageTitle, 'data'=>$data]);
-    }
+    }*/
     /**
      * Show the form for creating a new resource.
      *
@@ -58,14 +65,13 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function agreement(Request $request)
+    public function place_order(Request $request)
     {
         $input = $request->all();
 
         $input_confirm = [
 
             'vendor_name'              => $input['vendor_name'],
-            //'vendor_email'              => $input['vendor_email'],
             'vendor_phone'              => $input['vendor_phone'],
             //'vendor_signature_path'    => $input['vendor_signature'],
             'signature_date'           => $input['signature_date']
@@ -75,19 +81,20 @@ class OrderController extends Controller
 
         DB::beginTransaction();
         try{
+            $property_detail_id = '160';
+            $quote_id = '101';
+            //$model_property_details = new PropertyDetail();
+            $model_property_details = PropertyDetail::findOrFail($property_detail_id);
+            $model_property_details->update($input_confirm);
 
-            $model_property_details = new PropertyDetail();
-            //$pd = $model_pd->create($input_pd);
-            $confirm = $model_property_details->create($input_confirm);
-
-            if($confirm)
+            /*if($confirm)
             {
-                $model_quote = new Quote();
-                $model_quote->property_detail_id = $confirm->id;
-                $model_quote->save();
+                //$model_quote = new Quote();
+                //$model_quote->property_detail_id = $confirm->id;
+                //$model_quote->save();
             }
-            $quote_id = $model_quote->id;
-            $property_id = $confirm->id;
+            //$quote_id = $model_quote->id;*/
+            $property_id = $property_detail_id;
 
             DB::commit();
             Session::flash('message', 'Successfully added!');
@@ -97,7 +104,7 @@ class OrderController extends Controller
         }
 
         $pageTitle = 'Property Detail For Marketing Material';
-        return view('main::order.property_details',['pageTitle'=>$pageTitle, 'quote_id'=>$quote_id, 'property_id'=>$property_id]);
+        return view('main::order.place_order',['pageTitle'=>$pageTitle, 'quote_id'=>$quote_id, 'property_id'=>$property_detail_id]);
     }
 
 
@@ -107,8 +114,8 @@ class OrderController extends Controller
         $property_details_id = $input['property_detail_id'];
         $quote_id = $input['quote_id'];
 
-        //print_r($property_id);
-        //exit;
+        //return $quote_id; exit;
+
         $input_property_details = [
             'main_selling_line'     => $input['main_selling_line'],
             'property_description'  => $input['property_description'],
@@ -142,16 +149,11 @@ class OrderController extends Controller
 
             if($property_details && $print_material_distribution)
             {
-                //$model_quote = new Quote();
-                //$model_quote->where('id',$quote_id);
                 $model_quote = Quote::findOrFail($quote_id);
+                //$model_quote = Quote::where('property_detail_id',$property_details_id)->first();
                 $quote_input_arr = [
-                    //'property_detail_id' => $property_details->id,
                     'print_material_distribution' => $print_material_distribution->id
                 ];
-                //$model_quote->property_detail_id = $pd->id;
-                //$model_quote->print_material_distribution = $pmd->id;
-                //$model_quote->save();
                 $model_quote->update($quote_input_arr);
             }
 
@@ -163,9 +165,6 @@ class OrderController extends Controller
         }
 
         $pageTitle = 'Payment';
-        //$data_pd = PropertyDetail::where('id',$pd->id)->get();
-        //$data_pmd = PrintMaterialDistribution::where('id',$pmd->id)->get();
-        //return view('main::order.order',['pageTitle'=>$pageTitle,'data_pd'=>$data_pd,'data_pmd'=>$data_pmd]);
         return view('main::payment.index',['pageTitle'=>$pageTitle]);
     }
 
