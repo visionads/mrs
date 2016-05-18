@@ -17,7 +17,7 @@
     </style>
 
 
-    <div id="">
+    <div class="container-fluid">
         <div class="no-border">
             <table cellspacing="0" cellpadding="0" border="0" class="table size-13 invoice-list">
                 <thead class="head-top">
