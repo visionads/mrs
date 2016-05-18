@@ -38,13 +38,13 @@ class Quote extends Model
 
     ];
 
-    public function solution_type(){
+    public function relSolutionType(){
         return $this->hasOne('App\SolutionType','id','solution_type_id');
     }
-    public function property_detail(){
+    public function relPropertyDetail(){
         return $this->hasOne('App\PropertyDetail','id','property_detail_id');
     }
-    public function print_material_distribution(){
+    public function relPrintMaterialDistribution(){
         return $this->hasOne('App\PrintMaterialDistribution','id','print_material_distribution_id');
     }
 }
