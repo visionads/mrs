@@ -62,6 +62,10 @@
             </div>
 
             {!! Form::open(['route' => 'place-order', 'method' => 'post','id' => 'jq-validation-form']) !!}
+
+            {!! Form::hidden('quote_id', $quote_id) !!}
+            {!! Form::hidden('quote_no', $quote_no) !!}
+
             <div class="col-sm-6 no-padding" id="submit_button_div">
                 <p style="color:#f36f21;">Vendor Acknowledgment  : I Hereby agree to the outlined marketing campaign above</p>
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">

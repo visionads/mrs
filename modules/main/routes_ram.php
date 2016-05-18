@@ -79,14 +79,23 @@
         'as'    => 'quote-confirm',
         'uses'  => 'OrderController@quote_confirm'
     ]);
-    Route::any('property-details',[
+    Route::any('property-details/{quote_id}/{quote_no}',[
         'as'    =>  'property-details',
         'uses'  =>  'OrderController@property_details'
     ]);
-    Route::any('place-order',[
+
+    //page for place order
+    Route::any('page-place-order/{quote_id}/{quote_no}',[
+        'as'    =>  'page-place-order',
+        'uses'  =>  'OrderController@page_place_order'
+    ]);
+
+    Route::any('place-order/{quote_id}/{quote_no}',[
         'as'    =>  'place-order',
         'uses'  =>  'OrderController@place_order'
     ]);
+
+
     Route::any('place-order-store',[
         'as'    =>  'place-order-store',
         'uses'  =>  'OrderController@store'
@@ -98,6 +107,12 @@
     ]);*/
 
     /*-----------Payment Router--------------*/
+
+    Route::any('payment-procedure/{quote_id}/{quote_no}',[
+        'as'    =>  'payment-procedure',
+        'uses'  =>  'OrderController@payment_procedure'
+    ]);
+
     Route::get('payment',[
         'as'    =>  'payment',
         'uses'  =>  'PaymentController@index'
