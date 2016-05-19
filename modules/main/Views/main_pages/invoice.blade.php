@@ -23,28 +23,26 @@
                         <h3>
                             <div>
                                 <small><strong>MRS</strong>App</small><br>
-                                INVOICE #001
+                                {{ $transaction->invoice_no }}
                             </div>
                         </h3>
                         <address>
-                            MRS Ltd.<br>
-                            Los Angeles, Lander Street, 32<br>
-                            90080 CA, USA
+                            {{ $user->username }}<br>
+                            address shown here
                         </address>
                         <div class="invoice-date">
                             <small><strong>Date</strong></small><br>
-                            February 21, 2015
+                            {{ date('M d Y',strtotime($transaction->created_at)) }}
                         </div>
                     </div> <!-- / .invoice-header -->
                     <div class="invoice-info">
                         <div class="invoice-recipient">
-                            <strong>Mr. John Smith</strong><br>
-                            New York, Pass Avenue, 109<br>
-                            10012 NY, USA
+                            <strong>{{ $quote->relPropertyDetail['owner_name'] }}</strong><br>
+                            {{ $quote->relPropertyDetail['address'] }}
                         </div> <!-- / .invoice-recipient -->
                         <div class="invoice-total">
                             TOTAL:
-                            <span>$4,657.75</span>
+                            <span>${{ $transaction->total_amount }}</span>
                         </div> <!-- / .invoice-total -->
                     </div> <!-- / .invoice-info -->
                     <hr>

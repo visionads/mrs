@@ -50,7 +50,6 @@ class OrderController extends Controller
     public function place_order(Request $request)
     {
         $input = $request->all();
-
         $quote_id = $input['quote_id'];
         $quote_no = $input['quote_no'];
 
