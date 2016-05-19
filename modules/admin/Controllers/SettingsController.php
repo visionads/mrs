@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use App\Setting;
 
 
 class SettingsController extends Controller
@@ -28,5 +29,16 @@ class SettingsController extends Controller
 
         return view('admin::settings.dashboard',['pageTitle'=>$pageTitle,'user_image'=>$user_image]);
     }
+
+    public function settings_table()
+    {
+        $pageTitle = 'Settings';
+        $data = Setting::get();
+        return view('admin::settings.settings_table',[
+            'pageTitle'=> $pageTitle,
+            'data'     => $data
+        ]);
+    }
+
 
 }

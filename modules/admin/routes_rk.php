@@ -130,3 +130,9 @@ Route::any('print-material-distribution-search',[
     'uses'  =>  'PrintMaterialDistributionController@search'
 ]);
 
+// --------------------- Settings Route --------------------//
+Route::any('settings-table',[
+    'as'    =>  'settings-table',
+    'uses'  =>  'SettingsController@settings_table'
+]);
+
