@@ -22,7 +22,7 @@
             <table cellspacing="0" cellpadding="0" border="0" class="table size-13 invoice-list">
                 <thead class="head-top">
                 <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                         <h1>
                             <span class="glyphicon glyphicon-list">&nbsp;</span>{{ $pageTitle }}
                         </h1>
@@ -33,6 +33,7 @@
                 <tr>
                     <th>SL/No.</th>
                     <th>Type</th>
+                    <th>Code</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -42,7 +43,11 @@
                         <tr>
                             <td class="text-center">{{ $j++ }}</td>
                             <td style="font-weight:normal;">{{ $row->type }}</td>
-                            <td class="text-center"><a href="{{--{{ route('invoice') }}--}}" class="btn btn-primary btn-xs" data-content="View" data-placement="left"><span class="glyphicon glyphicon-eye-open"></span></a> </td>
+                            <td style="font-weight:normal;">{{ $row->code }}</td>
+                            <td class="text-center">
+                                <a href="{{--{{ route('invoice') }}--}}" class="btn btn-primary btn-xs" data-content="View" data-placement="left"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <a href="{{--{{ route('invoice') }}--}}" class="btn btn-warning btn-xs" data-content="View" data-placement="left"><span class="glyphicon glyphicon-edit"></span></a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
