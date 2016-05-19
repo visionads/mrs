@@ -21,7 +21,7 @@ use DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Mockery\CountValidator\Exception;
-use Modules\Main\Setting;
+use App\GenerateNumber;
 
 class QuoteController extends Controller
 {
@@ -42,8 +42,8 @@ class QuoteController extends Controller
      */
     public function create()
     {
-        $setting=Setting::generate_number('quote');
-        dd($setting);
+        /*$number=GenerateNumber::generate_number('quote');
+        dd($number);*/
         $pageTitle = 'MRS - Quote';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         $data['solution_types']= SolutionType::get();
