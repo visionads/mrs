@@ -68,12 +68,11 @@ class QuoteController extends Controller
     {
 
         $pageTitle = 'MRS - Quote Details';
-        $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->get();
+        $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->first();
 
         // To get the selling_price from property_details table
-        foreach($quote as $quotes){
-            $selling_price = $quotes->relPropertyDetail->selling_price;
-        }
+        $selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: null;
+
         //print_r($selling_price);exit();
 
         // For Goods Service Tax
