@@ -24,48 +24,7 @@
             <div class="col-sm-6">
 
                     <div class="col-sm-12">
-                        {{--<table class="table table-striped size-13 commtable">
-                            --}}{{--@if(isset($data_pd))
-                                @foreach($data_pd as $row_pd)
-                                    <tr><td>Main Selling Line</td><td>:</td><td>{{ $row_pd->main_selling_line }}</td></tr>
-                                    <tr><td>Property Description</td><td>:</td><td>{{ $row_pd->property_description }}</td></tr>
-                                    <tr><td>Inspection Date</td><td>:</td><td>{{ $row_pd->inspection_date }}</td></tr>
-                                    <tr><td>Inspection Features</td><td>:</td><td>{{ $row_pd->inspection_features }}</td></tr>
-                                    <tr><td>Other Features</td><td>:</td><td>{{ $row_pd->other_features }}</td></tr>
-                                    <tr><td>Selling Price</td><td>:</td><td>{{ $row_pd->selling_price }}</td></tr>
-                                    <tr><td>Auction Time</td><td>:</td><td>{{ $row_pd->auction_time }}</td></tr>
-                                    <tr><td>Offer</td><td>:</td><td>{{ $row_pd->offer }}</td></tr>
-                                    <tr><td>Note</td><td>:</td><td>{{ $row_pd->note }}</td></tr>
-                                @endforeach
-                            @endif
-                                <tr><td colspan="3" class="center">Print Material Distribution </td></tr>
-                            @if(isset($data_pmd))
-                                @foreach($data_pmd as $row_pmd)
-                                    <tr><td>Quantity</td><td>:</td><td>{{ $row_pmd->quantity }}</td></tr>
-                                    <tr><td>Is Surrounded</td><td>:</td><td>{{ $row_pmd->is_surrounded }}</td></tr>
-                                    <tr><td>Other Address</td><td>:</td><td>{{ $row_pmd->other_address }}</td></tr>
-                                    <tr><td>Date of Distribution</td><td>:</td><td>{{ $row_pmd->date_of_distribution }}</td></tr>
-                                    <tr><td>Note</td><td>:</td><td>{{ $row_pmd->note }}</td></tr>
-                                @endforeach
-                            @endif--}}{{--
-
-                        </table>--}}
-                        {{--<table class="table table-striped size-13 commtable">
-                            --}}{{--<tr><td colspan="3"><h1 class="size-16"><span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }}</h1></td></tr>--}}{{--
-                            <tr><td colspan="3"><h1 class="size-16"><span class="glyphicon glyphicon-list">&nbsp;</span> Details of the order summary</h1></td></tr>
-
-                            <tr><th colspan="3">{{ $pageTitle }}</th></tr>
-
-                            <tr><td>Quote No.</td><td> : </td><td>009898</td></tr>
-                            <tr><td>Photography Package Comments</td><td> : </td><td>photography_package_comments</td></tr>
-                            <tr><td>Signboard Package Comments</td><td> : </td><td>signboard_package_comments</td></tr>
-                            <tr><td>Print Material Comments</td><td> : </td><td>print_material_comments</td></tr>
-                            <tr><td>Print Material Distribution</td><td> : </td><td>print_material_distribution</td></tr>
-                            <tr><td>Digital Media Note</td><td> : </td><td>digital_media_note</td></tr>
-                            <tr><td>Local Media Note</td><td> : </td><td>local_media_note</td></tr>
-                        </table>--}}
-
-                        <h1 class="size-25">Details of the order summary</h1>
+                        <h1 class="size-25">Quote summary</h1>
 
                         <p class="size-13">
                             @if(isset($quote))
@@ -78,8 +37,8 @@
                                     + Digital Media Note : {{ $row->digital_media_note }}<br>
                                     + Local Media Note : {{ $row->local_media_note }}<br>
                                     <?php
-                                    $id = $row->id;
-                                    $qn = $row->quote_number;
+                                    $quote_id = $row->id;
+                                    $quote_no = $row->quote_number;
                                     ?>
 
                                 @endforeach
@@ -96,46 +55,88 @@
                 <h2 style="color:#f36f21">Total COST Inc GST : $ {{ $total_with_gts }} </h2>
 
                 <a href="{{ route('quote-list') }}" class="btn new_button ">Back To Quote</a>&nbsp;
-                <a href="{{ route('quote-confirm', ['quote_id'=>101, 'quote_no'=>'QN--00001' ]) }}" class="btn new_button ">Proceed Order</a>
+                {{--<a href="{{ route('quote-confirm', ['quote_id'=>$quote_id, 'quote_no'=>$quote_no ]) }}" class="btn new_button ">Proceed to Confirm</a>--}}
+                <button class="proceed-to-confirm btn new_button"> Proceed to Confirm </button>
             </div>
         </div>
         </div>
     </div>
 
+     {{--Agreement page--}}
+    <div class="container agreement" style="display:none">
 
-    {{--<script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.12.0.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
-    @if($errors->any())
-        <script type="text/javascript">
-            $(function(){
-                alert('sdkjf');
-                $("#addData").modal('show');
+    {!! Form::open(['route' => 'place-order', 'method' => 'post','id' => 'jq-validation-form']) !!}
 
-            });
-        </script>
-    @endif
+    {!! Form::hidden('quote_id', $quote_id) !!}
+    {!! Form::hidden('quote_no', $quote_no) !!}
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <div class="col-sm-12" id="new_order_title"><span class="label size-25">Agreement</span><br><br></div>
+        </div>
+    <div class="col-sm-12" id="submit_button_div">
+        <p style="color:#f36f21;">Vendor Acknowledgment  : I Hereby agree to the outlined marketing campaign above</p>
+        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
 
-    <script>
-        // tooltip for buttons
-        $(".btn").popover({ trigger: "manual" , html: true, animation:false})
-                .on("mouseenter", function () {
-                    var _this = this;
-                    $(this).popover("show");
-                    $(".popover").on("mouseleave", function () {
-                        $(_this).popover('hide');
-                    });
-                }).on("mouseleave", function () {
-            var _this = this;
-            setTimeout(function () {
-                if (!$(".popover:hover").length) {
-                    $(_this).popover("hide");
-                }
-            }, 300);
-        });
-        // tooltip for input field
-        $(".form-control").tooltip();
-    </script>--}}
+            <div class="col-sm-12">
+                {!! Form::label('vendor_name', 'Vendor Name :', []) !!}
+                <small class="required size-13">(Required)</small>
+                {!! Form::text('vendor_name', Input::old('vendor_name'), ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
+            </div>
+        </div>
+        {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+            <div class="col-sm-12">
+                {!! Form::label('vendor_email', 'Vendor Email :', []) !!}
+                {!! Form::email('vendor_email', Input::old('vendor_email'), ['id'=>'vendor_email', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
+            </div>
+        </div>--}}
+        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+            <div class="col-sm-12">
+                {!! Form::label('vendor_phone', 'Vendor Phone :', []) !!}
+                <small class="required size-13">(Required)</small>
+                {!! Form::text('vendor_phone', Input::old('vendor_phone'), ['id'=>'vendor_phone', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
+            </div>
+        </div>
+
+        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+            <div class="col-sm-12">
+                {!! Form::label('vendor_signature', 'Vendor Signature :', ['class' => 'control-label']) !!}
+                {!! Form::textarea('vendor_signature', Input::old('vendor_signature'),['size' => '6x3','title'=>'Vendor Signature','id'=>'description','placeholder'=>'Vendor Signature here..','spellcheck'=>'true','class' => 'form-control radius-10']) !!}
+            </div>
+        </div>
+
+        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+            <div class="col-sm-12">
+                {!! Form::label('date', 'Date :', []) !!}
+                <small class="required size-13">(Required)</small>
+                <div class="input-group date">
+                    {!! Form::text('signature_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date','required']) !!}
+                    {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+            <div class="col-sm-12">
+                {!! Form::label('agent_signature_path', 'Agent Signature :', ['class' => 'control-label']) !!}
+                {!! Form::textarea('agent_signature', Input::old('agent_signature'),['size' => '6x2','title'=>'Agent Signature','id'=>'agent_signature','placeholder'=>'Agent Signature here..','spellcheck'=>'true','class' => 'form-control radius-10']) !!}
+            </div>
+        </div>
+
+        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+            <div class="col-sm-12 text-right">
+                {!! Form::submit('Confirmed Quote', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;
+            </div>
+            {{--<div class="col-sm-12" id="submit_button">
+                <a href="{{ route('payment') }}" class="btn new_button" onclick="return confirm('Are You Sure ! ')"> Confirm </a>
+            </div>--}}
+        </div>
+    </div>
+    </div>
+    {!! Form::close() !!}
+    </div>
+
+    @include('main::order._script')
 
 @stop
