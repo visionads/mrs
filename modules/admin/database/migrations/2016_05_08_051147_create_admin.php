@@ -287,9 +287,13 @@ class CreateAdmin extends Migration
         //transaction
         Schema::create('transaction', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('quote_id')->nullable();
-
-
+            $table->unsignedInteger('quote_id');
+            $table->string('invoice_no',20)->unique();
+            $table->string('currency',5)->nullable();
+            $table->float('amount')->nullable();
+            $table->float('gst')->nullable();
+            $table->float('total_amount')->nullable();
+            $table->string('status',20)->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
@@ -307,9 +311,11 @@ class CreateAdmin extends Migration
         //payment
         Schema::create('payment', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('transaction_id')->nullable();
-
-
+            $table->unsignedInteger('transaction_id');
+            $table->string('payment_trans',20)->nullable();
+            $table->string('type',40)->nullable();
+            $table->float('amount')->nullable();
+            $table->string('status',20)->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
