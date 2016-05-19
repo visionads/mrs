@@ -22,7 +22,7 @@
             <table cellspacing="0" cellpadding="0" border="0" class="table size-13 invoice-list">
                 <thead class="head-top">
                 <tr>
-                    <td colspan="4">
+                    <td colspan="7">
                         <h1>
                             <span class="glyphicon glyphicon-list">&nbsp;</span>{{ $pageTitle }}
                         </h1>
@@ -34,6 +34,9 @@
                     <th>SL/No.</th>
                     <th>Type</th>
                     <th>Code</th>
+                    <th>Last Number</th>
+                    <th>Increment</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -44,8 +47,11 @@
                             <td class="text-center">{{ $j++ }}</td>
                             <td style="font-weight:normal;">{{ $row->type }}</td>
                             <td style="font-weight:normal;">{{ $row->code }}</td>
+                            <td style="font-weight:normal;">{{ $row->last_number }}</td>
+                            <td style="font-weight:normal;">{{ $row->increment }}</td>
+                            <td style="font-weight:normal;">{{ $row->status }}</td>
                             <td class="text-center">
-                                <a href="{{--{{ route('invoice') }}--}}" class="btn btn-primary btn-xs" data-content="View" data-placement="left"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                {{--<a href="--}}{{--{{ route('invoice') }}--}}{{--" class="btn btn-primary btn-xs" data-content="View" data-placement="left"><span class="glyphicon glyphicon-eye-open"></span></a>--}}
                                 <a href="{{--{{ route('invoice') }}--}}" class="btn btn-warning btn-xs" data-content="View" data-placement="left"><span class="glyphicon glyphicon-edit"></span></a>
                             </td>
                         </tr>
@@ -55,6 +61,15 @@
         </div>
     </div>
 
+    <!-- Modal  -->
+    <div class="modal fade" id="etsbModal" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
+    <!-- modal -->
 
     <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.12.0.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
