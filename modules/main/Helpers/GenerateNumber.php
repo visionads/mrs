@@ -21,7 +21,7 @@ class GenerateNumber
             $settings_code = $settings['code'];
             $settings_id = $settings['id'];
             $generate_voucher_number = $settings_code.'-'.str_pad($number, 6, '0', STR_PAD_LEFT);
-            $array = array('voucher_number'=>$generate_voucher_number, 'setting_id'=>$settings_id, 'number' => $number );
+            $array = array('generated_number'=>$generate_voucher_number, 'setting_id'=>$settings_id, 'number' => $number );
             return  $array;
         }else{
             return  false;

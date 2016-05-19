@@ -12,10 +12,10 @@
 
     /*------------Invoice---------------*/
 
-    Route::get('invoice', [
+    Route::get('invoice/{transaction_id}', [
         //'middleware' => 'acl_access:role',
         'as' => 'invoice',
-        'uses' => 'InvoiceController@index'
+        'uses' => 'InvoiceController@invoice'
     ]);
     Route::get('invoice-print', [
         //'middleware' => 'acl_access:role',
