@@ -27,4 +27,14 @@ class GenerateNumber
             return  false;
         }
     }
+    public static function update_row($row_id,$value) {
+        $settings = Setting::findOrFail($row_id);
+        if($settings){
+            $settings->last_number=$value;
+            $settings->save();
+            return  true;
+        }else{
+            return  false;
+        }
+    }
 }
