@@ -74,7 +74,7 @@ class QuoteController extends Controller
         foreach($quote as $quotes){
             $selling_price = $quotes->relPropertyDetail->selling_price;
         }
-        print_r($selling_price);exit();
+        //print_r($selling_price);exit();
 
         // For Goods Service Tax
         $gst = $selling_price * 0.1;
