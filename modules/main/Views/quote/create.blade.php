@@ -315,7 +315,8 @@
                                             <div class="form-group">
                                                 {!! Form::label('digital_media_id','Most popular websites') !!}<br>
                                                 @foreach($data['digital_medias'] as $digital_media)
-                                                {!! Form::radio('digital_media_id','',['class'=>'form-control']) !!} {{ $digital_media->title }} <br>
+                                                    <input type="radio" name="digital_media_id" value="{{ $digital_media->id }}"> {{ $digital_media->title }} <br>
+
                                                 @endforeach
 
                                             </div>
