@@ -21,6 +21,7 @@ use DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Mockery\CountValidator\Exception;
+use Modules\Main\Setting;
 
 class QuoteController extends Controller
 {
@@ -41,6 +42,8 @@ class QuoteController extends Controller
      */
     public function create()
     {
+        $setting=Setting::generate_number('quote');
+        dd($setting);
         $pageTitle = 'MRS - Quote';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         $data['solution_types']= SolutionType::get();
@@ -63,21 +66,27 @@ class QuoteController extends Controller
         return view('main::quote.retrieve_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
 
-    public function retrieve_details($id)
-    {
-        $pageTitle = 'MRS - Retrieve Quote Details';
-        $data = DB::table('quote')->where('id', $id)->orderBy('id','DESC')->get();
-        return view('main::quote.retrieve_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
-    }
     public function retrieve_details_demo($quote_id, $quote_number)
     {
 
-        $pageTitle = 'MRS - Retrieve Quote Details-demo';
+        $pageTitle = 'MRS - Quote Details';
         $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->get();
+
+        // To get the selling_price from property_details table
+        foreach($quote as $quotes){
+            $selling_price = $quotes->relPropertyDetail->selling_price;
+        }
+
+        // For Goods Service Tax
+        $gst = $selling_price * 0.1;
+        $total_with_gts = $selling_price + $gst;
         return view('main::quote.retrieve_quote_details',[
             'pageTitle'=>$pageTitle,
             'quote'=>$quote,
-            'quote_number'=>$quote_number
+            'quote_number'=>$quote_number,
+            'total'=>$selling_price,
+            'gst'=>$gst,
+            'total_with_gts'=>$total_with_gts
         ]);
     }
 
