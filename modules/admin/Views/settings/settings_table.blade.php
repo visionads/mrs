@@ -52,7 +52,8 @@
                             <td style="font-weight:normal;">{{ $row->status }}</td>
                             <td class="text-center">
                                 {{--<a href="--}}{{--{{ route('invoice') }}--}}{{--" class="btn btn-primary btn-xs" data-content="View" data-placement="left"><span class="glyphicon glyphicon-eye-open"></span></a>--}}
-                                <a href="{{--{{ route('invoice') }}--}}" class="btn btn-warning btn-xs" data-content="View" data-placement="left"><span class="glyphicon glyphicon-edit"></span></a>
+                                {{--<a href="{{ route('settings-edit', $row->id) }}" class="btn btn-warning btn-xs" data-content="Edit" data-placement="left"><span class="glyphicon glyphicon-edit"></span></a>--}}
+                                <a href="{{ route('settings-edit', $row->id ) }}" class="btn btn-primary btn-sm" data-placement="left" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="glyphicon glyphicon-edit"></i></a>
                             </td>
                         </tr>
                     @endforeach

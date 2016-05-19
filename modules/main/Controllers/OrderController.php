@@ -143,6 +143,7 @@ class OrderController extends Controller
         try{
 
             // update property detail
+            //dd($);
             $model_property_details = PropertyDetail::findOrFail($property_details_id);
             $model_property_details->update($input_property_details);
             $property_details = PropertyDetail::findOrFail($property_details_id);
@@ -158,7 +159,7 @@ class OrderController extends Controller
                 $model_quote = Quote::findOrFail($quote_id);
                 $model_quote->print_material_distribution_id = $print_material_distribution->id;
                 $invoice_number=GenerateNumber::generate_number('invoice-number');
-//                dd($invoice_number['generated_number']);
+               //dd($invoice_number);
 //                dd($property_details->id);
                 if($model_quote->save()){
                     $trn_model = new Transaction();

@@ -135,4 +135,12 @@ Route::any('settings-table',[
     'as'    =>  'settings-table',
     'uses'  =>  'SettingsController@settings_table'
 ]);
+Route::any('settings-edit/{id}',[
+    'as'    =>  'settings-edit',
+    'uses'  =>  'SettingsController@settings_edit'
+]);
+Route::any('settings-update/{id}',[
+    'as'    =>  'settings-update',
+    'uses'  =>  'SettingsController@settings_update'
+]);
 
