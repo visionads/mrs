@@ -28,20 +28,18 @@
 
                         <p class="size-13">
                             @if(isset($quote))
-                                @foreach($quote as $row)
-                                    + Quote No. : {{ $row->quote_number }}<br>
-                                    + Photography Package Comments : {{ $row->photography_package_comments }}<br>
-                                    + Signboard Package Comments : {{ $row->signboard_package_comments }}<br>
-                                    + Print Material Comments : {{ $row->print_material_comments }}<br>
-                                    + Print Material Distribution : {{ $row->print_material_distribution_id }}<br>
-                                    + Digital Media Note : {{ $row->digital_media_note }}<br>
-                                    + Local Media Note : {{ $row->local_media_note }}<br>
+                                    + Quote No. : {{ $quote->quote_number }}<br>
+                                    + Photography Package Comments : {{ $quote->photography_package_comments }}<br>
+                                    + Signboard Package Comments : {{ $quote->signboard_package_comments }}<br>
+                                    + Print Material Comments : {{ $quote->print_material_comments }}<br>
+                                    + Print Material Distribution : {{ $quote->print_material_distribution_id }}<br>
+                                    + Digital Media Note : {{ $quote->digital_media_note }}<br>
+                                    + Local Media Note : {{ $quote->local_media_note }}<br>
                                     <?php
-                                    $quote_id = $row->id;
-                                    $quote_no = $row->quote_number;
+                                    $quote_id = $quote->id;
+                                    $quote_no = $quote->quote_number;
                                     ?>
 
-                                @endforeach
                             @endif
                         </p>
                     </div>
