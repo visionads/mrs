@@ -68,13 +68,22 @@
                         <h1 class="size-25">Details of the order summary</h1>
 
                         <p class="size-13">
-                        + Quote No. : {{ $quote_number }}<br>
-                        + Photography Package Comments : photography_package_comments<br>
-                        + Signboard Package Comments : signboard_package_comments<br>
-                        + Print Material Comments : print_material_comments<br>
-                        + Print Material Distribution : print_material_distribution<br>
-                        + Digital Media Note : digital_media_note<br>
-                        + Local Media Note : local_media_note
+                            @if(isset($quote))
+                                @foreach($quote as $row)
+                                    + Quote No. : {{ $row->quote_number }}<br>
+                                    + Photography Package Comments : {{ $row->photography_package_comments }}<br>
+                                    + Signboard Package Comments : {{ $row->signboard_package_comments }}<br>
+                                    + Print Material Comments : {{ $row->print_material_comments }}<br>
+                                    + Print Material Distribution : {{ $row->print_material_distribution_id }}<br>
+                                    + Digital Media Note : {{ $row->digital_media_note }}<br>
+                                    + Local Media Note : {{ $row->local_media_note }}<br>
+                                    <?php
+                                    $id = $row->id;
+                                    $qn = $row->quote_number;
+                                    ?>
+
+                                @endforeach
+                            @endif
                         </p>
                     </div>
 
@@ -82,9 +91,9 @@
 
 
             <div class="col-sm-6 text-right">
-                <h2 style="color:#f36f21">Total: $1234</h2>
-                <h2 style="color:#f36f21">GST:$</h2>
-                <h2 style="color:#f36f21">Total COST Inc GST: $</h2>
+                <h2 style="color:#f36f21">Total : $ {{ $total }}</h2>
+                <h2 style="color:#f36f21">GST : $ {{ $gst }} </h2>
+                <h2 style="color:#f36f21">Total COST Inc GST : $ {{ $total_with_gts }} </h2>
 
                 <a href="{{ route('quote-list') }}" class="btn new_button ">Back To Quote</a>&nbsp;
                 <a href="{{ route('quote-confirm', ['quote_id'=>101, 'quote_no'=>'QN--00001' ]) }}" class="btn new_button ">Proceed Order</a>
