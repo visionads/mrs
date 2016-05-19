@@ -37,7 +37,7 @@ class PaymentController extends Controller
         $data['status']='success';
         Payment::create($data);
         Session::flash('message','Payment placed successfully.');
-        return redirect('main/invoice');
+        return redirect('main/invoice/'.$id);
     }
 
 

@@ -211,13 +211,13 @@ class QuoteController extends Controller
             $quote_number=GenerateNumber::generate_number('quote-number');
             $data['quote_number']=$quote_number['generated_number'];
 //            dd($data);
-            Quote::create($data);
+            $quote=Quote::create($data);
             GenerateNumber::update_row($quote_number['setting_id'],$quote_number['number']);
             \DB::commit();
             Session::flash('message','Data has been successfully stored');
             if(isset($received['quote']))
             {
-                return Redirect::to('main/place-order');
+                return Redirect::to('main/quote-details/'.$quote->id.'/'.$quote->quote_number);
             }else{
                 return Redirect::to('main/quote-list');
             }
