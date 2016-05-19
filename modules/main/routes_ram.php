@@ -70,18 +70,10 @@
 
     /*------------Order Router---------------*/
 
-    /*Route::any('place-order', [ ///{quote_id}/(quote_no)
-        'as'    => 'place-order',
-        'uses'  => 'OrderController@index'
-    ]);*/
-
-    Route::any('quote-confirm/{quote_id}/{quote_no}', [ ///{quote_id}/(quote_no)
+    // page for quote confirm
+    Route::any('quote-confirm/{quote_id}/{quote_no}', [
         'as'    => 'quote-confirm',
         'uses'  => 'OrderController@quote_confirm'
-    ]);
-    Route::any('property-details/{quote_id}/{quote_no}',[
-        'as'    =>  'property-details',
-        'uses'  =>  'OrderController@property_details'
     ]);
 
     //page for place order
@@ -89,6 +81,13 @@
         'as'    =>  'page-place-order',
         'uses'  =>  'OrderController@page_place_order'
     ]);
+
+    Route::any('property-details/{quote_id}/{quote_no}',[
+        'as'    =>  'property-details',
+        'uses'  =>  'OrderController@property_details'
+    ]);
+
+
 
     Route::any('place-order/{quote_id}/{quote_no}',[
         'as'    =>  'place-order',

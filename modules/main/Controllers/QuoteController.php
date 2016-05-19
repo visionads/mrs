@@ -42,8 +42,6 @@ class QuoteController extends Controller
      */
     public function create()
     {
-        /*$number=GenerateNumber::generate_number('quote');
-        dd($number);*/
         $pageTitle = 'MRS - Quote';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         $data['solution_types']= SolutionType::get();
@@ -210,7 +208,11 @@ class QuoteController extends Controller
                 $data['local_media_note'] = $received['local_media_note'];
             }
 //            dd($data);
+            $quote_number=GenerateNumber::generate_number('quote-number');
+            $data['quote_number']=$quote_number['voucher_number'];
+//            dd($data);
             Quote::create($data);
+            GenerateNumber::update_row($quote_number['setting_id'],$quote_number['number']);
             \DB::commit();
             Session::flash('message','Data has been successfully stored');
             if(isset($received['quote']))

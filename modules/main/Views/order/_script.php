@@ -30,6 +30,12 @@
             $(".step-no-submit").fadeIn();
         });
 
+
+        $(".agreement").hide();
+        $(".proceed-to-confirm").click(function(){
+           $(".agreement").fadeIn();
+        });
+
     });
 
     // tooltip for buttons
