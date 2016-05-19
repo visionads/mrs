@@ -387,14 +387,17 @@ nav ul.nav li a { /*transition: ease-in-out 0.3s;*/ }
 }
 
 #setting_dropdown.dropdown-menu li {
+    width: 100%;
     display: block;
-}
-#setting_dropdown.dropdown-menu li  a {
-    padding: 15px;
-    color: black;
+    background: white;
+    margin-bottom: -4px;
+    border-radius: 4px;
+    text-align: center;
     font-family: 'Droid Serif', serif;
-    font-size: 1em;
-
+    color: black;
+}
+#setting_dropdown.dropdown-menu li > a {
+    padding: 15px;
 }
 
 p{
@@ -402,11 +405,9 @@ p{
 }
 
 #setting_dropdown.dropdown-menu > li > a:hover {
-    padding: 15px;
     color:#fff !important;
-    font-family: 'Droid Serif', serif;
-    font-size: 1em;
     background: #f36f21 !important;
+    border-radius: 0px;
 }
 .sign_button{
     width: 160px;
@@ -765,3 +766,5 @@ div .alert{
     margin: 0 auto ;
     opacity: 0.7;
 }
+
+#date_id { border: 1px solid #000;}
