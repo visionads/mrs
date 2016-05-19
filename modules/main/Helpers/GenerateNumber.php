@@ -5,7 +5,7 @@
  * Date: 5/19/16
  * Time: 9:41 AM
  */
-namespace Modules\Main\Setting;
+namespace App;
 
 
 use App\Setting;
@@ -20,8 +20,8 @@ class GenerateNumber
             $number = $settings['last_number']+$settings['increment'];
             $settings_code = $settings['code'];
             $settings_id = $settings['id'];
-            $generate_voucher_number = $settings_code.str_pad($number, 7, '0', STR_PAD_LEFT);
-            $array = array($generate_voucher_number, $settings_id, $number );
+            $generate_voucher_number = $settings_code.'-'.str_pad($number, 6, '0', STR_PAD_LEFT);
+            $array = array('voucher_number'=>$generate_voucher_number, 'setting_id'=>$settings_id, 'number' => $number );
             return  $array;
         }else{
             return  false;
