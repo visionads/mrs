@@ -38,13 +38,13 @@
                         <p>
                             vendors can make invoice payment using invoice number.<br><br>
 
-                            + Quote Number : 2348 <br>
+                            + Quote Number : {{ $quote_number }} <br>
                             + Invoice Number : 0008 <br>
                         </p>
 
-                        <h2 style="color:#f36f21" class="size-20">Total: $1234</h2>
-                        <h2 style="color:#f36f21" class="size-20">GST:$</h2>
-                        <h2 style="color:#f36f21" class="size-20">Total COST Inc GST: $</h2>
+                        <h2 style="color:#f36f21" class="size-20">Total : $ {{ $total }}</h2>
+                        <h2 style="color:#f36f21" class="size-20">GST : $ {{ $gst }} </h2>
+                        <h2 style="color:#f36f21" class="size-20">Total COST Inc GST : $ {{ $total_with_gts }} </h2>
                     </div>
                 </div>
             </div>

@@ -175,11 +175,32 @@ class OrderController extends Controller
 
     public function payment_procedure($quote_id, $quote_no){
 
-        $pageTitle = 'Payment';
 
         //TODO:: calculate GST (10%) :
 
-        return view('main::payment.index',['pageTitle'=>$pageTitle]);
+
+        $pageTitle = 'Payment';
+        $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->get();
+
+        // To get the selling_price from property_details table
+        foreach($quote as $quotes){
+            $selling_price = $quotes->relPropertyDetail->selling_price;
+        }
+
+        // For Goods Service Tax
+        $gst = $selling_price * 0.1;
+
+        // For Total with GST
+        $total_with_gts = $selling_price + $gst;
+
+        return view('main::payment.index',[
+            'pageTitle'=>$pageTitle,
+            'quote'=>$quote,
+            'quote_number'=>$quote_no,
+            'total'=>$selling_price,
+            'gst'=>$gst,
+            'total_with_gts'=>$total_with_gts
+        ]);
     }
 
 }
