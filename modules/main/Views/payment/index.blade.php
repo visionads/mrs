@@ -64,6 +64,39 @@
                      </div>
                  </div>--}}
                 <div class="form-group">
+                    <style>
+                        .eway-button span{
+                            padding: 10%;
+                            width: 200px;
+                            text-align: center;
+                            height: 70px;
+                            color: lightyellow;
+                        }
+                    </style>
+                    <?php $total_amount= $data->total_amount.'11'; echo $total_amount; ?>
+                    <script src="https://secure.ewaypayments.com/scripts/eCrypt.js"
+                            class="eway-paynow-button"
+                            data-publicapikey="epk-4AABBD0F-8893-4863-8776-ABF469799708"
+                            data-amount={{ $total_amount }}
+                            data-currency="AUD"
+                            data-buttoncolor="#ffc947"
+                            data-buttonsize="100"
+                            data-buttonerrorcolor="#f2dede"
+                            data-buttonprocessedcolor="#dff0d8"
+                            data-buttondisabledcolor="#f5f5f5"
+                            data-buttontextcolor="#000000"
+                            data-invoiceref={{ $data->invoice_no }}
+                            data-invoicedescription='Payment'
+                            data-email= {{ $user_data->email }}
+                            data-phone=''
+                            data-allowedit="true"
+                            data-resulturl={{route('payment-success', [$data->id])}}"}}
+                            >
+                    </script>
+
+
+
+
                     <div class="col-sm-12" id="submit_button">
                         <a href="{{ route('invoice') }}" class="btn new_button" data-placement="top" data-content="click to Pay now">Pay Now</a>
                     </div>

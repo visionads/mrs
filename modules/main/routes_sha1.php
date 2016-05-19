@@ -21,3 +21,7 @@
         'as' => 'new_quote_store',
         'uses' => 'QuoteController@update'
     ]);
+    Route::get('payment-success/{id}', [
+        'as' => 'payment-success',
+        'uses' => 'PaymentController@index'
+    ]);

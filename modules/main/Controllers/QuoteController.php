@@ -209,7 +209,7 @@ class QuoteController extends Controller
             }
 //            dd($data);
             $quote_number=GenerateNumber::generate_number('quote-number');
-            $data['quote_number']=$quote_number['voucher_number'];
+            $data['quote_number']=$quote_number['generated_number'];
 //            dd($data);
             Quote::create($data);
             GenerateNumber::update_row($quote_number['setting_id'],$quote_number['number']);

@@ -12,6 +12,7 @@ use App\PropertyDetail;
 use App\PrintMaterialDistribution;
 use App\Quote;
 use App\Transaction;
+use App\User;
 use Auth;
 use DB;
 use PhpParser\Node\Stmt\Property;
@@ -194,12 +195,13 @@ class OrderController extends Controller
         // Title of the payment page
         $pageTitle = 'Payment';
         $data = Transaction::where('quote_id', $quote_id)->first();
-
+        $user_data= User::findOrFail(Auth::id());
         // View page
         return view('main::payment.index',[
             'pageTitle'=>$pageTitle,
             'quote_number'=>$quote_no,
-            'data'=>$data
+            'data'=>$data,
+            'user_data'=>$user_data
         ]);
     }
 
