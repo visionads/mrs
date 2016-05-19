@@ -114,7 +114,7 @@ class OrderController extends Controller
         $quote_id = $input['quote_id'];
         $quote_no = $input['quote_no'];
 
-        //return $quote_id; exit;
+        // Input data for "property_detail" table
         $input_property_details = [
             'main_selling_line'     => $input['main_selling_line'],
             'property_description'  => $input['property_description'],
@@ -127,6 +127,7 @@ class OrderController extends Controller
             'note'                  => $input['note']
         ];
 
+        // Input data for "print_material_distribution" table
         $input_print_material_distribution = [
             'quantity'              => $input['quantity'],
             'is_surrounded'         => $input['is_surrounded'],
@@ -174,12 +175,10 @@ class OrderController extends Controller
 
 
     public function payment_procedure($quote_id, $quote_no){
-
-
-        //TODO:: calculate GST (10%) :
-
-
+        // Title of the payment page
         $pageTitle = 'Payment';
+
+        // Relational Query
         $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->get();
 
         // To get the selling_price from property_details table
@@ -193,6 +192,7 @@ class OrderController extends Controller
         // For Total with GST
         $total_with_gts = $selling_price + $gst;
 
+        // View page
         return view('main::payment.index',[
             'pageTitle'=>$pageTitle,
             'quote'=>$quote,
