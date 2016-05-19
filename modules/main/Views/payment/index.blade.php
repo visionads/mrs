@@ -33,7 +33,7 @@
             <div class="col-sm-6 no-padding">
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
-                        <h1 class="size-25">Payment System</h1>
+                        <h1 class="size-25">Payment Summary</h1>
 
                         <p>
                             vendors can make invoice payment using invoice number.<br><br>
@@ -53,17 +53,9 @@
             </style>
 
             <div class="col-sm-6 no-padding" id="submit_button_div">
-                <h2 style="color:#f12f01" class="size-25">Payment</h2>
-                <p style="color:#d0d0d0; border:1px solid #202020; height:100px;" class="size-14">
-                    Space for Payment
-                </p>
+                {{--<h2 style="color:#f12f01" class="size-25">Payment</h2>--}}
 
-                 {{--<div class="form-group">
-                     <div class="col-sm-12" id="submit_button">
-                         {!! Form::submit('Pay Now', ['class' => 'btn new_button','data-placement'=>'top','data-content'=>'click to Pay now','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;
-                     </div>
-                 </div>--}}
-                <div class="form-group">
+                <div class="form-group" style="margin: 20%">
                     <style>
                         .eway-button span{
                             padding: 10%;
@@ -73,12 +65,13 @@
                             color: lightyellow;
                         }
                     </style>
-                    <?php $total_amount= $data->total_amount.'11'; echo $total_amount; ?>
+                    <?php $total_amount= $data->total_amount * 100; ?>
+
                     <script src="https://secure.ewaypayments.com/scripts/eCrypt.js"
                             class="eway-paynow-button"
                             data-publicapikey="epk-4AABBD0F-8893-4863-8776-ABF469799708"
-                            data-amount={{ $total_amount }}
-                            data-currency="AUD"
+                            data-amount={{$total_amount}}
+                                    data-currency="AUD"
                             data-buttoncolor="#ffc947"
                             data-buttonsize="100"
                             data-buttonerrorcolor="#f2dede"
@@ -86,21 +79,21 @@
                             data-buttondisabledcolor="#f5f5f5"
                             data-buttontextcolor="#000000"
                             data-invoiceref={{ $data->invoice_no }}
-                            data-invoicedescription='Payment'
+                                    data-invoicedescription='Payment'
                             data-email= {{ $user_data->email }}
-                            data-phone=''
+                                    data-phone=''
                             data-allowedit="true"
-                            data-resulturl={{route('payment-success', [$data->id])}}"}}
+                            data-resulturl={{route('payment-success', ['transaction_id'=>$data->id,'paid_amount'=>$data->total_amount])}}
                             >
                     </script>
-
-
-
-
-                    <div class="col-sm-12" id="submit_button">
-                        <a href="{{ route('invoice') }}" class="btn new_button" data-placement="top" data-content="click to Pay now">Pay Now</a>
-                    </div>
                 </div>
+
+                 {{--<div class="form-group">
+                     <div class="col-sm-12" id="submit_button">
+                         {!! Form::submit('Pay Now', ['class' => 'btn new_button','data-placement'=>'top','data-content'=>'click to Pay now','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;
+                     </div>
+                 </div>--}}
+
             </div>
         </div>
 
