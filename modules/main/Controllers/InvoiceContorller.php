@@ -8,6 +8,9 @@ namespace Modules\Main\Controllers;
  * Time: 1:55 PM
  */
 
+use App\Quote;
+use App\Transaction;
+use App\User;
 use App\UserImage;
 use Illuminate\Http\Request;
 use Auth;
@@ -22,9 +25,13 @@ use Illuminate\Support\Str;
 
 class InvoiceController extends Controller
 {
-    public function index()
+    public function invoice($id)
     {
-        return view("main::main_pages.invoice");
+        $data['transaction']=Transaction::findOrFail($id);
+        $data['quote']=Quote::with('relPropertyDetail')->where('id',$data['transaction']->quote_id)->first();
+        $data['user']=User::findOrFail(Auth::id());
+//        dd($data);
+        return view("main::main_pages.invoice",$data);
     }
     public function invoice_print()
     {
