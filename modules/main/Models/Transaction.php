@@ -16,6 +16,7 @@ class Transaction extends Model
     protected $table = 'transaction';
     protected $fillable = [
          'quote_id',
+         'currency',
          'invoice_no',
          'amount',
          'gst',
