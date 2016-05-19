@@ -71,7 +71,7 @@ class QuoteController extends Controller
         $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->first();
 
         // To get the selling_price from property_details table
-        $selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: null;
+        $selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: '0.00';
 
         //print_r($selling_price);exit();
 
