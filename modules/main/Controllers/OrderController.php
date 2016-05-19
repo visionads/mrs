@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\PropertyDetail;
 use App\PrintMaterialDistribution;
 use App\Quote;
+use App\Transaction;
 use Auth;
 use DB;
 use PhpParser\Node\Stmt\Property;
@@ -154,7 +155,17 @@ class OrderController extends Controller
                 //update quote table
                 $model_quote = Quote::findOrFail($quote_id);
                 $model_quote->print_material_distribution_id = $print_material_distribution->id;
-                $model_quote->save();
+                //$model_quote->save();
+                if($model_quote->save()){
+                    $trn_model = new Transaction();
+                    $trn_model->invoice_no = "generate number";
+                    $trn_model->currency = "AUD";
+                    $trn_model->amount = $property_details->selling_price;
+                    $trn_model->gst = (10/100 * $trn_model->amount) ;
+                    $trn_model->total_amount = $trn_model->amount + $trn_model->gst;
+                    $trn_model->status = "active";
+                    $trn_model->save();
+                }
             }
             // commit the changes
             DB::commit();
@@ -177,6 +188,8 @@ class OrderController extends Controller
     public function payment_procedure($quote_id, $quote_no){
         // Title of the payment page
         $pageTitle = 'Payment';
+
+        $data = Transaction::where($quote_id, $quote_id)->first();
 
         // Relational Query
         $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->get();
