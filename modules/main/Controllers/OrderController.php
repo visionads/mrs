@@ -2,6 +2,7 @@
 
 namespace Modules\Main\Controllers;
 
+use App\GenerateNumber;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -137,14 +138,14 @@ class OrderController extends Controller
             'note'                  => $input['note'],
         ];
 
-
         DB::beginTransaction();
         try{
 
             // update property detail
             $model_property_details = PropertyDetail::findOrFail($property_details_id);
-            $property_details = $model_property_details->update($input_property_details);
-
+            $model_property_details->update($input_property_details);
+            $property_details = PropertyDetail::findOrFail($property_details_id);
+//            dd($property_details->id);
             // new entry in print_material_distribution
             $model_print_material_distribution = new PrintMaterialDistribution();
             $print_material_distribution = $model_print_material_distribution->create($input_print_material_distribution);
@@ -155,10 +156,13 @@ class OrderController extends Controller
                 //update quote table
                 $model_quote = Quote::findOrFail($quote_id);
                 $model_quote->print_material_distribution_id = $print_material_distribution->id;
-                //$model_quote->save();
+                $invoice_number=GenerateNumber::generate_number('invoice-number');
+//                dd($invoice_number['generated_number']);
+//                dd($property_details->id);
                 if($model_quote->save()){
                     $trn_model = new Transaction();
-                    $trn_model->invoice_no = "generate number";
+                    $trn_model->quote_id=$model_quote->id;
+                    $trn_model->invoice_no = $invoice_number['generated_number'];
                     $trn_model->currency = "AUD";
                     $trn_model->amount = $property_details->selling_price;
                     $trn_model->gst = (10/100 * $trn_model->amount) ;
@@ -168,6 +172,7 @@ class OrderController extends Controller
                 }
             }
             // commit the changes
+            GenerateNumber::update_row($invoice_number['setting_id'],$invoice_number['number']);
             DB::commit();
             Session::flash('message', 'Successfully added!');
         }catch(\Exception $e){
@@ -188,8 +193,7 @@ class OrderController extends Controller
     public function payment_procedure($quote_id, $quote_no){
         // Title of the payment page
         $pageTitle = 'Payment';
-
-        $data = Transaction::where($quote_id, $quote_id)->first();
+        $data = Transaction::where('quote_id', $quote_id)->first();
 
         // Relational Query
         $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->get();
