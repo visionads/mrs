@@ -27,7 +27,7 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function quote_confirm($quote_id, $quote_no)
+    /*public function quote_confirm($quote_id, $quote_no)
     {
         $pageTitle = 'Agreement';
 
@@ -38,7 +38,7 @@ class OrderController extends Controller
             'quote_id'=>$quote_id,
             'quote_no'=>$quote_no,
             ]);
-    }
+    }*/
 
 
     /**
@@ -73,7 +73,7 @@ class OrderController extends Controller
             $model_property_details->update($input_confirm);
 
             DB::commit();
-            Session::flash('message', 'Successfully added!');
+            Session::flash('message', 'Successfully you confirmed your Quote! and Your Quote Number is : '.$quote_no);
         }catch(\Exception $e){
             DB::rollback();
             Session::flash('danger', $e->getMessage());
@@ -142,34 +142,31 @@ class OrderController extends Controller
         try{
 
             // update property detail
-            //dd($);
             $model_property_details = PropertyDetail::findOrFail($property_details_id);
-            $model_property_details->update($input_property_details);
+            $property_details_update = $model_property_details->update($input_property_details);
             $property_details = PropertyDetail::findOrFail($property_details_id);
-//            dd($property_details->id);
-            // new entry in print_material_distribution
+
             $model_print_material_distribution = new PrintMaterialDistribution();
             $print_material_distribution = $model_print_material_distribution->create($input_print_material_distribution);
 
             //check if stored above model(s)
-            if($property_details && $print_material_distribution)
+            if($property_details_update && $print_material_distribution)
             {
                 //update quote table
                 $model_quote = Quote::findOrFail($quote_id);
                 $model_quote->print_material_distribution_id = $print_material_distribution->id;
                 $invoice_number=GenerateNumber::generate_number('invoice-number');
-               //dd($invoice_number);
-//                dd($property_details->id);
+
                 if($model_quote->save()){
-                    $trn_model = new Transaction();
-                    $trn_model->quote_id=$model_quote->id;
-                    $trn_model->invoice_no = $invoice_number['generated_number'];
-                    $trn_model->currency = "AUD";
-                    $trn_model->amount = $property_details->selling_price;
-                    $trn_model->gst = (10/100 * $trn_model->amount) ;
-                    $trn_model->total_amount = $trn_model->amount + $trn_model->gst;
-                    $trn_model->status = "active";
-                    $trn_model->save();
+                    $transaction_model = new Transaction();
+                    $transaction_model->quote_id=$model_quote->id;
+                    $transaction_model->invoice_no = $invoice_number['generated_number'];
+                    $transaction_model->currency = "AUD";
+                    $transaction_model->amount = $property_details->selling_price;
+                    $transaction_model->gst = (10/100 * $transaction_model->amount) ;
+                    $transaction_model->total_amount = $transaction_model->amount + $transaction_model->gst;
+                    $transaction_model->status = "active";
+                    $transaction_model->save();
                 }
             }
             // commit the changes

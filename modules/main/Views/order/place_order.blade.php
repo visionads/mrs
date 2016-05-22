@@ -90,7 +90,7 @@
                     <div class="col-sm-12">
                         {!! Form::label('auction_time', 'Auction Times :', ['class' => 'control-label']) !!}
                         <small class="required size-13">(Required)</small>
-                        <div class="input-group date">
+                        <div class="input-group date" style="position:relative;">
                             {!! Form::text('auction_time', @$generate_voucher_number? date('Y/m/d') : @$data[0]['auction_time'], ['id'=>'date_id','placeholder'=>'Click here to choose Auction Date','class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
                             {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>

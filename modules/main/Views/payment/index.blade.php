@@ -16,17 +16,7 @@
     </style>
 
     <div id="container" class="container pages new_order font-droid">
-        {{--<div class="col-md-12">
-            <div class="col-sm-12" id="new_order_title"><span class="label size-25">{{ $pageTitle }}</span><br><br></div>
-        </div>
-        <div class="col-md-12">
-            <div class="col-sm-12" id="new_order_title"><h1>PAYMENT SYSTEM</h1><p>vendors can make invoice payment using invoice number.</p></div>
-        </div>
-        <div class="col-md-12">
-            <div class="col-sm-12" id="new_order_title">
-                <a href="{{ route('invoice') }}" class="btn new_button">Submit</a>
-            </div>
-        </div>--}}
+
         <div class="row center"><h1>{{ $pageTitle }}</h1></div>
         <hr class="common-hr">
         <div class="row">
