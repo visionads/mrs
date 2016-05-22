@@ -104,7 +104,14 @@
                                 @foreach($data['photography_packages'] as $photography_package)
                                     <div class="col-sm-4">
                                         <label class="text-center-label">
-                                            <input type="radio" name="photography_package_id" value="{{ $photography_package->id }}" @if($data['quote']->photography_package_id != null && $photography_package->id==$data['quote']->photography_package_id) checked="checked" @endif>
+                                            <input type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}"
+                                                   @if(isset($data['quote']->relQuotePhotography))
+                                                       @foreach($data['quote']->relQuotePhotography as $ppi)
+                                                           @if($ppi->photography_package_id==$photography_package->id)
+                                                               checked="checked"
+                                                            @endif
+                                                       @endforeach
+                                                    @endif>
                                             {{ $photography_package->title }}
                                         </label>
 
@@ -155,7 +162,15 @@
                                     <div class="col-sm-4">
                                         <label class="">
                                                     <span class="text-center-label">
-                                                    <input type="radio" name="signboard_package_id" value="{{ $signboard_package->id }}" @if($data['quote']->signboard_package_id != null && $data['quote']->signboard_package_id == $signboard_package->id) checked="checked" @endif>
+                                                    <input type="checkbox" name="signboard_package_id[]" value="{{ $signboard_package->id }}"
+                                                           @if(isset($data['quote']->relQuoteSignboard))
+                                                           @foreach($data['quote']->relQuoteSignboard as $ppi)
+                                                           @if($ppi->signboard_package_id==$signboard_package->id)
+                                                           checked="checked"
+                                                            @endif
+                                                            @endforeach
+                                                            @endif>
+
                                                         {{ $signboard_package->title }}</span>
                                             <img width="100%" height="100" src="{{ asset($signboard_package->image_path) }}">
                                         </label>
@@ -164,7 +179,14 @@
 
                                                 <select name="signboard_package_size_id[{{ $signboard_package->id }}]" class="form-control">
                                                     @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
-                                                        <option value="{{ $relSignboardPackage->id }}" @if($data['quote']->signboard_package_id == null) checked="checked" @endif>{{ $relSignboardPackage->title }}</option>
+                                                        <option value="{{ $relSignboardPackage->id }}"
+                                                                @if(isset($data['quote']->relQuoteSignboard))
+                                                                @foreach($data['quote']->relQuoteSignboard as $ppi)
+                                                                @if($ppi->signboard_size_id==$relSignboardPackage->id)
+                                                                selected="selected"
+                                                                @endif
+                                                                @endforeach
+                                                                @endif>{{ $relSignboardPackage->title }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -213,17 +235,35 @@
                                 @foreach($data['print_materials'] as $print_material)
                                     <div class="col-sm-4">
                                         <label>
-                                            <input @if($data['quote']->print_material_id == $print_material->id) checked="checked" @endif type="radio" name="print_material_id" value="{{ $print_material->id }}">
+                                            <input @if(isset($data['quote']->relQuotePrintMaterial))
+                                                   @foreach($data['quote']->relQuotePrintMaterial as $ppi)
+                                                   @if($ppi->print_material_id==$print_material->id)
+                                                   checked="checked"
+                                                    @endif
+                                                    @endforeach
+                                                    @endif type="checkbox" name="print_material_id[]" value="{{ $print_material->id }}">
                                             {{ $print_material->title }}
                                             <label style="margin-left: 10%">
-                                                <input @if($data['quote']->print_material_id == $print_material->id && $data['quote']->is_distributed==1) checked="checked" @endif type="checkbox"  name="is_distributed[]" value="{{ $print_material->id }}">
+                                                <input @if(isset($data['quote']->relQuotePrintMaterial))
+                                                       @foreach($data['quote']->relQuotePrintMaterial as $ppi)
+                                                       @if($ppi->print_material_id==$print_material->id && $ppi->is_distributed==1)
+                                                       checked="checked"
+                                                       @endif
+                                                       @endforeach
+                                                       @endif  type="checkbox"  name="is_distributed[]" value="{{ $print_material->id }}">
                                                 USE FOR DISTRIBUTION
                                             </label>
                                             <img width="100%" height="150" src="{{ asset($print_material->image_path) }}">
                                             <div class="panel-body">
                                                 <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
                                                     @foreach($print_material->relPrintMaterial as $relPrintMaterial)
-                                                        <option @if($data['quote']->print_material_id != null && $data['quote']->print_material_size_id==$relPrintMaterial->id) selected="selected" @endif value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title }}</option>
+                                                        <option @if(isset($data['quote']->relQuotePrintMaterial))
+                                                                 @foreach($data['quote']->relQuotePrintMaterial as $ppi)
+                                                                 @if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id)
+                                                                 selected="selected"
+                                                                 @endif
+                                                                 @endforeach
+                                                                 @endif value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -314,7 +354,13 @@
                                     <div class="form-group">
                                         {!! Form::label('digital_media_id','Most popular websites') !!}<br>
                                         @foreach($data['digital_medias'] as $digital_media)
-                                            <input type="radio" name="digital_media_id" value="{{ $digital_media->id }}"  @if($data['quote']->digital_media_id == $digital_media->id) checked="checked" @endif> {{ $digital_media->title }} <br>
+                                            <input @if(isset($data['quote']->relQuoteDigitalMedia))
+                                                   @foreach($data['quote']->relQuoteDigitalMedia as $ppi)
+                                                   @if($ppi->digital_media_id==$digital_media->id)
+                                                   checked="checked"
+                                                   @endif
+                                                   @endforeach
+                                                   @endif type="checkbox" name="digital_media_id[]" value="{{ $digital_media->id }}"  @if($data['quote']->digital_media_id == $digital_media->id) checked="checked" @endif> {{ $digital_media->title }} <br>
                                         @endforeach
 
                                     </div>
@@ -353,13 +399,25 @@
                                 @foreach($data['local_medias'] as $local_media)
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <input  type="radio" value="{{ $local_media->id }}" name="local_media_id"  @if($data['quote']->local_media_id == $local_media->id) checked="checked" @endif>
+                                            <input @if(isset($data['quote']->relQuoteLocalMedia))
+                                                   @foreach($data['quote']->relQuoteLocalMedia as $ppi)
+                                                   @if($ppi->local_media_id==$local_media->id)
+                                                   checked="checked"
+                                                   @endif
+                                                   @endforeach
+                                                   @endif type="checkbox" value="{{ $local_media->id }}" name="local_media_id[]" >
                                              {{ $local_media->title }}
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 @foreach($local_media->relLocalMedia as $relLocalMedia)
-                                                    <input  type="radio" value="{{ $relLocalMedia->id }}" name="local_media_option_id[{{  $local_media->id }}]"  @if($data['quote']->local_media_option_id == $relLocalMedia->id) checked="checked" @endif>
+                                                    <input @if(isset($data['quote']->relQuoteLocalMedia))
+                                                           @foreach($data['quote']->relQuoteLocalMedia as $ppi)
+                                                           @if($ppi->local_media_id==$local_media->id && $ppi->local_media_option_id==$relLocalMedia->id)
+                                                           checked="checked"
+                                                    @endif
+                                                @endforeach
+                                                @endif type="radio" value="{{ $relLocalMedia->id }}" name="local_media_option_id[{{  $local_media->id }}]">
                                                      {{ $relLocalMedia->title }}<br>
                                                 @endforeach
                                             </div>

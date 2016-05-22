@@ -47,5 +47,20 @@ class Quote extends Model
     public function relPrintMaterialDistribution(){
         return $this->hasOne('App\PrintMaterialDistribution','id','print_material_distribution_id');
     }
+    public function relQuotePhotography(){
+        return $this->hasMany('App\QuotePhotography','quote_id','id');
+    }
+    public function relQuoteSignboard(){
+        return $this->hasMany('App\QuoteSignboard','quote_id','id');
+    }
+    public function relQuotePrintMaterial(){
+        return $this->hasMany('App\QuotePrintMaterial','quote_id','id');
+    }
+    public function relQuoteDigitalMedia(){
+        return $this->hasMany('App\QuoteDigitalMedia','quote_id','id');
+    }
+    public function relQuoteLocalMedia(){
+        return $this->hasMany('App\QuoteLocalMedia','quote_id','id');
+    }
 }
 
