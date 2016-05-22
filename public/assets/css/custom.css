@@ -777,7 +777,7 @@ div .alert{
 .navbar li.dropdown a { background:#f36f21 !important; color:#fff !important;}
 /*.navbar li.dropdown a { background:#101010 !important; color:#fff !important;}*/
 .navbar li.dropdown ul.dropdown-menu { background:linear-gradient(0deg,#f36f21,#000000) !important; color:#fff !important; border:0px; margin-top:5px}
-/*.navbar li.dropdown ul.dropdown-menu { background:linear-gradient(0deg,#101010,#000000) !important; color:#fff !important; border:0px;}*/
+/*.navbar li.dropdown ul.dropdown-menu { background:#505050 !important; color:#fff !important; border:0px; margin-top:5px; border-radius: 10px; }*/
 .navbar li.dropdown ul.dropdown-menu a { background:none !important; color:#fff !important; border-radius:0px;}
 .navbar li.dropdown ul.dropdown-menu a:hover { background:#f36f21 !important; color:#fff !important; border-radius:0px;}
 .navbar-default {
