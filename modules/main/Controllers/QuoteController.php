@@ -15,6 +15,11 @@ use App\DigitalMedia;
 use App\LocalMedia;
 use App\PropertyDetail;
 use App\Quote;
+use App\QuotePhotography;
+use App\QuoteSignboard;
+use App\QuotePrintMaterial;
+use App\QuoteDigitalMedia;
+use App\QuoteLocalMedia;
 use App\PrintMaterialDistribution;
 use Auth;
 use DB;
@@ -103,9 +108,9 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
-        \DB::beginTransaction();
+//        \DB::beginTransaction();
         $received=$request->except('_token');
-        dd($received);
+//        dd($received);
         try {
             $data['solution_type_id'] = $received['solution_type_id'];
 
@@ -128,13 +133,20 @@ class QuoteController extends Controller
 //            dd($data);
             $quote=Quote::create($data);
             GenerateNumber::update_row($quote_number['setting_id'],$quote_number['number']);
+//            dd($quote->id);
+//            $quote=Quote::findOrFail(30);
             /*
              * getting photography info
              * */
             if (isset($received['pro-photographyChooseBtn']) && !empty($received['pro-photographyChooseBtn']) && $received['pro-photographyChooseBtn'] == 1) {
                 if(isset($received['photography_package_id']))
                 {
-                    $data['photography_package_id'] = $received['photography_package_id'];
+                    foreach ($received['photography_package_id'] as $ppi) {
+                        $qp=new QuotePhotography;
+                        $qp->quote_id=$quote->id;
+                        $qp->photography_package_id=$ppi;
+                        $qp->save();
+                    }
                 }
                 $data['photography_package_comments'] = $received['photography_package_comments'];
             }
@@ -144,11 +156,14 @@ class QuoteController extends Controller
             if (isset($received['signboardChooseBtn']) && !empty($received['signboardChooseBtn']) && $received['signboardChooseBtn'] == 1) {
                 if(isset($received['signboard_package_id'])){
 
-                    $data['signboard_package_id'] = $received['signboard_package_id'];
-
-                    if(isset($received['signboard_package_size_id'])){
-
-                        $data['signboard_package_size_id'] = $received['signboard_package_size_id'][$received['signboard_package_id']];
+                    foreach ($received['signboard_package_id'] as $spi) {
+                        $sp=new QuoteSignboard;
+                        $sp->quote_id=$quote->id;
+                        $sp->signboard_package_id=$spi;
+                        if(isset($received['signboard_package_size_id'])){
+                            $sp->signboard_size_id=$received['signboard_package_size_id'][$spi];
+                        }
+                        $sp->save();
                     }
                 }
                 $data['signboard_package_comments'] = $received['signboard_package_comments'];
@@ -158,25 +173,26 @@ class QuoteController extends Controller
              * */
             if (isset($received['printMaterialChooseBtn']) && !empty($received['printMaterialChooseBtn']) && $received['printMaterialChooseBtn'] == 1) {
                 if(isset($received['print_material_id'])){
-                    $data['print_material_id'] = $received['print_material_id'];
-
-                    if(isset($received['print_material_size_id']))
-                    {
-
-                        $data['print_material_size_id'] = $received['print_material_size_id'][$received["print_material_id"]];
-                    }
-                }
-                if(isset($received['is_distributed']))
-                {
-                    foreach ($received['is_distributed'] as $print_id) {
-                        if($print_id==$received['print_material_id'])
+                    foreach ($received['print_material_id'] as $pmi) {
+                        $pm=new QuotePrintMaterial;
+                        $pm->quote_id=$quote->id;
+                        $pm->print_material_id=$pmi;
+                        if(isset($received['print_material_size_id']))
                         {
-                            $data['is_distributed'] = 1;
-                        }else{
-                            $data['is_distributed'] = 0;
+                            $pm->print_material_size_id = $received['print_material_size_id'][$pmi];
                         }
-                    }
+                        if(isset($received['is_distributed']))
+                        {
+                            if(isset($received['is_distributed'][$pmi]))
+                            {
+                                $pm->is_distributed = 1;
+                            }else{
+                                $pm->is_distributed = 0;
+                            }
 
+                        }
+                        $pm->save();
+                    }
                 }
                 $data['print_material_comments'] = $received['print_material_comments'];
             }
@@ -196,7 +212,12 @@ class QuoteController extends Controller
             if (isset($received['digitalMediaChooseBtn']) && !empty($received['digitalMediaChooseBtn']) && $received['digitalMediaChooseBtn'] == 1) {
                 if(isset($received['digital_media_id']))
                 {
-                    $data['digital_media_id'] = $received['digital_media_id'];
+                    foreach ($received['digital_media_id'] as $dmi) {
+                        $dm= new QuoteDigitalMedia;
+                        $dm->quote_id= $quote->id;
+                        $dm->digital_media_id=$dmi;
+                        $dm->save();
+                    }
                 }
                 $data['digital_media_note'] = $received['digital_media_note'];
             }
@@ -206,17 +227,22 @@ class QuoteController extends Controller
             if (isset($received['localMediaChooseBtn']) && !empty($received['localMediaChooseBtn']) && $received['localMediaChooseBtn'] == 1) {
                 if(isset($received['local_media_id']))
                 {
-                    $data['local_media_id'] = $received['local_media_id'];
-
-                    if(isset($received['local_media_option_id']))
-                    {
-                        $data['local_media_option_id'] = $received['local_media_option_id'][$received['local_media_id']];
+//                    dd($received);
+                    foreach ($received['local_media_id'] as $lmi) {
+                        $lm= new QuoteLocalMedia;
+                        $lm->quote_id=$quote->id;
+                        $lm->local_media_id=$lmi;
+                        if(isset($received['local_media_option_id']))
+                        {
+                            $lm->local_media_option_id = $received['local_media_option_id'][$lmi];
+                        }
+                        $lm->save();
                     }
                 }
                 $data['local_media_note'] = $received['local_media_note'];
             }
-//            dd($data);
-
+//            dd($received);
+            $quote->update($data);
             \DB::commit();
             Session::flash('message','Data has been successfully stored');
             if(isset($received['quote']))
