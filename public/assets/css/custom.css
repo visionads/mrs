@@ -802,7 +802,8 @@ a span.link-underline {border-bottom:1px solid #fff;}
 }
 .white { color:#ffffff !important;}
 
-div.upload-path-css { width:100%; background:#ffffff; border-radius: 10px; color:#fff; }
+/**----------------------- For File type Input field -------------------------------**/
+div.upload-path-css { width:100%; background:#ffffff; border-radius: 10px; color:#fff; position:relative; }
 div.upload-path-css input {
     display: block !important;
     width: 100% !important;
@@ -810,5 +811,6 @@ div.upload-path-css input {
     opacity: 0 !important;
     overflow: hidden !important;
 }
+div.upload-path-css:before { content: "Signature"; position:absolute; font-size: 13px; top: 8px; left:10px; color: #606060;}
 
 
