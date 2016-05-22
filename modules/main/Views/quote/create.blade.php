@@ -357,7 +357,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>
-                                                        <input type="checkbox" name="local_media_id[]">
+                                                        <input type="checkbox" name="local_media_id[]" value="{{ $local_media->id }}">
                                                         {{ $local_media->title }}
                                                     </label>
                                                 </div>
