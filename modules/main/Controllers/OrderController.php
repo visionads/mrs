@@ -27,7 +27,7 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function quote_confirm($quote_id, $quote_no)
+    /*public function quote_confirm($quote_id, $quote_no)
     {
         $pageTitle = 'Agreement';
 
@@ -38,7 +38,7 @@ class OrderController extends Controller
             'quote_id'=>$quote_id,
             'quote_no'=>$quote_no,
             ]);
-    }
+    }*/
 
 
     /**
