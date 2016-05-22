@@ -22,5 +22,8 @@ class QuotePrintMaterial extends Model
         'created_by',
         'updated_by',
     ];
+    public function relQuote(){
+        return $this->belongsTo('App\Quote','quote_id','id');
+    }
 
 }

@@ -148,6 +148,7 @@ class QuoteController extends Controller
                         $qp->save();
                     }
                 }
+                $data['photography_package_id'] = 1;
                 $data['photography_package_comments'] = $received['photography_package_comments'];
             }
             /*
@@ -166,6 +167,7 @@ class QuoteController extends Controller
                         $sp->save();
                     }
                 }
+                $data['signboard_package_id'] = 1;
                 $data['signboard_package_comments'] = $received['signboard_package_comments'];
             }
             /*
@@ -194,6 +196,7 @@ class QuoteController extends Controller
                         $pm->save();
                     }
                 }
+                $data['print_material_id'] = 1;
                 $data['print_material_comments'] = $received['print_material_comments'];
             }
             /*
@@ -219,6 +222,7 @@ class QuoteController extends Controller
                         $dm->save();
                     }
                 }
+                $data['digital_media_id'] = 1;
                 $data['digital_media_note'] = $received['digital_media_note'];
             }
             /*
@@ -239,6 +243,7 @@ class QuoteController extends Controller
                         $lm->save();
                     }
                 }
+                $data['local_media_id'] = 1;
                 $data['local_media_note'] = $received['local_media_note'];
             }
 //            dd($received);
@@ -287,7 +292,7 @@ class QuoteController extends Controller
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         $data['digital_medias']= DigitalMedia::get();
-        $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution')->first();
+        $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia')->first();
 //        dd($data['quote']);
         return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
@@ -302,7 +307,7 @@ class QuoteController extends Controller
     public function update(Request $request, $id)
     {
         \DB::beginTransaction();
-        $received=$request->except('_token');
+        $received=$request->except('_token','_method');
         $quote= Quote::find($id);
 //        dd($received);
         try {
@@ -324,12 +329,21 @@ class QuoteController extends Controller
              * getting photography info
              * */
             if (isset($received['pro-photographyChooseBtn']) && !empty($received['pro-photographyChooseBtn']) && $received['pro-photographyChooseBtn'] == 1) {
+
                 if(isset($received['photography_package_id']))
                 {
-                    $data['photography_package_id'] = $received['photography_package_id'];
+                    QuotePhotography::where('quote_id',$quote->id)->delete();
+                    foreach ($received['photography_package_id'] as $ppi) {
+                        $qp=new QuotePhotography;
+                        $qp->quote_id=$quote->id;
+                        $qp->photography_package_id=$ppi;
+                        $qp->save();
+                    }
                 }
+                $data['photography_package_id'] = 1;
                 $data['photography_package_comments'] = $received['photography_package_comments'];
             }else{
+                QuotePhotography::where('quote_id',$quote->id)->delete();
                 $data['photography_package_id'] = null;
                 $data['photography_package_comments'] = '';
             }
@@ -338,50 +352,58 @@ class QuoteController extends Controller
              * */
             if (isset($received['signboardChooseBtn']) && !empty($received['signboardChooseBtn']) && $received['signboardChooseBtn'] == 1) {
                 if(isset($received['signboard_package_id'])){
+                    QuoteSignboard::where('quote_id',$quote->id)->delete();
 
-                    $data['signboard_package_id'] = $received['signboard_package_id'];
-
-                    if(isset($received['signboard_package_size_id'])){
-
-                        $data['signboard_package_size_id'] = $received['signboard_package_size_id'][$received['signboard_package_id']];
+                    foreach ($received['signboard_package_id'] as $spi) {
+                        $sp=new QuoteSignboard;
+                        $sp->quote_id=$quote->id;
+                        $sp->signboard_package_id=$spi;
+                        if(isset($received['signboard_package_size_id'])){
+                            $sp->signboard_size_id=$received['signboard_package_size_id'][$spi];
+                        }
+                        $sp->save();
                     }
                 }
+                $data['signboard_package_id'] = 1;
                 $data['signboard_package_comments'] = $received['signboard_package_comments'];
             }else{
+                QuoteSignboard::where('quote_id',$quote->id)->delete();
                 $data['signboard_package_id'] = null;
-                $data['signboard_package_size_id'] = null;
                 $data['signboard_package_comments'] = '';
             }
             /*
              * getting print material info
              * */
             if (isset($received['printMaterialChooseBtn']) && !empty($received['printMaterialChooseBtn']) && $received['printMaterialChooseBtn'] == 1) {
+
                 if(isset($received['print_material_id'])){
-                    $data['print_material_id'] = $received['print_material_id'];
-
-                    if(isset($received['print_material_size_id']))
-                    {
-
-                        $data['print_material_size_id'] = $received['print_material_size_id'][$received["print_material_id"]];
-                    }
-                }
-                if(isset($received['is_distributed']))
-                {
-                    foreach ($received['is_distributed'] as $print_id) {
-                        if($print_id==$received['print_material_id'])
+                    QuotePrintMaterial::where('quote_id',$quote->id)->delete();
+                    foreach ($received['print_material_id'] as $pmi) {
+                        $pm=new QuotePrintMaterial;
+                        $pm->quote_id=$quote->id;
+                        $pm->print_material_id=$pmi;
+                        if(isset($received['print_material_size_id']))
                         {
-                            $data['is_distributed'] = 1;
-                        }else{
-                            $data['is_distributed'] = 0;
+                            $pm->print_material_size_id = $received['print_material_size_id'][$pmi];
                         }
-                    }
+                        if(isset($received['is_distributed']))
+                        {
+                            if(isset($received['is_distributed'][$pmi]))
+                            {
+                                $pm->is_distributed = 1;
+                            }else{
+                                $pm->is_distributed = 0;
+                            }
 
+                        }
+                        $pm->save();
+                    }
                 }
+                $data['print_material_id'] = 1;
                 $data['print_material_comments'] = $received['print_material_comments'];
             }else{
+                QuotePrintMaterial::where('quote_id',$quote->id)->delete();
                 $data['print_material_id'] = null;
-                $data['print_material_size_id'] = null;
-                $data['is_distributed'] = 0;
                 $data['print_material_comments'] = '';
 
             }
@@ -402,12 +424,22 @@ class QuoteController extends Controller
              * getting distributed print material info
              * */
             if (isset($received['digitalMediaChooseBtn']) && !empty($received['digitalMediaChooseBtn']) && $received['digitalMediaChooseBtn'] == 1) {
+
+
                 if(isset($received['digital_media_id']))
                 {
-                    $data['digital_media_id'] = $received['digital_media_id'];
+                    QuoteDigitalMedia::where('quote_id',$quote->id)->delete();
+                    foreach ($received['digital_media_id'] as $dmi) {
+                        $dm= new QuoteDigitalMedia;
+                        $dm->quote_id= $quote->id;
+                        $dm->digital_media_id=$dmi;
+                        $dm->save();
+                    }
                 }
+                $data['digital_media_id'] = 1;
                 $data['digital_media_note'] = $received['digital_media_note'];
             }else{
+                QuoteDigitalMedia::where('quote_id',$quote->id)->delete();
                 $data['digital_media_id'] = null;
                 $data['digital_media_note'] = '';
 
@@ -418,17 +450,24 @@ class QuoteController extends Controller
             if (isset($received['localMediaChooseBtn']) && !empty($received['localMediaChooseBtn']) && $received['localMediaChooseBtn'] == 1) {
                 if(isset($received['local_media_id']))
                 {
-                    $data['local_media_id'] = $received['local_media_id'];
-
-                    if(isset($received['local_media_option_id']))
-                    {
-                        $data['local_media_option_id'] = $received['local_media_option_id'][$received['local_media_id']];
+//                    dd($received);
+                    QuoteLocalMedia::where('quote_id',$quote->id)->delete();
+                    foreach ($received['local_media_id'] as $lmi) {
+                        $lm= new QuoteLocalMedia;
+                        $lm->quote_id=$quote->id;
+                        $lm->local_media_id=$lmi;
+                        if(isset($received['local_media_option_id']))
+                        {
+                            $lm->local_media_option_id = $received['local_media_option_id'][$lmi];
+                        }
+                        $lm->save();
                     }
                 }
+                $data['local_media_id'] = 1;
                 $data['local_media_note'] = $received['local_media_note'];
             }else{
+                QuoteLocalMedia::where('quote_id',$quote->id)->delete();
                 $data['local_media_id'] = null;
-                $data['local_media_option_id'] = null;
                 $data['local_media_note'] = '';
 
             }

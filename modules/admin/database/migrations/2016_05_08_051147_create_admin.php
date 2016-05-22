@@ -193,10 +193,10 @@ class CreateAdmin extends Migration
                 $table->foreign('local_media_id')->references('id')->on('local_media');
             }
         });
-
-
-
-
+//
+//
+//
+//
         //property_detail
         Schema::create('property_detail', function (Blueprint $table) {
             $table->increments('id');
@@ -262,25 +262,25 @@ class CreateAdmin extends Migration
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
-        Schema::table('quote', function($table) {
-            $table->foreign('solution_type_id')->references('id')->on('solution_type');
-
-            $table->foreign('property_detail_id')->references('id')->on('property_detail');
-
-            $table->foreign('photography_package_id')->references('id')->on('photography_package');
-
-            $table->foreign('signboard_package_id')->references('id')->on('signboard_package');
-
-            $table->foreign('print_material_id')->references('id')->on('print_material');
-            $table->foreign('print_material_distribution_id')->references('id')->on('print_material_distribution');
-
-            $table->foreign('digital_media_id')->references('id')->on('digital_media');
-
-            $table->foreign('local_media_id')->references('id')->on('local_media');
-
-            $table->foreign('local_media_option_id')->references('id')->on('local_media_option');
-
-        });
+//        Schema::table('quote', function($table) {
+//            $table->foreign('solution_type_id')->references('id')->on('solution_type');
+//
+//            $table->foreign('property_detail_id')->references('id')->on('property_detail');
+//
+//            $table->foreign('photography_package_id')->references('id')->on('photography_package');
+//
+//            $table->foreign('signboard_package_id')->references('id')->on('signboard_package');
+//
+//            $table->foreign('print_material_id')->references('id')->on('print_material');
+//            $table->foreign('print_material_distribution_id')->references('id')->on('print_material_distribution');
+//
+//            $table->foreign('digital_media_id')->references('id')->on('digital_media');
+//
+//            $table->foreign('local_media_id')->references('id')->on('local_media');
+//
+//            $table->foreign('local_media_option_id')->references('id')->on('local_media_option');
+//
+//        });
 
 
 
