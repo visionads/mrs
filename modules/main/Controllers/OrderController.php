@@ -20,6 +20,7 @@ use Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\Helpers\ImageResize;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -55,8 +56,8 @@ class OrderController extends Controller
         $quote_id = $input['quote_id'];
         $quote_no = $input['quote_no'];
 
-        $vendor_signature = $input['vendor_signature'];
-        $agent_signature = $input['agent_signature'];
+        $vendor_signature = Input::file('vendor_signature');
+        $agent_signature = Input::file('agent_signature');
 
         $vendor_img_path = null;
         $agent_img_path = null;
@@ -75,8 +76,9 @@ class OrderController extends Controller
                 mkdir ($destinationPath, 0777);
             }
 
+            //vendor signature
             if($vendor_signature){
-                $vendor_file_name = ImageResize::image_upload($vendor_signature,$file_type_required,$destinationPath);
+                $vendor_file_name = $this->image_upload($vendor_signature,$file_type_required,$destinationPath);
 
                 if($vendor_file_name != '') {
                     $vendor_img_path = $vendor_file_name[0];
@@ -85,8 +87,11 @@ class OrderController extends Controller
                     Session::flash('error', 'Some thing error in image file type! Please Try again');
                     return redirect()->back();
                 }
-            }else if($agent_signature){
-                $agent_file_name = ImageResize::image_upload($agent_signature,$file_type_required,$destinationPath);
+            }
+
+            //agent signature
+            if($agent_signature){
+                $agent_file_name = $this->image_upload($agent_signature,$file_type_required,$destinationPath);
 
                 if($agent_file_name != '') {
                     $agent_img_path = $agent_file_name[0];
@@ -248,4 +253,40 @@ class OrderController extends Controller
         ]);
     }
 
+
+
+    protected function image_upload($image,$file_type_required,$destinationPath)
+    {
+
+        if ($image != '') {
+            $img_name = $image; //($_FILES['image']['name']);
+            $random_number = rand(111, 999);
+            $thumb_name = 'thumb_50x50_' . $random_number . '_' . $img_name;
+            $newWidth = 200;
+            $targetFile = $destinationPath . $thumb_name;
+            $originalFile = $image;
+
+
+            $rules = array('image' => 'required|mimes:' . $file_type_required);
+            $validator = Validator::make(array('image' => $image), $rules);
+            if ($validator->passes()) {
+
+                // Create folders if they don't exist
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0777, true);
+                }
+                $image_original_name = $image->getClientOriginalName();
+                $image_name = rand(11111, 99999) . $image_original_name;
+                $upload_success = $image->move($destinationPath, $image_name);
+                $file = array($destinationPath . $image_name);
+                if ($upload_success) {
+                    return $file_name = $file;
+                } else {
+                    return $file_name = '';
+                }
+            }else{
+                return $file_name = '';
+            }
+        }
+    }
 }

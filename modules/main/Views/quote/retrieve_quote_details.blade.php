@@ -63,7 +63,7 @@
      {{--Agreement page--}}
     <div class="container agreement" style="display:none">
 
-    {!! Form::open(['route' => 'place-order', 'method' => 'post','id' => 'jq-validation-form']) !!}
+    {!! Form::open(['route' => 'place-order', 'method' => 'post','id' => 'jq-validation-form', 'files'=>true]) !!}
 
     {!! Form::hidden('quote_id', $quote_id) !!}
     {!! Form::hidden('quote_no', $quote_no) !!}
@@ -101,7 +101,7 @@
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12 new_order">
                     {!! Form::label('vendor_signature', 'Vendor Signature :', ['class' => 'control-label']) !!}
-                    {!! Form::file('vendor_signature', Input::old('vendor_signature'),['title'=>'Vendor Signature','class' => 'radius-10 white']) !!}
+                    {!! Form::file('vendor_signature') !!}
                 </div>
             </div>
 
@@ -120,7 +120,7 @@
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12 new_order">
                     {!! Form::label('agent_signature', 'Agent Signature :', ['class' => 'control-label']) !!}
-                    {!! Form::file('agent_signature', Input::old('agent_signature'),['title'=>'Agent Signature','class' => 'radius-10']) !!}
+                    {!! Form::file('agent_signature') !!}
                 </div>
             </div>
 

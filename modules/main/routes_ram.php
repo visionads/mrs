@@ -89,7 +89,7 @@
 
 
 
-    Route::any('place-order/{quote_id}/{quote_no}',[
+    Route::any('place-order',[
         'as'    =>  'place-order',
         'uses'  =>  'OrderController@place_order'
     ]);
