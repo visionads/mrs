@@ -73,7 +73,7 @@ class OrderController extends Controller
             $model_property_details->update($input_confirm);
 
             DB::commit();
-            Session::flash('message', 'Successfully added!');
+            Session::flash('message', 'Successfully you confirmed your Quote! and Your Quote Number is : '.$quote_no);
         }catch(\Exception $e){
             DB::rollback();
             Session::flash('danger', $e->getMessage());
