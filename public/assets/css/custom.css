@@ -793,3 +793,11 @@ a span.link-underline {border-bottom:1px solid #fff;}
 /* -------------------- Date picker ----------------------*/
 .datepicker, .datepicker-dropdown { position: fixed; top:30% !important; }
 
+/*------------------ For Front Page Profile photo Circled------------*/
+.page-profile .profile-photo img {
+    /* display: block; */
+    max-width: 190px;
+    height: 190px;
+    border-radius: 50%;
+}
+
