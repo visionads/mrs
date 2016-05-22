@@ -802,3 +802,13 @@ a span.link-underline {border-bottom:1px solid #fff;}
 }
 .white { color:#ffffff !important;}
 
+div.upload-path-css { width:100%; background:#ffffff; border-radius: 10px; color:#fff; }
+div.upload-path-css input {
+    display: block !important;
+    width: 100% !important;
+    height: 40px !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+}
+
+

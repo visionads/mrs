@@ -99,9 +99,9 @@
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div class="col-sm-12 new_order">
+                <div class="col-sm-12 new_order file-type">
                     {!! Form::label('vendor_signature', 'Vendor Signature :', ['class' => 'control-label']) !!}
-                    {!! Form::file('vendor_signature') !!}
+                    <div class="upload-path-css">{!! Form::file('vendor_signature') !!}</div>
                 </div>
             </div>
 
@@ -118,9 +118,9 @@
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div class="col-sm-12 new_order">
+                <div class="col-sm-12 new_order file-type">
                     {!! Form::label('agent_signature', 'Agent Signature :', ['class' => 'control-label']) !!}
-                    {!! Form::file('agent_signature') !!}
+                    <div class="upload-path-css">{!! Form::file('agent_signature') !!}</div>
                 </div>
             </div>
 
