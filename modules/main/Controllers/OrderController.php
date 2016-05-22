@@ -27,7 +27,7 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function quote_confirm($quote_id, $quote_no)
+    /*public function quote_confirm($quote_id, $quote_no)
     {
         $pageTitle = 'Agreement';
 
@@ -38,7 +38,7 @@ class OrderController extends Controller
             'quote_id'=>$quote_id,
             'quote_no'=>$quote_no,
             ]);
-    }
+    }*/
 
 
     /**
@@ -73,7 +73,7 @@ class OrderController extends Controller
             $model_property_details->update($input_confirm);
 
             DB::commit();
-            Session::flash('message', 'Successfully added!');
+            Session::flash('message', 'Successfully you confirmed your Quote! and Your Quote Number is : '.$quote_no);
         }catch(\Exception $e){
             DB::rollback();
             Session::flash('danger', $e->getMessage());

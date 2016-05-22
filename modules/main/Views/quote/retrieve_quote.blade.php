@@ -40,11 +40,6 @@
         </div>
     </div>
 
-
-    <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.12.0.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     @if($errors->any())
         <script type="text/javascript">
             $(function(){
