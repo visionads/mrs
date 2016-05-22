@@ -25,3 +25,11 @@
         'as' => 'payment-success',
         'uses' => 'PaymentController@store'
     ]);
+    Route::get('quotes', [
+        'as' => 'quotes',
+        'uses' => 'QuoteController@view_quote'
+    ]);
+    Route::get('quote-details/{id}', [
+        'as' => 'quote-details',
+        'uses' => 'QuoteController@quote_details'
+    ]);

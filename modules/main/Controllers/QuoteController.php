@@ -42,6 +42,27 @@ class QuoteController extends Controller
     {
         //
     }
+    public function view_quote()
+    {
+        $pageTitle = 'MRS - View Quotes';
+        $data = Quote::with('relSolutionType')->orderBy('id','DESC')->paginate(10);
+        return view('main::quote.view_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
+    }
+
+    public function quote_details($id)
+    {
+        $pageTitle = 'MRS - Quote Details';
+        $user_image = UserImage::where('user_id',Auth::user()->id)->first();
+        $data['solution_types']= SolutionType::get();
+        $data['photography_packages']= PhotographyPackage::with('relPhotographyPackage')->get();
+        $data['signboard_packages']= SignboardPackage::with('relSignboardPackage')->get();
+        $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
+        $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
+        $data['digital_medias']= DigitalMedia::get();
+        $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia')->first();
+//        dd($data['quote']);
+        return view('main::quote.details',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
+    }
 
     /**
      * Show the form for creating a new resource.
