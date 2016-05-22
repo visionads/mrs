@@ -18,6 +18,8 @@ use DB;
 use PhpParser\Node\Stmt\Property;
 use Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
+use App\Helpers\ImageResize;
 
 class OrderController extends Controller
 {
@@ -27,7 +29,7 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    /*public function quote_confirm($quote_id, $quote_no)
+    public function quote_confirm($quote_id, $quote_no)
     {
         $pageTitle = 'Agreement';
 
@@ -38,7 +40,7 @@ class OrderController extends Controller
             'quote_id'=>$quote_id,
             'quote_no'=>$quote_no,
             ]);
-    }*/
+    }
 
 
     /**
@@ -53,18 +55,62 @@ class OrderController extends Controller
         $quote_id = $input['quote_id'];
         $quote_no = $input['quote_no'];
 
+        $vendor_signature = $input['vendor_signature'];
+        $agent_signature = $input['agent_signature'];
 
+        $vendor_img_path = null;
+        $agent_img_path = null;
+
+        if(count($vendor_signature)>0 || count($agent_signature)>0)
+        {
+            $file_type_required = 'png,jpeg,jpg';
+            $destinationPath = 'uploads/signature_image/';
+            $uploadfolder = 'uploads/';
+            if ( !file_exists($uploadfolder) ) {
+                $oldmask = umask(0);  // helpful when used in linux server
+                mkdir ($uploadfolder, 0777);
+            }
+            if ( !file_exists($destinationPath) ) {
+                $oldmask = umask(0);  // helpful when used in linux server
+                mkdir ($destinationPath, 0777);
+            }
+
+            if($vendor_signature){
+                $vendor_file_name = ImageResize::image_upload($vendor_signature,$file_type_required,$destinationPath);
+
+                if($vendor_file_name != '') {
+                    $vendor_img_path = $vendor_file_name[0];
+                    //$input['thumbnail'] = $file_name_1[1];
+                }else{
+                    Session::flash('error', 'Some thing error in image file type! Please Try again');
+                    return redirect()->back();
+                }
+            }else if($agent_signature){
+                $agent_file_name = ImageResize::image_upload($agent_signature,$file_type_required,$destinationPath);
+
+                if($agent_file_name != '') {
+                    $agent_img_path = $agent_file_name[0];
+                    //$input['thumbnail'] = $file_name_2[1];
+                }else{
+                    Session::flash('error', 'Some thing error in image file type! Please Try again');
+                    return redirect()->back();
+                }
+            }
+        }
+
+        /*Input array from retrive_quote_details.blade.php page form*/
         $input_confirm = [
             'vendor_name'              => $input['vendor_name'],
-            'vendor_phone'              => $input['vendor_phone'],
-            //'vendor_signature_path'    => $input['vendor_signature'], TODO:: image upload
-            'signature_date'           => $input['signature_date']
-            //'agent_signature_path'     => $input['description'], TODO:: image upload
+            'vendor_phone'             => $input['vendor_phone'],
+            'vendor_signature_path'    => $vendor_img_path,
+            'signature_date'           => $input['signature_date'],
+            'agent_signature_path'     => $agent_img_path
         ];
+
+        print_r($input_confirm); exit;
 
         $quote_data = Quote::findOrFail($quote_id);
         $property_detail_id =$quote_data->property_detail_id;
-
 
         DB::beginTransaction();
         try{
