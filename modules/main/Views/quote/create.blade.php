@@ -104,7 +104,7 @@
                                             @foreach($data['photography_packages'] as $photography_package)
                                                 <div class="col-sm-4">
                                                     <label class="text-center-label">
-                                                        <input type="radio" name="photography_package_id" value="{{ $photography_package->id }}">
+                                                        <input type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}">
                                                         {{ $photography_package->title }}
                                                     </label>
 
@@ -155,7 +155,7 @@
                                             <div class="col-sm-4">
                                                 <label class="">
                                                     <span class="text-center-label">
-                                                    <input type="radio" name="signboard_package_id" value="{{ $signboard_package->id }}">
+                                                    <input type="checkbox" name="signboard_package_id[]" value="{{ $signboard_package->id }}">
 {{ $signboard_package->title }}</span>
                                                     <img width="100%" height="100" src="{{ asset($signboard_package->image_path) }}">
                                                 </label>
@@ -164,7 +164,7 @@
 
                                                         <select name="signboard_package_size_id[{{ $signboard_package->id }}]" class="form-control">
                                                             @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
-                                                                <option value="{{ $relSignboardPackage->id }}">{{ $relSignboardPackage->title }}</option>
+                                                                <option value="{{ $relSignboardPackage->id }}">{{ $relSignboardPackage->title.' ( $'.$relSignboardPackage->price.')' }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -213,7 +213,7 @@
                                             @foreach($data['print_materials'] as $print_material)
                                             <div class="col-sm-4">
                                                 <label>
-                                                    <input type="radio" name="print_material_id" value="{{ $print_material->id }}">
+                                                    <input type="checkbox" name="print_material_id[]" value="{{ $print_material->id }}">
                                                     {{ $print_material->title }}
                                                 <label style="margin-left: 10%">
                                                     <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
@@ -223,7 +223,7 @@
                                                     <div class="panel-body">
                                                     <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
                                                         @foreach($print_material->relPrintMaterial as $relPrintMaterial)
-                                                        <option value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title }}</option>
+                                                        <option value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title.'( $'.$relPrintMaterial->price.')' }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -233,7 +233,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>NOTE</label>
-                                                    <textarea type="text" name="print_material_comments" placeholder="Address" class="form-control" id="address"></textarea>
+                                                    <textarea type="text" name="print_material_comments" placeholder="Note" class="form-control" id="address"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -315,7 +315,8 @@
                                             <div class="form-group">
                                                 {!! Form::label('digital_media_id','Most popular websites') !!}<br>
                                                 @foreach($data['digital_medias'] as $digital_media)
-                                                    <input type="radio" name="digital_media_id" value="{{ $digital_media->id }}"> {{ $digital_media->title }} <br>
+                                                    <label>
+                                                    <input type="checkbox" name="digital_media_id[]" value="{{ $digital_media->id }}"> {{ $digital_media->title }}</label> <br>
 
                                                 @endforeach
 
@@ -355,13 +356,18 @@
                                             @foreach($data['local_medias'] as $local_media)
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    {!! Form::radio('local_media_id',$local_media->id) !!} {{ $local_media->title }}
+                                                    <label>
+                                                        <input type="checkbox" name="local_media_id[]">
+                                                        {{ $local_media->title }}
+                                                    </label>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         @foreach($local_media->relLocalMedia as $relLocalMedia)
                                                             {{--<input type="radio">--}}
-                                                        {!! Form::radio('local_media_option_id['.$local_media->id.']',$relLocalMedia->id) !!} {{ $relLocalMedia->title }}<br>
+                                                            <label for="">
+                                                        {!! Form::radio('local_media_option_id['.$local_media->id.']',$relLocalMedia->id) !!} {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}
+                                                            </label><br>
                                                         @endforeach
                                                     </div>
                                                 </div>

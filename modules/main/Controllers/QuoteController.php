@@ -50,7 +50,7 @@ class QuoteController extends Controller
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         $data['digital_medias']= DigitalMedia::get();
-//        dd($data['photography_packages']);
+//        dd($data['signboard_packages']);
         return view('main::quote.create',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
 
@@ -105,7 +105,7 @@ class QuoteController extends Controller
     {
         \DB::beginTransaction();
         $received=$request->except('_token');
-
+        dd($received);
         try {
             $data['solution_type_id'] = $received['solution_type_id'];
 
@@ -120,6 +120,14 @@ class QuoteController extends Controller
             $property_id = PropertyDetail::create($property);
             $data['property_detail_id'] = $property_id->id;
 
+            /*
+             * Store Quote
+             * */
+            $quote_number=GenerateNumber::generate_number('quote-number');
+            $data['quote_number']=$quote_number['generated_number'];
+//            dd($data);
+            $quote=Quote::create($data);
+            GenerateNumber::update_row($quote_number['setting_id'],$quote_number['number']);
             /*
              * getting photography info
              * */
@@ -208,11 +216,7 @@ class QuoteController extends Controller
                 $data['local_media_note'] = $received['local_media_note'];
             }
 //            dd($data);
-            $quote_number=GenerateNumber::generate_number('quote-number');
-            $data['quote_number']=$quote_number['generated_number'];
-//            dd($data);
-            $quote=Quote::create($data);
-            GenerateNumber::update_row($quote_number['setting_id'],$quote_number['number']);
+
             \DB::commit();
             Session::flash('message','Data has been successfully stored');
             if(isset($received['quote']))
