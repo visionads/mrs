@@ -112,7 +112,7 @@ class OrderController extends Controller
             'agent_signature_path'     => $agent_img_path
         ];
 
-        print_r($input_confirm); exit;
+        //print_r($input_confirm); exit;
 
         $quote_data = Quote::findOrFail($quote_id);
         $property_detail_id =$quote_data->property_detail_id;
