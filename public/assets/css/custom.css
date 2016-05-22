@@ -791,5 +791,5 @@ a.user-img-link img { width:20px; height: 20px; margin:-5px 5px 0 0; border-radi
 a span.link-underline {border-bottom:1px solid #fff;}
 
 /* -------------------- Date picker ----------------------*/
-.datepicker { position: absolute; top:100% !important; }
+.datepicker, .datepicker-dropdown { position: fixed; top:30% !important; }
 
