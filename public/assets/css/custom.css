@@ -802,6 +802,7 @@ a span.link-underline {border-bottom:1px solid #fff;}
 }
 .white { color:#ffffff !important;}
 
+/**----------------------- For File type Input field -------------------------------**/
 div.upload-path-css { width:100%; background:#ffffff; border-radius: 10px; color:#fff; position:relative; }
 div.upload-path-css input {
     display: block !important;
