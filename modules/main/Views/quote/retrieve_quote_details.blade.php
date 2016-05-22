@@ -90,12 +90,6 @@
                     {!! Form::text('vendor_name', Input::old('vendor_name'), ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
                 </div>
             </div>
-            {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div class="col-sm-12">
-                    {!! Form::label('vendor_email', 'Vendor Email :', []) !!}
-                    {!! Form::email('vendor_email', Input::old('vendor_email'), ['id'=>'vendor_email', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name']) !!}
-                </div>
-            </div>--}}
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12 new_order">
                     {!! Form::label('vendor_phone', 'Vendor Phone :', []) !!}
@@ -107,7 +101,7 @@
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12 new_order">
                     {!! Form::label('vendor_signature', 'Vendor Signature :', ['class' => 'control-label']) !!}
-                    {!! Form::textarea('vendor_signature', Input::old('vendor_signature'),['size' => '6x3','title'=>'Vendor Signature','id'=>'description','placeholder'=>'Vendor Signature here..','spellcheck'=>'true','class' => 'form-control radius-10']) !!}
+                    {!! Form::file('vendor_signature', Input::old('vendor_signature'),['title'=>'Vendor Signature','class' => 'radius-10 white']) !!}
                 </div>
             </div>
 
@@ -125,8 +119,8 @@
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12 new_order">
-                    {!! Form::label('agent_signature_path', 'Agent Signature :', ['class' => 'control-label']) !!}
-                    {!! Form::textarea('agent_signature', Input::old('agent_signature'),['size' => '6x2','title'=>'Agent Signature','id'=>'agent_signature','placeholder'=>'Agent Signature here..','spellcheck'=>'true','class' => 'form-control radius-10']) !!}
+                    {!! Form::label('agent_signature', 'Agent Signature :', ['class' => 'control-label']) !!}
+                    {!! Form::file('agent_signature', Input::old('agent_signature'),['title'=>'Agent Signature','class' => 'radius-10']) !!}
                 </div>
             </div>
 
