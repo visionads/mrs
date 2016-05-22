@@ -17,6 +17,7 @@ class CreateQuotePrintMaterialPivotTable extends Migration
             $table->unsignedInteger('quote_id');
             $table->foreign('quote_id')->references('id')->on('quote');
             $table->integer('print_material_id',false,11);
+            $table->float('price');
             $table->integer('is_distributed',false,11);
             $table->integer('print_material_size_id',false);
             $table->integer('created_by', false, 11);

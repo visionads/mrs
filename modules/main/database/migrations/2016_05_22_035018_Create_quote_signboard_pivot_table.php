@@ -17,6 +17,7 @@ class CreateQuoteSignboardPivotTable extends Migration
             $table->unsignedInteger('quote_id');
             $table->foreign('quote_id')->references('id')->on('quote');
             $table->integer('signboard_package_id',false,11);
+            $table->float('price');
             $table->integer('signboard_size_id',false,11);
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);

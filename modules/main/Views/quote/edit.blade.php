@@ -186,7 +186,7 @@
                                                                 selected="selected"
                                                                 @endif
                                                                 @endforeach
-                                                                @endif>{{ $relSignboardPackage->title }}</option>
+                                                                @endif>{{ $relSignboardPackage->title.' ( $'.$relSignboardPackage->price.')' }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -263,7 +263,7 @@
                                                                  selected="selected"
                                                                  @endif
                                                                  @endforeach
-                                                                 @endif value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title }}</option>
+                                                                 @endif value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title.'( $'.$relPrintMaterial->price.')' }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -418,7 +418,7 @@
                                                     @endif
                                                 @endforeach
                                                 @endif type="radio" value="{{ $relLocalMedia->id }}" name="local_media_option_id[{{  $local_media->id }}]">
-                                                     {{ $relLocalMedia->title }}<br>
+                                                    {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}<br>
                                                 @endforeach
                                             </div>
                                         </div>

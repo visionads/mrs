@@ -2,6 +2,9 @@
 
 namespace Modules\Main\Controllers;
 
+use App\LocalMediaOptions;
+use App\PrintMaterialSize;
+use App\SignboardPackageSize;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -108,7 +111,7 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
-//        \DB::beginTransaction();
+        \DB::beginTransaction();
         $received=$request->except('_token');
 //        dd($received);
         try {
@@ -144,6 +147,7 @@ class QuoteController extends Controller
                     foreach ($received['photography_package_id'] as $ppi) {
                         $qp=new QuotePhotography;
                         $qp->quote_id=$quote->id;
+                        $qp->price= PhotographyPackage::findOrFail($ppi)->price;
                         $qp->photography_package_id=$ppi;
                         $qp->save();
                     }
@@ -163,6 +167,7 @@ class QuoteController extends Controller
                         $sp->signboard_package_id=$spi;
                         if(isset($received['signboard_package_size_id'])){
                             $sp->signboard_size_id=$received['signboard_package_size_id'][$spi];
+                            $sp->price=SignboardPackageSize::findOrFail($received['signboard_package_size_id'][$spi])->price;
                         }
                         $sp->save();
                     }
@@ -182,6 +187,7 @@ class QuoteController extends Controller
                         if(isset($received['print_material_size_id']))
                         {
                             $pm->print_material_size_id = $received['print_material_size_id'][$pmi];
+                            $pm->price=PrintMaterialSize::findOrFail($received['print_material_size_id'][$pmi])->price;
                         }
                         if(isset($received['is_distributed']))
                         {
@@ -239,6 +245,7 @@ class QuoteController extends Controller
                         if(isset($received['local_media_option_id']))
                         {
                             $lm->local_media_option_id = $received['local_media_option_id'][$lmi];
+                            $lm->price= LocalMediaOptions::findOrFail($received['local_media_option_id'][$lmi])->price;
                         }
                         $lm->save();
                     }
