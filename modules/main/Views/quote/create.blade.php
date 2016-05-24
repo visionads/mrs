@@ -105,7 +105,7 @@
                                                 <div class="col-sm-4">
                                                     <label class="text-center-label">
                                                         <input type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}">
-                                                        {{ $photography_package->title.' ($'.$photography_package->price.')' }}
+                                                        {!! $photography_package->title.' <b style="color: orange">$'.$photography_package->price.'</b>' !!}
                                                     </label>
 
                                                     <ul>

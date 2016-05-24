@@ -24,10 +24,10 @@
 
 
     <?php
-    $photography_price='';
-    $signboard_price='';
-    $print_material_price='';
-    $local_media_price='';
+    $photography_price=0;
+    $signboard_price=0;
+    $print_material_price=0;
+    $local_media_price=0;
     ?>
     <div class="col-sm-12 font-droid" id="quote-div">
 
@@ -85,7 +85,7 @@
                                             @if($ppi->photography_package_id==$photography_package->id)
                                                 <div class="col-sm-4">
                                                     <label class="text-center-label">
-                                                        {{ $photography_package->title.' ($'.$photography_package->price.')' }}
+                                                        {!! $photography_package->title.' <b style="color: orange">$'.$photography_package->price.'</b>' !!}
                                                         <?php $photography_price+=$photography_package->price; ?>
                                                     </label>
 
@@ -105,7 +105,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>NOTE</label>
-                                        <textarea type="text" readonly name="photography_package_comments" placeholder="Note" class="form-control" id="photography_package_comments">{{ $data['quote']->photography_package_comments }}</textarea>
+                                        <p>{{ $data['quote']->photography_package_comments }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                 </fieldset>
                 <fieldset><hr>
                     <div class="form-bottom">
-                        <h3 class="instruction">SIGNBOARD</h3>
+                        <h3 class="instruction">Signboard</h3>
                         @if(isset($data['quote']->signboard_package_id) && $data['quote']->signboard_package_id==1)
                             <div class="row">
                                 <h3 class="center size-16">FOR SPECS & FEATURES PLEASE CLICK ON THE LINK BELOW</h3>
@@ -146,7 +146,7 @@
                                                                 @if(isset($data['quote']->relQuoteSignboard))
                                                                     @foreach($data['quote']->relQuoteSignboard as $ppi)
                                                                         @if($ppi->signboard_size_id==$relSignboardPackage->id)
-                                                                            {{ $relSignboardPackage->title.' ( $'.$relSignboardPackage->price.')' }}
+                                                                            {!! $relSignboardPackage->title.' <b style="color: orange"> $'.$relSignboardPackage->price.'</b>' !!}
                                                                             <?php $signboard_price+=$relSignboardPackage->price; ?>
                                                                         @endif
                                                                     @endforeach
@@ -165,7 +165,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>NOTE</label>
-                                        <textarea type="text" name="signboard_package_comments" placeholder="Note" class="form-control" readonly id="signboard_package_comments">{{ $data['quote']->signboard_package_comments }}</textarea>
+                                        <p>{{ $data['quote']->signboard_package_comments }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +184,7 @@
                 </fieldset>
                 <fieldset><hr>
                     <div class="form-bottom">
-                        <h3 class="instruction">PRINT MATERIAL</h3>                                            <div class="validationError"></div>
+                        <h3 class="instruction">Print material</h3>                                            <div class="validationError"></div>
 
                         @if(isset($data['quote']->print_material_id) && $data['quote']->print_material_id==1)
                             <div class="row">
@@ -200,7 +200,7 @@
                                                 <div class="col-sm-4">
                                                     <label>
                                                         {{ $print_material->title }}
-                                                        <label style="margin-left: 10%">
+                                                        <label style="margin-left: 10%;display: block;height: 30px">
                                                             @if(isset($data['quote']->relQuotePrintMaterial))
                                                                 @foreach($data['quote']->relQuotePrintMaterial as $ppi)
                                                                     @if($ppi->print_material_id==$print_material->id && $ppi->is_distributed==1)
@@ -214,7 +214,7 @@
                                                             @foreach($print_material->relPrintMaterial as $relPrintMaterial)@if(isset($data['quote']->relQuotePrintMaterial))
                                                                 @foreach($data['quote']->relQuotePrintMaterial as $ppi)
                                                                     @if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id)
-                                                                        {{ $relPrintMaterial->title.'( $'.$relPrintMaterial->price.')' }}
+                                                                        {!! $relPrintMaterial->title.'<b style="color: orange"> $'.$relPrintMaterial->price.'</b>' !!}
                                                                         <?php $print_material_price+=$relPrintMaterial->price; ?>
                                                                     @endif
                                                                 @endforeach
@@ -232,7 +232,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>NOTE</label>
-                                        <textarea type="text" name="print_material_comments" placeholder="Address" class="form-control" readonly id="Note">{{ $data['quote']->print_material_comments }}</textarea>
+                                        <p>{{ $data['quote']->print_material_comments }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -251,7 +251,7 @@
                 </fieldset>
                 <fieldset><hr>
                     <div class="form-bottom">
-                        <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
+                        <h3 class="instruction">Distribution of print material</h3>
                         <div class="validationError"></div>
                         @if(isset($data['quote']->print_material_distribution_id) && $data['quote']->print_material_distribution_id==1)
 
@@ -263,7 +263,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>NOTE</label>
-                                        <textarea type="text" name="note" placeholder="Note" class="form-control" id="note" readonly>{{ $data['quote']->relPrintMaterialDistribution['note'] }}</textarea>
+                                        <p>{{ $data['quote']->relPrintMaterialDistribution['note'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -304,7 +304,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>NOTE</label>
-                                            <textarea type="text" name="digital_media_note" placeholder="Digital Media Note" class="form-control" id="digital_media_note" readonly>{{ $data['quote']->digital_media_note }}</textarea>
+                                            <p>{{ $data['quote']->digital_media_note }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -385,16 +385,21 @@
                             </div>
                         </div>--}}
                         <div class="row">
+                            <hr>
+                            <h3 class="instruction">Total Amount</h3>
+                            <style>
+                                td{
+                                    padding-right: 50px;
+                                    text-align: right;
+                                }
+                            </style>
                             <table class="table table-responsive">
                                 <tr>
-                                    <th colspan="2" style="text-align: center"> Total amount</th>
-                                </tr>
-                                <tr>
-                                    <th>Photography Package</th>
+                                    <th>Photography</th>
                                     <td>${{ $photography_price }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Signboard Package</th>
+                                    <th>Signboard</th>
                                     <td>${{ $signboard_price }}</td>
                                 </tr>
                                 <tr>
@@ -402,12 +407,16 @@
                                     <td>${{ $print_material_price }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Local Media</th>
+                                    <th>Distribution of print material</th>
+                                    <td>$0</td>
+                                </tr>
+                                <tr>
+                                    <th>Local newsprint media advertising</th>
                                     <td>${{ $local_media_price }}</td>
                                 </tr>
                                 <tr>
                                     <th>Total</th>
-                                    <td>${{ $local_media_price+$print_material_price+$signboard_price+$photography_price }}</td>
+                                    <td><b>${{ $local_media_price+$print_material_price+$signboard_price+$photography_price }}</b></td>
                                 </tr>
                             </table>
                         </div>
