@@ -267,7 +267,7 @@
                                             <div class="col-sm-6">
                                             <div class="form-group">
                                                 {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location
-(Remainder will be sent to you the agency)') !!}
+(Remainder will be sent to you the agency)','class="size-13"') !!}
 
                                                 <select class="quantity" name="quantity"  style="color: black">
                                                     <option value="select">Please Select</option>
@@ -313,10 +313,11 @@
                                         <div class="optionalContentDiv optional-content-div">
                                             <div class="col-sm-6">
                                             <div class="form-group">
-                                                {!! Form::label('digital_media_id','Most popular websites') !!}<br>
+                                                {!! Form::label('digital_media_id','Most popular websites','class=" size-13"') !!}<br>
                                                 @foreach($data['digital_medias'] as $digital_media)
-                                                    <label>
-                                                    <input type="checkbox" name="digital_media_id[]" value="{{ $digital_media->id }}"> {{ $digital_media->title }}</label> <br>
+                                                    <label class="size-13">
+                                                        <input type="checkbox" name="digital_media_id[]" value="{{ $digital_media->id }}"> {{ $digital_media->title }}
+                                                    </label> <br>
 
                                                 @endforeach
 
@@ -356,7 +357,7 @@
                                             @foreach($data['local_medias'] as $local_media)
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>
+                                                    <label class="size-15">
                                                         <input type="checkbox" name="local_media_id[]" value="{{ $local_media->id }}">
                                                         {{ $local_media->title }}
                                                     </label>
@@ -365,7 +366,7 @@
                                                     <div class="col-sm-12">
                                                         @foreach($local_media->relLocalMedia as $relLocalMedia)
                                                             {{--<input type="radio">--}}
-                                                            <label for="">
+                                                            <label class="size-13">
                                                         {!! Form::radio('local_media_option_id['.$local_media->id.']',$relLocalMedia->id) !!} {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}
                                                             </label><br>
                                                         @endforeach
