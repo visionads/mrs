@@ -307,7 +307,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location
-(Remainder will be sent to you the agency)') !!}
+(Remainder will be sent to you the agency)','class="size-13"') !!}
                                         <select class="quantity" name="quantity" style="color: black">
                                             <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 0) selected="selected" @endif value="select">Please Select</option>
                                             <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 1) selected="selected" @endif value="1">1</option>
@@ -352,15 +352,19 @@
                             <div class="optionalContentDiv  @if($data['quote']->digital_media_id == null) optional-content-div @endif">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        {!! Form::label('digital_media_id','Most popular websites') !!}<br>
+                                        {!! Form::label('digital_media_id','Most popular websites','class="size-15"') !!}<br>
                                         @foreach($data['digital_medias'] as $digital_media)
+                                            <label class="size-13">
                                             <input @if(isset($data['quote']->relQuoteDigitalMedia))
                                                    @foreach($data['quote']->relQuoteDigitalMedia as $ppi)
                                                    @if($ppi->digital_media_id==$digital_media->id)
                                                    checked="checked"
                                                    @endif
                                                    @endforeach
-                                                   @endif type="checkbox" name="digital_media_id[]" value="{{ $digital_media->id }}"  @if($data['quote']->digital_media_id == $digital_media->id) checked="checked" @endif> {{ $digital_media->title }} <br>
+                                                   @endif type="checkbox" name="digital_media_id[]" value="{{ $digital_media->id }}"  @if($data['quote']->digital_media_id == $digital_media->id) checked="checked" @endif>
+                                                {{ $digital_media->title }}
+                                            </label>
+                                            <br>
                                         @endforeach
 
                                     </div>
@@ -398,7 +402,8 @@
                             <div class="optionalContentDiv  @if($data['quote']->local_media_id == null) optional-content-div @endif">
                                 @foreach($data['local_medias'] as $local_media)
                                     <div class="col-sm-4">
-                                        <div class="form-group">
+                                        <div class="form-group size-15">
+                                            <label>
                                             <input @if(isset($data['quote']->relQuoteLocalMedia))
                                                    @foreach($data['quote']->relQuoteLocalMedia as $ppi)
                                                    @if($ppi->local_media_id==$local_media->id)
@@ -407,10 +412,12 @@
                                                    @endforeach
                                                    @endif type="checkbox" value="{{ $local_media->id }}" name="local_media_id[]" >
                                              {{ $local_media->title }}
+                                            </label>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-12 size-13">
                                                 @foreach($local_media->relLocalMedia as $relLocalMedia)
+                                                    <label>
                                                     <input @if(isset($data['quote']->relQuoteLocalMedia))
                                                            @foreach($data['quote']->relQuoteLocalMedia as $ppi)
                                                            @if($ppi->local_media_id==$local_media->id && $ppi->local_media_option_id==$relLocalMedia->id)
@@ -418,7 +425,7 @@
                                                     @endif
                                                 @endforeach
                                                 @endif type="radio" value="{{ $relLocalMedia->id }}" name="local_media_option_id[{{  $local_media->id }}]">
-                                                    {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}<br>
+                                                    {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}</label><br>
                                                 @endforeach
                                             </div>
                                         </div>

@@ -1,35 +1,32 @@
 <?php
-
 namespace Modules\Main\Controllers;
-
-use App\LocalMediaOptions;
-use App\PrintMaterialSize;
-use App\SignboardPackageSize;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\DigitalMedia;
+use App\GenerateNumber;
 use App\Http\Controllers\Controller;
-use App\UserImage;
-use App\SolutionType;
-use App\SignboardPackage;
+use App\Http\Requests;
+use App\LocalMedia;
+use App\LocalMediaOptions;
 use App\PhotographyPackage;
 use App\PrintMaterial;
-use App\DigitalMedia;
-use App\LocalMedia;
+use App\PrintMaterialDistribution;
+use App\PrintMaterialSize;
 use App\PropertyDetail;
 use App\Quote;
-use App\QuotePhotography;
-use App\QuoteSignboard;
-use App\QuotePrintMaterial;
 use App\QuoteDigitalMedia;
 use App\QuoteLocalMedia;
-use App\PrintMaterialDistribution;
+use App\QuotePhotography;
+use App\QuotePrintMaterial;
+use App\QuoteSignboard;
+use App\SignboardPackage;
+use App\SignboardPackageSize;
+use App\SolutionType;
+use App\UserImage;
 use Auth;
 use DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Mockery\CountValidator\Exception;
-use App\GenerateNumber;
 
 class QuoteController extends Controller
 {
@@ -48,7 +45,6 @@ class QuoteController extends Controller
         $data = Quote::with('relSolutionType')->orderBy('id','DESC')->paginate(10);
         return view('main::quote.view_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
-
     public function quote_details($id)
     {
         $pageTitle = 'MRS - Quote Details';
@@ -63,7 +59,6 @@ class QuoteController extends Controller
 //        dd($data['quote']);
         return view('main::quote.details',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -82,8 +77,6 @@ class QuoteController extends Controller
 //        dd($data['signboard_packages']);
         return view('main::quote.create',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
-
-
     public function retrieve()
     {
         $pageTitle = 'MRS - Retrieve Quote';
@@ -92,31 +85,48 @@ class QuoteController extends Controller
 //        dd($data);
         return view('main::quote.retrieve_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
-
     public function retrieve_details_demo($quote_id, $quote_number)
     {
-
         $pageTitle = 'MRS - Quote Details';
         $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->first();
-
         // To get the selling_price from property_details table
         //$selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: '0.00';
         $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
         $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
 
-        $quote_local_media = QuoteLocalMedia::where('quote_id',$quote_id)->first();
-            $local_media_price = $quote_local_media ? $quote_local_media->price : '0.00';
-        $quote_photography = QuotePhotography::where('quote_id',$quote_id)->first();
-            $photography_price = $quote_photography ? $quote_photography->price : '0.00';
-        $quote_signboard = QuoteSignboard::where('quote_id',$quote_id)->first();
-            $signboard_price = $quote_signboard ? $quote_signboard->price : '0.00';
-        $quote_print_material_price = QuotePrintMaterial::where('quote_id',$quote_id)->first();
-            $print_material_price = $quote_print_material_price ? $quote_print_material_price->price : '0.00';
+        // For Local Media Price ------------------------------------------
+        $quote_local_media = QuoteLocalMedia::where('quote_id',$quote_id)->get();
+            $local_media_price = 0;
+            foreach($quote_local_media as $local_media_p)
+            {
+                //$local_media_price = $local_media_p ? $local_media_p->price : '0.00';
+                $local_media_price += $local_media_p->price;
+            }
 
+        // For Photography Price ----------------------------------------
+        $quote_photography = QuotePhotography::where('quote_id',$quote_id)->get();
+            //$photography_price = $quote_photography ? $quote_photography->price : '0.00';
+            $photography_price = 0;
+            foreach($quote_photography as $photography_p)
+            { $photography_price += $photography_p->price;  }
+
+        // For Signboard Price ------------------------------------------
+        $quote_signboard = QuoteSignboard::where('quote_id',$quote_id)->get();
+            //$signboard_price = $quote_signboard ? $quote_signboard->price : '0.00';
+            $signboard_price = 0;
+            foreach($quote_signboard as $signboard_p)
+            { $signboard_price +=  $signboard_p->price; }
+
+        // For Print Material Price -------------------------------------
+        $quote_print_material_price = QuotePrintMaterial::where('quote_id',$quote_id)->get();
+            //$print_material_price = $quote_print_material_price ? $quote_print_material_price->price : '0.00';
+            $print_material_price = 0;
+            foreach($quote_print_material_price as $print_material_p)
+            { $print_material_price += $print_material_p->price; }
+
+        // For Total Selling Price --------------------------------------
         $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price;
-
         //print_r($selling_price);exit();
-
         // For Goods Service Tax
         $gst = $selling_price * 0.1;
         $total_with_gst = $selling_price + $gst;
@@ -135,14 +145,12 @@ class QuoteController extends Controller
             'print_material_price'=>$print_material_price
         ]);
     }
-
     public function quote_summary($quote_id, $quote_number)
     {
         $pageTitle = 'Summary of Marketing';
         $data = '';
         return view('main::quote.quote_summary',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -156,7 +164,6 @@ class QuoteController extends Controller
 //        dd($received);
         try {
             $data['solution_type_id'] = $received['solution_type_id'];
-
             /*
              * store property details
              * */
@@ -167,7 +174,6 @@ class QuoteController extends Controller
             $property['vendor_phone'] = $received['vendor_phone'];
             $property_id = PropertyDetail::create($property);
             $data['property_detail_id'] = $property_id->id;
-
             /*
              * Store Quote
              * */
@@ -200,7 +206,6 @@ class QuoteController extends Controller
              * */
             if (isset($received['signboardChooseBtn']) && !empty($received['signboardChooseBtn']) && $received['signboardChooseBtn'] == 1) {
                 if(isset($received['signboard_package_id'])){
-
                     foreach ($received['signboard_package_id'] as $spi) {
                         $sp=new QuoteSignboard;
                         $sp->quote_id=$quote->id;
@@ -237,7 +242,6 @@ class QuoteController extends Controller
                             }else{
                                 $pm->is_distributed = 0;
                             }
-
                         }
                         $pm->save();
                     }
@@ -253,7 +257,6 @@ class QuoteController extends Controller
                 $distribution['note'] = $received['note'];
                 $distribution_id=PrintMaterialDistribution::create($distribution);
                 $data['print_material_distribution_id']=$distribution_id->id;
-
             }
             /*
              * getting distributed print material info
@@ -303,7 +306,6 @@ class QuoteController extends Controller
             }else{
                 return Redirect::to('main/quote-list');
             }
-
         }catch (Exception $e)
         {
             \DB::rollback();
@@ -311,7 +313,6 @@ class QuoteController extends Controller
             return Redirect::back();
         }
     }
-
     /**
      * Display the specified resource.
      *
@@ -322,7 +323,6 @@ class QuoteController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -343,7 +343,6 @@ class QuoteController extends Controller
 //        dd($data['quote']);
         return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -356,10 +355,8 @@ class QuoteController extends Controller
         \DB::beginTransaction();
         $received=$request->except('_token','_method');
         $quote= Quote::find($id);
-//        dd($received);
         try {
             $data['solution_type_id'] = $received['solution_type_id'];
-
             /*
              * store property details
              * */
@@ -368,18 +365,21 @@ class QuoteController extends Controller
             $property['vendor_name'] = $received['vendor_name'];
             $property['vendor_email'] = $received['vendor_email'];
             $property['vendor_phone'] = $received['vendor_phone'];
-
             $property_id = PropertyDetail::find($quote->property_detail_id);
             $property_id->update($property);
-
             /*
              * getting photography info
              * */
             if (isset($received['pro-photographyChooseBtn']) && !empty($received['pro-photographyChooseBtn']) && $received['pro-photographyChooseBtn'] == 1) {
-
                 if(isset($received['photography_package_id']))
                 {
-                    QuotePhotography::where('quote_id',$quote->id)->delete();
+
+                    //QuotePhotography::where('quote_id',$quote->id)->delete();
+                    $quote_photography = QuotePhotography::where('quote_id',$quote->id)->get();
+                    if(count($quote_photography)>0)
+                    {
+                        QuotePhotography::where('quote_id',$quote->id)->delete();
+                    }
                     foreach ($received['photography_package_id'] as $ppi) {
                         $qp=new QuotePhotography;
                         $qp->quote_id=$quote->id;
@@ -390,17 +390,27 @@ class QuoteController extends Controller
                 $data['photography_package_id'] = 1;
                 $data['photography_package_comments'] = $received['photography_package_comments'];
             }else{
-                QuotePhotography::where('quote_id',$quote->id)->delete();
+                //QuotePhotography::where('quote_id',$quote->id)->delete();
+                $quote_photography = QuotePhotography::where('quote_id',$quote->id)->get();
+                if(count($quote_photography)>0)
+                {
+                    QuotePhotography::where('quote_id',$quote->id)->delete();
+                }
                 $data['photography_package_id'] = null;
                 $data['photography_package_comments'] = '';
             }
+
             /*
              * getting signboard info
              * */
             if (isset($received['signboardChooseBtn']) && !empty($received['signboardChooseBtn']) && $received['signboardChooseBtn'] == 1) {
                 if(isset($received['signboard_package_id'])){
-                    QuoteSignboard::where('quote_id',$quote->id)->delete();
-
+                    //QuoteSignboard::where('quote_id',$quote->id)->delete();
+                    $quote_signboard = QuoteSignboard::where('quote_id',$quote->id)->get();
+                    if(count($quote_signboard)>0)
+                    {
+                        QuoteSignboard::where('quote_id',$quote->id)->delete();
+                    }
                     foreach ($received['signboard_package_id'] as $spi) {
                         $sp=new QuoteSignboard;
                         $sp->quote_id=$quote->id;
@@ -414,17 +424,27 @@ class QuoteController extends Controller
                 $data['signboard_package_id'] = 1;
                 $data['signboard_package_comments'] = $received['signboard_package_comments'];
             }else{
-                QuoteSignboard::where('quote_id',$quote->id)->delete();
+                //QuoteSignboard::where('quote_id',$quote->id)->delete();
+                $quote_signboard = QuoteSignboard::where('quote_id',$quote->id)->get();
+                if(count($quote_signboard)>0)
+                {
+                    QuoteSignboard::where('quote_id',$quote->id)->delete();
+                }
                 $data['signboard_package_id'] = null;
                 $data['signboard_package_comments'] = '';
             }
+
             /*
              * getting print material info
              * */
             if (isset($received['printMaterialChooseBtn']) && !empty($received['printMaterialChooseBtn']) && $received['printMaterialChooseBtn'] == 1) {
-
                 if(isset($received['print_material_id'])){
-                    QuotePrintMaterial::where('quote_id',$quote->id)->delete();
+                    //QuotePrintMaterial::where('quote_id',$quote->id)->delete();
+                    $quote_print_material = QuotePrintMaterial::where('quote_id',$quote->id)->get();
+                    if(count($quote_print_material)>0)
+                    {
+                        QuotePrintMaterial::where('quote_id',$quote->id)->delete();
+                    }
                     foreach ($received['print_material_id'] as $pmi) {
                         $pm=new QuotePrintMaterial;
                         $pm->quote_id=$quote->id;
@@ -441,7 +461,6 @@ class QuoteController extends Controller
                             }else{
                                 $pm->is_distributed = 0;
                             }
-
                         }
                         $pm->save();
                     }
@@ -449,33 +468,47 @@ class QuoteController extends Controller
                 $data['print_material_id'] = 1;
                 $data['print_material_comments'] = $received['print_material_comments'];
             }else{
-                QuotePrintMaterial::where('quote_id',$quote->id)->delete();
+                //QuotePrintMaterial::where('quote_id',$quote->id)->delete();
+                $quote_print_material = QuotePrintMaterial::where('quote_id',$quote->id)->get();
+                if(count($quote_print_material)>0)
+                {
+                    QuotePrintMaterial::where('quote_id',$quote->id)->delete();
+                }
                 $data['print_material_id'] = null;
                 $data['print_material_comments'] = '';
-
             }
+
             /*
              * getting distributed print material info
              * */
             if (isset($received['distributedPrintMaterialChooseBtn']) && !empty($received['distributedPrintMaterialChooseBtn']) && $received['distributedPrintMaterialChooseBtn'] == 1) {
                 $distribution['quantity'] = $received['quantity'];
                 $distribution['note'] = $received['note'];
-                $distribution_id=PrintMaterialDistribution::find($quote->print_material_distribution_id);
-                $distribution_id->update($distribution);
+                if(!empty($quote->print_material_distribution_id)) {
+                    $distribution_id = PrintMaterialDistribution::find($quote->print_material_distribution_id);
+                    $distribution_id->update($distribution);
+                }
+                //exit('kjkdjfk');
             }else{
                 $distribution_id=PrintMaterialDistribution::find($quote->print_material_distribution_id);
-                $distribution_id->delete();
+
+                if(count($distribution_id)>0)
+                {
+                    $distribution_id->delete();
+                }
                 $data['print_material_distribution_id']=null;
             }
+
             /*
              * getting distributed print material info
              * */
             if (isset($received['digitalMediaChooseBtn']) && !empty($received['digitalMediaChooseBtn']) && $received['digitalMediaChooseBtn'] == 1) {
-
-
                 if(isset($received['digital_media_id']))
                 {
-                    QuoteDigitalMedia::where('quote_id',$quote->id)->delete();
+                    $quote_dgital_media = QuoteDigitalMedia::where('quote_id',$quote->id)->get();
+                    if(count($quote_dgital_media)>0){
+                        QuoteDigitalMedia::where('quote_id',$quote->id)->delete();
+                    }
                     foreach ($received['digital_media_id'] as $dmi) {
                         $dm= new QuoteDigitalMedia;
                         $dm->quote_id= $quote->id;
@@ -486,11 +519,15 @@ class QuoteController extends Controller
                 $data['digital_media_id'] = 1;
                 $data['digital_media_note'] = $received['digital_media_note'];
             }else{
-                QuoteDigitalMedia::where('quote_id',$quote->id)->delete();
+                //QuoteDigitalMedia::where('quote_id',$quote->id)->delete();
+                $quote_digital_media = QuoteDigitalMedia::where('quote_id',$quote->id)->get();
+                if(count($quote_digital_media)>0){
+                    QuoteDigitalMedia::where('quote_id',$quote->id)->delete();
+                }
                 $data['digital_media_id'] = null;
                 $data['digital_media_note'] = '';
-
             }
+
             /*
              * getting local media info
              * */
@@ -498,7 +535,14 @@ class QuoteController extends Controller
                 if(isset($received['local_media_id']))
                 {
 //                    dd($received);
-                    QuoteLocalMedia::where('quote_id',$quote->id)->delete();
+
+                    $quote_local_media = QuoteLocalMedia::where('quote_id',$quote->id)->get();
+                    //dd($quote_local_media);
+                    if(count($quote_local_media)>0)
+                    {
+                        QuoteLocalMedia::where('quote_id',$quote->id)->delete();
+                    }
+
                     foreach ($received['local_media_id'] as $lmi) {
                         $lm= new QuoteLocalMedia;
                         $lm->quote_id=$quote->id;
@@ -513,17 +557,23 @@ class QuoteController extends Controller
                 $data['local_media_id'] = 1;
                 $data['local_media_note'] = $received['local_media_note'];
             }else{
-                QuoteLocalMedia::where('quote_id',$quote->id)->delete();
+                //QuoteLocalMedia::where('quote_id',$quote->id)->delete();
+
+                $quote_local_media = QuoteLocalMedia::where('quote_id',$quote->id)->get();
+
+                if(count($quote_local_media)>0)
+                {
+                    QuoteLocalMedia::where('quote_id',$quote->id)->delete();
+                }
                 $data['local_media_id'] = null;
                 $data['local_media_note'] = '';
-
             }
+
 //            dd($data);
             $quote->update($data);
             \DB::commit();
             Session::flash('message','Data has been successfully updated');
-                return Redirect::to('main/quote-list');
-
+            return Redirect::to('main/quote-list');
         }catch (Exception $e)
         {
             \DB::rollback();
@@ -531,7 +581,6 @@ class QuoteController extends Controller
             return Redirect::back();
         }
     }
-
     /**
      * Remove the specified resource from storage.
      *

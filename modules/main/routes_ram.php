@@ -114,7 +114,7 @@
 
     Route::get('payment',[
         'as'    =>  'payment',
-        'uses'  =>  'PaymentController@index'
+        'uses'  =>  'PaymentController@index_payment'
     ]);
 
 
