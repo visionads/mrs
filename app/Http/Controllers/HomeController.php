@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\UserImage;
 use Illuminate\Http\Request;
 use Auth;

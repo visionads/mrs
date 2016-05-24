@@ -81,6 +81,16 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany('App\Role');
     }
 
+    public static function getRole($user_id){
+        if(Auth::check()){
+            $user_role = RoleUser::with('relRole')->where('user_id', $user_id)->first();
+            $data = $user_role->relRole['slug'];
+            return $data;
+        }else{
+            return false;
+        }
+    }
+
     // TODO :: boot
    // boot() function used to insert logged user_id at 'created_by' & 'updated_by'
 

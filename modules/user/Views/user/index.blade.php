@@ -6,7 +6,7 @@
 
 
 @section('content')
-    <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
+    {{--<script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>--}}
 
         <!-- page start-->
 <div class="row">

@@ -304,7 +304,7 @@ class UserController extends Controller
                 'password'=>Hash::make($input['password']),
                 'csrf_token'=> str_random(30),
                 'ip_address'=> getHostByName(getHostName()),
-                'branch_id'=> $input['branch_id'],
+//                'branch_id'=> $input['branch_id'],
                 'expire_date'=> $input['expire_date'],
                 'status'=> $input['status'],
             ];
@@ -339,7 +339,7 @@ class UserController extends Controller
     {
         $pageTitle = 'User Informations';
         $data = User::with('relBranch','relRoleInfo')->where('id',$id)->first();
-
+//        dd($data);
         return view('user::user.view', ['data' => $data, 'pageTitle'=> $pageTitle]);
     }
 

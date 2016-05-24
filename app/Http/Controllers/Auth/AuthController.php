@@ -197,6 +197,7 @@ class AuthController extends Controller
                                 }
 
                                 Session::put('email', $user_data->email);
+                                Session::put('user-role', User::getRole(Auth::user()->id));
                                 Session::flash('message', "Successfully  Logged In.");
 
                                 return redirect()->intended('dashboard');
