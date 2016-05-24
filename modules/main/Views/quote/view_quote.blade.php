@@ -31,7 +31,7 @@
                         <td class="text-center">{{ $quote->quote_number }}</td>
                         <td style="font-weight:normal;">{{ $quote->relSolutionType['title'] }}</td>
                         <td class="text-center">{{ date('d M Y',strtotime($quote->created_at)) }}</td>
-                        <td><a href="{{ URL::to('main/quote-details/'.$quote->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"> Details</span></a></td>
+                        <td><a href="{{ URL::to('main/quote-detail/'.$quote->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"> Details</span></a></td>
                     </tr>
                 @endforeach
                 </tbody>

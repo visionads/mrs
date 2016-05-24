@@ -29,7 +29,7 @@
         'as' => 'quotes',
         'uses' => 'QuoteController@view_quote'
     ]);
-    Route::get('quote-details/{id}', [
-        'as' => 'quote-details',
+    Route::get('quote-detail/{id}', [
+        'as' => 'quote-detail',
         'uses' => 'QuoteController@quote_details'
     ]);
