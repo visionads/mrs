@@ -33,3 +33,11 @@
         'as' => 'quote-detail',
         'uses' => 'QuoteController@quote_details'
     ]);
+    Route::get('payment-list', [
+        'as' => 'payment-list',
+        'uses' => 'PaymentController@index'
+    ]);
+Route::get('view-payment-detail/{id}', [
+    'as' => 'view-payment-detail',
+    'uses' => 'PaymentController@show'
+]);

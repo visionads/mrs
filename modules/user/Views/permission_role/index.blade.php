@@ -160,12 +160,10 @@
     }
 </script>
 
-@if(isset($exists_permission))
-    @if(count($exists_permission)>0)
+@if(isset($exists_permission) || isset($not_exists_permission))
+    @if(count($exists_permission)>0 || count($not_exists_permission)>0)
         <script type="text/javascript">
-            $(document).ready(function(){
                $("#Modal2").modal('show');
-            });
         </script>
     @endif
 @endif

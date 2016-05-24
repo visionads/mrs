@@ -72,7 +72,7 @@
                 <a href="{{ url('main/quotes') }}" class="quote">Quote List</a>
         </div>
         <div class="form-group" id="new_quote">
-                <a href="{{route('quote-list')}}" class="quote">Payment History</a>
+                <a href="{{route('payment-list')}}" class="quote">Payment History</a>
         </div>
 </div>
 
