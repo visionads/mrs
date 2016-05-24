@@ -338,7 +338,7 @@ class UserController extends Controller
     public function show_user($id)
     {
         $pageTitle = 'User Informations';
-        $data = User::with('relBranch','relRoleInfo')->where('id',$id)->first();
+        $data = User::with('relRoleInfo')->where('id',$id)->first();
 //        dd($data);
         return view('user::user.view', ['data' => $data, 'pageTitle'=> $pageTitle]);
     }
@@ -353,7 +353,7 @@ class UserController extends Controller
     {
         $pageTitle = 'Edit User Information';
 
-        $data = User::with('relBranch')->findOrFail($id);
+        $data = User::findOrFail($id);
 
         #$branch_data =  Branch::lists('title','id');
         $role =  Role::lists('title','id');
@@ -388,7 +388,7 @@ class UserController extends Controller
             'password'=>$password,
             'csrf_token'=> str_random(30),
             'ip_address'=> getHostByName(getHostName()),
-            'branch_id'=> $input['branch_id'],
+//            'branch_id'=> $input['branch_id'],
             'expire_date'=> $input['expire_date'],
             'status'=> $input['status'],
         ];
