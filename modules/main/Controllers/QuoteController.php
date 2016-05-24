@@ -98,38 +98,34 @@ class QuoteController extends Controller
         $quote_local_media = QuoteLocalMedia::where('quote_id',$quote_id)->get();
             $local_media_price = 0;
             foreach($quote_local_media as $local_media_p)
-            {
-                //$local_media_price = $local_media_p ? $local_media_p->price : '0.00';
-                $local_media_price += $local_media_p->price;
-            }
+            { $local_media_price += $local_media_p->price; }
 
         // For Photography Price ----------------------------------------
         $quote_photography = QuotePhotography::where('quote_id',$quote_id)->get();
-            //$photography_price = $quote_photography ? $quote_photography->price : '0.00';
             $photography_price = 0;
             foreach($quote_photography as $photography_p)
             { $photography_price += $photography_p->price;  }
 
         // For Signboard Price ------------------------------------------
         $quote_signboard = QuoteSignboard::where('quote_id',$quote_id)->get();
-            //$signboard_price = $quote_signboard ? $quote_signboard->price : '0.00';
             $signboard_price = 0;
             foreach($quote_signboard as $signboard_p)
             { $signboard_price +=  $signboard_p->price; }
 
         // For Print Material Price -------------------------------------
         $quote_print_material_price = QuotePrintMaterial::where('quote_id',$quote_id)->get();
-            //$print_material_price = $quote_print_material_price ? $quote_print_material_price->price : '0.00';
             $print_material_price = 0;
             foreach($quote_print_material_price as $print_material_p)
             { $print_material_price += $print_material_p->price; }
 
         // For Total Selling Price --------------------------------------
         $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price;
-        //print_r($selling_price);exit();
-        // For Goods Service Tax
+
+        // For Goods Service Tax ----------------------------------------
         $gst = $selling_price * 0.1;
         $total_with_gst = $selling_price + $gst;
+
+        // Return to view Page-------------------------------------------
         return view('main::quote.retrieve_quote_details',[
             'pageTitle'=>$pageTitle,
             'quote'=>$quote,
@@ -383,6 +379,7 @@ class QuoteController extends Controller
                     foreach ($received['photography_package_id'] as $ppi) {
                         $qp=new QuotePhotography;
                         $qp->quote_id=$quote->id;
+                        $qp->price= PhotographyPackage::findOrFail($ppi)->price;
                         $qp->photography_package_id=$ppi;
                         $qp->save();
                     }
@@ -417,6 +414,7 @@ class QuoteController extends Controller
                         $sp->signboard_package_id=$spi;
                         if(isset($received['signboard_package_size_id'])){
                             $sp->signboard_size_id=$received['signboard_package_size_id'][$spi];
+                            $sp->price=SignboardPackageSize::findOrFail($received['signboard_package_size_id'][$spi])->price;
                         }
                         $sp->save();
                     }
@@ -452,7 +450,9 @@ class QuoteController extends Controller
                         if(isset($received['print_material_size_id']))
                         {
                             $pm->print_material_size_id = $received['print_material_size_id'][$pmi];
+                            $pm->price=PrintMaterialSize::findOrFail($received['print_material_size_id'][$pmi])->price;
                         }
+
                         if(isset($received['is_distributed']))
                         {
                             if(isset($received['is_distributed'][$pmi]))
@@ -550,6 +550,7 @@ class QuoteController extends Controller
                         if(isset($received['local_media_option_id']))
                         {
                             $lm->local_media_option_id = $received['local_media_option_id'][$lmi];
+                            $lm->price= LocalMediaOptions::findOrFail($received['local_media_option_id'][$lmi])->price;
                         }
                         $lm->save();
                     }
