@@ -271,7 +271,7 @@
                         @else
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <p class="text-center">Sorry, No print material distribution selected.</p>
+                                    <p class="text-center white">Sorry, No print material distribution selected.</p>
                                 </div>
                             </div>
                         @endif
@@ -332,7 +332,7 @@
                                 <div class="optionalContentDiv  @if($data['quote']->local_media_id == null) optional-content-div @endif">
                                     @foreach($data['local_medias'] as $local_media)
                                         <div class="col-sm-4">
-                                            <div class="form-group">
+                                            <div class="form-group size-17">
                                                 @if(isset($data['quote']->relQuoteLocalMedia))
                                                     @foreach($data['quote']->relQuoteLocalMedia as $ppi)
                                                         @if($ppi->local_media_id==$local_media->id)
@@ -342,7 +342,7 @@
                                                 @endif
                                             </div>
                                             <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-12 size-15">
                                                     @foreach($local_media->relLocalMedia as $relLocalMedia)
                                                         @if(isset($data['quote']->relQuoteLocalMedia))
                                                             @foreach($data['quote']->relQuoteLocalMedia as $ppi)
@@ -357,10 +357,12 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>NOTE</label>
-                                            <textarea type="text" readonly name="local_media_note" placeholder="Local Media Note" class="form-control" id="local_media_note">{{ $data['quote']->local_media_note }}</textarea>
+                                    <div class="col-sm-12">
+                                        <div>
+                                            <h4>NOTE</h4>
+                                            <p>{{ $data['quote']->local_media_note }}</p>
+                                            {{--<label>NOTE</label>
+                                            <textarea type="text" readonly name="local_media_note" placeholder="Local Media Note" class="form-control" id="local_media_note">{{ $data['quote']->local_media_note }}</textarea>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -370,7 +372,7 @@
                         @else
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <p class="text-center">Sorry, No local Media selected.</p>
+                                    <p class="text-center white">Sorry, No local Media selected.</p>
                                 </div>
                             </div>
                         @endif
@@ -392,8 +394,9 @@
                                     padding-right: 50px;
                                     text-align: right;
                                 }
+                                td,th { border:0px !important; border-bottom:1px solid #000 !important; }
                             </style>
-                            <table class="table table-responsive">
+                            <table class="table table-responsive white size-15" style="background:#303030 !important;">
                                 <tr>
                                     <th>Photography</th>
                                     <td>${{ $photography_price }}</td>
