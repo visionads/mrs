@@ -112,7 +112,7 @@
                                                             @endif
                                                        @endforeach
                                                     @endif>
-                                            {{ $photography_package->title.' ($'.$photography_package->price.')' }}
+                                            {!! $photography_package->title.' <b style="color: orange">$'.$photography_package->price.'</b>' !!}
                                         </label>
 
                                         <ul>
