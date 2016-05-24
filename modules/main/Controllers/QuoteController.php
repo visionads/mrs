@@ -80,6 +80,8 @@ class QuoteController extends Controller
 
         // To get the selling_price from property_details table
         $selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: '0.00';
+        $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
+        $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
 
         //print_r($selling_price);exit();
 
@@ -92,7 +94,9 @@ class QuoteController extends Controller
             'quote_number'=>$quote_number,
             'total'=>$selling_price,
             'gst'=>$gst,
-            'total_with_gts'=>$total_with_gts
+            'total_with_gts'=>$total_with_gts,
+            'vendor_name' => $vendor_name,
+            'vendor_phone' => $vendor_phone
         ]);
     }
 

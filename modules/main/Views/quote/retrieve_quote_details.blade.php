@@ -63,7 +63,7 @@
      {{--Agreement page--}}
     <div class="container agreement" style="display:none">
 
-    {!! Form::open(['route' => 'place-order', 'method' => 'post','id' => 'jq-validation-form', 'files'=>true]) !!}
+    {!! Form::open( ['route' => 'place-order', 'method' => 'POST','id' => 'jq-validation-form', 'files'=>true]) !!}
 
     {!! Form::hidden('quote_id', $quote_id) !!}
     {!! Form::hidden('quote_no', $quote_no) !!}
@@ -87,14 +87,14 @@
                 <div class="col-sm-12 new_order">
                     {!! Form::label('vendor_name', 'Vendor Name :', []) !!}
                     <small class="required size-13">(Required)</small>
-                    {!! Form::text('vendor_name', Input::old('vendor_name'), ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
+                    {!! Form::text('vendor_name', $vendor_name, ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
                 </div>
             </div>
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12 new_order">
                     {!! Form::label('vendor_phone', 'Vendor Phone :', []) !!}
                     <small class="required size-13">(Required)</small>
-                    {!! Form::text('vendor_phone', Input::old('vendor_phone'), ['id'=>'vendor_phone', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
+                    {!! Form::text('vendor_phone', $vendor_phone, ['id'=>'vendor_phone', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
                 </div>
             </div>
 
