@@ -492,14 +492,14 @@ div.profile-content > ul.profile-nav > li a:hover {
 
 }
 #new_quote { float:right;}
-#new_quote a { display:block; border-radius: 18px; background-color: #f36f21; transition:ease-in-out 0.2s;}
+#new_quote a { display:block; border-radius: 18px; background-color: #f36f21; transition:ease-in-out 0.2s; box-shadow:2px 2px 4px #909090; }
 #new_quote a:hover { background:#f25f10; text-decoration:none;}
 
 .font-droid { font-family: 'Droid Serif', serif !important;}
 .no-bg { background:none !important;}
 .no-border-bottom { border-bottom:0px !important; }
 
-#job_status .quote {
+#job_status input.quote {
 
     text-align: center;
     width: 207px;
@@ -510,7 +510,7 @@ div.profile-content > ul.profile-nav > li a:hover {
     padding: 3px 25px;
     color: white;
     font-size: 30px;
-    /*margin-left: -140px;*/
+    margin-left: 20px;
     margin-top: 23px;
 }
 
