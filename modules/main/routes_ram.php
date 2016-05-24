@@ -13,17 +13,17 @@
     /*------------Invoice---------------*/
 
     Route::get('invoice/{transaction_id}', [
-        'middleware' => 'acl_access:user/invoice',
+        'middleware' => 'acl_access:main/invoice',
         'as' => 'invoice',
         'uses' => 'InvoiceController@invoice'
     ]);
     Route::get('invoice-print', [
-        'middleware' => 'acl_access:user/invoice-print',
+        'middleware' => 'acl_access:main/invoice-print',
         'as' => 'invoice-print',
         'uses' => 'InvoiceController@invoice_print'
     ]);
     Route::get('invoice-list', [
-        'middleware' => 'acl_access:user/invoice-list',
+        'middleware' => 'acl_access:main/invoice-list',
         'as' => 'invoice-list',
         'uses' => 'InvoiceController@invoice_list'
     ]);
@@ -31,12 +31,12 @@
     /*------------Pages Router---------------*/
 
     Route::get('what-we-do', [
-        'middleware' => 'acl_access:user/what-we-do',
+        'middleware' => 'acl_access:main/what-we-do',
         'as' => 'what-we-do',
         'uses' => 'PagesController@what_we_do'
     ]);
     Route::get('need-help', [
-        'middleware' => 'acl_access:user/need-help',
+        'middleware' => 'acl_access:main/need-help',
         'as' => 'need-help',
         'uses' => 'PagesController@need_help'
     ]);
@@ -44,13 +44,13 @@
     /*------------Quote Router---------------*/
 
     Route::get('new-quote', [
-        'middleware' => 'acl_access:user/new-quote',
+        'middleware' => 'acl_access:main/new-quote',
         'as' => 'new-quote',
         'uses' => 'QuoteController@create'
     ]);
 
     Route::get('quote-list', [
-        'middleware' => 'acl_access:user/quote-list',
+        'middleware' => 'acl_access:main/quote-list',
         'as'    => 'quote-list',
         'uses'  => 'QuoteController@retrieve'
     ]);
@@ -61,13 +61,13 @@
     ]);*/
 
     Route::get('quote-details/{quote_id}/{quote_no}', [
-        'middleware' => 'acl_access:user/quote-details',
+        'middleware' => 'acl_access:main/quote-details',
         'as'    => 'quote-details',
         'uses'  => 'QuoteController@retrieve_details_demo'
     ]);
 
     Route::get('quote-summary/{quote_id}/{quote_no}',[
-        'middleware' => 'acl_access:user/quote-summary',
+        'middleware' => 'acl_access:main/quote-summary',
         'as'    =>  'quote_summary',
         'uses'  =>  'QuoteController@quote_summary'
     ]);
@@ -76,20 +76,20 @@
 
     // page for quote confirm
     Route::any('quote-confirm/{quote_id}/{quote_no}', [
-        'middleware' => 'acl_access:user/quote-confirm',
+        'middleware' => 'acl_access:main/quote-confirm',
         'as'    => 'quote-confirm',
         'uses'  => 'OrderController@quote_confirm'
     ]);
 
     //page for place order
     Route::any('page-place-order/{quote_id}/{quote_no}',[
-        'middleware' => 'acl_access:user/page-place-order',
+        'middleware' => 'acl_access:main/page-place-order',
         'as'    =>  'page-place-order',
         'uses'  =>  'OrderController@page_place_order'
     ]);
 
     Route::any('property-details/{quote_id}/{quote_no}',[
-        'middleware' => 'acl_access:user/property-details',
+        'middleware' => 'acl_access:main/property-details',
         'as'    =>  'property-details',
         'uses'  =>  'OrderController@property_details'
     ]);
@@ -97,14 +97,14 @@
 
 
     Route::any('place-order',[
-        'middleware' => 'acl_access:user/place-order',
+        'middleware' => 'acl_access:main/place-order',
         'as'    =>  'place-order',
         'uses'  =>  'OrderController@place_order'
     ]);
 
 
     Route::any('place-order-store',[
-        'middleware' => 'acl_access:user/place-order-store',
+        'middleware' => 'acl_access:main/place-order-store',
         'as'    =>  'place-order-store',
         'uses'  =>  'OrderController@store'
     ]);
@@ -117,13 +117,13 @@
     /*-----------Payment Router--------------*/
 
     Route::any('payment-procedure/{quote_id}/{quote_no}',[
-        'middleware' => 'acl_access:user/payment-procedure',
+        'middleware' => 'acl_access:main/payment-procedure',
         'as'    =>  'payment-procedure',
         'uses'  =>  'OrderController@payment_procedure'
     ]);
 
     Route::get('payment',[
-        'middleware' => 'acl_access:user/payment',
+        'middleware' => 'acl_access:main/payment',
         'as'    =>  'payment',
         'uses'  =>  'PaymentController@index_payment'
     ]);
