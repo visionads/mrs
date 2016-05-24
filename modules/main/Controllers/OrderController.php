@@ -244,8 +244,9 @@ class OrderController extends Controller
         $pageTitle = 'Payment';
         $data = Transaction::where('quote_id', $quote_id)->first();
         $user_data= User::findOrFail(Auth::id());
+//        dd($data);
         // View page
-        return view('main::payment.index',[
+        return view('main::payment.index_payment',[
             'pageTitle'=>$pageTitle,
             'quote_number'=>$quote_no,
             'data'=>$data,
