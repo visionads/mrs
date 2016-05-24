@@ -3,7 +3,7 @@
 namespace Modules\User\Controllers;
 
 use App\Branch;
-use App\Helpers\#LogFileHelper;
+use App\Helpers\LogFileHelper;
 use App\RoleUser;
 use App\UserActivity;
 use App\UserImage;
