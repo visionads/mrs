@@ -60,8 +60,6 @@ class PermissionRoleController extends Controller
                 })
                 ->lists('permissions.title', 'permissions.id');
 
-           #print_r($exists_permission);
-
 
            //whereNotExists()
             $not_exists_permission = DB::table('permissions')
@@ -72,8 +70,6 @@ class PermissionRoleController extends Controller
                         ->WhereRaw('permission_role.role_id = ?', [$role_value]);
                 })
                 ->lists('permissions.title', 'permissions.id');
-            #echo '<pre>';
-            #print_r($not_exists_permission);exit;
 
         }else{
             $not_exists_permission = array();
@@ -130,12 +126,12 @@ class PermissionRoleController extends Controller
                         $model->save();
                         DB::commit();
                         Session::flash('message', 'Successfully added!');
-                        LogFileHelper::log_info('store-permission-role', 'successfully added',  ['Permission role role_id'.$input['role_id']]);
+                        #LogFileHelper::log_info('store-permission-role', 'successfully added',  ['Permission role role_id'.$input['role_id']]);
                     } catch (\Exception $e) {
                         //If there are any exceptions, rollback the transaction`
                         DB::rollback();
                         Session::flash('danger', $e->getMessage());
-                        LogFileHelper::log_error('store-permission-role', $e->getMessage(),  ['Permission role role_id'.$input['role_id']]);
+                        #LogFileHelper::log_error('store-permission-role', $e->getMessage(),  ['Permission role role_id'.$input['role_id']]);
                     }
                 }else{
                     Session::flash('message','Some of the permission role already exists');
@@ -192,13 +188,13 @@ class PermissionRoleController extends Controller
             $model->update($input);
             DB::commit();
             Session::flash('message', "Successfully Updated");
-            LogFileHelper::log_info('update-permission-role', 'Successfully updated ',  ['Permission role role_id'.$id]);
+            #LogFileHelper::log_info('update-permission-role', 'Successfully updated ',  ['Permission role role_id'.$id]);
         }
         catch ( Exception $e ){
             //If there are any exceptions, rollback the transaction
             DB::rollback();
             Session::flash('danger', $e->getMessage());
-            LogFileHelper::log_error('update-permission-role', $e->getMessage(),  ['Permission role role_id'.$id]);
+            #LogFileHelper::log_error('update-permission-role', $e->getMessage(),  ['Permission role role_id'.$id]);
         }
         return redirect()->route('index-permission-role');
     }
@@ -219,12 +215,12 @@ class PermissionRoleController extends Controller
                     $model->delete();
                     DB::commit();
                     Session::flash('message', "Successfully Deleted.");
-                    LogFileHelper::log_info('delete-permission-role', 'Successfully delete',  ['Permission role role_id'.$id]);
+                    #LogFileHelper::log_info('delete-permission-role', 'Successfully delete',  ['Permission role role_id'.$id]);
 
                 } catch(\Exception $e) {
                     DB::rollback();
                     Session::flash('danger',$e->getMessage());
-                    LogFileHelper::log_error('delete-permission-role', 'Successfully delete.',  ['Permission role role_id'.$id]);
+                    #LogFileHelper::log_error('delete-permission-role', 'Successfully delete.',  ['Permission role role_id'.$id]);
                 }
             }
         }else{
@@ -235,11 +231,11 @@ class PermissionRoleController extends Controller
                 $model->delete();
                 DB::commit();
                 Session::flash('message', "Successfully Deleted.");
-                LogFileHelper::log_info('delete-permission-role', 'Successfully delete ',  ['Permission role role_id'.$id]);
+                #LogFileHelper::log_info('delete-permission-role', 'Successfully delete ',  ['Permission role role_id'.$id]);
             } catch(\Exception $e) {
                 DB::rollback();
                 Session::flash('danger',$e->getMessage());
-                LogFileHelper::log_error('delete-permission-role', 'Successfully delete ',  ['Permission role role_id'.$id]);
+                #LogFileHelper::log_error('delete-permission-role', 'Successfully delete ',  ['Permission role role_id'.$id]);
             }
         }
         return redirect()->route('index-permission-role');

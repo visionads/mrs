@@ -1,5 +1,5 @@
-<script type="text/javascript" src="{{ URL::asset('assets/admin/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/admin/js/bootstrap.min.js') }}"></script>
+{{--<script type="text/javascript" src="{{ URL::asset('assets/admin/js/jquery.min.js') }}"></script>--}}
+{{--<script type="text/javascript" src="{{ URL::asset('assets/admin/js/bootstrap.min.js') }}"></script>--}}
 <script type="text/javascript" src="{{ URL::asset('assets/admin/js/custom.min.js') }}"></script>
 
 <div class="modal-header">
@@ -34,7 +34,7 @@
                {!! Form::label('password', 'Password:', ['class' => 'control-label']) !!}
                 <div class="checkbox" style="margin: 0;">
                     <label>
-                        <input type="checkbox" value="yes" class="px" id="checkbox">
+                        <input type="checkbox" value="yes" class="px" id="checkboxPass">
                         <span class="lbl narration">Do you want to change password?</span>
                     </label>
                 </div>
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+    {{--<div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
         <div class="row">
             <div class="col-sm-12">
                 {!! Form::label('branch_id', 'Branch:', ['class' => 'control-label']) !!}
@@ -74,7 +74,7 @@
                 @endif
             </div>
         </div>
-    </div>
+    </div>--}}
     <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
         <div class="row">
             <div class="col-sm-6">
@@ -111,6 +111,22 @@
 
 <script>
 
+    //change password checkbox....
+    $('#checkboxPass').click(function (){
+        var check_value = $("#checkbox").is(":checked");
+        if(check_value){
+            $('#pass-old').hide();
+            $('#re-pass').hide();
+            $('#field-password').show();
+            $('#field-con-password').show();
+        }else{
+            $('#pass-old').show();
+            $('#re-pass').show();
+            $('#field-password').hide();
+            $('#field-con-password').hide();
+        }
+
+    });
     $(".btn").popover({ trigger: "manual" , html: true, animation:false})
             .on("mouseenter", function () {
                 var _this = this;
@@ -235,23 +251,6 @@
             'jq-validation-policy': 'You must check it!'
         }
     });
-    //change password checkbox....
-    $('#checkbox').change(function (){
-
-        var check_value = $("#checkbox").is(":checked");
-        if(check_value){
-            $('#pass-old').hide();
-            $('#re-pass').hide();
-            $('#field-password').show();
-            $('#field-con-password').show();
-        }else{
-            $('#pass-old').show();
-            $('#re-pass').show();
-            $('#field-password').hide();
-            $('#field-con-password').hide();
-        }
-
-    })
 
 </script>
 

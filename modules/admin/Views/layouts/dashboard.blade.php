@@ -46,7 +46,7 @@
                                         <a href="{{route('payment-list')}}" class="quote">Payment History</a>
                                 </div>
                         </div>
-                        @else
+                @endif
 
                         <div class="form-group col-sm-5">
                                 <div class="form-group" id="new_quote">
@@ -65,7 +65,6 @@
                                         <a href="{{ route('quote-list') }}" class="quote">Pay invoice</a>
                                 </div>
                         </div>
-                @endif
 
 
 </div>
