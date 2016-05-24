@@ -491,7 +491,8 @@ div.profile-content > ul.profile-nav > li a:hover {
     font-size: 30px;
 
 }
-#new_quote a { display:block; border-radius: 18px; background-color: #f36f21;}
+#new_quote a { display:block; border-radius: 18px; background-color: #f36f21; transition:ease-in-out 0.2s;}
+#new_quote a:hover { background:#f25f10; text-decoration:none;}
 
 .font-droid { font-family: 'Droid Serif', serif !important;}
 .no-bg { background:none !important;}

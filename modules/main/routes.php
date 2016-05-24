@@ -17,7 +17,7 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
 
     Route::any('test', [
         //'middleware' => 'acl_access:user/user-list',
-        'middleware' => 'acl_access:user/test',
+        'middleware' => 'acl_access:main/test',
         'as' => 'test',
         'uses' => 'MainController@index'
     ]);
@@ -26,7 +26,7 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
 
     Route::get('order', [
         //'middleware' => 'acl_access:role',
-        'middleware' => 'acl_access:user/order',
+        'middleware' => 'acl_access:main/order',
         'as' => 'order',
         'uses' => 'MainController@order'
     ]);
@@ -35,14 +35,14 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
 
     Route::get('new-order', [
         //'middleware' => 'acl_access:role',
-        'middleware' => 'acl_access:user/new-order',
+        'middleware' => 'acl_access:main/new-order',
         'as' => 'new-order',
         'uses' => 'NewOrderController@index'
     ]);
 
     Route::get('store-property-detail', [
         //'middleware' => 'acl_access:role',
-        'middleware' => 'acl_access:user/store-property-detail',
+        'middleware' => 'acl_access:main/store-property-detail',
         'as' => 'store-property-detail',
         'uses' => 'NewOrderController@store'
     ]);
