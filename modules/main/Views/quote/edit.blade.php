@@ -112,7 +112,7 @@
                                                             @endif
                                                        @endforeach
                                                     @endif>
-                                            {{ $photography_package->title }}
+                                            {{ $photography_package->title.' ($'.$photography_package->price.')' }}
                                         </label>
 
                                         <ul>

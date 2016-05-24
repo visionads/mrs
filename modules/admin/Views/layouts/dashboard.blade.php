@@ -67,6 +67,14 @@
                 <input type="submit" value="Pay invoice" class="quote">
         </div>--}}
 </div>
+<div class="form-group col-sm-5">
+        <div class="form-group" id="new_quote">
+                <a href="{{ url('main/quotes') }}" class="quote">Quote List</a>
+        </div>
+        <div class="form-group" id="new_quote">
+                <a href="{{route('quote-list')}}" class="quote">Payment History</a>
+        </div>
+</div>
 
 
 </div>
