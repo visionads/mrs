@@ -28,7 +28,7 @@
                 <tbody>
                 @foreach($data as $quote)
                     <tr>
-                        <td class="text-center"><a href="{{ route('quote-details', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="underline"> 1234567 </a></td>
+                        <td class="text-center"><a href="{{ route('quote-details', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="underline"> <strong>{{ $quote->quote_number }}</strong> </a></td>
                         <td style="font-weight:normal;">{{ $quote->relSolutionType['title'] }}</td>
                         <td class="text-center">{{ date('d M Y',strtotime($quote->created_at)) }}</td>
                         <td><a href="{{ URL::to('main/edit_quote/'.$quote->id) }}" class="btn btn-primary" data-placement="left" data-content="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>
