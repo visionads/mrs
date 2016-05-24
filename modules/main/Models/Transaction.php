@@ -23,4 +23,7 @@ class Transaction extends Model
          'total_amount',
          'status'
     ];
+    public function relPayment(){
+        return $this->hasMany('App\Payment','transaction_id','id');
+    }
 }

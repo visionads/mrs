@@ -72,7 +72,7 @@ class PermissionRoleController extends Controller
                         ->WhereRaw('permission_role.role_id = ?', [$role_value]);
                 })
                 ->lists('permissions.title', 'permissions.id');
-
+            #echo '<pre>';
             #print_r($not_exists_permission);exit;
 
         }else{

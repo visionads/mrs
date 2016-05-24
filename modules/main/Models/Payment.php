@@ -22,4 +22,8 @@ class Payment extends Model
         'amount',
         'status'
     ];
+
+    public function relTransaction(){
+        return $this->belongsTo('App\Transaction','transaction_id','id');
+    }
 }

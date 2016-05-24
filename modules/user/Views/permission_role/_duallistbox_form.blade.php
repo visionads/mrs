@@ -1,4 +1,4 @@
-<script type="text/javascript" src="{{ URL::asset('assets/admin/js/jquery.min.js') }}"></script>
+{{--<script type="text/javascript" src="{{ URL::asset('assets/admin/js/jquery.min.js') }}"></script>--}}
 <script type="text/javascript" src="{{ URL::asset('assets/admin/js/multiselect.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/admin/js/multiselect.min.js') }}"></script>
 
