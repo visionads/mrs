@@ -37,7 +37,7 @@
                         <div id="job_progress"><span class="label5">Jobs in progress</span><span class="label6"> (numrecial value)</span></div>
 
                 </div>
-                @if(Session::get('user-role')=='super-admin')
+                @if(Session::get('user-role')=='super-admin' || Session::get('user-role')=='admin')
                         <div class="form-group col-sm-5">
                                 <div class="form-group" id="new_quote">
                                         <a href="{{ url('main/quotes') }}" class="quote">Quote List</a>
