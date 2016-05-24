@@ -100,26 +100,39 @@ class QuoteController extends Controller
         $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->first();
 
         // To get the selling_price from property_details table
-        $selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: '0.00';
+        //$selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: '0.00';
         $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
         $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
 
         $quote_local_media = QuoteLocalMedia::where('quote_id',$quote_id)->first();
+            $local_media_price = $quote_local_media ? $quote_local_media->price : '0.00';
+        $quote_photography = QuotePhotography::where('quote_id',$quote_id)->first();
+            $photography_price = $quote_photography ? $quote_photography->price : '0.00';
+        $quote_signboard = QuoteSignboard::where('quote_id',$quote_id)->first();
+            $signboard_price = $quote_signboard ? $quote_signboard->price : '0.00';
+        $quote_print_material_price = QuotePrintMaterial::where('quote_id',$quote_id)->first();
+            $print_material_price = $quote_print_material_price ? $quote_print_material_price->price : '0.00';
+
+        $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price;
 
         //print_r($selling_price);exit();
 
         // For Goods Service Tax
         $gst = $selling_price * 0.1;
-        $total_with_gts = $selling_price + $gst;
+        $total_with_gst = $selling_price + $gst;
         return view('main::quote.retrieve_quote_details',[
             'pageTitle'=>$pageTitle,
             'quote'=>$quote,
             'quote_number'=>$quote_number,
             'total'=>$selling_price,
             'gst'=>$gst,
-            'total_with_gts'=>$total_with_gts,
+            'total_with_gst'=>$total_with_gst,
             'vendor_name' => $vendor_name,
-            'vendor_phone' => $vendor_phone
+            'vendor_phone' => $vendor_phone,
+            'local_media_price' => $local_media_price,
+            'photography_price'=>$photography_price,
+            'signboard_price'=>$signboard_price,
+            'print_material_price'=>$print_material_price
         ]);
     }
 

@@ -28,29 +28,36 @@
 
                         <p class="size-13">
                             @if(isset($quote))
-                                    + Quote No. : {{ $quote->quote_number }}<br>
-                                    + Photography Package Comments : {{ $quote->photography_package_comments }}<br>
+                                    <strong>Quote No. : {{ $quote->quote_number }}</strong><br>
+                                    {{--+ Photography Package Comments : {{ $quote->photography_package_comments }}<br>
                                     + Signboard Package Comments : {{ $quote->signboard_package_comments }}<br>
                                     + Print Material Comments : {{ $quote->print_material_comments }}<br>
                                     + Print Material Distribution : {{ $quote->print_material_distribution_id }}<br>
                                     + Digital Media Note : {{ $quote->digital_media_note }}<br>
-                                    + Local Media Note : {{ $quote->local_media_note }}<br>
+                                    + Local Media Note : {{ $quote->local_media_note }}<br>--}}
                                     <?php
                                     $quote_id = $quote->id;
                                     $quote_no = $quote->quote_number;
                                     ?>
-
                             @endif
                         </p>
+
+                        <table class="size-13" style="background:none !important; color:#d0d0d0;">
+                            <tr><td width="170">+ Photography</td><td width="20">:</td><td>$ {{ number_format($photography_price,2) }}</td></tr>
+                            <tr><td>+ Signboard Package</td><td>:</td><td>$ {{ number_format($signboard_price,2) }}</td></tr>
+                            <tr><td>+ Print Material</td><td>:</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
+                            <tr style="border-bottom: 3px double #909090;"><td>+ Local Media</td><td>:</td><td>$ {{ number_format($local_media_price,2) }}</td></tr>
+                            <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>:</td><td>$ {{ number_format($total,2) }}</td></tr>
+                        </table>
                     </div>
 
             </div>
 
 
             <div class="col-sm-6 text-right">
-                <h2 style="color:#f36f21">Total : $ {{ $total }}</h2>
-                <h2 style="color:#f36f21">GST : $ {{ $gst }} </h2>
-                <h2 style="color:#f36f21">Total COST Inc GST : $ {{ $total_with_gts }} </h2>
+                <h2 style="color:#f36f21">Total : $ {{ number_format($total,2) }}</h2>
+                <h2 style="color:#f36f21">GST : $ {{ number_format($gst,2) }} </h2>
+                <h2 style="color:#f36f21">Total COST Inc GST : $ {{ number_format($total_with_gst,2) }} </h2>
 
                 <a href="{{ route('quote-list') }}" class="btn new_button ">Back To Quote</a>&nbsp;
                 {{--<a href="{{ route('quote-confirm', ['quote_id'=>$quote_id, 'quote_no'=>$quote_no ]) }}" class="btn new_button ">Proceed to Confirm</a>--}}
