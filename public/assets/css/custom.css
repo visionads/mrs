@@ -491,6 +491,7 @@ div.profile-content > ul.profile-nav > li a:hover {
     font-size: 30px;
 
 }
+#new_quote { float:right;}
 #new_quote a { display:block; border-radius: 18px; background-color: #f36f21; transition:ease-in-out 0.2s;}
 #new_quote a:hover { background:#f25f10; text-decoration:none;}
 
@@ -790,6 +791,7 @@ div .alert{
 a.user-img-link img { width:20px; height: 20px; margin:-5px 5px 0 0; border-radius: 3px}
 
 a span.link-underline {border-bottom:1px solid #fff;}
+a span.link-underline:hover {border-bottom:1px solid #f36f21;}
 
 /* -------------------- Date picker ----------------------*/
 .datepicker, .datepicker-dropdown { position: fixed; top:30% !important; }

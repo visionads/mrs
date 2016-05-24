@@ -1,13 +1,16 @@
 @extends('admin::layouts.master')
 
-<div style="background-image:url('{{ URL::asset("assets/user/img/chain.jpg")}}') ;height: 100%; width: 100%; ">
+{{--<div style="background-image:url('{{ URL::asset("assets/user/img/chain.jpg")}}') ;height: 100%; width: 100%; ">--}}
+
 
         @section('content')
 
                 {{--<script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>--}}
 
+                <div class="container" style="padding-top:0 !important; margin-top:0 !important;">
 
-                <div class="form-group col-sm-7 font-droid " id="marketing_image" style="border:1px solid #fff;">
+
+                <div class="form-group col-sm-7 font-droid " id="marketing_image">
                         <div class="page-profile">
                                 <div class="profile-row">
                                         <div class="left-col">
@@ -45,7 +48,7 @@
                         </div>
                         @else
 
-                        <div class="form-group col-sm-5" style="border:1px solid #fff;">
+                        <div class="form-group col-sm-5">
                                 <div class="form-group" id="new_quote">
                                         <a href="{{ url('main/new-quote') }}" class="quote">New Quote</a>
                                 </div>
@@ -66,4 +69,5 @@
 
 
 </div>
+
 @stop

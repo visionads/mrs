@@ -1,6 +1,3 @@
-<style>
-
-</style>
 
 {{--<header class="header-fluid">
     <!-- Navbar -->
@@ -60,7 +57,7 @@
 </header>--}}
 
 
-<div class="container-fluid font-droid">
+<div class="container-fluid font-droid" style="padding-bottom:0px !important;">
     <!--Navigation Bar-->
     <div class="col-sm-12" >
         <nav class="navbar navbar-default" >
@@ -75,7 +72,7 @@
                     </button>
 
                     <!--Header Logo-->
-                    <h1>Logo</h1>
+                    <h1><img src="{{ URL::to('/assets/img/mrs_logo.jpg') }}" width="230"></h1>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
