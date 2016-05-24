@@ -83,6 +83,8 @@ class QuoteController extends Controller
         $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
         $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
 
+        $quote_local_media = QuoteLocalMedia::where('quote_id',$quote_id)->first();
+
         //print_r($selling_price);exit();
 
         // For Goods Service Tax
