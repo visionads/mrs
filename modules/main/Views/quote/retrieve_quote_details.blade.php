@@ -57,9 +57,9 @@
 
 
             <div class="col-sm-6 text-right">
-                <h2 style="color:#f36f21">Total : $ {{ number_format($total,2) }}</h2>
-                <h2 style="color:#f36f21">GST : $ {{ number_format($gst,2) }} </h2>
-                <h2 style="color:#f36f21">Total COST Inc GST : $ {{ number_format($total_with_gst,2) }} </h2>
+                <h2 style="color:#f36f21">Total : $ {{ (isset($total))?number_format($total,2):'0.00' }}</h2>
+                <h2 style="color:#f36f21">GST : $ {{ (isset($gst))?number_format($gst,2):'0.00' }} </h2>
+                <h2 style="color:#f36f21">Total COST Inc GST : $ {{ (isset($total_with_gst))?number_format($total_with_gst,2):'0.00' }} </h2>
 
                 <a href="{{ route('quote-list') }}" class="btn new_button ">Back To Quote</a>&nbsp;
                 {{--<a href="{{ route('quote-confirm', ['quote_id'=>$quote_id, 'quote_no'=>$quote_no ]) }}" class="btn new_button ">Proceed to Confirm</a>--}}
@@ -74,8 +74,11 @@
 
     {!! Form::open( ['route' => 'place-order', 'method' => 'POST','id' => 'jq-validation-form', 'files'=>true]) !!}
 
-    {!! Form::hidden('quote_id', $quote_id) !!}
-    {!! Form::hidden('quote_no', $quote_no) !!}
+    {!! Form::hidden('quote_id', (isset($quote_id))?$quote_id:null) !!}
+    {!! Form::hidden('quote_no', (isset($quote_no))?$quote_no:null) !!}
+    {!! Form::hidden('total', (isset($total))?$total:'0.00') !!}
+    {!! Form::hidden('gst', (isset($gst))?$gst:'0.00') !!}
+    {!! Form::hidden('total_with_gst', (isset($total_with_gst))?$total_with_gst:'0.00') !!}
     <div class="row">
         <div class="col-sm-12" id="new_order_title">
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t-">
@@ -108,7 +111,13 @@
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div><img src="{{ URL::to($vendor_signature_path) }}" height="100" style="margin:10px 0px 0px 15px;" class="radius-10"></div>
+                <div>
+                    @if(isset($vendor_signature_path))
+                        <img src="{{ URL::to($vendor_signature_path) }}" height="100" style="margin:10px 0px 0px 15px;" class="radius-10">
+                    @else
+                        <div style="margin-left:15px; color:#f0ad4e;">Vendor signature is not available</div>
+                    @endif
+                </div>
                 <div class="col-sm-12 new_order file-type">
 
                     {!! Form::label('vendor_signature', 'Vendor Signature :', ['class' => 'control-label']) !!}
@@ -129,7 +138,13 @@
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div><img src="{{ URL::to($agent_signature_path) }}" height="100" style="margin:10px 0px 0px 15px;" class="radius-10"></div>
+                <div>
+                    @if(isset($agent_signature_path))
+                        <img src="{{ URL::to($agent_signature_path) }}" height="100" style="margin:10px 0px 0px 15px;" class="radius-10">
+                    @else
+                        <div style="margin-left:15px; color:#f0ad4e;">Agent signature is not available</div>
+                    @endif
+                </div>
                 <div class="col-sm-12 new_order file-type">
                     {!! Form::label('agent_signature', 'Agent Signature :', ['class' => 'control-label']) !!}
                     <div class="upload-path-css">{!! Form::file('agent_signature') !!}</div>

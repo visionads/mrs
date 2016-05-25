@@ -32,6 +32,9 @@
                 {!! Form::hidden('quote_id',$quote_id?$quote_id:null) !!}
                 {!! Form::hidden('quote_no', $quote_no?$quote_no:null ) !!}
                 {!! Form::hidden('property_detail_id',$property_detail_id?$property_detail_id:null) !!}
+                {!! Form::hidden('total',$total?$total:'0.00') !!}
+                {!! Form::hidden('gst',$gst?$gst:'0.00') !!}
+                {!! Form::hidden('total_with_gst',$total_with_gst?$total_with_gst:'0.00') !!}
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">

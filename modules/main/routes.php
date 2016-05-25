@@ -122,11 +122,16 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
     ]);
 
     //page for place order
-    Route::any('page-place-order/{quote_id}/{quote_no}',[
+    Route::any('page-place-order/{quote_id}/{quote_no}/{total}/{gst}/{total_with_gst}',[
         'middleware' => 'acl_access:main/page-place-order',
         'as'    =>  'page-place-order',
         'uses'  =>  'OrderController@page_place_order'
     ]);
+    /*Route::any('page-place-order/{quote_id}/{quote_no}',[
+        'middleware' => 'acl_access:main/page-place-order',
+        'as'    =>  'page-place-order',
+        'uses'  =>  'OrderController@page_place_order'
+    ]);*/
 
     Route::any('property-details/{quote_id}/{quote_no}',[
         'middleware' => 'acl_access:main/property-details',

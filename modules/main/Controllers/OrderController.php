@@ -55,6 +55,11 @@ class OrderController extends Controller
         $input = $request->all();
         $quote_id = $input['quote_id'];
         $quote_no = $input['quote_no'];
+        $total = $input['total'];
+        $gst = $input['gst'];
+        $total_with_gst = $input['total_with_gst'];
+
+
 
         $vendor_signature = Input::file('vendor_signature');
         $agent_signature = Input::file('agent_signature');
@@ -149,20 +154,23 @@ class OrderController extends Controller
             Session::flash('danger', $e->getMessage());
         }
 
-        $pageTitle = 'Property Detail For Marketing Material';
 
         return redirect()->route('page-place-order', [
             'quote_id'=>$quote_id,
-            'quote_no'=>$quote_no
+            'quote_no'=>$quote_no,
+            'total' => $total,
+            'gst' => $gst,
+            'total_with_gst' => $total_with_gst
         ]);
 
     }
 
 
 
-    public function page_place_order($quote_id, $quote_no)
+    public function page_place_order($quote_id, $quote_no,$total,$gst,$total_with_gst)
     {
         $pageTitle = 'Place Order';
+        //,$total,$gst,$total_with_gst
 
         $quote_data = Quote::findOrFail($quote_id);
 
@@ -208,6 +216,9 @@ class OrderController extends Controller
             'other_address'=>$other_address,
             'date_of_distribution'=>$date_of_distribution,
             'print_metal_dist_note'=>$print_metal_dist_note,
+            'total' => $total,
+            'gst' => $gst,
+            'total_with_gst' => $total_with_gst
         ]);
     }
 
@@ -218,6 +229,9 @@ class OrderController extends Controller
         $property_details_id = $input['property_detail_id'];
         $quote_id = $input['quote_id'];
         $quote_no = $input['quote_no'];
+        $total = $input['total'];
+        $gst = $input['gst'];
+        $total_with_gst = $input['total_with_gst'];
 
         // Input data for "property_detail" table
         $input_property_details = [
@@ -265,9 +279,11 @@ class OrderController extends Controller
                     if($trn_exists)
                     {
                         $transaction_model = Transaction::where('quote_id',$quote_id )->first();
-                        $transaction_model->amount = $property_details->selling_price;  //TODO::check price
-                        $transaction_model->gst = (10/100 * $transaction_model->amount) ;
-                        $transaction_model->total_amount = $transaction_model->amount + $transaction_model->gst;
+                        $transaction_model->amount = $total;  //TODO::check price
+                        //$transaction_model->gst = (10/100 * $transaction_model->amount) ;
+                        $transaction_model->gst = $gst ;
+                        //$transaction_model->total_amount = $transaction_model->amount + $transaction_model->gst;
+                        $transaction_model->total_amount = $total_with_gst;
                         $transaction_model->status = "active";
                         $transaction_model->save();
                     }
@@ -303,7 +319,7 @@ class OrderController extends Controller
 
         return redirect()->route('payment-procedure', [
             'quote_id'=>$quote_id,
-            'quote_no'=>$quote_no
+            'quote_no'=>$quote_no,
         ]);
 
 
