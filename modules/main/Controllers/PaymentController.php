@@ -27,7 +27,7 @@ class PaymentController extends Controller
     public function index()
     {
         $pageTitle = 'Transactions';
-        $data = Transaction::orderBy('id','DESC')->paginate(10);
+        $data = Transaction::where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
 //        dd($data);
         return view("main::payment.index",['pageTitle'=>$pageTitle, 'transactions'=>$data]);
     }

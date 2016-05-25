@@ -42,7 +42,7 @@ class QuoteController extends Controller
     public function view_quote()
     {
         $pageTitle = 'MRS - View Quotes';
-        $data = Quote::with('relSolutionType')->orderBy('id','DESC')->paginate(10);
+        $data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
         return view('main::quote.view_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
     public function quote_details($id)
@@ -81,7 +81,7 @@ class QuoteController extends Controller
     {
         $pageTitle = 'MRS - Retrieve Quote';
 //        $data = DB::table('quote')->orderBy('id','DESC')->paginate(30);
-        $data = Quote::with('relSolutionType')->orderBy('id','DESC')->paginate(30);
+        $data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(30);
 //        dd($data);
         return view('main::quote.retrieve_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
