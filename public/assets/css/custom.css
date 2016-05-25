@@ -497,11 +497,11 @@ div.profile-content > ul.profile-nav > li a:hover {
 #new_quote { float:right;}
 #new_quote a { display:block; border-radius: 18px; background-color: #f36f21; transition:ease-in-out 0.2s; box-shadow:2px 2px 4px #909090; }
 #new_quote a:hover { background:#f25f10; text-decoration:none; box-shadow:-2px -2px 4px #909090;
-    -webkit-transform: scale(1.05,1.05);
-    -moz-transform: scale(1.05,1.05);
-    -ms-transform: scale(1.05,1.05);
-    -o-transform: scale(1.05,1.05);
-    transform: scale(1.05,1.05);}
+    -webkit-transform: scale(1.01,1.01);
+    -moz-transform: scale(1.01,1.01);
+    -ms-transform: scale(1.01,1.01);
+    -o-transform: scale(1.01,1.01);
+    transform: scale(1.01,1.01);}
 
 .font-droid { font-family: 'Droid Serif', serif !important;}
 .no-bg { background:none !important;}
@@ -540,8 +540,8 @@ div.profile-content > ul.profile-nav > li a:hover {
     margin-top: -50px;
     margin-left:-15px;
 }
-
-#jhon .label{
+#jhon { border: 0px solid #909090;}
+#jhon span.label{
     font-family: 'Droid Serif', serif;
     color: #f36f21;
     font-size:40px;
@@ -549,6 +549,19 @@ div.profile-content > ul.profile-nav > li a:hover {
     text-height: font-size;
     line-height: 1em;
 }
+#jhon span.label-agent-details{
+    font-family: 'Droid Serif', serif;
+    color: red;
+    font-size:15px;
+    font-weight: 200;
+    text-height: font-size;
+    line-height: 1.5em !important;
+    border: 0px solid #909090;
+    display: inline-block;
+    margin-left: 25px;
+}
+
+
 .title-button { border-radius:15px; padding:10px 20px; background:#f36f21; border:0px ;}
 #job_progress {
     border:0px solid #d0d0d0;
@@ -572,24 +585,24 @@ div.profile-content > ul.profile-nav > li a:hover {
 
 }
 
-#agent .label{
+/*#agent .label{
     font-family: 'Droid Serif', serif;
     color: #f36f21;
     font-size:20px;
+    font-weight: bold;
+    text-height: font-size;
+    line-height: 1em;
+}*/
+
+/*#agent .label {
+    font-family: 'Droid Serif', serif;
+    color: red;
+    font-size: 15px;
     font-weight: 200;
     text-height: font-size;
     line-height: 1em;
-}
-
-#agent .label {
-    font-family: 'Droid Serif', serif;
-    color: red;
-    font-size: 40px;
-    font-weight: 200;
-    text-height: font-size;
-    line-height: 4em;
-    margin-left: -35px;
-}
+    margin-left: 0px;
+}*/
 
 #marketing_material .marketing{
     padding: 3px 17px;

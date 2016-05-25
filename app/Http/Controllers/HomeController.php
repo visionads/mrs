@@ -30,7 +30,7 @@ class HomeController extends Controller
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         //$last_quote = Quote::all()->last()->pluck('quote_number');
         $last_quote = Quote::orderBy('id', 'desc')->first();
-
+        //print_r($user_profile); exit();
         return view('admin::layouts.dashboard',[
             'pageTitle'=>$pageTitle,
             'user_image'=>$user_image,
