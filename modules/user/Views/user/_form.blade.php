@@ -37,16 +37,12 @@
             {!! Form::Select('role_id',$role, Input::old('role_id'),['style'=>'text-transform:capitalize','class' => 'form-control','required','title'=>'select role name']) !!}
         </div>
 
-        {{--<div class="col-sm-6">
-            {!! Form::label('branch_id', 'Branch:', ['class' => 'control-label']) !!}
+        <div class="col-sm-6">
+            {!! Form::label('business_title', 'Company Name:', ['class' => 'control-label']) !!}
             <small class="required">(Required)</small>
-            @if(isset($data->branch_id))
-                {!! Form::text('branch_title',isset($data->relBranch->title)?$data->relBranch->title:'' ,['class' => 'form-control','required','title'=>'select branch name','readonly']) !!}
-                {!! Form::hidden('branch_id', $data->relBranch->id) !!}
-            @else
-                {!! Form::Select('branch_id', $branch_data, Input::old('branch_id'),['class' => 'form-control','required','title'=>'select branch name']) !!}
-            @endif
-        </div>--}}
+                {!! Form::text('business_title', null ,['class' => 'form-control','required','title'=>'select branch name']) !!}
+
+        </div>
     </div>
 </div>
 <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
