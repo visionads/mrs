@@ -169,6 +169,7 @@ class OrderController extends Controller
         $property_detail_id = $quote_data->property_detail_id;
 
         $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->first();
+
         $main_selling_line = $quote->relPropertyDetail ? $quote->relPropertyDetail->main_selling_line: null;
         $property_description = $quote->relPropertyDetail ? $quote->relPropertyDetail->property_description: null;
         $inspection_date = $quote->relPropertyDetail ? $quote->relPropertyDetail->inspection_date: null;
@@ -181,6 +182,12 @@ class OrderController extends Controller
 
         /*---For Print Materials--------*/
         $quantity = $quote->relPrintMaterialDistribution ? $quote->relPrintMaterialDistribution->quantity: null;
+        $is_surrounded = $quote->relPrintMaterialDistribution ? $quote->relPrintMaterialDistribution->is_surrounded: null;
+
+        $other_address = $quote->relPrintMaterialDistribution ? $quote->relPrintMaterialDistribution->other_address: null;
+        $date_of_distribution = $quote->relPrintMaterialDistribution ? $quote->relPrintMaterialDistribution->date_of_distribution: null;
+        $print_metal_dist_note = $quote->relPrintMaterialDistribution ? $quote->relPrintMaterialDistribution->note: null;
+
 
         return view('main::order.place_order',[
             'pageTitle'=>$pageTitle,
@@ -197,6 +204,10 @@ class OrderController extends Controller
             'offer'=>$offer,
             'note'=>$note,
             'quantity'=>$quantity,
+            'is_surrounded'=>$is_surrounded,
+            'other_address'=>$other_address,
+            'date_of_distribution'=>$date_of_distribution,
+            'print_metal_dist_note'=>$print_metal_dist_note,
         ]);
     }
 
@@ -247,22 +258,41 @@ class OrderController extends Controller
                 //update quote table
                 $model_quote = Quote::findOrFail($quote_id);
                 $model_quote->print_material_distribution_id = $print_material_distribution->id;
-                $invoice_number=GenerateNumber::generate_number('invoice-number');
 
                 if($model_quote->save()){
-                    $transaction_model = new Transaction();
-                    $transaction_model->quote_id=$model_quote->id;
-                    $transaction_model->invoice_no = $invoice_number['generated_number'];
-                    $transaction_model->currency = "AUD";
-                    $transaction_model->amount = $property_details->selling_price;
-                    $transaction_model->gst = (10/100 * $transaction_model->amount) ;
-                    $transaction_model->total_amount = $transaction_model->amount + $transaction_model->gst;
-                    $transaction_model->status = "active";
-                    $transaction_model->save();
+                    // check if transaction exists for the quote and invoice number
+                    $trn_exists = Transaction::where('quote_id',$quote_id )->exists();
+                    if($trn_exists)
+                    {
+                        $transaction_model = Transaction::where('quote_id',$quote_id )->first();
+                        $transaction_model->amount = $property_details->selling_price;  //TODO::check price
+                        $transaction_model->gst = (10/100 * $transaction_model->amount) ;
+                        $transaction_model->total_amount = $transaction_model->amount + $transaction_model->gst;
+                        $transaction_model->status = "active";
+                        $transaction_model->save();
+                    }
+                    else
+                    {
+                        //generate invoice number
+                        $invoice_number=GenerateNumber::generate_number('invoice-number');
+
+                        //New Entry for Transaction Table
+                        $transaction_model = new Transaction();
+                        $transaction_model->quote_id = $model_quote->id;
+                        $transaction_model->invoice_no = $invoice_number['generated_number'];
+                        $transaction_model->currency = "AUD";
+                        $transaction_model->amount = $property_details->selling_price; //TODO::check price
+                        $transaction_model->gst = (10/100 * $transaction_model->amount) ;
+                        $transaction_model->total_amount = $transaction_model->amount + $transaction_model->gst;
+                        $transaction_model->status = "active";
+                        if($transaction_model->save())
+                        {
+                            GenerateNumber::update_row($invoice_number['setting_id'],$invoice_number['number']);
+                        }
+                    }
                 }
             }
             // commit the changes
-            GenerateNumber::update_row($invoice_number['setting_id'],$invoice_number['number']);
             DB::commit();
             Session::flash('message', 'Successfully added!');
         }catch(\Exception $e){

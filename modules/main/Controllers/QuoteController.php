@@ -88,7 +88,15 @@ class QuoteController extends Controller
     public function retrieve_details_demo($quote_id, $quote_number)
     {
         $pageTitle = 'MRS - Quote Details';
-        $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->first();
+        $quote = Quote::with(
+            'relPropertyDetail',
+            'relPrintMaterialDistribution' ,
+            'relQuoteLocalMedia',
+            'relQuotePhotography',
+            'relQuoteSignboard',
+            'relQuotePrintMaterial'
+            )->where('id', $quote_id)->first();
+
         // To get the selling_price from property_details table
         //$selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: '0.00';
         $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
@@ -98,28 +106,32 @@ class QuoteController extends Controller
         $agent_signature_date = $quote->relPropertyDetail ? $quote->relPropertyDetail->signature_date: null;
 
         // For Local Media Price ------------------------------------------
-        $quote_local_media = QuoteLocalMedia::where('quote_id',$quote_id)->get();
-            $local_media_price = 0;
-            foreach($quote_local_media as $local_media_p)
-            { $local_media_price += $local_media_p->price; }
+        $local_media_price = 0;
+        foreach($quote->relQuoteLocalMedia as $local_media_p)
+        {
+            $local_media_price += $local_media_p->price;
+        }
 
         // For Photography Price ----------------------------------------
-        $quote_photography = QuotePhotography::where('quote_id',$quote_id)->get();
-            $photography_price = 0;
-            foreach($quote_photography as $photography_p)
-            { $photography_price += $photography_p->price;  }
+        $photography_price = 0;
+        foreach($quote->relQuotePhotography as $photography_p)
+        {
+            $photography_price += $photography_p->price;
+        }
 
         // For Signboard Price ------------------------------------------
-        $quote_signboard = QuoteSignboard::where('quote_id',$quote_id)->get();
-            $signboard_price = 0;
-            foreach($quote_signboard as $signboard_p)
-            { $signboard_price +=  $signboard_p->price; }
+        $signboard_price = 0;
+        foreach($quote->relQuoteSignboard as $signboard_p)
+        {
+            $signboard_price +=  $signboard_p->price;
+        }
 
         // For Print Material Price -------------------------------------
-        $quote_print_material_price = QuotePrintMaterial::where('quote_id',$quote_id)->get();
-            $print_material_price = 0;
-            foreach($quote_print_material_price as $print_material_p)
-            { $print_material_price += $print_material_p->price; }
+        $print_material_price = 0;
+        foreach($quote->relQuotePrintMaterial as $print_material_p)
+        {
+            $print_material_price += $print_material_p->price;
+        }
 
         // For Total Selling Price --------------------------------------
         $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price;
