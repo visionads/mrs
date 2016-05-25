@@ -27,18 +27,17 @@ class SettingsController extends Controller
     public function dashboard_index()
     {
         $pageTitle = 'Settings - Dashboard';
-        $user_image = UserImage::where('user_id',Auth::user()->id)->first();
 
-        /*$last_quote_number = Quote::orderBy('created_at', 'desc')->first();
-        print_r($last_quote_number);exit();*/
-
-        return view('admin::settings.dashboard',['pageTitle'=>$pageTitle,'user_image'=>$user_image, 'last_quote_number'=>$last_quote_number]);
+        return view('admin::settings.dashboard',[
+            'pageTitle'=>$pageTitle,
+        ]);
     }
 
     public function settings_table()
     {
-        $pageTitle = 'Settings';
+        $pageTitle = 'Quote - Invoice - Transaction number settings';
         $data = Setting::get();
+
         return view('admin::settings.settings_table',[
             'pageTitle'=> $pageTitle,
             'data'     => $data
@@ -50,13 +49,18 @@ class SettingsController extends Controller
     {
         $pageTitle = 'Settings Edit';
         $data = Setting::where('id',$id)->first();
-        return view('admin::settings.settings_edit',['data'=>$data,'pageTitle'=>$pageTitle]);
+
+        return view('admin::settings.settings_edit',[
+            'data'=>$data,
+            'pageTitle'=>$pageTitle
+        ]);
     }
 
     public function settings_update(Request $request,$id)
     {
         $model = Setting::where('id',$id)->first();
         $input = $request->all();
+
         DB::beginTransaction();
         try{
             $model->update($input);
@@ -64,8 +68,8 @@ class SettingsController extends Controller
         }catch(\Exception $e){
             DB::rollback();
         }
-        return redirect()->back();
 
+        return redirect()->back();
     }
 
 

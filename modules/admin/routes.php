@@ -345,9 +345,9 @@ Route::group(array('prefix'=>'admin','modules'=>'Admin', 'namespace' => 'Modules
     ]);
 
     // --------------------- Settings Route --------------------//
-    Route::any('settings-table',[
-        'middleware' => 'acl_access:admin/settings-table',
-        'as'    =>  'settings-table',
+    Route::any('quote-invoice-settings',[
+        'middleware' => 'acl_access:admin/quote-invoice-settings',
+        'as'    =>  'quote-invoice-settings',
         'uses'  =>  'SettingsController@settings_table'
     ]);
     Route::any('settings-edit/{id}',[
