@@ -23,7 +23,45 @@
                     <tr>
                         <td colspan="4">
                             <h1>
-                                <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }}
+                                <span class="glyphicon glyphicon-list">&nbsp;</span> Transaction Details
+                            </h1>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>Quote Number</th>
+                        <td>{{ $transaction->quote_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <td>{{ $transaction->invoice_no }}</td>
+                    </tr>
+                    <tr>
+                        <th>Currency</th>
+                        <td>{{ $transaction->currency }}</td>
+                    </tr>
+                    <tr>
+                        <th>Amount</th>
+                        <td>{{ $transaction->amount }}</td>
+                    </tr>
+                    <tr>
+                        <th>GST</th>
+                        <td>{{ $transaction->gst }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Amount</th>
+                        <td>{{ $transaction->total_amount }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <table cellspacing="0" cellpadding="0" border="0" class="table size-13 quote-list">
+                    <thead class="head-top">
+                    <tr>
+                        <td colspan="4">
+                            <h1>
+                                <span class="glyphicon glyphicon-list">&nbsp;</span> Payment Details
                             </h1>
                         </td>
                     </tr>
