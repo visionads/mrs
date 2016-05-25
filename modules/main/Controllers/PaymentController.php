@@ -69,9 +69,10 @@ class PaymentController extends Controller
     public function show($id)
     {
         $pageTitle = 'Payment Details';
-        $data = Payment::getTransactionDetails($id);
-        dd($data);
-        return view("main::payment.payment_details",['pageTitle'=>$pageTitle, 'payment_details'=>$data]);
+        $transaction = Transaction::getTransactionDetails($id);
+        $payments = Payment::where('transaction_id',$id)->get();
+//        dd($payments);
+        return view("main::payment.payment_details",['pageTitle'=>$pageTitle, 'payment_details'=>$payments,'transaction'=>$transaction]);
 
     }
 

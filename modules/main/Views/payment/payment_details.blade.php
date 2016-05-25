@@ -17,13 +17,13 @@
 
     <div class="container-fluid">
         <div class="no-border">
-            <div class="col-sm-12 col-md-6 col-md-offset-3">
+            <div class="col-sm-12 col-md-6">
                 <table cellspacing="0" cellpadding="0" border="0" class="table size-13 quote-list">
                     <thead class="head-top">
                     <tr>
                         <td colspan="4">
                             <h1>
-                                <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }}
+                                <span class="glyphicon glyphicon-list">&nbsp;</span> Transaction Details
                             </h1>
                         </td>
                     </tr>
@@ -31,32 +31,56 @@
                     <tbody>
                     <tr>
                         <th>Quote Number</th>
-                        <td>{{ $payment_details->quote_number }}</td>
+                        <td>{{ $transaction->quote_number }}</td>
                     </tr>
                     <tr>
                         <th>Transaction ID</th>
-                        <td>{{ $payment_details->invoice_no }}</td>
-                    </tr>
-                    <tr>
-                        <th>Payment Type</th>
-                        <td>{{ $payment_details->type }}</td>
-                    </tr>
-                    <tr>
-                        <th>Paid Amount</th>
-                        <td>${{ $payment_details->amount }}</td>
+                        <td>{{ $transaction->invoice_no }}</td>
                     </tr>
                     <tr>
                         <th>Currency</th>
-                        <td>{{ $payment_details->currency }}</td>
+                        <td>{{ $transaction->currency }}</td>
                     </tr>
                     <tr>
-                        <th>Payment Status</th>
-                        <td>{{ $payment_details->status }}</td>
+                        <th>Amount</th>
+                        <td>{{ $transaction->amount }}</td>
+                    </tr>
+                    <tr>
+                        <th>GST</th>
+                        <td>{{ $transaction->gst }}</td>
                     </tr>
                     <tr>
                         <th>Total Amount</th>
-                        <td>${{ $payment_details->total_amount }}</td>
+                        <td>{{ $transaction->total_amount }}</td>
                     </tr>
+                </table>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <table cellspacing="0" cellpadding="0" border="0" class="table size-13 quote-list">
+                    <thead class="head-top">
+                    <tr>
+                        <td colspan="4">
+                            <h1>
+                                <span class="glyphicon glyphicon-list">&nbsp;</span> Payment Details
+                            </h1>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>Payment Type</th>
+                        <th>Status</th>
+                        <th>Amount</th>
+                        <th>Payment Date</th>
+                    </tr>
+                    @foreach($payment_details as $payment)
+                        <tr>
+                            <td>{{ $payment->type }}</td>
+                            <td>{{ $payment->status }}</td>
+                            <td>{{ $payment->amount }}</td>
+                            <td>{{ date('d M Y h:s',strtotime($payment->created_at)) }}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
                 <a href="{{ URL::previous() }}" class="btn btn-primary pull-right">Back</a>

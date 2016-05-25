@@ -10,6 +10,7 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Transaction extends Model
 {
@@ -31,8 +32,9 @@ class Transaction extends Model
 
     public static function getTransactionDetails($id)
     {
-        return Payment::join('quote', 'quote_id', '=', 'quote.id')
-                ->select('transaction.*','quote.quote_number')
+        return Transaction::join('quote', 'quote_id', '=', 'quote.id')
+                ->select('*','quote.quote_number')
+//                ->with('relPayment')
                 ->first();
     }
 
