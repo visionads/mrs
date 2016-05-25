@@ -1,8 +1,8 @@
 
-<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+<div class="form-group">
 
     <div class="row">
-        <div class="form-group">
+        <div class="form-group" style="margin: 10px">
             {!! Form::label('user_id', 'User :', ['class' => 'control-label']) !!}
             <small class="required">(Required)</small>
             @if(count($user_id)>0)
@@ -11,7 +11,7 @@
                 {!! Form::text('user_id', 'No User available',['id'=>'user_id','class' => 'form-control','required','disabled']) !!}
             @endif
         </div>
-        <div class="form-group">
+        <div class="form-group" style="margin: 10px">
             {!! Form::label('role_id', 'Role :', ['class' => 'control-label']) !!}
             <small class="required">(Required)</small>
             @if(count($role_id)>0)
@@ -20,6 +20,7 @@
                 {!! Form::text('role_id', 'No role available',['id'=>'role_id','class' => 'form-control','autofocus','required','disabled']) !!}
             @endif
         </div>
+        <div class="form-group" style="margin: 10px">
 
             {!! Form::label('status', 'Status:', ['class' => 'control-label']) !!}
             <small class="required">(Required)</small>
@@ -39,7 +40,7 @@
 
 <p> &nbsp; </p>
 
-<div class="footer-form-margin-btn">
-    {!! Form::submit('Save changes', ['class' => 'btn btn-primary','data-placement'=>'top','data-content'=>'click save changes button for save role user information']) !!}
+<div class="">
+    {!! Form::submit('Save changes', ['class' => 'btn btn-primary pull-right','data-placement'=>'top','data-content'=>'click save changes button for save role user information']) !!}
     <a href="{{route('index-role-user')}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>
 </div>
