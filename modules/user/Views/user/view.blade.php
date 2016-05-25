@@ -14,10 +14,10 @@
                 <th class="col-lg-4">Email Address</th>
                 <td>{{ isset($data->email)?$data->email:'' }}</td>
             </tr>
-            <tr>
+            {{--<tr>
                 <th class="col-lg-4">Branch</th>
                 <td>{{ isset($data->relBranch->title)?$data->relBranch->title:'' }}</td>
-            </tr>
+            </tr>--}}
             <tr>
                 <th class="col-lg-4">Expire Date</th>
                 <td>{{ isset($data->expire_date)?$data->expire_date:'' }}</td>
