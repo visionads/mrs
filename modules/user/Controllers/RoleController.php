@@ -46,12 +46,12 @@ class RoleController extends Controller
             Role::create($input);
             DB::commit();
             Session::flash('message', 'Successfully added!');
-            LogFileHelper::log_info('store-role', 'Successfully added', ['Role title: '.$input['title']]);
+            #LogFileHelper::log_info('store-role', 'Successfully added', ['Role title: '.$input['title']]);
         } catch (\Exception $e) {
             //If there are any exceptions, rollback the transaction`
             DB::rollback();
             Session::flash('danger', $e->getMessage());
-            LogFileHelper::log_error('store-role', $e->getMessage(), ['Role title: '.$input['title']]);
+            #LogFileHelper::log_error('store-role', $e->getMessage(), ['Role title: '.$input['title']]);
         }
 
         return redirect()->route('role');
@@ -100,12 +100,12 @@ class RoleController extends Controller
             $model->update($input);
             DB::commit();
             Session::flash('flash_message', 'Successfully added!');
-            LogFileHelper::log_info('update-role', 'Successfully updated.', ['Role title: '.$input['title']]);
+            #LogFileHelper::log_info('update-role', 'Successfully updated.', ['Role title: '.$input['title']]);
         }catch (\Exception $e) {
             //If there are any exceptions, rollback the transaction`
             DB::rollback();
             Session::flash('flash_message_error', $e->getMessage());
-            LogFileHelper::log_error('update-role', $e->getMessage(), ['Role title: '.$input['title']]);
+            #LogFileHelper::log_error('update-role', $e->getMessage(), ['Role title: '.$input['title']]);
         }
         //}
         return redirect()->route('role');
@@ -130,12 +130,12 @@ class RoleController extends Controller
             $model->save();
             DB::commit();
             Session::flash('message', "Successfully Deleted.");
-            LogFileHelper::log_info('delete-role', 'Successfully status cancel', ['Role title: '.$model->title]);
+            #LogFileHelper::log_info('delete-role', 'Successfully status cancel', ['Role title: '.$model->title]);
 
         } catch(\Exception $e) {
             DB::rollback();
             Session::flash('danger',$e->getMessage());
-            LogFileHelper::log_error('delete-role', $e->getMessage(), ['Role title: '.$model->title]);
+            #LogFileHelper::log_error('delete-role', $e->getMessage(), ['Role title: '.$model->title]);
         }
         return redirect()->route('role');
     }
