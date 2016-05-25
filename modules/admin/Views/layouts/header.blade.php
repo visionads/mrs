@@ -61,9 +61,9 @@
     <!--Navigation Bar-->
     <div class="col-sm-12" style="position:relative" >
         <nav class="navbar navbar-default" >
-            <div class="container-fluid">
+            <div class="container-fluid innernav">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
+                <div class="navbar-header" >
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
@@ -72,8 +72,8 @@
                     </button>
 
                     <!--Header Logo-->
-                    <a href="{{ route('dashboard') }}">
-                        <img src="{{ URL::to('/assets/img/mrs_logo.jpg') }}" width="200">
+                    <a href="{{ route('dashboard') }}" >
+                        <img src="{{ URL::to('/assets/img/mrs_logo.jpg') }}" width="150">
                     </a>
                 </div>
 
