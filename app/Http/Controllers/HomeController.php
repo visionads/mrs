@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\UserImage;
+use App\Quote;
 use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests;
@@ -25,8 +26,10 @@ class HomeController extends Controller
     {
         $pageTitle = 'MRS - Dashboard';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
+        //$last_quote = Quote::all()->last()->pluck('quote_number');
+        $last_quote = Quote::orderBy('id', 'desc')->first();
 
-        return view('admin::layouts.dashboard',['pageTitle'=>$pageTitle,'user_image'=>$user_image]);
+        return view('admin::layouts.dashboard',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'last_quote'=>$last_quote]);
     }
 
     public function all_routes_uri(){

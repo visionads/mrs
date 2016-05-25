@@ -314,11 +314,11 @@ class CreateAdmin extends Migration
             $table->text('photography_package_comments')->nullable();
 
             $table->unsignedInteger('signboard_package_id')->nullable();
-            $table->unsignedInteger('signboard_package_size_id')->nullable();
+            #$table->unsignedInteger('signboard_package_size_id')->nullable();
             $table->text('signboard_package_comments')->nullable();
 
             $table->unsignedInteger('print_material_id')->nullable();
-            $table->unsignedInteger('print_material_size_id')->nullable();
+            #$table->unsignedInteger('print_material_size_id')->nullable();
             $table->text('print_material_comments')->nullable();
             $table->smallInteger('is_distributed')->nullable();
 
@@ -329,7 +329,7 @@ class CreateAdmin extends Migration
             $table->text('digital_media_note')->nullable();
 
             $table->unsignedInteger('local_media_id')->nullable();
-            $table->unsignedInteger('local_media_option_id')->nullable();
+            #$table->unsignedInteger('local_media_option_id')->nullable();
             $table->text('local_media_note')->nullable();
 
             $table->unsignedInteger('business_id')->nullable();
