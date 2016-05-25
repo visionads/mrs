@@ -29,6 +29,7 @@
                     </div>
                     <div id="jhon">
                         <span class="label">
+                            {{ (isset($user_profile))?$user_profile->first_name.' '.$user_profile->last_name:'Update your profile' }}<br>
                         </span>
                         <span class="label-agent-details">
                             {{--Gender : {{ (isset($user_profile))?$user_profile->gender:'Update your City' }}<br>--}}
