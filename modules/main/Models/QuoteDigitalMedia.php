@@ -17,6 +17,7 @@ class QuoteDigitalMedia extends Model
     protected $fillable=[
         'quote_id',
         'digital_media_id',
+        'business_id',
         'created_by',
         'updated_by',
     ];
@@ -24,4 +25,24 @@ class QuoteDigitalMedia extends Model
         return $this->belongsTo('App\Quote','quote_id','id');
     }
 
+
+
+    // TODO :: boot
+    // boot() function used to insert logged user_id at 'created_by' & 'updated_by'
+
+    public static function boot(){
+        parent::boot();
+        static::creating(function($query){
+            if(Auth::check()){
+                $query->created_by = Auth::user()->id;
+                $query->business_id = iseet(Auth::user()->business_id)?Auth::user()->business_id:null;
+            }
+        });
+        static::updating(function($query){
+            if(Auth::check()){
+                $query->updated_by = Auth::user()->id;
+                $query->business_id = iseet(Auth::user()->business_id)?Auth::user()->business_id:null;
+            }
+        });
+    }
 }

@@ -19,10 +19,17 @@ class CreateSettingTable extends Migration
             $table->integer('last_number');
             $table->integer('increment');
             $table->tinyInteger('status');
+            $table->unsignedInteger('business_id')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('setting', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
     }
 
