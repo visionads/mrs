@@ -2,8 +2,7 @@
 
 
 @section('content')
-    {{--<script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>--}}
-    <div class="row theme-default main-menu-animated page-profile">
+    <div class="row theme-default main-menu-animated page-profile" style="font-size: 13px">
 
         <div class="profile-full-name">
             <span class="text-semibold">{{isset($profile_data->first_name)?$profile_data->first_name:''}} {{isset($profile_data->middle_name)?$profile_data->middle_name:''}} {{isset($profile_data->last_name)?$profile_data->last_name:''}}</span>
@@ -30,11 +29,11 @@
 
                 <div class="panel panel-transparent">
                     <div class="panel-heading">
-                        <span class="panel-title">Social</span>
+                        <span class="panel-title">Information</span>
                     </div>
                     <div class="list-group">
-                        <a href="#" class="list-group-item"><i class="profile-list-icon fa fa-twitter" style="color: #4ab6d5"></i> @dsteiner</a>
-                        <a href="#" class="list-group-item"><i class="profile-list-icon fa fa-facebook-square" style="color: #1a7ab9"></i> Denise Steiner</a>
+                        <a href="#" class="list-group-item"><i class="profile-list-icon fa fa-ticket" style="color: #4ab6d5"></i> {{$user->username}}</a>
+                        <a href="#" class="list-group-item"><i class="profile-list-icon fa fa-i-cursor" style="color: #1a7ab9"></i> {{$user->ip_address}}</a>
                         <a href="#" class="list-group-item"><i class="profile-list-icon fa fa-envelope" style="color: #888"></i> {{isset($user->email)?$user->email:''}}</a>
                     </div>
                 </div>
@@ -46,17 +45,11 @@
 
                 <div class="profile-content">
 
-                    {{--<ul id="profile-tabs" class="nav nav-tabs no-border-bottom profile-nav">
-                        <li class="active"><a href="{{route('user-info',['value'=>'profile'])}}" data-target="#profile" class="media_node" id="new_tab" data-toggle="ajax-tab" rel="tooltip">Profile</a></li>
-                        <li><a href="{{route('user-info',['value'=>'meta'])}}" data-target="#meta" class="media_node span" id="open_tab" data-toggle="ajax-tab" rel="tooltip"> Meta Information</a></li>
-                        <li><a href="{{route('user-info',['value'=>'acc-settings'])}}" data-target="#acc-settings" class="media_node" id="replied_tab" data-toggle="ajax-tab" rel="tooltip">Account Settings</a></li>
-                    </ul>--}}
-
                     <ul id="profile-tabs" class="profile-nav">
-                        <li class="active"><a href="{{route('user-info',['value'=>'profile'])}}" data-target="#profile" class="media_node" id="new_tab" data-toggle="ajax-tab" rel="tooltip">Profile</a></li>
-                        <li><a href="{{route('user-info',['value'=>'meta'])}}" data-target="#meta" class="media_node span" id="open_tab" data-toggle="ajax-tab" rel="tooltip"> Meta Information</a></li>
-                        <li><a href="{{route('user-info',['value'=>'acc-settings'])}}" data-target="#acc-settings" class="media_node" id="replied_tab" data-toggle="ajax-tab" rel="tooltip">Account Settings</a></li>
+                        <li class="active"><a href="{{route('user-profile')}}" data-target="#profile" class="media_node" id="new_tab" data-toggle="ajax-tab" rel="tooltip">Profile</a></li>
+                        <li><a href="{{route('account-user')}}" data-target="#acc-settings" class="media_node" id="replied_tab" data-toggle="ajax-tab" rel="tooltip">Account Settings</a></li>
                     </ul>
+
                     <div class="clearfix">&nbsp;</div>
                     <div class="tab-content tab-content-bordered panel-padding no-bg">
 
@@ -77,22 +70,8 @@ account
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="{{ URL::asset('assets/admin/js/jquery.min.js') }}"></script>
     <script>
         $(document).ready(function(){
-                $('[data-toggle="ajax-tab"]').click(function(e) {
-                    //alert('hggfhgh');
-                    var $this = $(this),
-                            loadurl = $this.attr('href'),
-                            targ = $this.attr('data-target');
-
-                    $.get(loadurl, function(data) {
-                        $(targ).html(data);
-                    });
-                    $this.tab('show');
-                    return false;
-                });
-
             $(window).load(function() {
                 $.ajax({
                     url : 'user-info/profile',
@@ -104,6 +83,8 @@ account
                     return false;
                 });
             });
+
+
         });
 </script>
 
