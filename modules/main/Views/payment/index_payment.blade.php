@@ -17,7 +17,7 @@
 
     <div id="container" class="container pages new_order font-droid">
 
-        <div class="row center"><h1>{{ $pageTitle }}</h1></div>
+        <div class="row center"><h1>{{ (isset($pageTitle))?$pageTitle:'Payment' }}</h1></div>
         <hr class="common-hr">
         <div class="row">
             <div class="col-sm-6 no-padding">
@@ -28,13 +28,13 @@
                         <p>
                             vendors can make invoice payment using invoice number.<br><br>
 
-                            + Quote Number : {{ $quote_number }} <br>
-                            + Invoice Number : {{ $data->invoice_no }} <br>
+                            + Quote Number : {{ (isset($quote_number))?$quote_number:null }} <br>
+                            + Invoice Number : {{ (isset($data))?$data->invoice_no:null }} <br>
                         </p>
 
-                        <h2 style="color:#f36f21" class="size-20">Total : $ {{ $data->amount }}</h2>
-                        <h2 style="color:#f36f21" class="size-20">GST : $ {{ $data->gst }} </h2>
-                        <h2 style="color:#f36f21" class="size-20">Total COST Inc GST : $ {{ $data->total_amount }} </h2>
+                        <h2 style="color:#f36f21" class="size-20">Total : $ {{ (isset($data))?number_format($data->amount,2):'0.00' }}</h2>
+                        <h2 style="color:#f36f21" class="size-20">GST : $ {{ (isset($data))?number_format($data->gst,2):'0.00' }} </h2>
+                        <h2 style="color:#f36f21" class="size-20">Total COST Inc GST : $ {{ (isset($data))?number_format($data->total_amount,2):'0.00' }} </h2>
                     </div>
                 </div>
             </div>
