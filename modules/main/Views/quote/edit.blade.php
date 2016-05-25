@@ -85,7 +85,7 @@
                     <div class="form-bottom">
                         <h3 class="instruction">Photography</h3>
                         <br>
-                        <div class="validationError"></div>
+                        <div class="validationErrorPhotographyPackage"></div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <h4>Will the property require pro-photography ?</h4>
@@ -104,7 +104,7 @@
                                 @foreach($data['photography_packages'] as $photography_package)
                                     <div class="col-sm-4">
                                         <label class="text-center-label">
-                                            <input type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}"
+                                            <input class="photography_package_id" type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}"
                                                    @if(isset($data['quote']->relQuotePhotography))
                                                        @foreach($data['quote']->relQuotePhotography as $ppi)
                                                            @if($ppi->photography_package_id==$photography_package->id)
@@ -143,7 +143,7 @@
 
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="validationError"></div>
+                                <div class="validationErrorSignboardPackage"></div>
                                 <h4>Will require signboard ?</h4>
                                 <label>
                                     <input name="signboardChooseBtn" type="radio" value="0" class="noBtn btn-next" @if($data['quote']->signboard_package_id == null) checked="checked" @endif>
@@ -162,7 +162,7 @@
                                     <div class="col-sm-4">
                                         <label class="">
                                                     <span class="text-center-label">
-                                                    <input type="checkbox" name="signboard_package_id[]" value="{{ $signboard_package->id }}"
+                                                    <input type="checkbox" class="signboard_package_id" name="signboard_package_id[]" value="{{ $signboard_package->id }}"
                                                            @if(isset($data['quote']->relQuoteSignboard))
                                                            @foreach($data['quote']->relQuoteSignboard as $ppi)
                                                            @if($ppi->signboard_package_id==$signboard_package->id)
@@ -209,7 +209,8 @@
                 </fieldset>
                 <fieldset><hr>
                     <div class="form-bottom">
-                        <h3 class="instruction">PRINT MATERIAL</h3>                                            <div class="validationError"></div>
+                        <h3 class="instruction">PRINT MATERIAL</h3>
+                        <div class="validationErrorPrintMaterial"></div>
 
                         <div class="row">
                             <div class="col-sm-12 size-16">
@@ -235,7 +236,7 @@
                                 @foreach($data['print_materials'] as $print_material)
                                     <div class="col-sm-4">
                                         <label>
-                                            <input @if(isset($data['quote']->relQuotePrintMaterial))
+                                            <input class="print_material_id" @if(isset($data['quote']->relQuotePrintMaterial))
                                                    @foreach($data['quote']->relQuotePrintMaterial as $ppi)
                                                    @if($ppi->print_material_id==$print_material->id)
                                                    checked="checked"
@@ -286,7 +287,7 @@
                 <fieldset><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
-                        <div class="validationError"></div>
+                        <div class="validationErrorDistributionPrintMaterial"></div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <h4>Will you require distribution of print material ?</h4>
@@ -333,7 +334,7 @@
                 <fieldset><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Digital media</h3>
-                        <div class="validationError"></div>
+                        <div class="validationErrorDigitalMedia"></div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <h4>Will you require digital media ?</h4>
@@ -355,7 +356,8 @@
                                         {!! Form::label('digital_media_id','Most popular websites','class="size-15"') !!}<br>
                                         @foreach($data['digital_medias'] as $digital_media)
                                             <label class="size-13">
-                                            <input @if(isset($data['quote']->relQuoteDigitalMedia))
+                                            <input class="digital_media_id"
+                                                   @if(isset($data['quote']->relQuoteDigitalMedia))
                                                    @foreach($data['quote']->relQuoteDigitalMedia as $ppi)
                                                    @if($ppi->digital_media_id==$digital_media->id)
                                                    checked="checked"
@@ -387,6 +389,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h4>Your choice of local newsprint advertisement ?</h4>
+                                <div class="validationErrorLocalMedia"></div>
                                 <label>
                                     <input class="noBtn btn-next" type="radio" name="localMediaChooseBtn" value="0" @if($data['quote']->local_media_id == null) checked="checked" @endif>
                                     No
@@ -401,10 +404,11 @@
                         <div class="row">
                             <div class="optionalContentDiv  @if($data['quote']->local_media_id == null) optional-content-div @endif">
                                 @foreach($data['local_medias'] as $local_media)
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 localMediaDiv">
                                         <div class="form-group size-15">
                                             <label>
-                                            <input @if(isset($data['quote']->relQuoteLocalMedia))
+                                            <input class="local_media_id"
+                                                    @if(isset($data['quote']->relQuoteLocalMedia))
                                                    @foreach($data['quote']->relQuoteLocalMedia as $ppi)
                                                    @if($ppi->local_media_id==$local_media->id)
                                                    checked="checked"
@@ -424,7 +428,7 @@
                                                            checked="checked"
                                                     @endif
                                                 @endforeach
-                                                @endif type="radio" value="{{ $relLocalMedia->id }}" name="local_media_option_id[{{  $local_media->id }}]">
+                                                @endif class="local_media_option_id" type="radio" value="{{ $relLocalMedia->id }}" name="local_media_option_id[{{  $local_media->id }}]">
                                                     {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}</label><br>
                                                 @endforeach
                                             </div>

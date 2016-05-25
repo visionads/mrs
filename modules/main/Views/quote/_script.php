@@ -6,228 +6,174 @@
         $('.noBtn').click(function(){
             $(this).parent().parent().parent().parent().find('.optionalContentDiv').addClass('optional-content-div');
         });
-        $('#solutionTypeNextBtn').click(function(){
-            $('.alert').remove();
-            var parent_fieldset = $(this).parents('fieldset');
-            var next_step = true;
-            $value=$("input[name='solutions_type_id']:checked").val();
-            if ($value!=undefined) {
-                $(this).removeClass('input-error');
-                parent_fieldset.fadeOut(400, function() {
-                    $(this).next().fadeIn();
-                });
-            }else{
-                $('.validationError').append('<div class="alert alert-danger">Please Check any option.</div>');
-                $(this).addClass('input-error');
-            }
-        });
-        $('#propertyDetailsNextBtn').click(function(){
-            $('.alert').remove();
-            var parent_fieldset = $(this).parents('fieldset');
-            //console.log(parent_fieldset);
-            var next_step = true;
 
-            parent_fieldset.find('input[name="owner_name"],input[name="vendor_email"]').each(function() {
-            	if( $(this).val() == "" ) {
-            		$('input[name="owner_name"]').addClass('input-error');
-            		$(this).addClass('input-error');
-            		next_step = false;
-            	}
-            	else {
-            		$(this).removeClass('input-error');
-            	}
-            });
-
-            if( next_step ) {
-                parent_fieldset.fadeOut(400, function() {
-                    $(this).next().fadeIn();
-                });
+        /*$('.local_media_option_id').click(function(){
+//                val value=$(this).parent().addclass('xxx');
+//            alert(value);
             }
-        });
-        $('#photographyNextBtn').click(function(){
+
+        });*/
+
+        $('.proceedBtn').click(function(){
             $('.alert').remove();
-            var parent_fieldset = $(this).parents('fieldset');
-            var next_step = true;
+
+            /*
+            * photography package validation start
+            * */
             var value=$("input[name='pro-photographyChooseBtn']:checked").val();
-            if(value==undefined){
-                $('.validationError').append('<div class="alert alert-danger">Please Check Yes/No.</div>');
-                next_step= false;
-            }
             if (value==1){
-                var photography_package_id=$("input[name='photography_package_id']:checked").val();
+                var photography_package_id=$(".photography_package_id:checked").val();
 
+                console.log(photography_package_id);
                 if(photography_package_id==undefined)
                 {
-                    $('.validationError').append('<div class="alert alert-danger">Please check any package</div>');
-                    next_step= false;
+                    $('.validationErrorPhotographyPackage').append('<div class="alert alert-danger">Please choose any photography package</div>');
+                    return false;
                 }
             }else{
                 $(this).removeClass('input-error');
             }
 
+            /*
+             * photography package validation end
+             * */
 
-            if( next_step ) {
-                parent_fieldset.fadeOut(400, function() {
-                    $(this).next().fadeIn();
-                });
-            }
-        });
-        $('#signboardNextBtn').click(function(){
-            $('.alert').remove();
-            var parent_fieldset = $(this).parents('fieldset');
-            var next_step = true;
+
+            /*
+            * signboard package validation start
+            * */
             var value=$("input[name='signboardChooseBtn']:checked").val();
 //            alert(value);
-            if(value==undefined){
-                $('.validationError').append('<div class="alert alert-danger">Please Check Yes/No.</div>');
-                next_step= false;
-            }
             if (value==1){
-                var signboard_package_id=$("input[name='signboard_package_id']:checked").val();
-
+                var signboard_package_id=$(".signboard_package_id:checked").val();
                 if(signboard_package_id==undefined)
                 {
-                    $('.validationError').append('<div class="alert alert-danger">Please check any package</div>');
-                    next_step= false;
+                    $('.validationErrorSignboardPackage').append('<div class="alert alert-danger">Please choose any signboard package</div>');
+                    return false;
                 }
             }else{
                 $(this).removeClass('input-error');
             }
 
+            /*
+             * signboard package validation end
+             * */
 
-            if( next_step ) {
-                parent_fieldset.fadeOut(400, function() {
-                    $(this).next().fadeIn();
-                });
-            }
-        });
-        $('#printMaterialNextBtn').click(function(){
-            $('.alert').remove();
-            var parent_fieldset = $(this).parents('fieldset');
-            var next_step = true;
+
+            /*
+            * print material package validation start
+            * */
+
             var value=$("input[name='printMaterialChooseBtn']:checked").val();
-            if(value==undefined){
-                $('.validationError').append('<div class="alert alert-danger">Please Check Yes/No.</div>');
-                next_step= false;
-            }
             if (value==1){
-                var print_material_package_id=$("input[name='print_material_id']:checked").val();
+                var print_material_package_id=$(".print_material_id:checked").val();
 
                 if(print_material_package_id==undefined)
                 {
-                    $('.validationError').append('<div class="alert alert-danger">Please check any package</div>');
-                    next_step= false;
+                    $('.validationErrorPrintMaterial').append('<div class="alert alert-danger">Please choose any print material</div>');
+                    return false;
                 }
             }else{
                 $(this).removeClass('input-error');
             }
 
 
-            if( next_step ) {
-                parent_fieldset.fadeOut(400, function() {
-                    $(this).next().fadeIn();
-                });
-            }
-        });
-        $('#distributedPrintMaterialNextBtn').click(function(){
-            $('.alert').remove();
-            var parent_fieldset = $(this).parents('fieldset');
-            var next_step = true;
+
+            /*
+             * print material package validation end
+             *
+            * distribution print material package validation start
+            * */
+
             var value=$("input[name='distributedPrintMaterialChooseBtn']:checked").val();
-            if(value==undefined){
-                $('.validationError').append('<div class="alert alert-danger">Please Check Yes/No.</div>');
-                next_step= false;
-            }
             if (value==1){
-                var distributed_print_material_package_id=$('#quantity').val();
+                var distributed_print_material_package_id=$('.quantity').val();
                 if(distributed_print_material_package_id=='select')
                 {
-                    $('.validationError').append('<div class="alert alert-danger">Please select any quantity</div>');
-                    next_step= false;
+                    $('.validationErrorDistributionPrintMaterial').append('<div class="alert alert-danger">Please select any quantity</div>');
+                    return false;
                 }
             }
 
 
-            if( next_step ) {
-                parent_fieldset.fadeOut(400, function() {
-                    $(this).next().fadeIn();
-                });
-            }
-        });
-        $('#digitalMediaNextBtn').click(function(){
-            $('.alert').remove();
-            var parent_fieldset = $(this).parents('fieldset');
-            var next_step = true;
-            var value=$("input[name='digitalMediaChooseBtn']:checked").val();
-            if(value==undefined){
-                $('.validationError').append('<div class="alert alert-danger">Please Check Yes/No.</div>');
-                next_step= false;
-            }
+            /*
+             * print material package validation end
+             *
+            * distribution print material package validation start
+            * */
+
+            var value=$("input[name='distributedPrintMaterialChooseBtn']:checked").val();
             if (value==1){
-                var digital_media_id=$("input[name='digital_media_id']:checked").val();
+                var distributed_print_material_package_id=$('.quantity').val();
+                if(distributed_print_material_package_id=='select')
+                {
+                    $('.validationErrorDistributionPrintMaterial').append('<div class="alert alert-danger">Please select any quantity</div>');
+                    return false;
+                }
+            }
+
+
+            /*
+            *
+            * distribution print material package validation end
+            *
+            * digital media validation start
+            *
+            * */
+
+
+            var value=$("input[name='digitalMediaChooseBtn']:checked").val();
+            if (value==1){
+                var digital_media_id=$(".digital_media_id:checked").val();
                 if(digital_media_id==undefined)
                 {
-                    $('.validationError').append('<div class="alert alert-danger">Please check any package</div>');
-                    next_step= false;
+                    $('.validationErrorDigitalMedia').append('<div class="alert alert-danger">Please choose any digital media</div>');
+                    return false;
                 }
             }
 
 
-            if( next_step ) {
-                parent_fieldset.fadeOut(400, function() {
-                    $(this).next().fadeIn();
-                });
-            }
-        });
-        $('#localMediaNextBtn').click(function(){
-            $('.alert').remove();
-            var parent_fieldset = $(this).parents('fieldset');
-            var next_step = true;
-            var value=$("input[name='localMediaChooseBtn']:checked").val();
-            if(value==undefined){
-                $('.validationError').append('<div class="alert alert-danger">Please Check Yes/No.</div>');
-                next_step= false;
-            }
+            /*
+            *
+            * digital media validation end
+            *
+            * local media validation start
+            *
+            * */
+
+/*
+            var value=$("input[name='digitalMediaChooseBtn']:checked").val();
             if (value==1){
-                var local_media_id=$("input[name='local_media_id']:checked").val();
+                var digital_media_id=$(".digital_media_id:checked").val();
+                if(digital_media_id==undefined)
+                {
+                    $('.validationErrorDigitalMedia').append('<div class="alert alert-danger">Please choose any digital media</div>');
+                    return false;
+                }
+            }*/
+
+
+            var value=$("input[name='localMediaChooseBtn']:checked").val();
+            if (value==1){
+                var local_media_id=$(".local_media_id:checked").val();
                 if(local_media_id==undefined)
                 {
-                    $('.validationError').append('<div class="alert alert-danger">Please check any package</div>');
-                    next_step= false;
+                    $('.validationErrorLocalMedia').append('<div class="alert alert-danger">Please choose any local newsprint media</div>');
+                    return false;
+                }else{
+                    var local_media_option_id=$(".local_media_option_id:checked").val();
+                    if(local_media_option_id==undefined)
+                    {
+                        $('.validationErrorLocalMedia').append('<div class="alert alert-danger">Please choose any local newsprint media options</div>');
+                        return false;
+                    }
+
                 }
             }
 
-
-            if( next_step ) {
-                parent_fieldset.fadeOut(400, function() {
-                    $(this).next().fadeIn();
-                });
-            }
         });
-        $('.proceedBtnN').click(function(){
-            $('.alert').remove();
-            var parent_fieldset = $(this).parents('fieldset');
-            var next_step = true;
-            var value=$("input[name='localMediaChooseBtn']:checked").val();
-            if(value==undefined){
-                $('.validationError').append('<div class="alert alert-danger">Please Check Yes/No.</div>');
-                next_step= false;
-            }
-            if (value==1){
-                var local_media_id=$("input[name='local_media_id']:checked").val();
-                if(local_media_id==undefined)
-                {
-                    $('.validationError').append('<div class="alert alert-danger">Please check any package</div>');
-                    next_step= false;
-                }
-            }
 
 
-            if( next_step ) {
-                parent_fieldset.fadeOut(400, function() {
-                    $(this).next().fadeIn();
-                });
-            }
-        });
+
     });
 </script>

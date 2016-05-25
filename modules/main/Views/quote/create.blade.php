@@ -33,7 +33,7 @@
                             <fieldset><hr>
                                 <div class="form-bottom">
                                     <div class="validationError"></div>
-                                    <h3 class="instruction">Please select one of the following to begin</h3>
+                                    <h3 class="instruction">Please select one of the following to begin <span style="color: white;">(Required)</span></h3>
                                     <div class="form-group solutions_type_id size-15" style="text-align:center !important;">
                                         @foreach($data['solution_types'] as $solution_type)
                                         <label>
@@ -85,7 +85,7 @@
                                 <div class="form-bottom">
                                     <h3 class="instruction">Photography</h3>
                                     <br>
-                                    <div class="validationError"></div>
+                                    <div class="validationErrorPhotographyPackage"></div>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h4>Will the property require pro-photography ?</h4>
@@ -104,7 +104,7 @@
                                             @foreach($data['photography_packages'] as $photography_package)
                                                 <div class="col-sm-4">
                                                     <label class="text-center-label">
-                                                        <input type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}">
+                                                        <input class="photography_package_id" type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}">
                                                         {!! $photography_package->title.' <b style="color: orange">$'.$photography_package->price.'</b>' !!}
                                                     </label>
 
@@ -136,7 +136,7 @@
 
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <div class="validationError"></div>
+                                            <div class="validationErrorSignboardPackage"></div>
                                             <h4>Will require signboard ?</h4>
                                             <label>
                                                 <input name="signboardChooseBtn" type="radio" value="0" class="noBtn btn-next" checked="checked">
@@ -155,7 +155,7 @@
                                             <div class="col-sm-4">
                                                 <label class="">
                                                     <span class="text-center-label">
-                                                    <input type="checkbox" name="signboard_package_id[]" value="{{ $signboard_package->id }}">
+                                                    <input type="checkbox" class="signboard_package_id" name="signboard_package_id[]" value="{{ $signboard_package->id }}">
 {{ $signboard_package->title }}</span>
                                                     <img width="100%" height="100" src="{{ asset($signboard_package->image_path) }}">
                                                 </label>
@@ -187,7 +187,7 @@
                             </fieldset>
                             <fieldset><hr>
                                 <div class="form-bottom">
-                                    <h3 class="instruction">PRINT MATERIAL</h3>                                            <div class="validationError"></div>
+                                    <h3 class="instruction">PRINT MATERIAL</h3>                                            <div class="validationErrorPrintMaterial"></div>
 
                                     <div class="row">
                                         <div class="col-sm-12 size-16">
@@ -213,7 +213,7 @@
                                             @foreach($data['print_materials'] as $print_material)
                                             <div class="col-sm-4">
                                                 <label>
-                                                    <input type="checkbox" name="print_material_id[]" value="{{ $print_material->id }}">
+                                                    <input type="checkbox" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
                                                     {{ $print_material->title }}
                                                 <label style="margin-left: 10%">
                                                     <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
@@ -246,7 +246,7 @@
                             <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
-                                    <div class="validationError"></div>
+                                    <div class="validationErrorDistributionPrintMaterial"></div>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h4>Will you require distribution of print material ?</h4>
@@ -294,7 +294,7 @@
                             <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Digital media</h3>
-                                    <div class="validationError"></div>
+                                    <div class="validationErrorDigitalMedia"></div>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h4>Will you require digital media ?</h4>
@@ -316,7 +316,7 @@
                                                 {!! Form::label('digital_media_id','Most popular websites','class=" size-13"') !!}<br>
                                                 @foreach($data['digital_medias'] as $digital_media)
                                                     <label class="size-13">
-                                                        <input type="checkbox" name="digital_media_id[]" value="{{ $digital_media->id }}"> {{ $digital_media->title }}
+                                                        <input class="digital_media_id" type="checkbox" name="digital_media_id[]" value="{{ $digital_media->id }}"> {{ $digital_media->title }}
                                                     </label> <br>
 
                                                 @endforeach
@@ -338,6 +338,7 @@
                             <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Local newsprint media advertising</h3>
+                                    <div class="validationErrorLocalMedia"></div>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h4>Your choice of local newsprint advertisement ?</h4>
@@ -355,10 +356,10 @@
                                     <div class="row">
                                         <div class="optionalContentDiv optional-content-div">
                                             @foreach($data['local_medias'] as $local_media)
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-4 localMediaDiv">
                                                 <div class="form-group">
                                                     <label class="size-15">
-                                                        <input type="checkbox" name="local_media_id[]" value="{{ $local_media->id }}">
+                                                        <input class="local_media_id" type="checkbox" name="local_media_id[]" value="{{ $local_media->id }}">
                                                         {{ $local_media->title }}
                                                     </label>
                                                 </div>
@@ -367,7 +368,8 @@
                                                         @foreach($local_media->relLocalMedia as $relLocalMedia)
                                                             {{--<input type="radio">--}}
                                                             <label class="size-13">
-                                                        {!! Form::radio('local_media_option_id['.$local_media->id.']',$relLocalMedia->id) !!} {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}
+                                                                <input class="local_media_option_id" type="radio" value="{{ $relLocalMedia->id }}" name="local_media_option_id[{{  $local_media->id }}]">
+                                                                {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}
                                                             </label><br>
                                                         @endforeach
                                                     </div>
