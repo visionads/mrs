@@ -244,7 +244,7 @@ INSERT INTO `permissions` (`id`, `title`, `route_url`, `description`, `created_b
   (234, 'admin/print-material-distribution-update/{id}', 'admin/print-material-distribution-update/{id}', NULL, 3, 0, '2016-05-23 22:50:41', '2016-05-23 22:50:41'),
   (235, 'admin/print-material-distribution-delete/{id}', 'admin/print-material-distribution-delete/{id}', NULL, 3, 0, '2016-05-23 22:50:41', '2016-05-23 22:50:41'),
   (236, 'admin/print-material-distribution-search', 'admin/print-material-distribution-search', NULL, 3, 0, '2016-05-23 22:50:41', '2016-05-23 22:50:41'),
-  (237, 'admin/quote-invoice-settings', 'admin/quote-invoice-settings', NULL, 3, 0, '2016-05-23 22:50:41', '2016-05-23 22:50:41'),
+  (237, 'admin/settings-table', 'admin/settings-table', NULL, 3, 0, '2016-05-23 22:50:41', '2016-05-23 22:50:41'),
   (238, 'admin/settings-edit/{id}', 'admin/settings-edit/{id}', NULL, 3, 0, '2016-05-23 22:50:41', '2016-05-23 22:50:41'),
   (239, 'admin/settings-update/{id}', 'admin/settings-update/{id}', NULL, 3, 0, '2016-05-23 22:50:41', '2016-05-23 22:50:41'),
   (240, 'admin/photography-package', 'admin/photography-package', NULL, 3, 0, '2016-05-23 22:50:41', '2016-05-23 22:50:41'),
@@ -303,8 +303,6 @@ INSERT INTO `permissions` (`id`, `title`, `route_url`, `description`, `created_b
   (293, 'main/page-place-order', 'main/page-place-order', 'main/page-place-order', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
   (294, 'main/place-order-store', 'main/place-order-store', 'main/place-order-store', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
   (295, 'main/payment-procedure', 'main/payment-procedure', 'main/payment-procedure', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-  (296, 'main/invoice', 'main/invoice', 'main/invoice', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-  (297, 'admin/settings-edit', 'admin/settings-edit', 'admin/settings-edit', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-  (298, 'user/account-user', 'user/account-user', 'user/account-user', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+  (296, 'main/invoice', 'main/invoice', 'main/invoice', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 
