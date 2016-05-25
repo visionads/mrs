@@ -26,10 +26,10 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $pageTitle = 'Payments';
-        $data = Payment::orderBy('id','DESC')->paginate(10);
+        $pageTitle = 'Transactions';
+        $data = Transaction::orderBy('id','DESC')->paginate(10);
 //        dd($data);
-        return view("main::payment.index",['pageTitle'=>$pageTitle, 'payments'=>$data]);
+        return view("main::payment.index",['pageTitle'=>$pageTitle, 'transactions'=>$data]);
     }
     public function index_payment()
     {
@@ -69,8 +69,8 @@ class PaymentController extends Controller
     public function show($id)
     {
         $pageTitle = 'Payment Details';
-        $data = Payment::getPaymentDetails($id);
-//        dd($data);
+        $data = Payment::getTransactionDetails($id);
+        dd($data);
         return view("main::payment.payment_details",['pageTitle'=>$pageTitle, 'payment_details'=>$data]);
 
     }

@@ -27,13 +27,6 @@ class Payment extends Model
     public function relTransaction(){
         return $this->belongsTo('App\Transaction','transaction_id','id');
     }
-    public static function getPaymentDetails($id)
-    {
-        return Payment::join('transaction', 'transaction_id', '=', 'transaction.id')
-                ->join('quote', 'transaction.quote_id', '=', 'quote.id')
-                ->select('payment.*','transaction.quote_id','transaction.invoice_no','transaction.currency','transaction.gst','transaction.total_amount','quote.quote_number')
-                ->first();
-    }
 
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'

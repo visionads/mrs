@@ -29,6 +29,12 @@ class Transaction extends Model
     }
 
 
+    public static function getTransactionDetails($id)
+    {
+        return Payment::join('quote', 'quote_id', '=', 'quote.id')
+                ->select('transaction.*','quote.quote_number')
+                ->first();
+    }
 
 
     // TODO :: boot

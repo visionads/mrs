@@ -29,27 +29,27 @@
                 </thead>
                 <thead>
                 <tr>
-                    <th>Type</th>
+                    <th>Transaction ID</th>
                     <th>Amount</th>
-                    <th>Status</th>
+                    <th>Date</th>
                     <th>Action</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                    @if(isset($payments))
-                        @foreach($payments as $payment)
+                    @if(isset($transactions))
+                        @foreach($transactions as $transaction)
                             <tr>
-                                <td class="text-center">{{ $payment->type }}</td>
-                                <td class="text-center">{{ '$'.$payment->amount }}</td>
-                                <td class="text-center">{{ $payment->status }}</td>
-                                <td><a href="{{ URL::to('main/view-payment-detail/'.$payment->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"> Details</span></a></td>
+                                <td class="text-center">{{ $transaction->invoice_no }}</td>
+                                <td class="text-center">{{ '$'.$transaction->total_amount }}</td>
+                                <td class="text-center">{{ date('d M Y',strtotime($transaction->created_at)) }}</td>
+                                <td><a href="{{ URL::to('main/view-payment-detail/'.$transaction->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"> Details</span></a></td>
                             </tr>
                         @endforeach
                     @endif
                 </tbody>
             </table>
-            <span class="pull-left size-13 paginate-right-top-40" style="text-align: right">{!! str_replace('/?', '?', $payments->render()) !!} </span>
+            <span class="pull-left size-13 paginate-right-top-40" style="text-align: right">{!! str_replace('/?', '?', $transactions->render()) !!} </span>
 
         </div>
     </div>
