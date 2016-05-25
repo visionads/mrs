@@ -471,7 +471,7 @@ class UserController extends Controller
             $user = User::where('id',$user_id)->first();
             $countryList = array('' => 'Please Select') + Country::lists('title', 'id')->all();
 
-            return view('user::user_info.index',[
+            return view('user::user_info.account_settings._ajax_data',[
                 'user_id'=>$user_id,
                 'countryList'=>$countryList,
                 'profile_data'=>$profile_data,

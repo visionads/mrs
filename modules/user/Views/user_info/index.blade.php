@@ -47,7 +47,12 @@
 
                     <ul id="profile-tabs" class="profile-nav">
                         <li class="active"><a href="{{route('user-profile')}}" data-target="#profile" class="media_node" id="new_tab" data-toggle="ajax-tab" rel="tooltip">Profile</a></li>
-                        <li><a href="{{route('account-user')}}" data-target="#acc-settings" class="media_node" id="replied_tab" data-toggle="ajax-tab" rel="tooltip">Account Settings</a></li>
+                        {{--<li><a href="{{route('account-user')}}" data-target="#acc-settings" class="media_node" id="replied_tab" data-toggle="ajax-tab" rel="tooltip">Account Settings</a></li>--}}
+                        <li>
+                            <a class="media_node" data-toggle="modal" href="#passwordModal" data-placement="left" data-content="Account Settings" >
+                                <strong>Account Settings</strong>
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="clearfix">&nbsp;</div>
@@ -83,7 +88,6 @@ account
                     return false;
                 });
             });
-
 
         });
 </script>
@@ -122,6 +126,9 @@ account
     </div>
     <!-- modal -->
 
+
+
+
     <div id="passwordModal" class="modal fade" tabindex="" role="dialog" style="display: none;">
         <div class="modal-dialog" style="z-index: 1050">
             <div class="modal-content">
@@ -129,7 +136,7 @@ account
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="click x button for close this entry form">×</button>
                     <h4 class="modal-title" id="myModalLabel">Change Password<span style="color: #A54A7B" class="user-guideline" data-content="<em>Must Fill <b>Required</b> Field.    <b>*</b> Put cursor on input field for more informations</em>"><font size="2">(?)</font> </span></h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="padding: 50px;">
                     {!! Form::open(['route' => 'update-password','id' => 'jq-validation-form']) !!}
                               @include('user::change_password._password_form')
                     {!! Form::close() !!}
