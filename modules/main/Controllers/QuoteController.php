@@ -299,7 +299,7 @@ class QuoteController extends Controller
                         $lm= new QuoteLocalMedia;
                         $lm->quote_id=$quote->id;
                         $lm->local_media_id=$lmi;
-                        if(isset($received['local_media_option_id']))
+                        if(isset($received['local_media_option_id'][$lmi]))
                         {
                             $lm->local_media_option_id = $received['local_media_option_id'][$lmi];
                             $lm->price= LocalMediaOptions::findOrFail($received['local_media_option_id'][$lmi])->price;
@@ -565,7 +565,7 @@ class QuoteController extends Controller
                         $lm= new QuoteLocalMedia;
                         $lm->quote_id=$quote->id;
                         $lm->local_media_id=$lmi;
-                        if(isset($received['local_media_option_id']))
+                        if(isset($received['local_media_option_id'][$lmi]))
                         {
                             $lm->local_media_option_id = $received['local_media_option_id'][$lmi];
                             $lm->price= LocalMediaOptions::findOrFail($received['local_media_option_id'][$lmi])->price;
