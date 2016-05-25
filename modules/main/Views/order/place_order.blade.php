@@ -168,7 +168,7 @@
                 <div class="col-sm-12">
                     {!! Form::label('is_surrounded', 'location of distribution in the surrounding the property :', ['class' => 'control-label']) !!}<br>
                     <label>
-                        <input type="radio" name="is_surrounded" value="1" {{$is_surrounded==1?"checked":""}} > &nbsp; No
+                        <input type="radio" name="is_surrounded" value="1" {{$is_surrounded==1?"checked":"checked"}} > &nbsp; No
                     </label>
                     <label>
                         <input type="radio" name="is_surrounded" value="2" {{$is_surrounded==2?"checked":""}}  > &nbsp; Yes

@@ -29,12 +29,11 @@
                     </div>
                     <div id="jhon">
                         <span class="label">
-                            {{ (isset($user_profile))?$user_profile->first_name.' '.$user_profile->last_name:'Setup your profile' }}<br>
                         </span>
                         <span class="label-agent-details">
-                            Gender : {{ (isset($user_profile))?$user_profile->gender:'Update your City' }}<br>
+                            {{--Gender : {{ (isset($user_profile))?$user_profile->gender:'Update your City' }}<br>--}}
                             City : {{ (isset($user_profile))?$user_profile->city:'Update your City' }}<br>
-                            State : {{ (isset($user_profile))?$user_profile->state:'Update your City' }}
+                            State : {{ (isset($user_profile))?$user_profile->state:'Update your State' }}
                         </span>
                     </div>
                     {{--<div id="agent"><span class="label">****Agent details</span></div>--}}
