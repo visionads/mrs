@@ -35,7 +35,12 @@
                                 <input type="submit" value="Job Status" class="quote">
                         </div>
                         {{--<div id="job_progress"><span class="label5">Jobs in progress</span><span class="label6"> (numrecial value)</span></div>--}}
-                        <div id="job_progress"><span class="label5">Jobs in progress</span><span class="label6"> (QN-000021)</span></div>
+                        <div id="job_progress">
+                            <span class="label5">Jobs in progress</span>
+                            <span class="label6">
+                                ( {{ (isset($last_quote))?$last_quote->quote_number:'not available' }} )
+                            </span>
+                        </div>
 
                 </div>
 
