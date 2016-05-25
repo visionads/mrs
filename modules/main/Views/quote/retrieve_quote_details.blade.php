@@ -108,7 +108,9 @@
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                <div><img src="{{ URL::to($vendor_signature_path) }}" height="100" style="margin:10px 0px 0px 15px;" class="radius-10"></div>
                 <div class="col-sm-12 new_order file-type">
+
                     {!! Form::label('vendor_signature', 'Vendor Signature :', ['class' => 'control-label']) !!}
                     <div class="upload-path-css">{!! Form::file('vendor_signature') !!}</div>
                 </div>
@@ -119,7 +121,7 @@
                     {!! Form::label('date', 'Date :', []) !!}
                     <small class="required size-13">(Required)</small>
                     <div class="input-group date">
-                        {!! Form::text('signature_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date'], ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date','required']) !!}
+                        {!! Form::text('signature_date',$agent_signature_date /*@$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date']*/, ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date','required']) !!}
                         {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     </div>
@@ -127,6 +129,7 @@
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                <div><img src="{{ URL::to($agent_signature_path) }}" height="100" style="margin:10px 0px 0px 15px;" class="radius-10"></div>
                 <div class="col-sm-12 new_order file-type">
                     {!! Form::label('agent_signature', 'Agent Signature :', ['class' => 'control-label']) !!}
                     <div class="upload-path-css">{!! Form::file('agent_signature') !!}</div>

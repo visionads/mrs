@@ -104,13 +104,32 @@ class OrderController extends Controller
         }
 
         /*Input array from retrive_quote_details.blade.php page form*/
-        $input_confirm = [
-            'vendor_name'              => $input['vendor_name'],
-            'vendor_phone'             => $input['vendor_phone'],
-            'vendor_signature_path'    => $vendor_img_path,
-            'signature_date'           => $input['signature_date'],
-            'agent_signature_path'     => $agent_img_path
-        ];
+        if(!empty($vendor_img_path))
+        {
+            $input_confirm = [
+                'vendor_name' => $input['vendor_name'],
+                'vendor_phone' => $input['vendor_phone'],
+                'vendor_signature_path' => $vendor_img_path,
+                'signature_date' => $input['signature_date']
+            ];
+        }
+        elseif(!empty($agent_img_path))
+        {
+            $input_confirm = [
+                'vendor_name' => $input['vendor_name'],
+                'vendor_phone' => $input['vendor_phone'],
+                'signature_date' => $input['signature_date'],
+                'agent_signature_path' => $agent_img_path
+            ];
+        }
+        else
+        {
+            $input_confirm = [
+                'vendor_name' => $input['vendor_name'],
+                'vendor_phone' => $input['vendor_phone'],
+                'signature_date' => $input['signature_date']
+            ];
+        }
 
         //print_r($input_confirm); exit;
 
@@ -149,13 +168,35 @@ class OrderController extends Controller
 
         $property_detail_id = $quote_data->property_detail_id;
 
-        //TODO:: Must be calculate price
+        $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->first();
+        $main_selling_line = $quote->relPropertyDetail ? $quote->relPropertyDetail->main_selling_line: null;
+        $property_description = $quote->relPropertyDetail ? $quote->relPropertyDetail->property_description: null;
+        $inspection_date = $quote->relPropertyDetail ? $quote->relPropertyDetail->inspection_date: null;
+        $inspection_features = $quote->relPropertyDetail ? $quote->relPropertyDetail->inspection_features: null;
+        $other_features = $quote->relPropertyDetail ? $quote->relPropertyDetail->other_features: null;
+        $selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: null;
+        $auction_time = $quote->relPropertyDetail ? $quote->relPropertyDetail->auction_time: null;
+        $offer = $quote->relPropertyDetail ? $quote->relPropertyDetail->offer: null;
+        $note = $quote->relPropertyDetail ? $quote->relPropertyDetail->note: null;
+
+        /*---For Print Materials--------*/
+        $quantity = $quote->relPrintMaterialDistribution ? $quote->relPrintMaterialDistribution->quantity: null;
 
         return view('main::order.place_order',[
             'pageTitle'=>$pageTitle,
             'quote_id'=>$quote_id,
             'quote_no'=>$quote_no,
             'property_detail_id'=>$property_detail_id,
+            'main_selling_line'=>$main_selling_line,
+            'property_description'=>$property_description,
+            'inspection_date'=>$inspection_date,
+            'inspection_features'=>$inspection_features,
+            'other_features'=>$other_features,
+            'selling_price'=>$selling_price,
+            'auction_time'=>$auction_time,
+            'offer'=>$offer,
+            'note'=>$note,
+            'quantity'=>$quantity,
         ]);
     }
 

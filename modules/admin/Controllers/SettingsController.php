@@ -9,6 +9,7 @@
 namespace Modules\Admin\Controllers;
 
 use App\UserImage;
+use App\Quote;
 use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests;
@@ -28,7 +29,10 @@ class SettingsController extends Controller
         $pageTitle = 'Settings - Dashboard';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
 
-        return view('admin::settings.dashboard',['pageTitle'=>$pageTitle,'user_image'=>$user_image]);
+        /*$last_quote_number = Quote::orderBy('created_at', 'desc')->first();
+        print_r($last_quote_number);exit();*/
+
+        return view('admin::settings.dashboard',['pageTitle'=>$pageTitle,'user_image'=>$user_image, 'last_quote_number'=>$last_quote_number]);
     }
 
     public function settings_table()

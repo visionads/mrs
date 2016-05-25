@@ -37,7 +37,7 @@
                     <div class="col-sm-12">
                         {!! Form::label('main_selling_line', 'Main selling line:', ['class' => 'control-label']) !!}
                         <small class="required size-13">(Required)</small>
-                        {!! Form::text('main_selling_line', Input::old('main_selling_line'), ['id'=>'main_selling_line', 'placeholder'=>'Main selling line', 'class' => 'form-control','maxlength'=>'64','title'=>'enter main selling line','required']) !!}
+                        {!! Form::text('main_selling_line', $main_selling_line, ['id'=>'main_selling_line', 'placeholder'=>'Main selling line', 'class' => 'form-control','maxlength'=>'64','title'=>'enter main selling line','required']) !!}
                     </div>
                 </div>
 
@@ -45,7 +45,7 @@
                     <div class="col-sm-12">
                         {!! Form::label('property_description', 'Property description :', ['class' => 'control-label']) !!}
                         <small class="required size-13">(Required)</small>
-                        {!! Form::textarea('property_description', Input::old('property_description'),['size' => '6x9','title'=>'Type property description','id'=>'property_description','placeholder'=>'property description here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                        {!! Form::textarea('property_description', $property_description,['size' => '6x9','title'=>'Type property description','id'=>'property_description','placeholder'=>'property description here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@
                     <div class="col-sm-12">
                         {!! Form::label('inspection_date', 'Inspection dates and times :', ['class' => 'control-label']) !!}
                         <div class="input-group date">
-                            {!! Form::text('inspection_date', @$generate_voucher_number? date('Y/m/d') : @$data[0]['inspection_date'], ['id'=>'date_id','placeholder'=>'Click here to choose Inspection Date','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                            {!! Form::text('inspection_date',$inspection_date /*@$generate_voucher_number? date('Y/m/d') : @$data[0]['inspection_date']*/, ['id'=>'date_id','placeholder'=>'Click here to choose Inspection Date','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
                             {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
@@ -63,7 +63,7 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('inspection_features', 'General features, Number Bedrooms, bathrooms, Garage ECT :', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('inspection_features', Input::old('inspection_features'),['size' => '6x5','title'=>'Type inspection features','id'=>'inspection_features','placeholder'=>'inspection features here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                        {!! Form::textarea('inspection_features', $inspection_features,['size' => '6x5','title'=>'Type inspection features','id'=>'inspection_features','placeholder'=>'inspection features here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('other_features', 'Other Features:', ['class' => 'control-label']) !!}
-                        {!! Form::text('other_features', Input::old('other_features'), ['id'=>'other_features', 'class' => 'form-control','placeholder'=>'Other Features','title'=>'enter other features']) !!}
+                        {!! Form::text('other_features', $other_features, ['id'=>'other_features', 'class' => 'form-control','placeholder'=>'Other Features','title'=>'enter other features']) !!}
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
                     <div class="col-sm-12">
                         {!! Form::label('selling_price', 'selling Price:', ['class' => 'control-label']) !!}
                         <small class="required size-13">(Required)</small>
-                        {!! Form::input('number','selling_price', Input::old('selling_price'), ['id'=>'selling_price', 'class' => 'form-control','placeholder'=>'Numeric Value only e.g.- 1100','title'=>'enter selling price','required']) !!}
+                        {!! Form::input('number','selling_price', $selling_price, ['id'=>'selling_price', 'class' => 'form-control','placeholder'=>'Numeric Value only e.g.- 1100','title'=>'enter selling price','required']) !!}
                     </div>
                 </div>
 
@@ -91,7 +91,7 @@
                         {!! Form::label('auction_time', 'Auction Times :', ['class' => 'control-label']) !!}
                         <small class="required size-13">(Required)</small>
                         <div class="input-group date" style="position:relative;">
-                            {!! Form::text('auction_time', @$generate_voucher_number? date('Y/m/d') : @$data[0]['auction_time'], ['id'=>'date_id','placeholder'=>'Click here to choose Auction Date','class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
+                            {!! Form::text('auction_time',$auction_time /*@$generate_voucher_number? date('Y/m/d') : @$data[0]['auction_time']*/, ['id'=>'date_id','placeholder'=>'Click here to choose Auction Date','class' => 'bs-datepicker-component form-control','required','title'=>'select date']) !!}
                             {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
@@ -101,14 +101,14 @@
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('offer', 'Offer:', ['class' => 'control-label']) !!}
-                        {!! Form::text('offer', Input::old('offer'), ['id'=>'offer', 'class' => 'form-control', 'placeholder'=>'Offer','maxlength'=>'64','title'=>'enter offer']) !!}
+                        {!! Form::text('offer', $offer, ['id'=>'offer', 'class' => 'form-control', 'placeholder'=>'Offer','maxlength'=>'64','title'=>'enter offer']) !!}
                     </div>
                 </div>
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
                         {!! Form::label('note', 'Note :', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('note', Input::old('note'),['size' => '6x13','title'=>'Type note','id'=>'note','placeholder'=>'Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                        {!! Form::textarea('note', $note,['size' => '6x13','title'=>'Type note','id'=>'note','placeholder'=>'Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
                     </div>
                 </div>
 
@@ -157,7 +157,7 @@
                 <div class="col-sm-12">
                     {!! Form::label('quantity', 'Select Quantity :', []) !!}
                     {{--<small class="required">(Required)</small>--}}
-                    {!! Form::select('quantity', array(''=>'Quantity','1'=>'1','2'=>'2'),Input::old('quantity'),['class' => 'form-control','title'=>'select Quantity']) !!}
+                    {!! Form::select('quantity', array($quantity=>$quantity,''=>'Quantity','1'=>'1','2'=>'2'),Input::old('quantity'),['class' => 'form-control','title'=>'select Quantity']) !!}
                 </div>
             </div>
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">

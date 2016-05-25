@@ -93,6 +93,9 @@ class QuoteController extends Controller
         //$selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: '0.00';
         $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
         $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
+        $vendor_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_signature_path: null;
+        $agent_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->agent_signature_path: null;
+        $agent_signature_date = $quote->relPropertyDetail ? $quote->relPropertyDetail->signature_date: null;
 
         // For Local Media Price ------------------------------------------
         $quote_local_media = QuoteLocalMedia::where('quote_id',$quote_id)->get();
@@ -135,6 +138,9 @@ class QuoteController extends Controller
             'total_with_gst'=>$total_with_gst,
             'vendor_name' => $vendor_name,
             'vendor_phone' => $vendor_phone,
+            'vendor_signature_path'=>$vendor_signature_path,
+            'agent_signature_path'=>$agent_signature_path,
+            'agent_signature_date'=>$agent_signature_date,
             'local_media_price' => $local_media_price,
             'photography_price'=>$photography_price,
             'signboard_price'=>$signboard_price,
