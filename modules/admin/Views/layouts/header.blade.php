@@ -60,8 +60,8 @@
 <div class="container-fluid font-droid" style="padding-bottom:0px !important; margin-bottom:0 !important;">
     <!--Navigation Bar-->
     <div class="col-sm-12" style="position:relative" >
-        <nav class="navbar navbar-default" style="margin-bottom: 0 !important; padding-bottom: 0 !important; " >
-            <div class="container-fluid" style="margin-bottom: 0 !important; padding-bottom: 0 !important; border-bottom:1px solid #404040 !important;">
+        <nav class="navbar navbar-default" >
+            <div class="container-fluid innernav">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header" >
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
