@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuoteLocalMediaPivotTable extends Migration
+class CreateQuoteDigitalMediaPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,22 @@ class CreateQuoteLocalMediaPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('quote_local_media', function (Blueprint $table) {
+        Schema::create('quote_digital_media', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('quote_id')->unsigned();
+            $table->unsignedInteger('quote_id');
             $table->foreign('quote_id')->references('id')->on('quote');
-            $table->integer('local_media_id',false,11);
-            $table->float('price');
-            $table->integer('local_media_option_id',false,11);
+            $table->integer('digital_media_id',false,11);
+            $table->unsignedInteger('business_id')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('quote_digital_media', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
     }
 
@@ -33,6 +38,6 @@ class CreateQuoteLocalMediaPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('quote_local_media');
+        Schema::drop('quote_digital_media');
     }
 }

@@ -12,6 +12,18 @@ class UserRole extends Migration
      */
     public function up()
     {
+        /* Business /Company   */
+        Schema::create('business', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 64)->nullable();
+            $table->string('slug',64)->nullable();
+            $table->text('address')->nullable();
+            $table->enum('status',array('active','inactive','cancel'))->nullable();
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
 
         /*role*/
 
@@ -36,7 +48,7 @@ class UserRole extends Migration
             $table->string('access_token', 256)->nullable();
             $table->string('csrf_token', 64)->nullable();
             $table->string('ip_address', 32)->nullable();
-            $table->unsignedInteger('branch_id')->nullable();
+            $table->unsignedInteger('business_id')->nullable();
             $table->dateTime('last_visit')->nullable();
             #$table->unsignedInteger('role_id')->nullable();
             $table->dateTime('expire_date')->nullable();
@@ -52,6 +64,10 @@ class UserRole extends Migration
             if(Schema::hasTable('cm_branch'))
             {
                 $table->foreign('branch_id')->references('id')->on('cm_branch');
+            }
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
             }
             #$table->foreign('role_id')->references('id')->on('role');
         });
@@ -125,32 +141,6 @@ class UserRole extends Migration
             $table->foreign('user_id')->references('id')->on('user');
         });
 
-        /*role_head*/
-
-        /*Schema::create('user_role_head', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title', 64)->nullable();
-            $table->text('description')->nullable();
-            $table->enum('status', ['active', 'inactive'])->nullable();
-            $table->integer('created_by', false, 11);
-            $table->integer('updated_by', false, 11);
-            $table->timestamps();
-            $table->engine = 'InnoDB';
-        });*/
-
-        /*user_role_detail*/
-
-        /*Schema::create('user_role_detail', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_role_head_id')->nullable();
-            $table->unsignedInteger('menu_panel_id')->nullable();
-            $table->unsignedInteger('parent_menu_panel_id')->nullable();
-            $table->enum('status', ['active', 'inactive'])->nullable();
-            $table->integer('created_by', false, 11);
-            $table->integer('updated_by', false, 11);
-            $table->timestamps();
-            $table->engine = 'InnoDB';
-        });*/
 
         /*user_profile*/
 
@@ -280,8 +270,6 @@ class UserRole extends Migration
         Schema::drop('permissions');
         Schema::drop('permission_role');
         Schema::drop('user_activity');
-        //Schema::drop('user_role_head');
-        //Schema::drop('user_role_detail');
         Schema::drop('user_profile');
         Schema::drop('user_meta');
         Schema::drop('user_image');

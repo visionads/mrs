@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuotePrintMaterialPivotTable extends Migration
+class CreateQuoteSignboardPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,24 @@ class CreateQuotePrintMaterialPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('quote_print_material', function (Blueprint $table) {
+        Schema::create('quote_signboard', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('quote_id');
             $table->foreign('quote_id')->references('id')->on('quote');
-            $table->integer('print_material_id',false,11);
+            $table->integer('signboard_package_id',false,11);
             $table->float('price');
-            $table->integer('is_distributed',false,11);
-            $table->integer('print_material_size_id',false);
+            $table->integer('signboard_size_id',false,11);
+            $table->unsignedInteger('business_id')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('quote_signboard', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
     }
 
@@ -34,6 +40,6 @@ class CreateQuotePrintMaterialPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('quote_print_material');
+        Schema::drop('quote_signboard');
     }
 }

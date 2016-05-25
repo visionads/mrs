@@ -17,10 +17,17 @@ class CreateAdmin extends Migration
             $table->increments('id');
             $table->string('title', 64)->nullable();
             $table->string('description',128)->nullable();
+            $table->unsignedInteger('business_id')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('solution_type', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
 
         //Photography Package
@@ -28,10 +35,17 @@ class CreateAdmin extends Migration
             $table->increments('id');
             $table->string('title', 64)->nullable();
             $table->float('price')->nullable();
+            $table->unsignedInteger('business_id')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('photography_package', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
 
 
@@ -41,7 +55,7 @@ class CreateAdmin extends Migration
             $table->unsignedInteger('photography_package_id')->nullable();
             $table->string('items', 64)->nullable();
             $table->string('description',128)->nullable();
-
+            $table->unsignedInteger('business_id')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
@@ -52,6 +66,10 @@ class CreateAdmin extends Migration
             if(Schema::hasTable('photography_package'))
             {
                 $table->foreign('photography_package_id')->references('id')->on('photography_package');
+            }
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
             }
         });
 
@@ -65,11 +83,18 @@ class CreateAdmin extends Migration
             $table->string('image_path', 128)->nullable();
             $table->string('image_thumb', 128)->nullable();
             $table->boolean('is_distribution')->nullable();
+            $table->unsignedInteger('business_id')->nullable();
 
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('print_material', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
 
 
@@ -80,6 +105,7 @@ class CreateAdmin extends Migration
             $table->string('title', 64)->nullable();
             $table->float('price')->nullable();
             $table->string('description',128)->nullable();
+            $table->unsignedInteger('business_id')->nullable();
 
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
@@ -92,6 +118,10 @@ class CreateAdmin extends Migration
             {
                 $table->foreign('print_material_id')->references('id')->on('print_material');
             }
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
 
 
@@ -103,11 +133,18 @@ class CreateAdmin extends Migration
             $table->text('other_address')->nullable();
             $table->dateTime('date_of_distribution')->nullable();
             $table->string('note', 128)->nullable();
+            $table->unsignedInteger('business_id')->nullable();
 
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('print_material_distribution', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
 
 
@@ -118,10 +155,17 @@ class CreateAdmin extends Migration
             $table->string('title', 64)->nullable();
             $table->string('image_path', 128)->nullable();
             $table->string('image_thumb', 128)->nullable();
+            $table->unsignedInteger('business_id')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('signboard_package', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
 
 
@@ -132,6 +176,7 @@ class CreateAdmin extends Migration
             $table->string('title', 64)->nullable();
             $table->float('price')->nullable();
             $table->string('description',128)->nullable();
+            $table->unsignedInteger('business_id')->nullable();
 
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
@@ -144,6 +189,10 @@ class CreateAdmin extends Migration
             {
                 $table->foreign('signboard_package_id')->references('id')->on('signboard_package');
             }
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
 
 
@@ -153,11 +202,18 @@ class CreateAdmin extends Migration
             $table->increments('id');
             $table->string('title', 64)->nullable();
             $table->string('url', 128)->nullable();
+            $table->unsignedInteger('business_id')->nullable();
 
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('digital_media', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
 
 
@@ -166,11 +222,18 @@ class CreateAdmin extends Migration
             $table->increments('id');
             $table->string('title', 64)->nullable();
             $table->string('description', 128)->nullable();
+            $table->unsignedInteger('business_id')->nullable();
 
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('local_media', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
 
 
@@ -180,6 +243,7 @@ class CreateAdmin extends Migration
             $table->unsignedInteger('local_media_id')->nullable();
             $table->string('title', 64)->nullable();
             $table->float('price')->nullable();
+            $table->unsignedInteger('business_id')->nullable();
 
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
@@ -191,6 +255,10 @@ class CreateAdmin extends Migration
             if(Schema::hasTable('local_media'))
             {
                 $table->foreign('local_media_id')->references('id')->on('local_media');
+            }
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
             }
         });
 //
@@ -220,11 +288,18 @@ class CreateAdmin extends Migration
             $table->dateTime('auction_time')->nullable();
             $table->string('offer', 64)->nullable();
             $table->text('note')->nullable();
+            $table->unsignedInteger('business_id')->nullable();
 
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
+        });
+        Schema::table('property_detail', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
         });
 
 
@@ -257,30 +332,19 @@ class CreateAdmin extends Migration
             $table->unsignedInteger('local_media_option_id')->nullable();
             $table->text('local_media_note')->nullable();
 
+            $table->unsignedInteger('business_id')->nullable();
+
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
-//        Schema::table('quote', function($table) {
-//            $table->foreign('solution_type_id')->references('id')->on('solution_type');
-//
-//            $table->foreign('property_detail_id')->references('id')->on('property_detail');
-//
-//            $table->foreign('photography_package_id')->references('id')->on('photography_package');
-//
-//            $table->foreign('signboard_package_id')->references('id')->on('signboard_package');
-//
-//            $table->foreign('print_material_id')->references('id')->on('print_material');
-//            $table->foreign('print_material_distribution_id')->references('id')->on('print_material_distribution');
-//
-//            $table->foreign('digital_media_id')->references('id')->on('digital_media');
-//
-//            $table->foreign('local_media_id')->references('id')->on('local_media');
-//
-//            $table->foreign('local_media_option_id')->references('id')->on('local_media_option');
-//
-//        });
+        Schema::table('quote', function($table) {
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
+            }
+        });
 
 
 
@@ -294,6 +358,7 @@ class CreateAdmin extends Migration
             $table->float('gst')->nullable();
             $table->float('total_amount')->nullable();
             $table->string('status',20)->nullable();
+            $table->unsignedInteger('business_id')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
@@ -304,6 +369,10 @@ class CreateAdmin extends Migration
             if(Schema::hasTable('quote'))
             {
                 $table->foreign('quote_id')->references('id')->on('quote');
+            }
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
             }
         });
 
@@ -316,6 +385,7 @@ class CreateAdmin extends Migration
             $table->string('type',40)->nullable();
             $table->float('amount')->nullable();
             $table->string('status',20)->nullable();
+            $table->unsignedInteger('business_id')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
@@ -326,6 +396,10 @@ class CreateAdmin extends Migration
             if(Schema::hasTable('transaction'))
             {
                 $table->foreign('transaction_id')->references('id')->on('transaction');
+            }
+            if(Schema::hasTable('business'))
+            {
+                $table->foreign('business_id')->references('id')->on('business');
             }
         });
 
