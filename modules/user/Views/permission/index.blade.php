@@ -6,7 +6,7 @@
 @section('content')
 
         <!-- page start-->
-<div class="row">
+<div class="row" style="font-size: 13px">
     <div class="col-sm-12">
         <div class="panel">
             <div class="panel-heading">
