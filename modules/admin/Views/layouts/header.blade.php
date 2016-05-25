@@ -59,7 +59,7 @@
 
 <div class="container-fluid font-droid" style="padding-bottom:0px !important; margin-bottom:0 !important;">
     <!--Navigation Bar-->
-    <div class="col-sm-12" >
+    <div class="col-sm-12" style="position:relative" >
         <nav class="navbar navbar-default" >
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -72,7 +72,9 @@
                     </button>
 
                     <!--Header Logo-->
-                    <img src="{{ URL::to('/assets/img/mrs_logo.jpg') }}" width="230">
+                    <a href="{{ route('dashboard') }}">
+                        <img src="{{ URL::to('/assets/img/mrs_logo.jpg') }}" width="200">
+                    </a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -118,5 +120,8 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+        <div style="position:absolute; top:100px; right:70px;">
+            @include('admin::layouts.messages')
+        </div>
     </div>
 </div>

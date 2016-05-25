@@ -13,7 +13,7 @@
 @endif
 
 {{--set some message after action--}}
-@if (Session::has('message'))
+{{--@if (Session::has('message'))
     <div class="alert alert-success">{{Session::get("message")}}</div>
 
 @elseif(Session::has('error'))
@@ -25,7 +25,7 @@
 @elseif(Session::has('danger'))
     <div class="alert alert-danger">{{Session::get("danger")}}</div>
 
-@endif
+@endif--}}
 
 {{-- Token Mis mathched exception  --}}
 @if ($errors->has('token_error'))
@@ -35,7 +35,7 @@
 
 {!! Form::open(['route' => 'post-user-login','id'=>'login-data-validation']) !!}
 
-<div class="col-md-4 col-md-offset-4" id="login_signin2" style="position:absolute; bottom: 0px;">
+<div class="col-md-4 col-md-offset-4" id="login_signin2" style="background:#202020; border:2px solid #000000;  box-shadow:0px 0px 10px #d0d0d0; padding:20px; border-radius:30px;  ">
     <div class="form-group" id="sign1">
         {!! Form::text('email', Input::old('email'), ['class' => 'form-control input-lg','required','placeholder'=>'USERNAME OR EMAIL', 'autocomplete'=>'off','autofocus']) !!}
     </div>
@@ -47,7 +47,7 @@
         <input type="submit" value="LOG IN" class="sign_button">
     </div>
     <div class="form-group" id="sign">
-        <p>need help signing in?</p>
+        <a href="{{--{{ route('forget') }}--}}" class="btn btn-primary">need help signing in?</a>
     </div>
 </div>
 
