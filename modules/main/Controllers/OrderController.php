@@ -175,6 +175,7 @@ class OrderController extends Controller
         $quote_data = Quote::findOrFail($quote_id);
 
         $property_detail_id = $quote_data->property_detail_id;
+        $print_material_id = $quote_data->print_material_distribution_id;
 
         $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->first();
 
@@ -202,6 +203,7 @@ class OrderController extends Controller
             'quote_id'=>$quote_id,
             'quote_no'=>$quote_no,
             'property_detail_id'=>$property_detail_id,
+            'print_material_id'=>$print_material_id,
             'main_selling_line'=>$main_selling_line,
             'property_description'=>$property_description,
             'inspection_date'=>$inspection_date,
@@ -227,6 +229,7 @@ class OrderController extends Controller
     {
         $input = $request->all();
         $property_details_id = $input['property_detail_id'];
+        $print_material_id = $input['print_material_id'];
         $quote_id = $input['quote_id'];
         $quote_no = $input['quote_no'];
         $total = $input['total'];
@@ -254,7 +257,7 @@ class OrderController extends Controller
             'date_of_distribution'  => $input['date_of_distribution'],
             'note'                  => $input['note'],
         ];
-
+        //dd($print_material_id);
         DB::beginTransaction();
         try{
 
@@ -263,16 +266,29 @@ class OrderController extends Controller
             $property_details_update = $model_property_details->update($input_property_details);
             $property_details = PropertyDetail::findOrFail($property_details_id);
 
-            $model_print_material_distribution = new PrintMaterialDistribution();
-            $print_material_distribution = $model_print_material_distribution->create($input_print_material_distribution);
+            // Update Print Material Distribution if exist
+            $print_material_distribution_exist =PrintMaterialDistribution::where('id',$print_material_id)->exists();
+
+            if($print_material_distribution_exist)
+            {
+                $model_print_material_distribution = PrintMaterialDistribution::where('id',$print_material_id)->first();
+                $print_material_distribution = $model_print_material_distribution->update($input_print_material_distribution);
+            }
+            else
+            {
+                $model_print_material_distribution = new PrintMaterialDistribution();
+                $print_material_distribution = $model_print_material_distribution->create($input_print_material_distribution);
+            }
 
             //check if stored above model(s)
             if($property_details_update && $print_material_distribution)
             {
                 //update quote table
+                //dd($model_print_material_distribution);
                 $model_quote = Quote::findOrFail($quote_id);
-                $model_quote->print_material_distribution_id = $print_material_distribution->id;
+                $model_quote->print_material_distribution_id = $model_print_material_distribution->id;
 
+                //exit('dfj');
                 if($model_quote->save()){
                     // check if transaction exists for the quote and invoice number
                     $trn_exists = Transaction::where('quote_id',$quote_id )->exists();
@@ -314,6 +330,7 @@ class OrderController extends Controller
         }catch(\Exception $e){
             // If fails rollback the database
             DB::rollback();
+            dd($e->getMessage());
             Session::flash('danger', $e->getMessage());
         }
 
