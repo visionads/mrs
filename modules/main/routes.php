@@ -57,7 +57,7 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
         'as' => 'invoice',
         'uses' => 'InvoiceController@invoice'
     ]);
-    Route::get('invoice-print', [
+    Route::get('invoice-print/{id}', [
         'middleware' => 'acl_access:main/invoice-print',
         'as' => 'invoice-print',
         'uses' => 'InvoiceController@invoice_print'
