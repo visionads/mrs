@@ -3,6 +3,7 @@
 namespace Modules\User\Controllers;
 
 use App\Branch;
+use App\Business;
 use App\Helpers\LogFileHelper;
 use App\RoleUser;
 use App\UserActivity;
@@ -298,15 +299,26 @@ class UserController extends Controller
         /* Transaction Start Here */
         DB::beginTransaction();
         try {
+
+            // Business for entire application
+            $business_title = $input['business_title'];
+            if($business_title) {
+                $business = new Business();
+                $business->title =   $business_title;
+                $business->slug =   str_slug($business_title);
+                $business->save();
+                $business_id =$business->id;
+            }
+
             $input_data = [
                 'username'=>$input['username'],
                 'email'=>$input['email'],
                 'password'=>Hash::make($input['password']),
                 'csrf_token'=> str_random(30),
                 'ip_address'=> getHostByName(getHostName()),
-//                'branch_id'=> $input['branch_id'],
                 'expire_date'=> $input['expire_date'],
                 'status'=> $input['status'],
+                'business_id'=> isset($business_id)?$business_id: null
             ];
 
             if($user = User::create($input_data)){

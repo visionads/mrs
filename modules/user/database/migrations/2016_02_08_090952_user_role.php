@@ -264,6 +264,7 @@ class UserRole extends Migration
      */
     public function down()
     {
+        Schema::drop('business');
         Schema::drop('user');
         Schema::drop('role');
         Schema::drop('role_user');
