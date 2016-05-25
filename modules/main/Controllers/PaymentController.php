@@ -64,15 +64,15 @@ class PaymentController extends Controller
             dd($e->getMessage());
             Session::flash('error', $e->getMessage());
         }
-
-
-
         return redirect('main/invoice/'.$id);
     }
     public function show($id)
     {
+        $pageTitle = 'Payment Details';
+        $data = Payment::getPaymentDetails($id);
+//        dd($data);
+        return view("main::payment.payment_details",['pageTitle'=>$pageTitle, 'payment_details'=>$data]);
 
-        return redirect('main/invoice/'.$id);
     }
 
 

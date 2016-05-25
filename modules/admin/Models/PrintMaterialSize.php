@@ -29,13 +29,13 @@ class PrintMaterialSize extends Model
         static::creating(function($query){
             if(Auth::check()){
                 $query->created_by = Auth::user()->id;
-                $query->business_id = iseet(Auth::user()->business_id)?Auth::user()->business_id:null;
+                $query->business_id = isset(Auth::user()->business_id)?Auth::user()->business_id:null;
             }
         });
         static::updating(function($query){
             if(Auth::check()){
                 $query->updated_by = Auth::user()->id;
-                $query->business_id = iseet(Auth::user()->business_id)?Auth::user()->business_id:null;
+                $query->business_id = isset(Auth::user()->business_id)?Auth::user()->business_id:null;
             }
         });
     }

@@ -27,6 +27,13 @@ class Payment extends Model
     public function relTransaction(){
         return $this->belongsTo('App\Transaction','transaction_id','id');
     }
+    public static function getPaymentDetails($id)
+    {
+        return Payment::join('transaction', 'transaction_id', '=', 'transaction.id')
+                ->join('quote', 'transaction.quote_id', '=', 'quote.id')
+                ->select('payment.*','transaction.quote_id','transaction.invoice_no','transaction.currency','transaction.gst','transaction.total_amount','quote.quote_number')
+                ->first();
+    }
 
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'
@@ -36,13 +43,13 @@ class Payment extends Model
         static::creating(function($query){
             if(Auth::check()){
                 $query->created_by = Auth::user()->id;
-                $query->business_id = iseet(Auth::user()->business_id)?Auth::user()->business_id:null;
+                $query->business_id = isset(Auth::user()->business_id)?Auth::user()->business_id:null;
             }
         });
         static::updating(function($query){
             if(Auth::check()){
                 $query->updated_by = Auth::user()->id;
-                $query->business_id = iseet(Auth::user()->business_id)?Auth::user()->business_id:null;
+                $query->business_id = isset(Auth::user()->business_id)?Auth::user()->business_id:null;
             }
         });
     }
