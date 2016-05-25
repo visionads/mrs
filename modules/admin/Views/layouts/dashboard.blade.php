@@ -24,23 +24,22 @@
                                         @endif
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                        <div id="jhon"><span class="label">John Smith</span></div>
-                        <div id="agent"><span class="label">****Agent details</span></div>
+                    <div id="jhon"><span class="label">John Smith</span></div>
+                    <div id="agent"><span class="label">****Agent details</span></div>
 
-                        <div class="form-group" id="job_status">
-                                <input type="submit" value="Job Status" class="quote">
-                        </div>
-                        {{--<div id="job_progress"><span class="label5">Jobs in progress</span><span class="label6"> (numrecial value)</span></div>--}}
-                        <div id="job_progress">
-                            <span class="label5">Jobs in progress</span>
-                            <span class="label6">
-                                ( {{ (isset($last_quote))?$last_quote->quote_number:'not available' }} )
-                            </span>
-                        </div>
+                    <div class="form-group" id="job_status">
+                        <button class="title-button">Job Status</button>
+                    </div>
+                    {{--<div id="job_progress"><span class="label5">Jobs in progress</span><span class="label6"> (numrecial value)</span></div>--}}
+                    <div id="job_progress">
+                        <span class="label5">Jobs in progress</span>
+                        <span class="label6">
+                            ( {{ (isset($last_quote))?$last_quote->quote_number:'not available' }} )
+                        </span>
+                    </div>
 
                 </div>
 

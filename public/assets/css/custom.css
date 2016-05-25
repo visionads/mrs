@@ -487,7 +487,7 @@ div.profile-content > ul.profile-nav > li a:hover {
     font-family: 'Droid Serif', serif;
     text-align: center;
     width: 330px;
-    line-height: 1.86em;
+    line-height: 1.5em;
     border: solid 1px #000;
     padding: 10px 25px;
     color: white;
@@ -496,7 +496,12 @@ div.profile-content > ul.profile-nav > li a:hover {
 }
 #new_quote { float:right;}
 #new_quote a { display:block; border-radius: 18px; background-color: #f36f21; transition:ease-in-out 0.2s; box-shadow:2px 2px 4px #909090; }
-#new_quote a:hover { background:#f25f10; text-decoration:none;}
+#new_quote a:hover { background:#f25f10; text-decoration:none; box-shadow:-2px -2px 4px #909090;
+    -webkit-transform: scale(1.05,1.05);
+    -moz-transform: scale(1.05,1.05);
+    -ms-transform: scale(1.05,1.05);
+    -o-transform: scale(1.05,1.05);
+    transform: scale(1.05,1.05);}
 
 .font-droid { font-family: 'Droid Serif', serif !important;}
 .no-bg { background:none !important;}
@@ -532,7 +537,8 @@ div.profile-content > ul.profile-nav > li a:hover {
 }
 
 .page-profile #block {
-    margin-top: -40px;
+    margin-top: -50px;
+    margin-left:-15px;
 }
 
 #jhon .label{
@@ -543,7 +549,10 @@ div.profile-content > ul.profile-nav > li a:hover {
     text-height: font-size;
     line-height: 1em;
 }
-
+.title-button { border-radius:15px; padding:10px 20px; background:#f36f21; border:0px ;}
+#job_progress {
+    border:0px solid #d0d0d0;
+}
 
 #job_progress .label5{
     font-family: 'Droid Serif', serif;
@@ -551,7 +560,7 @@ div.profile-content > ul.profile-nav > li a:hover {
     font-size:20px;
     font-weight: 100;
     line-height: 2em;
-    margin-left: 89px;
+    margin-left: 0px;
 }
 
 #job_progress .label6{
