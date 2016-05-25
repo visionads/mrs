@@ -74,7 +74,7 @@
                         <br>
 
                         <div class="form-group">
-                            <a class="btn" href="{{ route('settings-table') }}">
+                            <a class="btn" href="{{ route('quote-invoice-settings') }}">
                                 <strong>Quote Number / Order Number</strong>
                             </a>
                         </div>
@@ -82,7 +82,7 @@
                         <br>
 
                         <div class="form-group">
-                            <a class="btn" href="{{ route('settings-table') }}">
+                            <a class="btn" href="{{ route('quote-invoice-settings') }}">
                                 <strong>Invoice Number</strong>
                             </a>
                         </div>
@@ -90,7 +90,7 @@
                         <br>
 
                         <div class="form-group">
-                            <a class="btn" href="{{ route('settings-table') }}">
+                            <a class="btn" href="{{ route('quote-invoice-settings') }}">
                                 <strong>Transaction Number</strong>
                             </a>
                         </div>
