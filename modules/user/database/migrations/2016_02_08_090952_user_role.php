@@ -61,10 +61,7 @@ class UserRole extends Migration
         });
         Schema::table('user', function($table) {
             /*if 'cm_branch' table  exists */
-            if(Schema::hasTable('cm_branch'))
-            {
-                $table->foreign('branch_id')->references('id')->on('cm_branch');
-            }
+
             if(Schema::hasTable('business'))
             {
                 $table->foreign('business_id')->references('id')->on('business');
