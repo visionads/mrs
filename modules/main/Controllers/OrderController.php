@@ -196,7 +196,7 @@ class OrderController extends Controller
         $other_address = $quote->relPrintMaterialDistribution ? $quote->relPrintMaterialDistribution->other_address: null;
         $date_of_distribution = $quote->relPrintMaterialDistribution ? $quote->relPrintMaterialDistribution->date_of_distribution: null;
         $print_metal_dist_note = $quote->relPrintMaterialDistribution ? $quote->relPrintMaterialDistribution->note: null;
-
+        //print_r($quantity); exit();
 
         return view('main::order.place_order',[
             'pageTitle'=>$pageTitle,
@@ -235,6 +235,8 @@ class OrderController extends Controller
         $total = $input['total'];
         $gst = $input['gst'];
         $total_with_gst = $input['total_with_gst'];
+
+        //print_r($total);exit();
 
         // Input data for "property_detail" table
         $input_property_details = [
@@ -276,17 +278,17 @@ class OrderController extends Controller
             }
             else
             {
-                $model_print_material_distribution = new PrintMaterialDistribution();
-                $print_material_distribution = $model_print_material_distribution->create($input_print_material_distribution);
+                $model_print_material_distribution_new = new PrintMaterialDistribution();
+                $print_material_distribution = $model_print_material_distribution_new->create($input_print_material_distribution);
             }
-
+            //print_r($model_print_material_distribution_new->id);exit();
             //check if stored above model(s)
             if($property_details_update && $print_material_distribution)
             {
                 //update quote table
                 //dd($model_print_material_distribution);
                 $model_quote = Quote::findOrFail($quote_id);
-                $model_quote->print_material_distribution_id = $model_print_material_distribution->id;
+                $model_quote->print_material_distribution_id = $model_print_material_distribution_new->id;
 
                 //exit('dfj');
                 if($model_quote->save()){
@@ -313,9 +315,9 @@ class OrderController extends Controller
                         $transaction_model->quote_id = $model_quote->id;
                         $transaction_model->invoice_no = $invoice_number['generated_number'];
                         $transaction_model->currency = "AUD";
-                        $transaction_model->amount = $property_details->selling_price; //TODO::check price
-                        $transaction_model->gst = (10/100 * $transaction_model->amount) ;
-                        $transaction_model->total_amount = $transaction_model->amount + $transaction_model->gst;
+                        $transaction_model->amount = $total; //TODO::check price
+                        $transaction_model->gst = $gst ;
+                        $transaction_model->total_amount = $total_with_gst;
                         $transaction_model->status = "active";
                         if($transaction_model->save())
                         {
