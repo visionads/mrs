@@ -47,7 +47,7 @@ class Quote extends Model
     }
 
     public function relUser(){
-        return $this->hasOne('App\User','id','business_id');
+        return $this->hasOne('App\User','id','created_by');
     }
 
     public function relPropertyDetail(){
