@@ -27,7 +27,16 @@ class PaymentController extends Controller
     public function index()
     {
         $pageTitle = 'Transactions';
-        $data = Transaction::where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
+        $role_name = User::getRole(Auth::user()->id) ;
+        if($role_name == 'admin' || $role_name == 'super-admin')
+        {
+            $data = Transaction::orderBy('id','DESC')->paginate(10);
+        }
+        else
+        {
+            $data = Transaction::where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
+        }
+
 //        dd($data);
         return view("main::payment.index",['pageTitle'=>$pageTitle, 'transactions'=>$data]);
     }
@@ -64,7 +73,7 @@ class PaymentController extends Controller
             dd($e->getMessage());
             Session::flash('error', $e->getMessage());
         }
-        return redirect('main/invoice/'.$id);
+        return redirect('main/invoice/'.$payment['payment']->id);
     }
     public function show($id)
     {

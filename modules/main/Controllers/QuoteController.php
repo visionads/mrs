@@ -23,6 +23,7 @@ use App\SolutionType;
 use App\UserImage;
 use Auth;
 use DB;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -41,8 +42,22 @@ class QuoteController extends Controller
     }
     public function view_quote()
     {
-        $pageTitle = 'MRS - View Quotes';
-        $data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
+        //$pageTitle = 'MRS - View Quotes';
+        $pageTitle = 'MRS - Order List';
+
+        $role_name = User::getRole(Auth::user()->id) ;   // output admin/agent
+        //print_r($user); exit();
+        if($role_name == 'admin' || $role_name == 'super-admin')
+        {
+            //$data = Quote::orderBy('id','DESC')->paginate(10);
+            $data = Quote::with('relBusiness','relUser')->orderBy('id','DESC')->paginate(10);
+        }
+        else
+        {
+            //exit('slkfjd');
+            //$data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
+            $data = Quote::with('relBusiness','relUser')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
+        }
         return view('main::quote.view_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
     public function quote_details($id)
@@ -81,7 +96,17 @@ class QuoteController extends Controller
     {
         $pageTitle = 'MRS - Retrieve Quote';
 //        $data = DB::table('quote')->orderBy('id','DESC')->paginate(30);
-        $data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(30);
+        $role_name = User::getRole(Auth::user()->id) ;
+        if($role_name == 'admin' || $role_name == 'super-admin')
+        {
+            //$data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(30);
+            $data = Quote::with('relBusiness','relUser')->orderBy('id','DESC')->paginate(10);
+        }
+        else
+        {
+            $data = Quote::with('relBusiness','relUser')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
+        }
+
 //        dd($data);
         return view('main::quote.retrieve_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
@@ -96,6 +121,11 @@ class QuoteController extends Controller
             'relQuoteSignboard',
             'relQuotePrintMaterial'
             )->where('id', $quote_id)->first();
+
+        /*$data['photography_packages']= PhotographyPackage::with('relPhotographyPackage')->get();
+        $data['signboard_packages']= SignboardPackage::with('relSignboardPackage')->get();
+        $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
+        $data['local_medias']= LocalMedia::with('relLocalMedia')->get();*/
 
         // To get the selling_price from property_details table
         //$selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: '0.00';

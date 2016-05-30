@@ -42,6 +42,14 @@ class Quote extends Model
         return $this->hasOne('App\SolutionType','id','solution_type_id');
     }
 
+    public function relBusiness(){
+        return $this->hasOne('App\Business','id','business_id');
+    }
+
+    public function relUser(){
+        return $this->hasOne('App\User','id','business_id');
+    }
+
     public function relPropertyDetail(){
         return $this->hasOne('App\PropertyDetail','id','property_detail_id');
     }

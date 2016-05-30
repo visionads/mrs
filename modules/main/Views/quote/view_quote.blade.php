@@ -9,7 +9,7 @@
             <table cellspacing="0" cellpadding="0" border="0" class="table size-13 quote-list">
                 <thead class="head-top">
                 <tr>
-                    <td colspan="4">
+                    <td colspan="5">
                         <h1>
                             <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }}
                         </h1>
@@ -18,8 +18,9 @@
                 </thead>
                 <thead>
                 <tr>
-                    <th>Quote No.</th>
-                    <th>Solution Type</th>
+                    <th>{{--Quote No.--}}Order No.</th>
+                    <th>Agent Name</th>
+                    <th>Business Name</th>
                     <th>Date</th>
                     <th>Action</th>
                 </tr>
@@ -29,7 +30,8 @@
                 @foreach($data as $quote)
                     <tr>
                         <td class="text-center">{{ $quote->quote_number }}</td>
-                        <td style="font-weight:normal;">{{ $quote->relSolutionType['title'] }}</td>
+                        <td style="font-weight:normal;">{{ $quote->relUser['username'] }}</td>
+                        <td style="font-weight:normal;">{{ $quote->relBusiness['title'] }}</td>
                         <td class="text-center">{{ date('d M Y',strtotime($quote->created_at)) }}</td>
                         <td><a href="{{ URL::to('main/quote-detail/'.$quote->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"> Details</span></a></td>
                     </tr>

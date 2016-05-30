@@ -35,6 +35,44 @@
         <div class="col-sm-12">
             {{--<form role="form" method="post" class="">--}}
             <h2 style="color: #fff;text-align: center;">Quote Details</h2>
+            <div class="row">
+                <hr>
+                <h3 class="instruction">Total Amount</h3>
+                <style>
+                    td{
+                        padding-right: 50px;
+                        text-align: right;
+                    }
+                    td,th { border:0px !important; border-bottom:1px solid #000 !important; }
+                </style>
+                <table class="table table-responsive white size-15" style="background:#303030 !important;">
+                    <tr>
+                        <th>Photography ( <span id="photographyPackage"></span> )</th>
+                        <td id="photographyPrice"></td>
+                    </tr>
+                    <tr>
+                        <th>Signboard ( <span id="signboardPackage"></span> )</th>
+                        <td id="signboardPrice"></td>
+                    </tr>
+                    <tr>
+                        <th>Print Material ( <span id="printMaterialStr"></span> )</th>
+                        <td id="printmaterialPrice"></td>
+                    </tr>
+                    <tr>
+                        <th>Distribution of print material</th>
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <th>Local newsprint media advertising ( <span id="localMediaStr"></span> )</th>
+                        <td id="localmediaPrice"></td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        {{--<td id="totalPrice"><b>${{ $local_media_price+$print_material_price+$signboard_price+$photography_price }}</b></td>--}}
+                        <td id="totalPrice"></td>
+                    </tr>
+                </table>
+            </div>
             <div class="quote-form">
                 <fieldset><hr>
                     <div class="form-bottom">
@@ -79,14 +117,22 @@
                         <div class="validationError"></div>
                         @if(isset($data['quote']->photography_package_id) && $data['quote']->photography_package_id==1)
                             <div class="row size-15">
+                                <?php $photography_package_str = ''; ?>
                                 @foreach($data['photography_packages'] as $photography_package)
                                     @if(isset($data['quote']->relQuotePhotography))
+
                                         @foreach($data['quote']->relQuotePhotography as $ppi)
+
                                             @if($ppi->photography_package_id==$photography_package->id)
                                                 <div class="col-sm-4">
                                                     <label class="text-center-label">
                                                         {!! $photography_package->title.' <b style="color: orange">$'.$photography_package->price.'</b>' !!}
-                                                        <?php $photography_price+=$photography_package->price; ?>
+
+                                                        <?php
+                                                            $photography_package_str .= $photography_package->title.',';
+                                                            $photography_price+=$photography_package->price;
+                                                        ?>
+
                                                     </label>
 
                                                     <ul>
@@ -100,6 +146,8 @@
                                         @endforeach
                                     @endif
                                 @endforeach
+                                <input type="hidden" value="{{ rtrim($photography_package_str,',') }}" id="photography_package" >
+                                <input type="hidden" value="{{ $photography_price }}" id="photography_price" >
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
@@ -129,6 +177,7 @@
                         @if(isset($data['quote']->signboard_package_id) && $data['quote']->signboard_package_id==1)
                             <div class="row">
                                 <h3 class="center size-16">FOR SPECS & FEATURES PLEASE CLICK ON THE LINK BELOW</h3>
+                                <?php $signboard_package_str = ''; ?>
                                 @foreach($data['signboard_packages'] as $signboard_package)
 
                                     @if(isset($data['quote']->relQuoteSignboard))
@@ -138,6 +187,7 @@
                                                     <label class="">
                                                     <span class="text-center-label">
                                                         {{ $signboard_package->title }}</span>
+                                                        <?php $signboard_package_str .=$signboard_package->title.','  ?>
                                                         <img width="100%" height="100" src="{{ asset($signboard_package->image_path) }}">
                                                     </label>
                                                     <div class="panel-body">
@@ -160,6 +210,8 @@
                                         @endforeach
                                     @endif
                                 @endforeach
+                                <input type="hidden" value="{{ rtrim($signboard_package_str,',') }}" id="signboard_package" >
+                                <input type="hidden" value="{{ $signboard_price }}" id="signboard_price" >
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
@@ -193,12 +245,14 @@
                                 </p>
                                 <p class="white size-13">Also if you wish to have more then 1 printed material and wish to have dit distributed, please sepcify which print material will be used for distribution by
                                     selecting the distribution.</p>
+                                <?php $print_material_str = ''; ?>
                                 @foreach($data['print_materials'] as $print_material)
                                     @if(isset($data['quote']->relQuotePrintMaterial))
                                         @foreach($data['quote']->relQuotePrintMaterial as $ppi)
                                             @if($ppi->print_material_id==$print_material->id)
                                                 <div class="col-sm-4">
                                                     <label>
+                                                        <?php $print_material_str .= $print_material->title.',' ?>
                                                         {{ $print_material->title }}
                                                         <label style="margin-left: 10%;display: block;height: 30px">
                                                             @if(isset($data['quote']->relQuotePrintMaterial))
@@ -227,6 +281,8 @@
                                         @endforeach
                                     @endif
                                 @endforeach
+                                <input type="hidden" value="{{ rtrim($print_material_str,',') }}" id="print_material_str" >
+                                <input type="hidden" value="{{ $print_material_price }}" id="print_material_price" >
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
@@ -330,12 +386,14 @@
                         @if(isset($data['quote']->digital_media_id) && $data['quote']->digital_media_id==1)
                             <div class="row">
                                 <div class="optionalContentDiv  @if($data['quote']->local_media_id == null) optional-content-div @endif">
+                                    <?php $local_media_str = ''; ?>
                                     @foreach($data['local_medias'] as $local_media)
                                         <div class="col-sm-4">
                                             <div class="form-group size-17">
                                                 @if(isset($data['quote']->relQuoteLocalMedia))
                                                     @foreach($data['quote']->relQuoteLocalMedia as $ppi)
                                                         @if($ppi->local_media_id==$local_media->id)
+                                                            <?php $local_media_str .= $local_media->title.','; ?>
                                                             {{ $local_media->title }}
                                                         @endif
                                                     @endforeach
@@ -357,6 +415,8 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                    <input type="hidden" value="{{ rtrim($local_media_str,',') }}" id="local_media_str" >
+                                    <input type="hidden" value="{{ $local_media_price }}" id="local_media_price" >
                                     <div class="col-sm-12">
                                         <div>
                                             <h4>NOTE</h4>
@@ -386,43 +446,7 @@
                                 {!! Form::input('button','quote','Quote',['class'=>'btn btn-bg btn-info ']) !!}
                             </div>
                         </div>--}}
-                        <div class="row">
-                            <hr>
-                            <h3 class="instruction">Total Amount</h3>
-                            <style>
-                                td{
-                                    padding-right: 50px;
-                                    text-align: right;
-                                }
-                                td,th { border:0px !important; border-bottom:1px solid #000 !important; }
-                            </style>
-                            <table class="table table-responsive white size-15" style="background:#303030 !important;">
-                                <tr>
-                                    <th>Photography</th>
-                                    <td>${{ $photography_price }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Signboard</th>
-                                    <td>${{ $signboard_price }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Print Material</th>
-                                    <td>${{ $print_material_price }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Distribution of print material</th>
-                                    <td>$0</td>
-                                </tr>
-                                <tr>
-                                    <th>Local newsprint media advertising</th>
-                                    <td>${{ $local_media_price }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Total</th>
-                                    <td><b>${{ $local_media_price+$print_material_price+$signboard_price+$photography_price }}</b></td>
-                                </tr>
-                            </table>
-                        </div>
+
                         <div class="row">
                             <div class="col-sm-5 col-sm-offset-7">
                                 <a href="{{ URL::previous() }}" class="btn new_button proceedBtn">Back</a>
@@ -441,4 +465,33 @@
     {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/jquery.backstretch.min.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/scripts.js') }}"></script>--}}
     @include('main::quote._script')
+    <script>
+        $(function(){
+
+           var photography_price = $('#photography_price').val();
+            $('#photographyPrice').append('$' +photography_price);
+           var photography_package = $('#photography_package').val();
+            $('#photographyPackage').append(photography_package);
+
+
+           var signboard_price = $('#signboard_price').val();
+            $('#signboardPrice').append('$' +signboard_price);
+           var signboard_package = $('#signboard_package').val();
+            $('#signboardPackage').append(signboard_package);
+
+           var print_material_price = $('#print_material_price').val();
+            $('#printmaterialPrice').append('$' +print_material_price);
+           var print_material_str = $('#print_material_str').val();
+            $('#printMaterialStr').append(print_material_str);
+
+           var local_media_price = $('#local_media_price').val();
+            $('#localmediaPrice').append('$' +local_media_price);
+           var local_media_str = $('#local_media_str').val();
+            $('#localMediaStr').append(local_media_str);
+
+           var total_price =  parseInt(photography_price) + parseInt(signboard_price) + parseInt(print_material_price) + parseInt(local_media_price);
+            $('#totalPrice').append('$' +total_price);
+            //alert(parseInt(photography_price)+parseInt(signboard_price));
+        });
+    </script>
 @stop

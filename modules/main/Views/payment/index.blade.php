@@ -20,7 +20,7 @@
             <table cellspacing="0" cellpadding="0" border="0" class="table size-13 quote-list">
                 <thead class="head-top">
                 <tr>
-                    <td colspan="4">
+                    <td colspan="6">
                         <h1>
                             <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }}
                         </h1>
@@ -30,7 +30,8 @@
                 <thead>
                 <tr>
                     <th>Transaction ID</th>
-                    <th>Amount</th>
+                    <th>Bill Amount</th>
+                    <th>Paid Amount</th>
                     <th>Date</th>
                     <th>Action</th>
                 </tr>
@@ -41,6 +42,7 @@
                         @foreach($transactions as $transaction)
                             <tr>
                                 <td class="text-center">{{ $transaction->invoice_no }}</td>
+                                <td class="text-center">{{ '$'.$transaction->total_amount }}</td>
                                 <td class="text-center">{{ '$'.$transaction->total_amount }}</td>
                                 <td class="text-center">{{ date('d M Y',strtotime($transaction->created_at)) }}</td>
                                 <td><a href="{{ URL::to('main/view-payment-detail/'.$transaction->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"> Details</span></a></td>

@@ -161,7 +161,7 @@
                 <div class="col-sm-12">
                     {!! Form::label('quantity', 'Select Quantity :', []) !!}
                     {{--<small class="required">(Required)</small>--}}
-                    {!! Form::select('quantity', array(''=>'Select Quantity','1'=>'1','2'=>'2'), isset($quantity)?$quantity:null, ['class' => 'form-control','title'=>'select Quantity']) !!}
+                    {!! Form::select('quantity', array(''=>'Select Quantity','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'), isset($quantity)?$quantity:null, ['class' => 'form-control','title'=>'select Quantity']) !!}
                 </div>
             </div>
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">

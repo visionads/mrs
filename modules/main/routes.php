@@ -95,10 +95,6 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
         'uses'  => 'QuoteController@retrieve'
     ]);
 
-    /*Route::get('retrieve-quote-details/{id}', [
-        'as'    => 'retrieve-quote-details',
-        'uses'  => 'QuoteController@retrieve_details'
-    ]);*/
 
     Route::get('quote-details/{quote_id}/{quote_no}', [
         'middleware' => 'acl_access:main/quote-details',
