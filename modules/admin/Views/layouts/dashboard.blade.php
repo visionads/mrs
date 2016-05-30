@@ -53,33 +53,31 @@
 
                 </div>
 
-                <div class="form-group col-sm-5">
-                        <div class="form-group" id="new_quote">
-                                <a href="{{ url('main/new-quote') }}" class="quote">New Quote</a>
-                        </div>
-                        <div class="form-group" id="new_quote">
-                                <a href="{{route('quote-list')}}" class="quote">Retrieve Quote</a>
-                        </div>
-                        {{--<div class="form-group" id="new_quote">
-                                <a href="{{route('new-order')}}" class="quote">NEW ORDER</a>
-                        </div>
-                        <div class="form-group" id="new_quote">
-                                <a href="#" class="quote">History</a>
-                        </div>--}}
-                        <div class="form-group" id="new_quote">
-                                <a href="{{ route('quote-list') }}" class="quote">Pay invoice</a>
-                        </div>
-                </div>
+
+
                 @if(Session::get('user-role')=='super-admin' || Session::get('user-role')=='admin')
                     <div class="form-group col-sm-5">
                         <div class="form-group" id="new_quote">
-                            <a href="{{ url('main/quotes') }}" class="quote">Quote List</a>
+                            <a href="{{ url('main/quotes') }}" class="quote">Order List</a>
                         </div>
                         <div class="form-group" id="new_quote">
                             <a href="{{route('payment-list')}}" class="quote">Payment History</a>
                         </div>
                     </div>
+                @else
+                    <div class="form-group col-sm-5">
+                        <div class="form-group" id="new_quote">
+                            <a href="{{ url('main/new-quote') }}" class="quote">New Quote</a>
+                        </div>
+                        <div class="form-group" id="new_quote">
+                            <a href="{{route('quote-list')}}" class="quote">Retrieve Quote</a>
+                        </div>
+                        <div class="form-group" id="new_quote">
+                            <a href="{{ route('quote-list') }}" class="quote">Pay invoice</a>
+                        </div>
+                    </div>
                 @endif
+
 
 
 </div>
