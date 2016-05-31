@@ -230,6 +230,7 @@ class OrderController extends Controller
         $input = $request->all();
         $property_details_id = $input['property_detail_id'];
         $print_material_id = $input['print_material_id'];
+        //print_r($print_material_id); exit();
         $quote_id = $input['quote_id'];
         $quote_no = $input['quote_no'];
         $total = $input['total'];
@@ -266,29 +267,35 @@ class OrderController extends Controller
             // update property detail
             $model_property_details = PropertyDetail::findOrFail($property_details_id);
             $property_details_update = $model_property_details->update($input_property_details);
-            $property_details = PropertyDetail::findOrFail($property_details_id);
+            //$property_details = PropertyDetail::findOrFail($property_details_id);
 
             // Update Print Material Distribution if exist
             $print_material_distribution_exist =PrintMaterialDistribution::where('id',$print_material_id)->exists();
-
+            //print_r($print_material_distribution_exist); exit();
             if($print_material_distribution_exist)
             {
+                //print_r($print_material_distribution_exist); exit();
                 $model_print_material_distribution = PrintMaterialDistribution::where('id',$print_material_id)->first();
                 $print_material_distribution = $model_print_material_distribution->update($input_print_material_distribution);
+                //print_r($model_print_material_distribution->id); exit();
+                $pmdid = $model_print_material_distribution->id;
+                //print_r($pmdid); exit();
             }
             else
             {
-                $model_print_material_distribution_new = new PrintMaterialDistribution();
-                $print_material_distribution = $model_print_material_distribution_new->create($input_print_material_distribution);
+                //exit('slkjdf');
+                $model_print_material_distribution = new PrintMaterialDistribution();
+                $print_material_distribution = $model_print_material_distribution->create($input_print_material_distribution);
+                $pmdid = $print_material_distribution->id;
             }
-            //print_r($model_print_material_distribution_new->id);exit();
+            //print_r($model_print_material_distribution->id);exit();
             //check if stored above model(s)
             if($property_details_update && $print_material_distribution)
             {
                 //update quote table
                 //dd($model_print_material_distribution);
                 $model_quote = Quote::findOrFail($quote_id);
-                $model_quote->print_material_distribution_id = $model_print_material_distribution_new->id;
+                $model_quote->print_material_distribution_id = $pmdid;
 
                 //exit('dfj');
                 if($model_quote->save()){

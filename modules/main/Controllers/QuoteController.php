@@ -113,6 +113,14 @@ class QuoteController extends Controller
     public function retrieve_details_demo($quote_id, $quote_number)
     {
         $pageTitle = 'MRS - Quote Details';
+
+        $data['solution_types']= SolutionType::get();
+        $photography_packages_qr= PhotographyPackage::with('relPhotographyPackage')->get();
+        $signboard_packages_qr= SignboardPackage::with('relSignboardPackage')->get();
+        $print_materials_qr= PrintMaterial::with('relPrintMaterial')->get();
+        $local_medias_qr= LocalMedia::with('relLocalMedia')->get();
+        $data['digital_medias']= DigitalMedia::get();
+
         $quote = Quote::with(
             'relPropertyDetail',
             'relPrintMaterialDistribution' ,
@@ -122,13 +130,106 @@ class QuoteController extends Controller
             'relQuotePrintMaterial'
             )->where('id', $quote_id)->first();
 
-        /*$data['photography_packages']= PhotographyPackage::with('relPhotographyPackage')->get();
-        $data['signboard_packages']= SignboardPackage::with('relSignboardPackage')->get();
-        $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
-        $data['local_medias']= LocalMedia::with('relLocalMedia')->get();*/
+        // ---------- For photography Package===============================
+        $photography_package_str = '';
+        $photography_price = 0;
+        if(isset($quote->photography_package_id) && $quote->photography_package_id==1){
+            foreach($photography_packages_qr as $photography_package){
+                if(isset($quote->relQuotePhotography)){
+                    foreach($quote->relQuotePhotography as $ppi){
+                        if($ppi->photography_package_id==$photography_package->id){
+                            $photography_package_str .= $photography_package->title.',';
+                            $photography_price+=$photography_package->price;
+                        }
+                    }
+                }
+            }
+        }
+        //print_r($photography_price); exit();
+
+        // ---------------- For Signboard Package==========================
+        $signboard_package_str = '';
+        $signboard_price = 0;
+        if(isset($quote->signboard_package_id) && $quote->signboard_package_id==1){
+            foreach($signboard_packages_qr as $signboard_package){
+                if(isset($quote->relQuoteSignboard)){
+                    foreach($quote->relQuoteSignboard as $ppi){
+                        if($ppi->signboard_package_id==$signboard_package->id){
+                            $signboard_package_str .=$signboard_package->title.',';
+                            foreach($signboard_package->relSignboardPackage as $relSignboardPackage){
+                                if(isset($quote->relQuoteSignboard)){
+                                    foreach($quote->relQuoteSignboard as $ppi){
+                                        if($ppi->signboard_size_id==$relSignboardPackage->id){
+                                            $signboard_price+=$relSignboardPackage->price;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //print_r($signboard_price); exit();
+
+        // ----------------- For Print Material====================================
+        $print_material_str = '';
+        $print_material_price = 0;
+        if(isset($quote->print_material_id) && $quote->print_material_id==1){
+            foreach($print_materials_qr as $print_material){
+                if(isset($quote->relQuotePrintMaterial)){
+                    foreach($quote->relQuotePrintMaterial as $ppi){
+                        if($ppi->print_material_id==$print_material->id){
+                            $print_material_str .= $print_material->title.',';
+                            if(isset($quote->relQuotePrintMaterial)) {
+                                foreach ($quote->relQuotePrintMaterial as $ppi) {
+                                    if ($ppi->print_material_id == $print_material->id && $ppi->is_distributed == 1) {
+                                    }
+                                }
+                            }
+                            foreach($print_material->relPrintMaterial as $relPrintMaterial){
+                                if(isset($quote->relQuotePrintMaterial)){
+                                    foreach($quote->relQuotePrintMaterial as $ppi){
+                                        if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id){
+
+                                        $print_material_price+=$relPrintMaterial->price;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //print_r($print_material_price); exit();
+
+        //--------------- For Local Media===========================
+        $local_media_str = '';
+        $local_media_price= 0;
+        if(isset($quote->digital_media_id) && $quote->digital_media_id==1){
+            foreach($local_medias_qr as $local_media){
+                if(isset($quote->relQuoteLocalMedia)){
+                    foreach($quote->relQuoteLocalMedia as $ppi){
+                        if($ppi->local_media_id==$local_media->id){
+                            $local_media_str .= $local_media->title.',';
+                        }
+                    }
+                }
+                foreach($local_media->relLocalMedia as $relLocalMedia){
+                    if(isset($quote->relQuoteLocalMedia)){
+                        foreach($quote->relQuoteLocalMedia as $ppi){
+                            if($ppi->local_media_id==$local_media->id && $ppi->local_media_option_id==$relLocalMedia->id){
+                                $local_media_price+=$relLocalMedia->price;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //print_r($local_media_price); exit();
 
         // To get the selling_price from property_details table
-        //$selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: '0.00';
         $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
         $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
         $vendor_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_signature_path: null;
@@ -136,32 +237,11 @@ class QuoteController extends Controller
         $agent_signature_date = $quote->relPropertyDetail ? $quote->relPropertyDetail->signature_date: null;
 
         // For Local Media Price ------------------------------------------
-        $local_media_price = 0;
+        /*$local_media_price = 0;
         foreach($quote->relQuoteLocalMedia as $local_media_p)
         {
             $local_media_price += $local_media_p->price;
-        }
-
-        // For Photography Price ----------------------------------------
-        $photography_price = 0;
-        foreach($quote->relQuotePhotography as $photography_p)
-        {
-            $photography_price += $photography_p->price;
-        }
-
-        // For Signboard Price ------------------------------------------
-        $signboard_price = 0;
-        foreach($quote->relQuoteSignboard as $signboard_p)
-        {
-            $signboard_price +=  $signboard_p->price;
-        }
-
-        // For Print Material Price -------------------------------------
-        $print_material_price = 0;
-        foreach($quote->relQuotePrintMaterial as $print_material_p)
-        {
-            $print_material_price += $print_material_p->price;
-        }
+        }*/
 
         // For Total Selling Price --------------------------------------
         $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price;
@@ -184,9 +264,13 @@ class QuoteController extends Controller
             'agent_signature_path'=>$agent_signature_path,
             'agent_signature_date'=>$agent_signature_date,
             'local_media_price' => $local_media_price,
+            'local_media_str' => rtrim($local_media_str,','),
             'photography_price'=>$photography_price,
+            'photography_package_str'=>rtrim($photography_package_str,','),
             'signboard_price'=>$signboard_price,
-            'print_material_price'=>$print_material_price
+            'signboard_package_str'=>rtrim($signboard_package_str,','),
+            'print_material_price'=>$print_material_price,
+            'print_material_str'=>rtrim($print_material_str,',')
         ]);
     }
     public function quote_summary($quote_id, $quote_number)

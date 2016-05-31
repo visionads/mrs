@@ -26,8 +26,10 @@ class Transaction extends Model
         'business_id'
     ];
     public function relPayment(){
-        return $this->hasMany('App\Payment','transaction_id','id');
+        return $this->hasMany('App\Payment','id','transaction_id');
     }
+
+
 
 
     public static function getTransactionDetails($id)

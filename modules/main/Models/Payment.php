@@ -29,6 +29,9 @@ class Payment extends Model
         return $this->belongsTo('App\Transaction','transaction_id','id');
     }
 
+
+
+
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'
 

@@ -13,6 +13,7 @@
             background-color: #f36f21;
         }
         .commtable tr td { background:#303030; color:#d0d0d0; border-bottom: 1px solid #404040 !important;}
+        .items { color:orange;}
     </style>
 
     <div class="container pages font-droid">
@@ -43,12 +44,12 @@
                         </p>
 
                         <table class="size-13" style="background:none !important; color:#d0d0d0;">
-                            <tr><td width="auto" >+ Photography</td><td width="20">:</td><td>$ {{ number_format($photography_price,2) }}</td></tr>
-                            <tr><td>+ Signboard Package</td><td>:</td><td>$ {{ number_format($signboard_price,2) }}</td></tr>
-                            <tr><td>+ Print Material</td><td>:</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
+                            <tr><td width="auto" >+ Photography {!! ($photography_package_str!=='')?'[<span class="items"> '.$photography_package_str.' </span>]':'' !!}</td><td width="20">:</td><td>$ {{ number_format($photography_price,2) }}</td></tr>
+                            <tr><td>+ Signboard Package {!! ($signboard_package_str!=='')?'[<span class="items"> '.$signboard_package_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($signboard_price,2) }}</td></tr>
+                            <tr><td>+ Print Material {!! ($print_material_str!=='')?'[<span class="items"> '.$print_material_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
                             <tr><td>+ Distribution of Print Material</td><td>:</td><td>$ 0.00 {{--{{ number_format($print_material_price,2) }}--}}</td></tr>
                             <tr><td>+ Digital Media</td><td>:</td><td>$ 0.00{{--{{ number_format($print_material_price,2) }}--}}</td></tr>
-                            <tr style="border-bottom: 3px double #909090;"><td>+ Local Media</td><td>:</td><td>$ {{ number_format($local_media_price,2) }}</td></tr>
+                            <tr style="border-bottom: 3px double #909090;"><td>+ Local Media {!! ($local_media_str!=='')?'[<span class="items"> '.$local_media_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($local_media_price,2) }}</td></tr>
                             <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>:</td><td>$ {{ number_format($total,2) }}</td></tr>
                         </table>
                     </div>

@@ -29,12 +29,114 @@
     $print_material_price=0;
     $local_media_price=0;
     ?>
+    {{--For Photography Package--}}
+    <?php $photography_package_str = ''; ?>
+    @if(isset($data['quote']->photography_package_id) && $data['quote']->photography_package_id==1)
+        @foreach($data['photography_packages'] as $photography_package)
+            @if(isset($data['quote']->relQuotePhotography))
+                @foreach($data['quote']->relQuotePhotography as $ppi)
+                    @if($ppi->photography_package_id==$photography_package->id)
+                        <?php
+                        $photography_package_str .= $photography_package->title.',';
+                        $photography_price+=$photography_package->price;
+                        ?>
+                    @endif
+                @endforeach
+            @endif
+        @endforeach
+    @endif
+    {{--For Signboard Package--}}
+    <?php $signboard_package_str = ''; ?>
+    @if(isset($data['quote']->signboard_package_id) && $data['quote']->signboard_package_id==1)
+        @foreach($data['signboard_packages'] as $signboard_package)
+            @if(isset($data['quote']->relQuoteSignboard))
+                 @foreach($data['quote']->relQuoteSignboard as $ppi)
+                      @if($ppi->signboard_package_id==$signboard_package->id)
+                           <?php $signboard_package_str .=$signboard_package->title.','  ?>
+                            @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
+                                 @if(isset($data['quote']->relQuoteSignboard))
+                                      @foreach($data['quote']->relQuoteSignboard as $ppi)
+                                           @if($ppi->signboard_size_id==$relSignboardPackage->id)
+                                               <?php $signboard_price+=$relSignboardPackage->price; ?>
+                                           @endif
+                                      @endforeach
+                                 @endif
+                            @endforeach
+                      @endif
+                 @endforeach
+            @endif
+        @endforeach
+    @endif
+    {{--For Print Material--}}
+    <?php $print_material_str = ''; ?>
+    @if(isset($data['quote']->print_material_id) && $data['quote']->print_material_id==1)
+        @foreach($data['print_materials'] as $print_material)
+            @if(isset($data['quote']->relQuotePrintMaterial))
+                @foreach($data['quote']->relQuotePrintMaterial as $ppi)
+                    @if($ppi->print_material_id==$print_material->id)
+                        <?php $print_material_str .= $print_material->title.',' ?>
+                        @if(isset($data['quote']->relQuotePrintMaterial))
+                            @foreach($data['quote']->relQuotePrintMaterial as $ppi)
+                                @if($ppi->print_material_id==$print_material->id && $ppi->is_distributed==1)
+                                @endif
+                            @endforeach
+                        @endif
+                        @foreach($print_material->relPrintMaterial as $relPrintMaterial)@if(isset($data['quote']->relQuotePrintMaterial))
+                            @foreach($data['quote']->relQuotePrintMaterial as $ppi)
+                                @if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id)
+                                     {{--{!! $relPrintMaterial->title.'<b style="color: orange"> $'.$relPrintMaterial->price.'</b>' !!}--}}
+                                    <?php $print_material_price+=$relPrintMaterial->price; ?>
+                                @endif
+                            @endforeach
+                    @endif
+                @endforeach
+            @endif
+        @endforeach
+    @endif
+    @endforeach
+    @endif
+    {{--For Local Media--}}
+    <?php $local_media_str = ''; ?>
+    @if(isset($data['quote']->digital_media_id) && $data['quote']->digital_media_id==1)
+        @foreach($data['local_medias'] as $local_media)
+             @if(isset($data['quote']->relQuoteLocalMedia))
+                  @foreach($data['quote']->relQuoteLocalMedia as $ppi)
+                       @if($ppi->local_media_id==$local_media->id)
+                           <?php $local_media_str .= $local_media->title.','; ?>
+                       @endif
+                  @endforeach
+             @endif
+             @foreach($local_media->relLocalMedia as $relLocalMedia)
+                  @if(isset($data['quote']->relQuoteLocalMedia))
+                       @foreach($data['quote']->relQuoteLocalMedia as $ppi)
+                            @if($ppi->local_media_id==$local_media->id && $ppi->local_media_option_id==$relLocalMedia->id)
+                                <?php $local_media_price+=$relLocalMedia->price; ?>
+                            @endif
+                       @endforeach
+                  @endif
+             @endforeach
+        @endforeach
+    @endif
+    {{--For Total Price--}}
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="col-sm-12 font-droid" id="quote-div">
 
         {{-- <div class="row">--}}
         <div class="col-sm-12">
             {{--<form role="form" method="post" class="">--}}
-            <h2 style="color: #fff;text-align: center;">Quote Details</h2>
+            <h2 style="color: #fff;text-align: center;">{{ $pageTitle }}</h2>
             <div class="row">
                 <hr>
                 <h3 class="instruction">Total Amount</h3>
@@ -44,32 +146,34 @@
                         text-align: right;
                     }
                     td,th { border:0px !important; border-bottom:1px solid #000 !important; }
+                    th { font-weight: normal !important;}
                 </style>
                 <table class="table table-responsive white size-15" style="background:#303030 !important;">
                     <tr>
-                        <th>Photography ( <span id="photographyPackage"></span> )</th>
-                        <td id="photographyPrice"></td>
+                        <th>Photography {{ ($photography_package_str!=='')? '( '.rtrim($photography_package_str,',').' )':'' }}</th>
+                        <td>{{ ($photography_price!=0)?'$ '.number_format($photography_price,2):'$ 0.00' }}</td>
                     </tr>
                     <tr>
-                        <th>Signboard ( <span id="signboardPackage"></span> )</th>
-                        <td id="signboardPrice"></td>
+
+                        <th>Signboard {{ ($signboard_package_str!=='')? '( '.rtrim($signboard_package_str,',').' )':'' }}</th>
+                        <td>{{ ($signboard_price!=0)?'$ '.number_format($signboard_price,2):'$ 0.00' }}</td>
                     </tr>
                     <tr>
-                        <th>Print Material ( <span id="printMaterialStr"></span> )</th>
-                        <td id="printmaterialPrice"></td>
+
+                        <th>Print Material {{ ($print_material_str!=='')? '( '.rtrim($print_material_str,',').' )':'' }}</th>
+                        <td>{{ ($print_material_price!=0)?'$ '.number_format($print_material_price,2):'$ 0.00' }}</td>
                     </tr>
                     <tr>
                         <th>Distribution of print material</th>
-                        <td>$0</td>
+                        <td>$ 0.00</td>
                     </tr>
                     <tr>
-                        <th>Local newsprint media advertising ( <span id="localMediaStr"></span> )</th>
-                        <td id="localmediaPrice"></td>
+                        <th>Local newsprint media advertising {{ ($local_media_str!=='')? '( '.rtrim($local_media_str,',').' )':'' }}</th>
+                        <td>{{ ($local_media_price!=0)?'$ '.number_format($local_media_price,2):'$ 0.00' }}</td>
                     </tr>
-                    <tr>
+                    <tr style="color: orange">
                         <th>Total</th>
-                        {{--<td id="totalPrice"><b>${{ $local_media_price+$print_material_price+$signboard_price+$photography_price }}</b></td>--}}
-                        <td id="totalPrice"></td>
+                        <td><b>${{ number_format($local_media_price+$print_material_price+$signboard_price+$photography_price,2) }}</b></td>
                     </tr>
                 </table>
             </div>
@@ -465,19 +569,9 @@
     {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/jquery.backstretch.min.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/scripts.js') }}"></script>--}}
     @include('main::quote._script')
-    <script>
+    {{--<script>
         $(function(){
 
-           var photography_price = $('#photography_price').val();
-            $('#photographyPrice').append('$' +photography_price);
-           var photography_package = $('#photography_package').val();
-            $('#photographyPackage').append(photography_package);
-
-
-           var signboard_price = $('#signboard_price').val();
-            $('#signboardPrice').append('$' +signboard_price);
-           var signboard_package = $('#signboard_package').val();
-            $('#signboardPackage').append(signboard_package);
 
            var print_material_price = $('#print_material_price').val();
             $('#printmaterialPrice').append('$' +print_material_price);
@@ -493,5 +587,5 @@
             $('#totalPrice').append('$' +total_price);
             //alert(parseInt(photography_price)+parseInt(signboard_price));
         });
-    </script>
+    </script>--}}
 @stop

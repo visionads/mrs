@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Payment;
+use DB;
 
 
 class PaymentController extends Controller
@@ -30,7 +31,22 @@ class PaymentController extends Controller
         $role_name = User::getRole(Auth::user()->id) ;
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
+            //exit('sdkjflksjd');
+            //$data = Payment::with('relTransaction')->orderBy('id','DESC')->paginate(10);
             $data = Transaction::orderBy('id','DESC')->paginate(10);
+
+            //$data = Payment::with('relTransaction')->get();
+            //$amount = $data->relTransaction;
+            /*$i = 0;
+            foreach($data as $dd){
+                $i++;
+            }
+            print_r($i); exit();*/
+            //print_r($data[0]['amount']); exit();
+            /*$data = DB::table('transaction')
+                ->leftJoin('payment', 'transaction.id', '=', 'payment.transaction_id')
+                ->get();
+            print_r($data); exit();*/
         }
         else
         {
