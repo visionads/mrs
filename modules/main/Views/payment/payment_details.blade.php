@@ -11,7 +11,7 @@
             text-align: right;
             background-color: #f36f21;
         }
-
+        th { border-color: #808080 !important;}
 
     </style>
 
@@ -23,7 +23,7 @@
                     <tr>
                         <td colspan="4">
                             <h1>
-                                <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle_bill_amount }}
+                                <span class="glyphicon glyphicon-tags">&nbsp;</span> {{ $pageTitle_bill_amount }}
                             </h1>
                         </td>
                     </tr>
@@ -61,7 +61,7 @@
                     <tr>
                         <td colspan="4">
                             <h1>
-                                <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle_paid_amount }}
+                                <span class="glyphicon glyphicon-briefcase">&nbsp;</span> {{ $pageTitle_paid_amount }}
                             </h1>
                         </td>
                     </tr>
