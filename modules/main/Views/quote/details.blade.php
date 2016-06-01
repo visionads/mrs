@@ -144,23 +144,26 @@
                     td{
                         padding-right: 50px;
                         text-align: right;
+                        background:linear-gradient(0deg,#000000,#202020) !important;
                     }
                     td,th { border:0px !important; border-bottom:1px solid #000 !important; }
-                    th { font-weight: normal !important;}
+                    th { font-weight: normal !important; background:linear-gradient(0deg,#000000,#202000) !important;}
+
+
                 </style>
-                <table class="table table-responsive white size-15" style="background:#303030 !important;">
+                <table class="table table-responsive white size-13">
                     <tr>
-                        <th>Photography {{ ($photography_package_str!=='')? '( '.rtrim($photography_package_str,',').' )':'' }}</th>
+                        <th>Photography {{ ($photography_package_str!=='')? '[ '.rtrim($photography_package_str,',').' ]':'' }}</th>
                         <td>{{ ($photography_price!=0)?'$ '.number_format($photography_price,2):'$ 0.00' }}</td>
                     </tr>
                     <tr>
 
-                        <th>Signboard {{ ($signboard_package_str!=='')? '( '.rtrim($signboard_package_str,',').' )':'' }}</th>
+                        <th>Signboard {{ ($signboard_package_str!=='')? '[ '.rtrim($signboard_package_str,',').' ]':'' }}</th>
                         <td>{{ ($signboard_price!=0)?'$ '.number_format($signboard_price,2):'$ 0.00' }}</td>
                     </tr>
                     <tr>
 
-                        <th>Print Material {{ ($print_material_str!=='')? '( '.rtrim($print_material_str,',').' )':'' }}</th>
+                        <th>Print Material {{ ($print_material_str!=='')? '[ '.rtrim($print_material_str,',').' ]':'' }}</th>
                         <td>{{ ($print_material_price!=0)?'$ '.number_format($print_material_price,2):'$ 0.00' }}</td>
                     </tr>
                     <tr>
@@ -168,7 +171,11 @@
                         <td>$ 0.00</td>
                     </tr>
                     <tr>
-                        <th>Local newsprint media advertising {{ ($local_media_str!=='')? '( '.rtrim($local_media_str,',').' )':'' }}</th>
+                        <th>Digital Media</th>
+                        <td>$ 0.00</td>
+                    </tr>
+                    <tr>
+                        <th>Local newsprint media advertising {{ ($local_media_str!=='')? '[ '.rtrim($local_media_str,',').' ]':'' }}</th>
                         <td>{{ ($local_media_price!=0)?'$ '.number_format($local_media_price,2):'$ 0.00' }}</td>
                     </tr>
                     <tr style="color: orange">
@@ -182,13 +189,13 @@
                     <div class="form-bottom">
                         <div class="validationError"></div>
                         <h3 class="instruction">Selected Solution Type</h3>
-                        <div class="form-group solutions_type_id size-15" style="text-align:center !important;">
+                        <div class="form-group solutions_type_id" style="text-align:center !important;">
                             @foreach($data['solution_types'] as $solution_type)
-                                <label>
+                                <p class="center white size-13">
                                     @if($data['quote']->solution_type_id==$solution_type->id)
-                                        {{ $solution_type->title }}
+                                        <span class="glyphicon glyphicon-check"></span> {{ $solution_type->title }}
                                     @endif
-                                </label>
+                                </p>
                             @endforeach
                         </div>
                         {{--<div class="center">
@@ -202,16 +209,33 @@
                         <br>
                         <div class="row">
 
-                            <div class="col-sm-offset-3 col-sm-6 size-13">
-                                <b>Property Owner Name : </b>{{ $data['quote']->relPropertyDetail['owner_name'] }} <br>
-                                <b>Property Address : </b>{{ $data['quote']->relPropertyDetail['address'] }} <br>
-                                <b>Vendor Name : </b>{{ $data['quote']->relPropertyDetail['vendor_name'] }} <br>
-                                <b>Vendor Email : </b>{{ $data['quote']->relPropertyDetail['vendor_email'] }} <br>
-                                <b>Vendor Phone : </b>{{ $data['quote']->relPropertyDetail['vendor_phone'] }} <br>
+                            <style>
+                                .tbl { background:none; color:#fff;}
+                                .tbl th { text-align:right; width: 48%; background:none !important;}
+                                .tbl td.tdata { text-align: left; width: 48%; background:none !important;}
+                                .tbl td { text-align: center; background: none !important;}
+                                ul.genul { list-style:inside; padding:0px;}
+                                ul.genul li { font-size:13px;}
+                                .note { background:none; }
+                                .note p { color:#fff; font-size:13px; font-style: italic;}
+                                .note label { font-size:15px; font-weight: normal !important; }
+                                .h-space { display: block; height: 30px;}
+                                .h-space-10 { display: block; height: 10px;}
+                                .text-normal { font-weight: normal !important;}
+                                .circle { width: 50px; height: 50px; display: inline-block; border-radius:30px; font-size: 28px; background:#202020; }
+                            </style>
+                            {{--<div class="col-sm-offset-3 col-sm-6 size-13">--}}
+                            <div class=" col-sm-12 size-13 center">
+                                <table class="table tbl">
+                                    <tr><th>Property Owner Name</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['owner_name'] }}</td></tr>
+                                    <tr><th>Property Address</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['address'] }} </td></tr>
+                                    <tr><th>Vendor Name</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['vendor_name'] }} </td></tr>
+                                    <tr><th>Vendor Email</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['vendor_email'] }} </td></tr>
+                                    <tr><th>Vendor Phone</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['vendor_phone'] }}</td></tr>
+                                </table>
                             </div>
                         </div>
-                        {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                        <button id="propertyDetailsNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
+
                     </div>
                 </fieldset>
                 <fieldset><hr>
@@ -229,7 +253,7 @@
 
                                             @if($ppi->photography_package_id==$photography_package->id)
                                                 <div class="col-sm-4">
-                                                    <label class="text-center-label">
+                                                    <label class="text-left-label size-15 text-normal">
                                                         {!! $photography_package->title.' <b style="color: orange">$'.$photography_package->price.'</b>' !!}
 
                                                         <?php
@@ -239,7 +263,7 @@
 
                                                     </label>
 
-                                                    <ul>
+                                                    <ul class="genul">
                                                         @foreach($photography_package->relPhotographyPackage as $relPhotographyPackage)
                                                             <li>{{ $relPhotographyPackage->items }}</li>
                                                         @endforeach
@@ -254,17 +278,17 @@
                                 <input type="hidden" value="{{ $photography_price }}" id="photography_price" >
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
+                                <div class="col-sm-12 note">
+                                    @if($data['quote']->photography_package_comments !=='')
                                         <label>NOTE</label>
                                         <p>{{ $data['quote']->photography_package_comments }}</p>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         @else
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <p class="text-center">Sorry, No photography package selected.</p>
+                                <div class="col-sm-12 note">
+                                    <p class="center">Sorry, No photography package selected.</p>
                                 </div>
                             </div>
                         @endif
@@ -288,14 +312,13 @@
                                         @foreach($data['quote']->relQuoteSignboard as $ppi)
                                             @if($ppi->signboard_package_id==$signboard_package->id)
                                                 <div class="col-sm-4">
-                                                    <label class="">
-                                                    <span class="text-center-label">
-                                                        {{ $signboard_package->title }}</span>
+                                                    <label class="text-left-label size-13">
+                                                        <span class="size-17 text-normal">{{ $signboard_package->title }}</span><div class="h-space-10"></div>
                                                         <?php $signboard_package_str .=$signboard_package->title.','  ?>
                                                         <img width="100%" height="100" src="{{ asset($signboard_package->image_path) }}">
                                                     </label>
-                                                    <div class="panel-body">
-                                                        <div class="form-group">
+                                                    <div class="">
+                                                        <div class="white size-15" style="border:0px solid #909090;">
                                                             @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
                                                                 @if(isset($data['quote']->relQuoteSignboard))
                                                                     @foreach($data['quote']->relQuoteSignboard as $ppi)
@@ -314,21 +337,19 @@
                                         @endforeach
                                     @endif
                                 @endforeach
-                                <input type="hidden" value="{{ rtrim($signboard_package_str,',') }}" id="signboard_package" >
-                                <input type="hidden" value="{{ $signboard_price }}" id="signboard_price" >
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
+                                <div class="col-sm-12 note">
+                                    @if($data['quote']->signboard_package_comments !== '')
                                         <label>NOTE</label>
                                         <p>{{ $data['quote']->signboard_package_comments }}</p>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         @else
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <p class="text-center">Sorry, No signboard package selected.</p>
+                                <div class="col-sm-12 note">
+                                    <p class="center">Sorry, No signboard package selected.</p>
                                 </div>
                             </div>
                         @endif
@@ -344,11 +365,13 @@
 
                         @if(isset($data['quote']->print_material_id) && $data['quote']->print_material_id==1)
                             <div class="row">
+                                <div class="col-md-12">
                                 <p class="white size-13">All printed material will be 2side print and the orientation (landscape or portriat) of the material will depend on the artowk set up for your agency, please
                                     ensure that check it is the required orientation, For specific requirement for orientation, stock or other requirements please state in the “note” section.
                                 </p>
                                 <p class="white size-13">Also if you wish to have more then 1 printed material and wish to have dit distributed, please sepcify which print material will be used for distribution by
                                     selecting the distribution.</p>
+                                </div>
                                 <?php $print_material_str = ''; ?>
                                 @foreach($data['print_materials'] as $print_material)
                                     @if(isset($data['quote']->relQuotePrintMaterial))
@@ -357,18 +380,18 @@
                                                 <div class="col-sm-4">
                                                     <label>
                                                         <?php $print_material_str .= $print_material->title.',' ?>
-                                                        {{ $print_material->title }}
-                                                        <label style="margin-left: 10%;display: block;height: 30px">
+                                                        <span class="size-17 text-normal">{{ $print_material->title }}</span>
+                                                        <label style="margin-left: 5%;display: block; height: 30px;" class="size-14">
                                                             @if(isset($data['quote']->relQuotePrintMaterial))
                                                                 @foreach($data['quote']->relQuotePrintMaterial as $ppi)
                                                                     @if($ppi->print_material_id==$print_material->id && $ppi->is_distributed==1)
-                                                                        USE FOR DISTRIBUTION
+                                                                        <span class="glyphicon glyphicon-check"></span> USE FOR DISTRIBUTION
                                                                     @endif
                                                                 @endforeach
                                                             @endif
                                                         </label>
                                                         <img width="100%" height="150" src="{{ asset($print_material->image_path) }}">
-                                                        <div class="panel-body">
+                                                        <div class="size-15 text-normal">
                                                             @foreach($print_material->relPrintMaterial as $relPrintMaterial)@if(isset($data['quote']->relQuotePrintMaterial))
                                                                 @foreach($data['quote']->relQuotePrintMaterial as $ppi)
                                                                     @if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id)
@@ -385,60 +408,56 @@
                                         @endforeach
                                     @endif
                                 @endforeach
-                                <input type="hidden" value="{{ rtrim($print_material_str,',') }}" id="print_material_str" >
-                                <input type="hidden" value="{{ $print_material_price }}" id="print_material_price" >
+
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
+                                <div class="col-sm-12 note">
+                                    @if($data['quote']->print_material_comments !== '')
                                         <label>NOTE</label>
                                         <p>{{ $data['quote']->print_material_comments }}</p>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
 
                         @else
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <p class="text-center">Sorry, No print material selected.</p>
+                                <div class="col-sm-12 note">
+                                    <p class="center">Sorry, No print material selected.</p>
                                 </div>
                             </div>
                         @endif
-                        {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                        <button id="printMaterialNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
-
                     </div>
                 </fieldset>
                 <fieldset><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Distribution of print material</h3>
                         <div class="validationError"></div>
-                        @if(isset($data['quote']->print_material_distribution_id) && $data['quote']->print_material_distribution_id==1)
+                        @if(isset($data['quote']->print_material_distribution_id) /*&& $data['quote']->print_material_distribution_id==1*/)
 
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        {!! Form::label('quantity','Total print material (Quantity)') !!}
-                                        <h2>{{ $data['quote']->relPrintMaterialDistribution['quantity'] }}</h2>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>NOTE</label>
-                                        <p>{{ $data['quote']->relPrintMaterialDistribution['note'] }}</p>
+                                <div class="col-sm-12">
+                                    <div class=" center">
+                                        <div class="size-17" style="padding-bottom:20px;">Total distribution of print material (Quantity)</div>
+                                        <span class="circle" style="color:orange">
+                                            {{ $data['quote']->relPrintMaterialDistribution['quantity'] }}
+                                        </span>
+                                    </div >
+                                    <div class=" note">
+                                        @if($data['quote']->relPrintMaterialDistribution['note'] !=='')
+                                            <label>NOTE</label>
+                                            <p>{{ $data['quote']->relPrintMaterialDistribution['note'] }}</p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
 
                         @else
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <p class="text-center white">Sorry, No print material distribution selected.</p>
+                                <div class="col-sm-12 note">
+                                    <p class="center white">Sorry, No print material distribution selected.</p>
                                 </div>
                             </div>
                         @endif
-                        {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                        <button id="distributedPrintMaterialNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
-
-
                     </div>
                 </fieldset>
                 <fieldset><hr>
@@ -447,41 +466,40 @@
                         <div class="validationError"></div>
                         @if(isset($data['quote']->digital_media_id) && $data['quote']->digital_media_id==1)
 
+                            <div class="size-17">Most popular websites</div>
                             <div class="row">
                                 <div class="optionalContentDiv  @if($data['quote']->digital_media_id == null) optional-content-div @endif">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="form-group size-13">
                                             @foreach($data['digital_medias'] as $digital_media)
                                                 @if(isset($data['quote']->relQuoteDigitalMedia))
                                                     @foreach($data['quote']->relQuoteDigitalMedia as $ppi)
                                                         @if($ppi->digital_media_id==$digital_media->id)
-                                                            {{ $digital_media->title }} <br>
+                                                            <div class="col-md-4"><span class="glyphicon glyphicon-check"></span> {{ $digital_media->title }}</div>
                                                         @endif
                                                     @endforeach
                                                 @endif
                                             @endforeach
-
-                                        </div>
-                                        <div class="form-group">
-                                            <label>NOTE</label>
-                                            <p>{{ $data['quote']->digital_media_note }}</p>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="h-space-10"></div>
+                            <div class="note">
+                                @if($data['quote']->digital_media_note!=='')
+                                    <label>NOTE</label>
+                                    <p>{{ $data['quote']->digital_media_note }}</p>
+                                @endif
                             </div>
 
 
                         @else
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <p class="text-center">Sorry, No digital Media selected.</p>
+                                <div class="col-sm-12 note">
+                                    <p class="center">Sorry, No digital Media selected.</p>
                                 </div>
                             </div>
                         @endif
-                        {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                        <button id="digitalMediaNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
-
-
                     </div>
                 </fieldset>
                 <fieldset><hr>
@@ -498,18 +516,18 @@
                                                     @foreach($data['quote']->relQuoteLocalMedia as $ppi)
                                                         @if($ppi->local_media_id==$local_media->id)
                                                             <?php $local_media_str .= $local_media->title.','; ?>
-                                                            {{ $local_media->title }}
+                                                             {{ $local_media->title }}
                                                         @endif
                                                     @endforeach
                                                 @endif
                                             </div>
                                             <div class="row">
-                                                <div class="col-sm-12 size-15">
+                                                <div class="col-sm-12 size-14">
                                                     @foreach($local_media->relLocalMedia as $relLocalMedia)
                                                         @if(isset($data['quote']->relQuoteLocalMedia))
                                                             @foreach($data['quote']->relQuoteLocalMedia as $ppi)
                                                                 @if($ppi->local_media_id==$local_media->id && $ppi->local_media_option_id==$relLocalMedia->id)
-                                                                    {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}<br>
+                                                                    <span class="glyphicon glyphicon-check"></span> {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}<br>
                                                                     <?php $local_media_price+=$relLocalMedia->price; ?>
                                                                 @endif
                                                             @endforeach
@@ -519,14 +537,14 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <input type="hidden" value="{{ rtrim($local_media_str,',') }}" id="local_media_str" >
-                                    <input type="hidden" value="{{ $local_media_price }}" id="local_media_price" >
+
                                     <div class="col-sm-12">
-                                        <div>
-                                            <h4>NOTE</h4>
-                                            <p>{{ $data['quote']->local_media_note }}</p>
-                                            {{--<label>NOTE</label>
-                                            <textarea type="text" readonly name="local_media_note" placeholder="Local Media Note" class="form-control" id="local_media_note">{{ $data['quote']->local_media_note }}</textarea>--}}
+                                        <div class="h-space clearfix"></div>
+                                        <div class="note">
+                                            @if($data['quote']->local_media_note !== '')
+                                                <label>NOTE</label>
+                                                <p>{{ $data['quote']->local_media_note }}</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -535,25 +553,16 @@
 
                         @else
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <p class="text-center white">Sorry, No local Media selected.</p>
+                                <div class="col-sm-12 note">
+                                    <p class="center white">Sorry, No local Media selected.</p>
                                 </div>
                             </div>
                         @endif
-                        {{--<div class="row">
-                            <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                        </div>--}}
-                        {{--<div class="row">
-                            <div class="col-sm-5 col-sm-offset-7">
-
-                                {!! Form::input('button','save','Save',['class'=>'btn btn-primary btn-bg']) !!}
-                                {!! Form::input('button','quote','Quote',['class'=>'btn btn-bg btn-info ']) !!}
-                            </div>
-                        </div>--}}
 
                         <div class="row">
-                            <div class="col-sm-5 col-sm-offset-7">
-                                <a href="{{ URL::previous() }}" class="btn new_button proceedBtn">Back</a>
+                            <div class="col-sm-12 center">
+                                <div class="h-space"></div>
+                                <a href="{{ URL::previous() }}" class="btn new_button proceedBtn"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
                             </div>
                         </div>
 
@@ -562,30 +571,9 @@
             </div>
 
         </div>
-        {{--</div>--}}
     </div>
     <div>
     </div>
-    {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/jquery.backstretch.min.js') }}"></script>--}}
-    {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/scripts.js') }}"></script>--}}
     @include('main::quote._script')
-    {{--<script>
-        $(function(){
 
-
-           var print_material_price = $('#print_material_price').val();
-            $('#printmaterialPrice').append('$' +print_material_price);
-           var print_material_str = $('#print_material_str').val();
-            $('#printMaterialStr').append(print_material_str);
-
-           var local_media_price = $('#local_media_price').val();
-            $('#localmediaPrice').append('$' +local_media_price);
-           var local_media_str = $('#local_media_str').val();
-            $('#localMediaStr').append(local_media_str);
-
-           var total_price =  parseInt(photography_price) + parseInt(signboard_price) + parseInt(print_material_price) + parseInt(local_media_price);
-            $('#totalPrice').append('$' +total_price);
-            //alert(parseInt(photography_price)+parseInt(signboard_price));
-        });
-    </script>--}}
 @stop

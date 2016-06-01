@@ -395,7 +395,7 @@
                                         </div>
                                     </div>--}}
                                     <div class="row">
-                                        <div class="col-sm-5 col-sm-offset-7">
+                                        <div class="col-sm-12 center">
                                             <input value="Save" name="save" type="submit" class="btn new_button proceedBtn">
                                             <input name="quote" value="Continue" type="submit" class="btn new_button proceedBtn">
                                         </div>

@@ -69,6 +69,7 @@ class QuoteController extends Controller
         $data['signboard_packages']= SignboardPackage::with('relSignboardPackage')->get();
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
+        //$data['print_material_dist']=PrintMaterialDistribution::with('relPrintMaterialDistribution')->get();
         $data['digital_medias']= DigitalMedia::get();
         $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia')->first();
 //        dd($data['quote']);
