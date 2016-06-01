@@ -23,7 +23,7 @@
                     <tr>
                         <td colspan="4">
                             <h1>
-                                <span class="glyphicon glyphicon-list">&nbsp;</span> Transaction Details
+                                <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle_bill_amount }}
                             </h1>
                         </td>
                     </tr>
@@ -43,15 +43,15 @@
                     </tr>
                     <tr>
                         <th>Amount</th>
-                        <td>{{ $transaction->amount }}</td>
+                        <td>{{ '$ '.number_format($transaction->amount,2) }}</td>
                     </tr>
                     <tr>
                         <th>GST</th>
-                        <td>{{ $transaction->gst }}</td>
+                        <td>{{ '$ '.number_format($transaction->gst,2) }}</td>
                     </tr>
                     <tr>
-                        <th>Total Amount</th>
-                        <td>{{ $transaction->total_amount }}</td>
+                        <th style="color:orange">Total Amount</th>
+                        <td style="color:orange">{{ '$ '.number_format($transaction->total_amount,2) }}</td>
                     </tr>
                 </table>
             </div>
@@ -61,7 +61,7 @@
                     <tr>
                         <td colspan="4">
                             <h1>
-                                <span class="glyphicon glyphicon-list">&nbsp;</span> Payment Details
+                                <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle_paid_amount }}
                             </h1>
                         </td>
                     </tr>

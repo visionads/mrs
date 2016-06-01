@@ -31,37 +31,20 @@ class PaymentController extends Controller
         $role_name = User::getRole(Auth::user()->id) ;
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
-
-            /*$data = Transaction::orderBy('id','DESC')->paginate(10);
-            print_r($data); exit();*/
-
-            //$data = Payment::with('relTransaction')->get();
-            //$amount = $data->relTransaction;
-            /*$i = 0;
-            foreach($data as $dd){
-                $i++;
-            }
-            print_r($i); exit();*/
-            //print_r($data[0]['amount']); exit();
-            $data = Transaction::getAllTransactionWithPayment();
-            //dd($data);
+           //$data = Transaction::getAllTransactionWithPayment();
+            $data=Transaction::with('relPayment')->orderBy('id','DESC')->paginate(10);
             //print_r($data); exit();
-            /*$data_arr = array();
-            foreach($data as $data_one) {
-                //print_r($data_one->invoice_no);
-                $data_arr[] = $data_one;
 
-            }*/
-            //exit();
         }
         else
         {
-            $data = Transaction::where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
+            //$data = Transaction::getAllTransactionWithPaymentForAgent();
+            $data=Transaction::with('relPayment')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
         }
 
 //        dd($data);
         return view("main::payment.index",['pageTitle'=>$pageTitle, 'transactions'=>$data]);
-    }
+    } // -- Ram
     public function index_payment()
     {
         $pageTitle = 'Payment';
@@ -99,11 +82,15 @@ class PaymentController extends Controller
     }
     public function show($id)
     {
-        $pageTitle = 'Payment Details';
-        $transaction = Transaction::getTransactionDetails($id);
+        $pageTitle_bill_amount = 'Transaction Details (Bill Amount)';
+        $pageTitle_paid_amount = 'Payment Details (Paid Amount)';
+        $transaction = Transaction::getTransactionDetails($id); //-- Old
+//        dd($transaction);
+        //$transaction = Transaction::where('id',$id)->first(); // -- Ram -- To show the bill amount in transaction table
+        //print_r($transaction->id); exit();
         $payments = Payment::where('transaction_id',$id)->get();
 //        dd($payments);
-        return view("main::payment.payment_details",['pageTitle'=>$pageTitle, 'payment_details'=>$payments,'transaction'=>$transaction]);
+        return view("main::payment.payment_details",['pageTitle_bill_amount'=>$pageTitle_bill_amount,'pageTitle_paid_amount'=>$pageTitle_paid_amount, 'payment_details'=>$payments,'transaction'=>$transaction]);
 
     }
 

@@ -22,14 +22,14 @@
                 <tr>
                     <td colspan="6">
                         <h1>
-                            <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }}
+                            <span class="glyphicon glyphicon-list">&nbsp;</span> Invoice List{{--{{ $pageTitle }}--}}
                         </h1>
                     </td>
                 </tr>
                 </thead>
                 <thead>
                 <tr>
-                    <th>Transaction ID</th>
+                    <th>Invoice No.{{--Transaction ID--}}</th>
                     <th>Bill Amount</th>
                     <th>Paid Amount</th>
                     <th>Date</th>
@@ -42,8 +42,16 @@
                         @foreach($transactions as $transaction)
                             <tr>
                                 <td class="text-center">{{ $transaction->invoice_no }}</td>
-                                <td class="text-center">{{ '$ '.$transaction->total_amount }}</td>
-                                <td class="text-center">{{ (isset($transaction->payment_amount)) ? '$ '.$transaction->payment_amount:'$ 0.00' }}</td>
+                                <td class="text-center">{{ '$ '.number_format($transaction->total_amount,2) }}</td>
+                                <td class="text-center">
+                                    <?php $amount=0 ?>
+                                    @if(count($transaction->relPayment)>0)
+                                        @foreach($transaction->relPayment as $payment)
+                                            <?php $amount+=$payment['amount'] ?>
+                                        @endforeach
+                                    @endif
+                                    {{ '$ '.number_format($amount,2) }}
+                                </td>
                                 <td class="text-center">{{ date('d M Y',strtotime($transaction->created_at)) }}</td>
                                 <td><a href="{{ URL::to('main/view-payment-detail/'.$transaction->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"> Details</span></a></td>
                             </tr>

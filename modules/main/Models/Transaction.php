@@ -27,19 +27,26 @@ class Transaction extends Model
         'business_id'
     ];
     public function relPayment(){
-        return $this->hasMany('App\Payment','id','transaction_id');
+        return $this->hasMany('App\Payment','transaction_id','id');
     }
 
     public static function getAllTransactionWithPayment(){
         return DB::table('transaction')
             ->select('transaction.*','payment.amount as payment_amount')
             ->leftJoin('payment', 'transaction.id', '=', 'payment.transaction_id')
+            ->orderBy('id','DESC')
             //->get();
             ->paginate(10);
+    } // -- Ram
 
-    }
-
-
+    public static function getAllTransactionWithPaymentForAgent(){
+        return DB::table('transaction')
+            ->select('transaction.*','payment.amount as payment_amount')
+            ->leftJoin('payment','transaction.id', '=', 'payment.transaction_id')
+            ->where('transaction.business_id', Auth::user()->business_id)
+            ->orderBy('id','DESC')
+            ->paginate(10);
+    } // -- Ram
 
 
     public static function getTransactionDetails($id)
@@ -47,7 +54,8 @@ class Transaction extends Model
         return Transaction::join('quote', 'quote_id', '=', 'quote.id')
                 ->select('*','quote.quote_number')
 //                ->with('relPayment')
-                ->first();
+                ->where('transaction.id',$id)
+            ->first();
     }
 
 
