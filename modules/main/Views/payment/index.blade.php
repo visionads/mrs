@@ -42,8 +42,8 @@
                         @foreach($transactions as $transaction)
                             <tr>
                                 <td class="text-center">{{ $transaction->invoice_no }}</td>
-                                <td class="text-center">{{ '$'.$transaction->total_amount }}</td>
-                                <td class="text-center">{{ '$'.$transaction->total_amount }}</td>
+                                <td class="text-center">{{ '$ '.$transaction->total_amount }}</td>
+                                <td class="text-center">{{ (isset($transaction->payment_amount)) ? '$ '.$transaction->payment_amount:'$ 0.00' }}</td>
                                 <td class="text-center">{{ date('d M Y',strtotime($transaction->created_at)) }}</td>
                                 <td><a href="{{ URL::to('main/view-payment-detail/'.$transaction->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"> Details</span></a></td>
                             </tr>

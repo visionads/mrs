@@ -11,6 +11,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Transaction extends Model
 {
@@ -27,6 +28,15 @@ class Transaction extends Model
     ];
     public function relPayment(){
         return $this->hasMany('App\Payment','id','transaction_id');
+    }
+
+    public static function getAllTransactionWithPayment(){
+        return DB::table('transaction')
+            ->select('transaction.*','payment.amount as payment_amount')
+            ->leftJoin('payment', 'transaction.id', '=', 'payment.transaction_id')
+            //->get();
+            ->paginate(10);
+
     }
 
 

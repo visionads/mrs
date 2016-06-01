@@ -31,9 +31,9 @@ class PaymentController extends Controller
         $role_name = User::getRole(Auth::user()->id) ;
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
-            //exit('sdkjflksjd');
-            //$data = Payment::with('relTransaction')->orderBy('id','DESC')->paginate(10);
-            $data = Transaction::orderBy('id','DESC')->paginate(10);
+
+            /*$data = Transaction::orderBy('id','DESC')->paginate(10);
+            print_r($data); exit();*/
 
             //$data = Payment::with('relTransaction')->get();
             //$amount = $data->relTransaction;
@@ -43,10 +43,16 @@ class PaymentController extends Controller
             }
             print_r($i); exit();*/
             //print_r($data[0]['amount']); exit();
-            /*$data = DB::table('transaction')
-                ->leftJoin('payment', 'transaction.id', '=', 'payment.transaction_id')
-                ->get();
-            print_r($data); exit();*/
+            $data = Transaction::getAllTransactionWithPayment();
+            //dd($data);
+            //print_r($data); exit();
+            /*$data_arr = array();
+            foreach($data as $data_one) {
+                //print_r($data_one->invoice_no);
+                $data_arr[] = $data_one;
+
+            }*/
+            //exit();
         }
         else
         {
