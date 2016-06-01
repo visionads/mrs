@@ -454,7 +454,7 @@
                             </div>
                         </div>--}}
                         <div class="row">
-                            <div class="col-sm-5 col-sm-offset-7">
+                            <div class="col-sm-12 center">
                                 <input name="quote" value="Update" type="submit" class="btn new_button proceedBtn">
                             </div>
                         </div>
