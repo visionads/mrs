@@ -27,14 +27,13 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $pageTitle = 'Transactions';
+        $pageTitle = 'Transactions List';
         $role_name = User::getRole(Auth::user()->id) ;
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
            //$data = Transaction::getAllTransactionWithPayment();
             $data=Transaction::with('relPayment')->orderBy('id','DESC')->paginate(10);
             //print_r($data); exit();
-
         }
         else
         {

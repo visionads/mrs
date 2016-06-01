@@ -22,7 +22,7 @@
                 <tr>
                     <td colspan="6">
                         <h1>
-                            <span class="glyphicon glyphicon-list">&nbsp;</span> Invoice List{{--{{ $pageTitle }}--}}
+                            <span class="glyphicon glyphicon-list">&nbsp;</span>{{ $pageTitle }}
                         </h1>
                     </td>
                 </tr>
