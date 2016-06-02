@@ -12,7 +12,9 @@
                         <h1 style="background:#dedede;padding: 10px 10px 0 10px; margin:0;" class="size-20"><span class="glyphicon glyphicon-file"></span>Invoice Page
                             <div class="pull-right">
                                 <a href="{{ route('invoice-list') }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Back to Invoice List</a>
-                                <a href="{{ URL::to('main/invoice-print/'.$payment->id) }}" class="btn btn-primary"  target="_blank"><span class="glyphicon glyphicon-print"></span>&nbsp;&nbsp;Print version</a>
+                                @if(isset($payment))
+                                    <a href="{{ URL::to('main/invoice-print/'.$payment->id) }}" class="btn btn-primary"  target="_blank"><span class="glyphicon glyphicon-print"></span>&nbsp;&nbsp;Print version</a>
+                                @endif
                             </div>
 
                         </h1>
@@ -23,26 +25,29 @@
                             <h3>
                                 <div>
                                     <small><strong>MRS</strong>App</small><br>
-                                    {{ $transaction->invoice_no }}
+                                    {{ (isset($transaction))?$transaction->invoice_no:'' }}
                                 </div>
                             </h3>
                             <address>
-                                {{ Auth::user()->username }}<br>
-                                address shown here
+                                {{--{{ Auth::user()->username }}--}}
+                                {{ $vendor_name }}<br>
+                                {{ $vendor_address }}
                             </address>
                             <div class="invoice-date">
                                 <small><strong>Date</strong></small><br>
-                                {{ date('M d Y',strtotime($transaction->created_at)) }}
+                                {{ (isset($transaction))?date('M d Y',strtotime($transaction->created_at)):'' }}
                             </div>
                         </div> <!-- / .invoice-header -->
                         <div class="invoice-info">
                             <div class="invoice-recipient">
-                                <strong>{{ $quote->relPropertyDetail['owner_name'] }}</strong><br>
-                                {{ $quote->relPropertyDetail['address'] }}
+                                @if(isset($quote))
+                                    <strong>{{ $quote->relPropertyDetail['owner_name'] }}</strong><br>
+                                    {{ $quote->relPropertyDetail['address'] }}
+                                @endif
                             </div> <!-- / .invoice-recipient -->
                             <div class="invoice-total">
                                 TOTAL:
-                                <span>${{ $transaction->total_amount }}</span>
+                                <span>${{ (isset($transaction))?$transaction->total_amount:'0.00' }}</span>
                             </div> <!-- / .invoice-total -->
                         </div> <!-- / .invoice-info -->
                         <hr>

@@ -776,8 +776,8 @@ a.underline { text-decoration: underline;}
 .quote-list thead tr th { border:1px solid #202020; border-bottom: 0px !important;}
 .quote-list thead tr { border-bottom: 0px !important; border-left: 1px solid #202020; border-bottom: 1px solid #202020;}
 .quote-list tbody tr td {border-top:0px !important; background: linear-gradient(0deg, #101010,#202020);}
-.quote-list tbody tr td a { color:#909090; display: block !important;}
-.quote-list tbody tr td a:hover { /*background: linear-gradient(0deg, #909090,#d0d0d0);*/ color:#fff;}
+.quote-list tbody tr td a { color:#fff; display: block !important;}
+.quote-list tbody tr td a:hover { /*background: linear-gradient(0deg, #909090,#d0d0d0);*/ color:yellow;}
 
 .no-border { border:0px !important; }
 .no-padding { padding:0px !important;}

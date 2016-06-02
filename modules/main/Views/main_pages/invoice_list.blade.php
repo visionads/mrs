@@ -14,10 +14,11 @@
         .invoice-list h1, .table thead tr th { text-shadow:1px 1px 3px #404040;}
         .invoice-list h1 {padding: 10px; margin:0; font-size:20px; }
 
+        a.btn { display:inline-block!important; width: auto !important;}
     </style>
 
 
-    <div class="container-fluid">
+    {{--<div class="container-fluid">
         <div class="no-border">
             <table cellspacing="0" cellpadding="0" border="0" class="table size-13 invoice-list">
                 <thead class="head-top">
@@ -46,6 +47,63 @@
                     @endfor
                 </tbody>
             </table>
+        </div>
+    </div>--}}
+
+    <div class="container-fluid">
+        <div class="no-border">
+            <table cellspacing="0" cellpadding="0" border="0" class="table size-13 quote-list">
+                <thead class="head-top">
+                <tr>
+                    <td colspan="6">
+                        <h1>
+                            <span class="glyphicon glyphicon-list">&nbsp;</span>{{ $pageTitle }}
+                        </h1>
+                    </td>
+                </tr>
+                </thead>
+                <thead>
+                <tr>
+                    <th>Invoice No.{{--Transaction ID--}}</th>
+                    <th>Bill Amount</th>
+                    <th>Paid Amount</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                @if(isset($transactions))
+                    @foreach($transactions as $transaction)
+                        <tr>
+                            <td class="text-center">{{ $transaction->invoice_no }}</td>
+                            <td class="text-center">{{ '$ '.number_format($transaction->total_amount,2) }}</td>
+                            <td class="text-center">
+                                <?php $amount=0 ?>
+                                @if(count($transaction->relPayment)>0)
+                                    @foreach($transaction->relPayment as $payment)
+                                        <?php $amount+=$payment['amount'] ?>
+                                    @endforeach
+                                @endif
+                                {{ '$ '.number_format($amount,2) }}
+                            </td>
+                            <td class="text-center">{{ date('d M Y',strtotime($transaction->created_at)) }}</td>
+                            <td>
+                                {{--@if($amount !== 0)
+                                    <a href="{{ URL::to('main/invoice/'.$transaction->quote_id) }}" class="btn btn-default" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"></span>Invoice</a>
+                                    <a href="{{ URL::to('main/view-payment-detail/'.$transaction->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"></span> Details</a>
+                                @else--}}
+                                    <a href="{{ URL::to('main/view-payment-detail/'.$transaction->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"></span> Details</a>
+                                {{--@endif--}}
+
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+                </tbody>
+            </table>
+            <span class="pull-left size-13 paginate-right-top-40" style="text-align: right">{!! str_replace('/?', '?', $transactions->render()) !!} </span>
+
         </div>
     </div>
 

@@ -52,6 +52,11 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
     /*==================Ram's Routes=====================*/
     /*------------Invoice---------------*/
 
+    /*Route::get('invoice/{transaction_id}', [
+        'middleware' => 'acl_access:main/invoice',
+        'as' => 'invoice',
+        'uses' => 'InvoiceController@invoice'
+    ]);*/
     Route::get('invoice/{transaction_id}', [
         'middleware' => 'acl_access:main/invoice',
         'as' => 'invoice',

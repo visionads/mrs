@@ -59,7 +59,7 @@
                 <table cellspacing="0" cellpadding="0" border="0" class="table size-13 quote-list">
                     <thead class="head-top">
                     <tr>
-                        <td colspan="4">
+                        <td colspan="5">
                             <h1>
                                 <span class="glyphicon glyphicon-briefcase">&nbsp;</span> {{ $pageTitle_paid_amount }}
                             </h1>
@@ -72,6 +72,7 @@
                         <th>Status</th>
                         <th>Amount</th>
                         <th>Payment Date</th>
+                        <th>Action</th>
                     </tr>
                     @foreach($payment_details as $payment)
                         <tr>
@@ -79,11 +80,14 @@
                             <td>{{ $payment->status }}</td>
                             <td>{{ $payment->amount }}</td>
                             <td>{{ date('d M Y h:s',strtotime($payment->created_at)) }}</td>
+                            <td>
+                                <a href="{{ URL::to('main/invoice/'.$payment->id) }}" class="btn btn-primary" data-placement="left" data-content="Create Invoice"><span class="glyphicon glyphicon-file"></span> Invoice</a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
-                <a href="{{ URL::previous() }}" class="btn btn-primary pull-right">Back</a>
+                <a href="{{ URL::previous() }}" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
             </div>
 
         </div>
