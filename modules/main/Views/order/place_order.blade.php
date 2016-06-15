@@ -207,7 +207,7 @@
             <div class="form-group">
                 <div class="col-sm-12 center" id="submit_button">
                     <br>
-                    {!! Form::submit('Place Order', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click place order button']) !!}&nbsp;
+                    {!! Form::submit('Order now', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click place order button']) !!}&nbsp;
                 </div>
             </div>
         </div>
