@@ -92,7 +92,7 @@
                         <tr>
                             <td>{{ $payment->type }}</td>
                             <td>{{ $payment->status }}</td>
-                            <td>{{ $payment->amount }}</td>
+                            <td>$ {{ number_format($payment->amount,2) }}</td>
                             <td>{{ date('d M Y h:s',strtotime($payment->created_at)) }}</td>
                             <td>
                                 <a href="{{ URL::to('main/invoice/'.$payment->id) }}" class="btn btn-primary" data-placement="left" data-content="Create Invoice"><span class="glyphicon glyphicon-file"></span> Invoice</a>
