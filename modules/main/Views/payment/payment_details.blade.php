@@ -15,6 +15,16 @@
 
     </style>
 
+    <?php
+        $paid = 0;
+        if(isset($payment_details)){
+            foreach($payment_details as $payment){
+                $paid += $payment->amount;
+            }
+        }
+
+    ?>
+
     <div class="container-fluid">
         <div class="no-border">
             <div class="col-sm-12 col-md-6">
@@ -23,7 +33,9 @@
                     <tr>
                         <td colspan="4">
                             <h1>
-                                <span class="glyphicon glyphicon-tags">&nbsp;</span> {{ $pageTitle_bill_amount }}
+                                <span class="glyphicon glyphicon-tags">&nbsp;</span>
+                                {{ $pageTitle_bill_amount }}
+                                <span class="btn btn-danger pull-right">Due : $ {{ number_format(($transaction->total_amount - $paid),2) }}</span>
                             </h1>
                         </td>
                     </tr>
@@ -61,7 +73,9 @@
                     <tr>
                         <td colspan="5">
                             <h1>
-                                <span class="glyphicon glyphicon-briefcase">&nbsp;</span> {{ $pageTitle_paid_amount }}
+                                <span class="glyphicon glyphicon-briefcase">&nbsp;</span>
+                                {{ $pageTitle_paid_amount }}
+                                <span class="btn btn-success pull-right"> Paid : $ {{ number_format($paid,2) }}</span>
                             </h1>
                         </td>
                     </tr>

@@ -54,42 +54,72 @@
             <div id="main-wrapper">
                 <div id="content-wrapper">
                     <div class="page-header" style="border:0px;">
-                        <h1 style="background:#dedede;padding: 10px 10px 0 10px; margin:0;" class="size-20"><span class="glyphicon glyphicon-file"></span>Invoice Page
+                        {{--<h1 style="background:#dedede;padding: 10px 10px 0 10px; margin:0;" class="size-20"><span class="glyphicon glyphicon-file"></span>Invoice Page
+                            <div class="pull-right">
+                                <a href="{{ route('invoice-list') }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;Back to Invoice List</a>
+                                @if(isset($payment))
+                                    <a href="{{ URL::to('main/invoice-print/'.$payment->id) }}" class="btn btn-primary"  target="_blank"><span class="glyphicon glyphicon-print"></span>&nbsp;&nbsp;Print version</a>
+                                @endif
+                            </div>
 
-
-                        </h1>
+                        </h1>--}}
                     </div>
 
                     <div class="panel invoice">
                         <div class="invoice-header">
-                            <h3>
-                                <div>
-                                    <small><strong>MRS</strong>App</small><br>
-                                    {{ $transaction->invoice_no }}
-                                </div>
-                            </h3>
+
                             <address>
-                                {{ Auth::user()->username }}<br>
-                                address shown here
+                                {{--{{ Auth::user()->username }}--}}
+                                Prepared By : <br><br>
+                                <strong class="black">{{ $vendor_name }}</strong><br>
+                                <strong class="lightblack">{{ $vendor_address }}</strong>
                             </address>
+                            <address>
+                                Prepared For : <br><br>
+                                @if(isset($quote))
+                                    <strong class="black">{{ $quote->relPropertyDetail['owner_name'] }}</strong><br>
+                                    <strong class="lightblack">{{ $quote->relPropertyDetail['address'] }}</strong>
+                                @endif
+                            </address>
+
                             <div class="invoice-date">
                                 <small><strong>Date</strong></small><br>
-                                {{ date('M d Y',strtotime($transaction->created_at)) }}
+                                {{ (isset($transaction))?date('M d Y',strtotime($transaction->created_at)):'' }}
                             </div>
                         </div> <!-- / .invoice-header -->
-                        <div class="invoice-info">
-                            <div class="invoice-recipient">
-                                <strong>{{ $quote->relPropertyDetail['owner_name'] }}</strong><br>
-                                {{ $quote->relPropertyDetail['address'] }}
-                            </div> <!-- / .invoice-recipient -->
-                            <div class="invoice-total">
-                                TOTAL:
-                                <span>${{ $transaction->total_amount }}</span>
-                            </div> <!-- / .invoice-total -->
+                        <div class="invoice-info row">
+                            {{--<div class="invoice-recipient" style="width:28%; border:1px solid #fff;">
+                                @if(isset($quote))
+                                    <strong>{{ $quote->relPropertyDetail['owner_name'] }}</strong><br>
+                                    {{ $quote->relPropertyDetail['address'] }}
+                                @endif
+                            </div>--}} <!-- / .invoice-recipient -->
+                            <div class="size-15 col-sm-4" style=" width:40%; float:left; border: 1px solid #fff;">
+                                <table class="invoice-tbl-box">
+                                    <tr><td><small>MR No.</small> </td><td>:</td><td>MR-00001</td></tr>
+                                    <tr><td><small>Invoice No.</small> </td><td>:</td><td>{{ (isset($transaction))?$transaction->invoice_no:'' }}</td></tr>
+                                </table>
+                            </div>
+                            <div class="size-15 col-sm-8" style=" width:60%; float:left; border: 1px solid #fff;">
+                                {{--<div class=" size-13 col-sm-4 gray-bg-light" style=" width:33%; float: left; border: 1px solid #fff;">
+                                    TOTAL:
+                                    <span class="size-13"><br>$ {{ (isset($transaction))?number_format($transaction->total_amount,2):'0.00' }}</span>
+                                </div>--}}
+                                <div class=" size-20 col-sm-4 col-sm-offset-8 gray-bg-light" style=" width: 90%; text-align: right; float: right; border: 1px solid #fff; ">
+                                    PAID :
+                                    <span class="size-20 green">$ {{ (isset($payment)?number_format($payment->amount,2):'0.00') }}</span>
+                                </div>
+                                {{--<div class=" size-13 col-sm-4 gray-bg-light" style=" width:33%; float:left; border: 1px solid #fff; ">
+                                    DUE :
+                                    <span class="size-13 red"><br>$ {{ (isset($transaction) && isset($payment))?number_format($transaction->total_amount - $payment->amount,2):'0.00' }}</span>
+                                </div>--}}
+
+                                <!-- / .invoice-total -->
+                            </div>
                         </div> <!-- / .invoice-info -->
                         <hr>
                         <div class="invoice-table">
-                            <table>
+                            <table class="invoice-tbl-box">
                                 <thead>
                                 <tr>
                                     <th>
@@ -154,17 +184,25 @@
                                         Total
                                     </th>
                                     <td>
-                                        $ {{ number_format($total,2) }}
+                                        <span style="border-bottom: 3px double #000;">$ {{ number_format($total_with_gst,2) }}</span>
+                                    </td>
+                                </tr>
+                                {{--<tr>
+                                    <th>
+                                        Paid
+                                    </th>
+                                    <td class="darkgreen">
+                                        $ {{ number_format($payment->amount,2) }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        Paid
+                                        Due
                                     </th>
-                                    <td>
-                                        $ {{ number_format($payment->amount,2) }}
+                                    <td class="darkred">
+                                        $ {{ number_format(($total_with_gst - $payment->amount),2) }}
                                     </td>
-                                </tr>
+                                </tr>--}}
                                 </tbody>
                             </table>
                         </div> <!-- / .invoice-table -->
@@ -186,88 +224,8 @@
 
         </div>
     </div>
-    {{--<div class="invoice-header">--}}
-        {{--<h3>--}}
-            {{--<div>--}}
-                {{--<small><strong>Lander</strong>App</small><br>--}}
-                {{--INVOICE #244--}}
-            {{--</div>--}}
-        {{--</h3>--}}
-        {{--<address>--}}
-            {{--LanderApp Ltd.<br>--}}
-            {{--Los Angeles, Lander Street, 32<br>--}}
-            {{--90080 CA, USA--}}
-        {{--</address>--}}
-        {{--<div class="invoice-date">--}}
-            {{--<small><strong>Date</strong></small><br>--}}
-            {{--February 21, 2014--}}
-        {{--</div>--}}
-    {{--</div> <!-- / .invoice-header -->--}}
-    {{--<div class="invoice-info">--}}
-        {{--<div class="invoice-recipient">--}}
-            {{--<strong>Mr. John Smith</strong><br>--}}
-            {{--New York, Pass Avenue, 109<br>--}}
-            {{--10012 NY, USA--}}
-        {{--</div> <!-- / .invoice-recipient -->--}}
-        {{--<div class="invoice-total">--}}
-            {{--TOTAL:--}}
-            {{--<span>$4,657.75</span>--}}
-        {{--</div> <!-- / .invoice-total -->--}}
-    {{--</div> <!-- / .invoice-info -->--}}
-    {{--<hr>--}}
-    {{--<div class="invoice-table">--}}
-        {{--<table>--}}
-            {{--<thead>--}}
-            {{--<tr>--}}
-                {{--<th>--}}
-                    {{--Task description--}}
-                {{--</th>--}}
-                {{--<th>--}}
-                    {{--Rate--}}
-                {{--</th>--}}
-                {{--<th>--}}
-                    {{--Hours--}}
-                {{--</th>--}}
-                {{--<th>--}}
-                    {{--Line total--}}
-                {{--</th>--}}
-            {{--</tr>--}}
-            {{--</thead>--}}
-            {{--<tbody>--}}
-            {{--<tr>--}}
-                {{--<td>--}}
-                    {{--Website design and development--}}
-                    {{--<div class="invoice-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</div>--}}
-                {{--</td>--}}
-                {{--<td>--}}
-                    {{--$50.00--}}
-                {{--</td>--}}
-                {{--<td>--}}
-                    {{--50--}}
-                {{--</td>--}}
-                {{--<td>--}}
-                    {{--$2,500.00--}}
-                {{--</td>--}}
-            {{--</tr>--}}
-            {{--<tr>--}}
-                {{--<td>--}}
-                    {{--Branding--}}
-                    {{--<div class="invoice-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</div>--}}
-                {{--</td>--}}
-                {{--<td>--}}
-                    {{--$47.95--}}
-                {{--</td>--}}
-                {{--<td>--}}
-                    {{--45--}}
-                {{--</td>--}}
-                {{--<td>--}}
-                    {{--$2,157.75--}}
-                {{--</td>--}}
-            {{--</tr>--}}
-            {{--</tbody>--}}
-        {{--</table>--}}
-    {{--</div> <!-- / .invoice-table -->--}}
-</div> <!-- / .invoice -->
+
+</div>
 </body>
 
 </html>

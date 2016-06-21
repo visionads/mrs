@@ -120,15 +120,6 @@ class InvoiceController extends Controller
         ]);
 
 
-
-
-
-
-
-
-
-
-
 //
 //
 //        $data['quote']=Quote::with('relPropertyDetail')->where('id',$data['transaction']->quote_id)->first();
@@ -154,6 +145,7 @@ class InvoiceController extends Controller
         // To get the selling_price from property_details table
         //$selling_price = $quote->relPropertyDetail ? $quote->relPropertyDetail->selling_price: '0.00';
         $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
+        $vendor_address = $quote->relPropertyDetail ? $quote->relPropertyDetail->address: null;
         $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
         $vendor_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_signature_path: null;
         $agent_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->agent_signature_path: null;
@@ -212,6 +204,7 @@ class InvoiceController extends Controller
             'gst'=>$gst,
             'total_with_gst'=>$total_with_gst,
             'vendor_name' => $vendor_name,
+            'vendor_address'=>$vendor_address,
             'vendor_phone' => $vendor_phone,
             'vendor_signature_path'=>$vendor_signature_path,
             'agent_signature_path'=>$agent_signature_path,

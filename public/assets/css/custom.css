@@ -169,6 +169,23 @@ select.input-sm, select.form-group-sm .form-control {
 .size-20{ font-size: 20px!important;}
 .size-25{ font-size: 25px!important;}
 
+/* For Font Color*/
+.red {color: red !important;}
+.darkred { color: darkred !important; }
+.green {color: green !important;}
+.darkgreen { color: darkgreen !important; }
+.black { color: black !important;}
+.lightblack { color:#707070 !important;}
+.orange { color:orange !important;}
+.pink { color:pink !important;}
+.deeppink { color: deeppink !important;}
+
+/* for Invoice Table */
+.invoice-tbl-box { margin: 0; padding:0;}
+.invoice-tbl-box tr td { padding: 5px 10px !important; border: 0px solid #fff;}
+
+.block { display: block !important;}
+
 /* For Background Colors */
 
 .gray-bg { background:#dedede;}
@@ -176,6 +193,9 @@ select.input-sm, select.form-group-sm .form-control {
 .blue-bg { background: linear-gradient(0deg,#469,#79c); color: #FFFFFF;}
 .blue-bg-grad { background: linear-gradient(0deg,#469,#79c); color: #FFFFFF;}
 .border-bottom {border-bottom:1px solid #d0d0d0;}
+.green-bg { background: #f0fff0;}
+.red-bg { background: #fff0f0;}
+.gray-bg-light { background: #f0f0f0;}
 
 /* For table search*/
 #example_filter label { font-size:13px;}

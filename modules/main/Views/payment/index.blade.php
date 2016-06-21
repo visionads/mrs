@@ -32,6 +32,7 @@
                     <th>Invoice No.{{--Transaction ID--}}</th>
                     <th>Bill Amount</th>
                     <th>Paid Amount</th>
+                    <th>Status</th>
                     <th>Date</th>
                     <th>Action</th>
                 </tr>
@@ -51,6 +52,28 @@
                                         @endforeach
                                     @endif
                                     {{ '$ '.number_format($amount,2) }}
+                                </td>
+                                <td>
+                                    <?php
+                                    if($transaction->total_amount == $amount && $amount > 0){
+                                        echo '<span class="glyphicon glyphicon-ok green"></span>&nbsp; <span class=""> Paid</span>';
+                                    }
+                                    $difference = $transaction->total_amount - $amount;
+                                    if($difference < $transaction->total_amount && $difference > 0 )
+                                    {
+                                        //echo '<span class="green">'.$transaction->total_amount.'Partially Paid-'.$amount.'-'.$difference.'</span>';
+                                        echo '<span class="glyphicon glyphicon-off orange"></span>&nbsp; <span class=""> Partially Paid</span>';
+                                    }
+                                    //echo $amount;
+                                    if($amount <1 )
+                                    {
+                                        echo '<span class="glyphicon glyphicon-remove darkred"></span>&nbsp; <span class=""> Not Paid</span>';
+                                    }
+                                    if($amount>$transaction->total_amount)
+                                    {
+                                        echo '<span class="glyphicon glyphicon-flash darkpink"></span>&nbsp; <span class="">Over Paid</span>';
+                                    }
+                                    ?>
                                 </td>
                                 <td class="text-center">{{ date('d M Y',strtotime($transaction->created_at)) }}</td>
                                 <td><a href="{{ URL::to('main/view-payment-detail/'.$transaction->id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"> Details</span></a></td>

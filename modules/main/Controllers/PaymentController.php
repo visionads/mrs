@@ -81,14 +81,65 @@ class PaymentController extends Controller
     }
     public function show($id)
     {
-        $pageTitle_bill_amount = 'Transaction Details (Bill Amount)';
-        $pageTitle_paid_amount = 'Payment Details (Paid Amount)';
+        $pageTitle_bill_amount = 'Transaction Bill ';
+        $pageTitle_paid_amount = 'Paid Amount ';
         $transaction = Transaction::getTransactionDetails($id); //-- Old
+        $stts_transaction = $transaction->status;
+        //exit($stts_transaction);
 //        dd($transaction);
         //$transaction = Transaction::where('id',$id)->first(); // -- Ram -- To show the bill amount in transaction table
         //print_r($transaction->id); exit();
         $payments = Payment::where('transaction_id',$id)->get();
-//        dd($payments);
+
+        //===== To Find the total paid Amount ***//
+        $paid = 0;
+        foreach($payments as $payment){
+            $paid += $payment->amount;
+            $stts_payment = $payment->status;
+        }
+        //print_r($paid); exit();
+
+        //===== Total Amount from Transaction ***//
+        $total_amount = $transaction->total_amount;
+        //print_r($total_amount); exit();
+
+        //===== Total Due ***//
+        $due = $total_amount - $paid;
+        //print_r($due); exit();
+
+        //===== Change Status of Payment table ***//
+        //print_r($stts); exit();
+        $status = [ 'status'=>'paid' ];
+
+        if($due=='0' && $stts_transaction !== 'paid')
+        {
+            /*DB::beginTransaction();
+            try{
+
+                Payment::where('transaction_id', $id)->update($status);
+                DB::commit();
+                Session::flash('message', 'No Due !');
+
+            }catch(\Exception $e){
+                DB::rollback();
+                //dd($e->getMessage());
+                Session::flash('danger', $e->getMessage());
+            }*/
+            DB::beginTransaction();
+            try{
+                //exit($id);
+                Transaction::where('id', $id)->update($status);
+                DB::commit();
+                Session::flash('message', 'No Due !');
+
+            }catch(\Exception $e){
+                DB::rollback();
+                //dd($e->getMessage());
+                Session::flash('danger', $e->getMessage());
+            }
+        }
+        //else{ exit('Pass');}
+
         return view("main::payment.payment_details",['pageTitle_bill_amount'=>$pageTitle_bill_amount,'pageTitle_paid_amount'=>$pageTitle_paid_amount, 'payment_details'=>$payments,'transaction'=>$transaction]);
 
     }

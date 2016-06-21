@@ -18,38 +18,6 @@
     </style>
 
 
-    {{--<div class="container-fluid">
-        <div class="no-border">
-            <table cellspacing="0" cellpadding="0" border="0" class="table size-13 invoice-list">
-                <thead class="head-top">
-                    <tr>
-                        <td colspan="3">
-                            <h1>
-                                <span class="glyphicon glyphicon-list">&nbsp;</span>Invoice List
-                            </h1>
-                        </td>
-                    </tr>
-                </thead>
-                <thead>
-                    <tr>
-                        <th>SL/No.</th>
-                        <th>Invoice Title</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for($i=0; $i<10; $i++)
-                    <tr>
-                        <td class="text-center">{{ $i+1 }}</td>
-                        <td style="font-weight:normal;">Website design and development Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</td>
-                        <td class="text-center"><a href="{{ route('invoice') }}" class="btn btn-primary btn-xs" data-content="View" data-placement="left"><span class="glyphicon glyphicon-eye-open"></span></a> </td>
-                    </tr>
-                    @endfor
-                </tbody>
-            </table>
-        </div>
-    </div>--}}
-
     <div class="container-fluid">
         <div class="no-border">
             <table cellspacing="0" cellpadding="0" border="0" class="table size-13 quote-list">
@@ -67,6 +35,7 @@
                     <th>Invoice No.{{--Transaction ID--}}</th>
                     <th>Bill Amount</th>
                     <th>Paid Amount</th>
+                    <th>Status</th>
                     <th>Date</th>
                     <th>Action</th>
                 </tr>
@@ -86,6 +55,28 @@
                                     @endforeach
                                 @endif
                                 {{ '$ '.number_format($amount,2) }}
+                            </td>
+                            <td>
+                                <?php
+                                if($transaction->total_amount == $amount && $amount > 0){
+                                    echo '<span class="glyphicon glyphicon-ok green"></span>&nbsp; <span class=""> Paid</span>';
+                                }
+                                $difference = $transaction->total_amount - $amount;
+                                if($difference < $transaction->total_amount && $difference > 0 )
+                                {
+                                    //echo '<span class="green">'.$transaction->total_amount.'Partially Paid-'.$amount.'-'.$difference.'</span>';
+                                    echo '<span class="glyphicon glyphicon-off orange"></span>&nbsp; <span class=""> Partially Paid</span>';
+                                }
+                                //echo $amount;
+                                if($amount <1 )
+                                {
+                                    echo '<span class="glyphicon glyphicon-remove darkred"></span>&nbsp; <span class=""> Not Paid</span>';
+                                }
+                                if($amount>$transaction->total_amount)
+                                {
+                                    echo '<span class="glyphicon glyphicon-flash darkpink"></span>&nbsp; <span class="">Over Paid</span>';
+                                }
+                                ?>
                             </td>
                             <td class="text-center">{{ date('d M Y',strtotime($transaction->created_at)) }}</td>
                             <td>
