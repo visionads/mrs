@@ -184,7 +184,7 @@
                         {!! Form::submit('Later', ['class' => 'btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement']) !!}&nbsp;--}}
 
                         <input type="submit" name="continue" value="Continue to Order" class="btn new_button" data-placement="top" data-content="click to confirm Agreement">&nbsp;
-                        <input type="submit" name="later" value="Later" class="btn new_button" data-placement="top" data-content="click to confirm Agreement">
+                        <input type="submit" name="later" value="Later" class="btn new_button" data-placement="top" data-content="click to confirm Later">
                         {{--<a href="#" class="btn new_button" data-dismiss="modal">Later</a>--}}
                     </div>
                 </div>
