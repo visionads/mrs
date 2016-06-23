@@ -154,7 +154,9 @@
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12 text-right">
-                    {!! Form::submit('Confirmed Quote', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;
+                    {{--{!! Form::submit('Confirmed Quote', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;--}}
+                    {!! Form::button('Confirm',['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','data-toggle'=>'modal','data-target'=>'#confirmModal']) !!}
+
                 </div>
                 {{--<div class="col-sm-12" id="submit_button">
                     <a href="{{ route('payment') }}" class="btn new_button" onclick="return confirm('Are You Sure ! ')"> Confirm </a>
@@ -162,8 +164,34 @@
             </div>
         </div>
     </div>
+
+        <!-- Modal -->
+        <div id="confirmModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content" style="text-align: center !important;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Confirmed Quote</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are You Sure ?</p>
+                    </div>
+                    <div class="modal-footer" style="text-align: center !important;">
+                        {{--<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>--}}
+                        {!! Form::submit('Continue to Order', ['class' => 'btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement']) !!}&nbsp;
+                        <a href="#" class="btn new_button" data-dismiss="modal">Later</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     {!! Form::close() !!}
     </div>
+
+
 
     @include('main::order._script')
 

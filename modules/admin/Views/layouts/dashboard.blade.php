@@ -72,9 +72,12 @@
                         <div class="form-group" id="new_quote">
                             <a href="{{route('quote-list')}}" class="quote">Retrieve Quote</a>
                         </div>
-                        {{--<div class="form-group" id="new_quote">
-                            <a href="{{ route('quote-list') }}" class="quote">Pay invoice</a>
-                        </div>--}}
+                        <div class="form-group" id="new_quote">
+                            <a href="#" class="quote">NEW ORDER</a>
+                        </div>
+                        <div class="form-group" id="new_quote">
+                            <a href="#" class="quote">Marketing Material ( Printing )</a>
+                        </div>
                         <div class="form-group" id="new_quote">
                             <a href="{{ route('invoice-list') }}" class="quote">Pay invoice</a>
                         </div>

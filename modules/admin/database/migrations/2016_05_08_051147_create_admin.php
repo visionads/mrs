@@ -334,6 +334,8 @@ class CreateAdmin extends Migration
 
             $table->unsignedInteger('business_id')->nullable();
 
+            $table->enum('status', ['open', 'quote_confirmed', 'placed_order', 'invoiced'])->nullable();
+
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
