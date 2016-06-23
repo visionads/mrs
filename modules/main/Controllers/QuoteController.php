@@ -105,7 +105,7 @@ class QuoteController extends Controller
         }
         else
         {
-            $data = Quote::with('relBusiness','relUser')->where('status','quote_confirmed')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
+            $data = Quote::with('relBusiness','relUser')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
         }
 
 //        dd($data);
