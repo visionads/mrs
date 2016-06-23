@@ -381,6 +381,7 @@ class CreateAdmin extends Migration
         Schema::create('payment', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('transaction_id');
+            $table->string('money_receipt_no', 16)->unique();
             $table->string('payment_trans',20)->nullable();
             $table->string('type',40)->nullable();
             $table->float('amount')->nullable();

@@ -18,6 +18,7 @@ class Payment extends Model
 
     protected $fillable = [
         'transaction_id',
+        'money_receipt_no',
         'payment_trans',
         'type',
         'amount',

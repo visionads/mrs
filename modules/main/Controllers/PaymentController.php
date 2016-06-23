@@ -10,6 +10,7 @@ namespace Modules\Main\Controllers;
 
 use App\Transaction;
 use App\User;
+use App\GenerateNumber;
 use App\UserImage;
 use Illuminate\Http\Request;
 use Auth;
@@ -56,7 +57,16 @@ class PaymentController extends Controller
         $data['type']='eway';
         $data['amount']=$total_amount;
         $data['status']='success';
+
+        $mr_number=GenerateNumber::generate_number('money-receipt-number');
+        $data['money_receipt_no']=$mr_number['generated_number'];
+
+        //print_r($data['money_receipt_no']); exit();
+
         $payment['payment']=Payment::create($data);
+
+        GenerateNumber::update_row($mr_number['setting_id'],$mr_number['number']);
+
         $payment['transaction']=Transaction::findOrFail($id);
         $user['admin'] = \DB::table('user')->where('username', '=', 'super-admin')->first();
         $user['agent'] = User::findOrFail(\Auth::id());

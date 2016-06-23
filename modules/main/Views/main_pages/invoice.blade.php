@@ -41,7 +41,8 @@
                                 {{--{{ Auth::user()->username }}--}}
                                 Prepared By : <br><br>
                                 <strong class="black">{{ $vendor_name }}</strong><br>
-                                <strong class="lightblack">{{ $vendor_address }}</strong>
+                                {{--<strong class="lightblack">{{ $vendor_address }}</strong>--}}
+                                <strong class="lightblack">Contact # {{ $vendor_phone }}</strong>
                             </address>
                             <address>
                                 Prepared For : <br><br>
@@ -65,7 +66,7 @@
                             </div>--}} <!-- / .invoice-recipient -->
                             <div class="size-15 col-sm-4" style=" border: 1px solid #fff;">
                                 <table class="invoice-tbl-box">
-                                    <tr><td><small>MR No.</small> </td><td>:</td><td>MR-00001</td></tr>
+                                    <tr><td><small>MR No.</small> </td><td>:</td><td>{{ (isset($payment))?$payment->money_receipt_no:'' }}</td></tr>
                                     <tr><td><small>Invoice No.</small> </td><td>:</td><td>{{ (isset($transaction))?$transaction->invoice_no:'' }}</td></tr>
                                 </table>
                             </div>
