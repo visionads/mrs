@@ -495,6 +495,9 @@ class OrderController extends Controller
                 //dd($model_print_material_distribution);
                 $model_quote = Quote::findOrFail($quote_id);
                 $model_quote->print_material_distribution_id = $pmdid;
+                $model_quote->status = 'invoiced';
+
+                //Quote::where('id',$quote_id)->update($quote_status);
 
                 //exit('dfj');
                 if($model_quote->save()){
