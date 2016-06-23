@@ -73,7 +73,7 @@
                             <a href="{{route('quote-list')}}" class="quote">Retrieve Quote</a>
                         </div>
                         <div class="form-group" id="new_quote">
-                            <a href="#" class="quote">NEW ORDER</a>
+                            <a href="{{route('new-order')}}" class="quote">NEW ORDER</a>
                         </div>
                         <div class="form-group" id="new_quote">
                             <a href="#" class="quote">Marketing Material ( Printing )</a>

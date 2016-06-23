@@ -35,7 +35,8 @@ class Quote extends Model
         'local_media_id',
         'local_media_option_id',
         'local_media_note',
-        'business_id'
+        'business_id',
+        'status'
     ];
 
     public function relSolutionType(){

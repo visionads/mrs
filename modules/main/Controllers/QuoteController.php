@@ -98,6 +98,7 @@ class QuoteController extends Controller
         $pageTitle = 'MRS - Retrieve Quote';
 //        $data = DB::table('quote')->orderBy('id','DESC')->paginate(30);
         $role_name = User::getRole(Auth::user()->id) ;
+        //print_r(Auth::user()->business_id); exit();
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
             //$data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(30);
@@ -105,7 +106,10 @@ class QuoteController extends Controller
         }
         else
         {
-            $data = Quote::with('relBusiness','relUser')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
+            //exit('agent');
+            //$data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'quote_confirmed'])->orderBy('id','DESC')->paginate(10);
+            $data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'open'])->orderBy('id','DESC')->paginate(10);
+            //print_r($data); exit();
         }
 
 //        dd($data);
@@ -113,6 +117,7 @@ class QuoteController extends Controller
     }
     public function retrieve_details_demo($quote_id, $quote_number)
     {
+        //exit('retrieve');
         $pageTitle = 'MRS - Quote Details';
 
         $data['solution_types']= SolutionType::get();

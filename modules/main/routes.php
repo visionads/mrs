@@ -33,12 +33,12 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
 
     /*------------New Order---------------*/
 
-    Route::get('new-order', [
+    /*Route::get('new-order', [
         //'middleware' => 'acl_access:role',
         'middleware' => 'acl_access:main/new-order',
         'as' => 'new-order',
         'uses' => 'NewOrderController@index'
-    ]);
+    ]);*/
 
     Route::get('store-property-detail', [
         //'middleware' => 'acl_access:role',
@@ -121,18 +121,23 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
         'as'    => 'quote-confirm',
         'uses'  => 'OrderController@quote_confirm'
     ]);
+    Route::any('new-order', [
+        'middleware' => 'acl_access:main/new-order',
+        'as'    => 'new-order',
+        'uses'  => 'OrderController@new_order'
+    ]);
 
     //page for place order
-    Route::any('page-place-order/{quote_id}/{quote_no}/{total}/{gst}/{total_with_gst}',[
-        'middleware' => 'acl_access:main/page-place-order',
-        'as'    =>  'page-place-order',
-        'uses'  =>  'OrderController@page_place_order'
-    ]);
-    /*Route::any('page-place-order/{quote_id}/{quote_no}',[
+    /*Route::any('page-place-order/{quote_id}/{quote_no}/{total}/{gst}/{total_with_gst}',[
         'middleware' => 'acl_access:main/page-place-order',
         'as'    =>  'page-place-order',
         'uses'  =>  'OrderController@page_place_order'
     ]);*/
+    Route::any('page-place-order/{quote_id}/{quote_no}',[
+        'middleware' => 'acl_access:main/page-place-order',
+        'as'    =>  'page-place-order',
+        'uses'  =>  'OrderController@page_place_order'
+    ]);
 
     Route::any('property-details/{quote_id}/{quote_no}',[
         'middleware' => 'acl_access:main/property-details',

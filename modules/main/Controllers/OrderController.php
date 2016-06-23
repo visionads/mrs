@@ -13,6 +13,12 @@ use App\PrintMaterialDistribution;
 use App\Quote;
 use App\Transaction;
 use App\User;
+use App\SolutionType;
+use App\PhotographyPackage;
+use App\SignboardPackage;
+use App\PrintMaterial;
+use App\LocalMedia;
+use App\DigitalMedia;
 use Auth;
 use DB;
 use PhpParser\Node\Stmt\Property;
@@ -44,6 +50,31 @@ class OrderController extends Controller
     }
 
 
+    public function new_order()
+    {
+
+        //exit('new_order');
+        $pageTitle = 'MRS - New Order List';
+//        $data = DB::table('quote')->orderBy('id','DESC')->paginate(30);
+        $role_name = User::getRole(Auth::user()->id) ;
+        //print_r(Auth::user()->business_id); exit();
+        if($role_name == 'admin' || $role_name == 'super-admin')
+        {
+            //$data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(30);
+            $data = Quote::with('relBusiness','relUser')->orderBy('id','DESC')->paginate(10);
+        }
+        else
+        {
+            //exit('agent');
+            $data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'placed_order'])->orderBy('id','DESC')->paginate(10);
+            //print_r($data); exit();
+        }
+
+//        dd($data);
+        return view('main::order.new_order',['pageTitle'=>$pageTitle, 'data'=>$data]);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -52,14 +83,25 @@ class OrderController extends Controller
      */
     public function place_order(Request $request)
     {
+        //exit('000000');
         $input = $request->all();
+
+        if(isset($input['continue'])){
+            $route = $input['continue'];
+            $quote_status = ['status'=>'quote_confirmed'];
+        }
+        if(isset($input['later'])){
+            $route = $input['later'];
+            $quote_status = ['status'=>'placed_order'];
+        }
+
+        //exit($route);
+
         $quote_id = $input['quote_id'];
         $quote_no = $input['quote_no'];
         $total = $input['total'];
         $gst = $input['gst'];
         $total_with_gst = $input['total_with_gst'];
-
-
 
         $vendor_signature = Input::file('vendor_signature');
         $agent_signature = Input::file('agent_signature');
@@ -147,6 +189,9 @@ class OrderController extends Controller
             $model_property_details = PropertyDetail::findOrFail($property_detail_id);
             $model_property_details->update($input_confirm);
 
+            Quote::where('id',$quote_id)->update($quote_status);
+            //$quote_data->update($quote_status);
+
             DB::commit();
             Session::flash('message', 'Successfully you confirmed your Quote! and Your Quote Number is : '.$quote_no);
         }catch(\Exception $e){
@@ -154,21 +199,28 @@ class OrderController extends Controller
             Session::flash('danger', $e->getMessage());
         }
 
-
-        return redirect()->route('page-place-order', [
-            'quote_id'=>$quote_id,
-            'quote_no'=>$quote_no,
-            'total' => $total,
-            'gst' => $gst,
-            'total_with_gst' => $total_with_gst
-        ]);
+        if($route == 'Continue to Order') {
+            //exit('From Continue');
+            return redirect()->route('page-place-order', [
+                'quote_id' => $quote_id,
+                'quote_no' => $quote_no,
+                'total' => $total,
+                'gst' => $gst,
+                'total_with_gst' => $total_with_gst
+            ]);
+        }
+        if($route == 'Later'){
+            //exit('From Later');
+            return redirect('main/new-order');
+        }
 
     }
 
 
 
-    public function page_place_order($quote_id, $quote_no,$total,$gst,$total_with_gst)
+    public function page_place_order($quote_id, $quote_no)
     {
+        //exit('0000000');
         $pageTitle = 'Place Order';
         //,$total,$gst,$total_with_gst
 
@@ -177,7 +229,154 @@ class OrderController extends Controller
         $property_detail_id = $quote_data->property_detail_id;
         $print_material_id = $quote_data->print_material_distribution_id;
 
-        $quote = Quote::with('relPropertyDetail', 'relPrintMaterialDistribution')->where('id', $quote_id)->first();
+
+        $data['solution_types']= SolutionType::get();
+        $photography_packages_qr= PhotographyPackage::with('relPhotographyPackage')->get();
+        $signboard_packages_qr= SignboardPackage::with('relSignboardPackage')->get();
+        $print_materials_qr= PrintMaterial::with('relPrintMaterial')->get();
+        $local_medias_qr= LocalMedia::with('relLocalMedia')->get();
+        $data['digital_medias']= DigitalMedia::get();
+
+
+        $quote = Quote::with(
+            'relPropertyDetail',
+            'relPrintMaterialDistribution',
+            'relQuoteLocalMedia',
+            'relQuotePhotography',
+            'relQuoteSignboard',
+            'relQuotePrintMaterial'
+            )->where('id', $quote_id)->first();
+
+
+        /**
+         * --------------Starts
+         */
+
+        // ---------- For photography Package===============================
+        $photography_package_str = '';
+        $photography_price = 0;
+        if(isset($quote->photography_package_id) && $quote->photography_package_id==1){
+            foreach($photography_packages_qr as $photography_package){
+                if(isset($quote->relQuotePhotography)){
+                    foreach($quote->relQuotePhotography as $ppi){
+                        if($ppi->photography_package_id==$photography_package->id){
+                            $photography_package_str .= $photography_package->title.',';
+                            $photography_price+=$photography_package->price;
+                        }
+                    }
+                }
+            }
+        }
+        //print_r($photography_price); exit();
+
+        // ---------------- For Signboard Package==========================
+        $signboard_package_str = '';
+        $signboard_price = 0;
+        if(isset($quote->signboard_package_id) && $quote->signboard_package_id==1){
+            foreach($signboard_packages_qr as $signboard_package){
+                if(isset($quote->relQuoteSignboard)){
+                    foreach($quote->relQuoteSignboard as $ppi){
+                        if($ppi->signboard_package_id==$signboard_package->id){
+                            $signboard_package_str .=$signboard_package->title.',';
+                            foreach($signboard_package->relSignboardPackage as $relSignboardPackage){
+                                if(isset($quote->relQuoteSignboard)){
+                                    foreach($quote->relQuoteSignboard as $ppi){
+                                        if($ppi->signboard_size_id==$relSignboardPackage->id){
+                                            $signboard_price+=$relSignboardPackage->price;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //print_r($signboard_price); exit();
+
+        // ----------------- For Print Material====================================
+        $print_material_str = '';
+        $print_material_price = 0;
+        if(isset($quote->print_material_id) && $quote->print_material_id==1){
+            foreach($print_materials_qr as $print_material){
+                if(isset($quote->relQuotePrintMaterial)){
+                    foreach($quote->relQuotePrintMaterial as $ppi){
+                        if($ppi->print_material_id==$print_material->id){
+                            $print_material_str .= $print_material->title.',';
+                            if(isset($quote->relQuotePrintMaterial)) {
+                                foreach ($quote->relQuotePrintMaterial as $ppi) {
+                                    if ($ppi->print_material_id == $print_material->id && $ppi->is_distributed == 1) {
+                                    }
+                                }
+                            }
+                            foreach($print_material->relPrintMaterial as $relPrintMaterial){
+                                if(isset($quote->relQuotePrintMaterial)){
+                                    foreach($quote->relQuotePrintMaterial as $ppi){
+                                        if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id){
+
+                                            $print_material_price+=$relPrintMaterial->price;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //print_r($print_material_price); exit();
+
+        //--------------- For Local Media===========================
+        $local_media_str = '';
+        $local_media_price= 0;
+        if(isset($quote->digital_media_id) && $quote->digital_media_id==1){
+            foreach($local_medias_qr as $local_media){
+                if(isset($quote->relQuoteLocalMedia)){
+                    foreach($quote->relQuoteLocalMedia as $ppi){
+                        if($ppi->local_media_id==$local_media->id){
+                            $local_media_str .= $local_media->title.',';
+                        }
+                    }
+                }
+                foreach($local_media->relLocalMedia as $relLocalMedia){
+                    if(isset($quote->relQuoteLocalMedia)){
+                        foreach($quote->relQuoteLocalMedia as $ppi){
+                            if($ppi->local_media_id==$local_media->id && $ppi->local_media_option_id==$relLocalMedia->id){
+                                $local_media_price+=$relLocalMedia->price;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //print_r($local_media_price); exit();
+
+        // To get the selling_price from property_details table
+        $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
+        $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
+        $vendor_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_signature_path: null;
+        $agent_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->agent_signature_path: null;
+        $agent_signature_date = $quote->relPropertyDetail ? $quote->relPropertyDetail->signature_date: null;
+
+        // For Local Media Price ------------------------------------------
+        /*$local_media_price = 0;
+        foreach($quote->relQuoteLocalMedia as $local_media_p)
+        {
+            $local_media_price += $local_media_p->price;
+        }*/
+
+        // For Total Selling Price --------------------------------------
+        $total = $local_media_price + $photography_price + $signboard_price + $print_material_price;
+
+        // For Goods Service Tax ----------------------------------------
+        $gst = $total * 0.1;
+        $total_with_gst = $total + $gst;
+
+        //exit($selling_price.'/'.$gst.'/'.$total_with_gst);
+
+        /**
+         * ---------Ends
+         */
 
         $main_selling_line = $quote->relPropertyDetail ? $quote->relPropertyDetail->main_selling_line: null;
         $property_description = $quote->relPropertyDetail ? $quote->relPropertyDetail->property_description: null;
