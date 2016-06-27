@@ -139,6 +139,17 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
         'uses'  =>  'OrderController@page_place_order'
     ]);
 
+
+    Route::any('page-place-order-edit/{quote_id}/{quote_no}',[
+        #'middleware' => 'acl_access:main/page-place-order-edit',
+        'as'    =>  'page-place-order-edit',
+        'uses'  =>  'OrderController@page_place_order_edit'
+    ]);
+
+
+
+
+
     Route::any('property-details/{quote_id}/{quote_no}',[
         'middleware' => 'acl_access:main/property-details',
         'as'    =>  'property-details',
@@ -159,6 +170,14 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
         'as'    =>  'place-order-store',
         'uses'  =>  'OrderController@store'
     ]);
+
+    Route::any('place-order-update/{id}',[
+        #'middleware' => 'acl_access:main/place-order-update',
+        'as'    =>  'place-order-update',
+        'uses'  =>  'OrderController@update'
+    ]);
+
+
 
 
     /*-----------Payment Router--------------*/

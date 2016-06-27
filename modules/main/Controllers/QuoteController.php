@@ -489,6 +489,8 @@ class QuoteController extends Controller
 //        dd($data['quote']);
         return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
+
+
     /**
      * Update the specified resource in storage.
      *

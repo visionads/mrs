@@ -233,7 +233,7 @@ class InvoiceController extends Controller
 ////        dd($data);
 //        return view("main::main_pages.invoice",$data);
     }
-    public function invoice_list()
+    /*public function invoice_list()
     {
         $pageTitle = 'Pay Invoice List';
         $role_name = User::getRole(Auth::user()->id) ;
@@ -249,7 +249,27 @@ class InvoiceController extends Controller
             $data=Transaction::with('relPayment')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
         }
         return view("main::main_pages.invoice_list",['pageTitle'=>$pageTitle, 'transactions'=>$data]);
-    } // -- Ram
+    }*/ // -- Ram
+
+    public function invoice_list()
+    {
+        $pageTitle = 'Pay Invoice List';
+        $role_name = User::getRole(Auth::user()->id) ;
+        if($role_name == 'admin' || $role_name == 'super-admin')
+        {
+            //$data = Transaction::getAllTransactionWithPayment();
+            $data = Quote::with('relBusiness','relUser')->orderBy('id','DESC')->paginate(10);
+            //print_r($data); exit();
+        }
+        else
+        {
+            //$data = Transaction::getAllTransactionWithPaymentForAgent();
+            $data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'placed_order'])->orderBy('id','DESC')->paginate(10);
+        }
+        return view("main::main_pages.new_invoice_list",['pageTitle'=>$pageTitle, 'data'=>$data]);
+    } // -- Shajjad
+
+
 
 
 
