@@ -293,11 +293,17 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
+        #print_r("123");exit;
         \DB::beginTransaction();
         $received=$request->except('_token');
 //        dd($received);
         try {
-            $data['solution_type_id'] = $received['solution_type_id'];
+            if(isset($received['solution_type_id'])){
+                $data['solution_type_id'] = $received['solution_type_id'];
+            }else{
+                $data['solution_type_id'] = '';
+            }
+
             /*
              * store property details
              * */
@@ -313,6 +319,9 @@ class QuoteController extends Controller
              * */
             $quote_number=GenerateNumber::generate_number('quote-number');
             $data['quote_number']=$quote_number['generated_number'];
+
+            #print_r($data);exit;
+
 //            dd($data);
             $quote=Quote::create($data);
             GenerateNumber::update_row($quote_number['setting_id'],$quote_number['number']);
@@ -430,6 +439,7 @@ class QuoteController extends Controller
                 $data['local_media_id'] = 1;
                 $data['local_media_note'] = $received['local_media_note'];
             }
+            #print_r($data);exit;
 //            dd($received);
             $quote->update($data);
             \DB::commit();
