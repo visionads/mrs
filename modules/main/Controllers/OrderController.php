@@ -67,7 +67,7 @@ class OrderController extends Controller
         {
             //exit('agent');
             #$data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'placed_order'])->orderBy('id','DESC')->paginate(10);
-            $data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'quote_confirmed'])->orderBy('id','DESC')->paginate(10);
+            $data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'quote-confirmed'])->orderBy('id','DESC')->paginate(10);
             //print_r($data); exit();
         }
 
@@ -89,11 +89,11 @@ class OrderController extends Controller
 
         if(isset($input['continue'])){
             $route = $input['continue'];
-            $quote_status = ['status'=>'quote_confirmed'];
+            $quote_status = ['status'=>'quote-confirmed'];
         }
         if(isset($input['later'])){
             $route = $input['later'];
-            $quote_status = ['status'=>'quote_confirmed'];
+            $quote_status = ['status'=>'quote-confirmed'];
         }
         /*if(isset($input['later'])){
             $route = $input['later'];
@@ -707,7 +707,7 @@ class OrderController extends Controller
                 $model_quote = Quote::findOrFail($quote_id);
                 $model_quote->print_material_distribution_id = $pmdid;
                 #$model_quote->status = 'invoiced';
-                $model_quote->status = 'placed_order';
+                $model_quote->status = 'placed-order';
 
                 //Quote::where('id',$quote_id)->update($quote_status);
 
@@ -840,7 +840,7 @@ class OrderController extends Controller
                 $model_quote = Quote::findOrFail($quote_id);
                 $model_quote->print_material_distribution_id = $pmdid;
                 #$model_quote->status = 'invoiced';
-                $model_quote->status = 'placed_order';
+                $model_quote->status = 'placed-order';
 
                 //Quote::where('id',$quote_id)->update($quote_status);
 
