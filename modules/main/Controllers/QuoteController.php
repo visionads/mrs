@@ -298,11 +298,13 @@ class QuoteController extends Controller
         $received=$request->except('_token');
 //        dd($received);
         try {
-            if(isset($received['solution_type_id'])){
-                $data['solution_type_id'] = $received['solution_type_id'];
-            }else{
-                $data['solution_type_id'] = '';
-            }
+
+                if(isset($received['solution_type_id'])){
+                    $data['solution_type_id'] = $received['solution_type_id'];
+                }else{
+                    Session::flash('message','Add Solutions Type from Settings menu');
+                    return Redirect::back();
+                }
 
             /*
              * store property details
