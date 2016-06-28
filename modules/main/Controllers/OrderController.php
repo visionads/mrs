@@ -3,6 +3,8 @@
 namespace Modules\Main\Controllers;
 
 use App\GenerateNumber;
+use App\QuotePropertyAccess;
+use App\QuotePropertyImage;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -27,6 +29,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\Helpers\ImageResize;
 use Illuminate\Support\Facades\Validator;
+
+
 
 class OrderController extends Controller
 {
@@ -424,7 +428,9 @@ class OrderController extends Controller
             'print_metal_dist_note'=>$print_metal_dist_note,
             'total' => $total,
             'gst' => $gst,
-            'total_with_gst' => $total_with_gst
+            'total_with_gst' => $total_with_gst,
+            'print_material_distribution_id' => $quote->print_material_distribution_id
+
         ]);
     }
 
@@ -457,6 +463,17 @@ class OrderController extends Controller
             'relQuoteSignboard',
             'relQuotePrintMaterial'
         )->where('id', $quote_id)->first();
+
+
+        $quote_property_access = QuotePropertyAccess::with(
+            'relQuote'
+        )->where('quote_id', $quote_id)->first();
+
+        $quote_property_image = QuotePropertyImage::where('quote_property_access_id', $quote_property_access['id'])->get();
+
+
+
+        #print_r($quote_property_image['image_path']);exit;
 
 
         /**
@@ -630,7 +647,8 @@ class OrderController extends Controller
             'print_metal_dist_note'=>$print_metal_dist_note,
             'total' => $total,
             'gst' => $gst,
-            'total_with_gst' => $total_with_gst
+            'total_with_gst' => $total_with_gst,
+            'print_material_distribution_id' => $quote->print_material_distribution_id
         ]);
     }
 
@@ -647,7 +665,42 @@ class OrderController extends Controller
         $gst = $input['gst'];
         $total_with_gst = $input['total_with_gst'];
 
-        //print_r($total);exit();
+
+        $image=Input::file('image');
+
+        if(count($image)>0) {
+            $file_type_required = 'png,jpeg,jpg';
+            $destinationPath = 'uploads/property_access/';
+
+            $uploadfolder = 'uploads/';
+
+            if ( !file_exists($uploadfolder) ) {
+                $oldmask = umask(0);  // helpful when used in linux server
+                mkdir ($uploadfolder, 0777);
+            }
+
+            if ( !file_exists($destinationPath) ) {
+                $oldmask = umask(0);  // helpful when used in linux server
+                mkdir ($destinationPath, 0777);
+            }
+
+            $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
+
+            #print_r($file_name);exit();
+
+            if($file_name != '') {
+                $input['image_path'] = $file_name[0];
+                #$input['image_thumb'] = $file_name[1];
+            }
+            else{
+                Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
+                return redirect()->back();
+            }
+        }
+
+
+
+        #print_r($input_property_access);exit();
 
         // Input data for "property_detail" table
         $input_property_details = [
@@ -747,6 +800,37 @@ class OrderController extends Controller
                     }
                 }
             }
+
+            //quote_property_access
+
+            $input_property_access =[
+                'quote_id'=>$quote_id,
+                'prefered_date'=>$input['prefered_date'],
+                'property_access_options'=>$input['property_access_options'],
+                'contact_name'=>$input['contact_name'],
+                'contact_number'=>$input['contact_number'],
+                'contact_alternate_number'=>$input['contact_alternate_number'],
+                'contact_email'=>$input['contact_email'],
+                'property_note'=>$input['property_note']
+            ];
+
+
+            if(isset($input['image_path'])){
+
+                $vh = QuotePropertyAccess::create($input_property_access);
+
+                $input_property_image = [
+                    'quote_property_access_id' => $vh['id'],
+                    'image_path'=>$input['image_path'],
+
+                ];
+                // insert data into quote property image table
+                QuotePropertyImage::create($input_property_image);
+
+            }
+
+
+
             // commit the changes
             DB::commit();
             Session::flash('message', 'Successfully added!');
@@ -952,4 +1036,7 @@ class OrderController extends Controller
             }
         }
     }
+
+
+
 }

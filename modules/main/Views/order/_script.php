@@ -36,6 +36,22 @@
            $(".agreement").fadeIn();
         });
 
+
+        $("#property_access_open").click(function(){
+            $(".step-four").fadeIn();
+            $(".step-two").fadeOut();
+            //$(".step-one").fadeIn();
+            $(".step-no-submit").fadeIn();
+        });
+
+        $("#property_access_close").click(function(){
+            $(".step-four").fadeOut();
+            $(".step-two").fadeOut();
+            $(".step-one").fadeIn();
+            //$("#next_step").fadeOut();
+            $(".step-no-submit").fadeIn();
+        });
+
     });
 
     // tooltip for buttons

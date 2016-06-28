@@ -409,6 +409,52 @@ class CreateAdmin extends Migration
 
 
 
+        //quote_property_access
+
+        Schema::create('quote_property_access', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('quote_id')->nullable();
+            $table->dateTime('prefered_date')->nullable();
+            $table->enum('property_access_options', ['tennant', 'vendor', 'agent', 'other'])->nullable();
+            $table->string('contact_name', 256)->nullable();
+            $table->string('contact_number', 128)->nullable();
+            $table->string('contact_alternate_number', 128)->nullable();
+            $table->string('contact_email', 128)->nullable();
+            $table->text('property_note')->nullable();
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+        Schema::table('quote_property_access', function($table) {
+            if(Schema::hasTable('quote'))
+            {
+                $table->foreign('quote_id')->references('id')->on('quote');
+            }
+        });
+
+
+        //quote_property_image
+
+        Schema::create('quote_property_image', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('quote_property_access_id')->nullable();
+            $table->string('image_path', 256)->nullable();
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+        Schema::table('quote_property_image', function($table) {
+            /*if 'print_material' table  exists */
+            if(Schema::hasTable('quote_property_access'))
+            {
+                $table->foreign('quote_property_access_id')->references('id')->on('quote_property_access');
+            }
+        });
+
+
+
     }
 
     /**
@@ -434,5 +480,8 @@ class CreateAdmin extends Migration
 
         Schema::drop('transaction');
         Schema::drop('payment');
+
+        Schema::drop('quote_property_access');
+        Schema::drop('quote_property_image');
     }
 }
