@@ -215,7 +215,7 @@
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('note', 'Note :', ['class' => 'control-label']) !!}
-                    {!! Form::textarea('note', isset($print_metal_dist_note)?$print_metal_dist_note:null,['size' => '6x10','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                    {!! Form::textarea('note', isset($print_metal_dist_note)?$print_metal_dist_note:null,['size' => '6x2','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
                 </div>
             </div>
         </div>
@@ -331,7 +331,7 @@
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('property_note', 'Note :', ['class' => 'control-label']) !!}
-                    {!! Form::textarea('property_note', isset($quote_property_access['property_note'])?$quote_property_access['property_note']:null,['size' => '6x10','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                    {!! Form::textarea('property_note', isset($quote_property_access['property_note'])?$quote_property_access['property_note']:null,['size' => '6x2','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
                 </div>
             </div>
         </div>
