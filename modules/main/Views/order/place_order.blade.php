@@ -260,17 +260,16 @@
                                 </a>
                             @else--}}
                                 <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                            {{--{!! Form::file('images[]', array('multiple'=>true)) !!}--}}
                             {{--@endif--}}
                         </div>
                         <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                         <div class="image-center">
-                            <input type="file" name="image" id="image" class="default" />
+                            <input type="file" name="image[]" id="image" class="default" multiple />
                         </div>
                     </div>
-                    <span class="label label-danger">NOTE!</span>
-                                             <span style="color: white">
-                                             System will allow these types of image(png,jpeg,jpg Format)
-                                             </span>
+                    <span class="label label-danger"><font size="1">NOTE!</font></span>
+                     <span style="color: white"><font size="1">System will allow these types of image(png,jpeg,jpg Format)</font></span>
                 </div>
             </div>
 

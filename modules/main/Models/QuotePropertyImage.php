@@ -17,11 +17,11 @@ class QuotePropertyImage extends Model
     protected $table='quote_property_image';
 
     protected $fillable=[
-        'quote_property_access_id',
-        'image_path',
+        'quote_id',
+        'image',
     ];
     public function relPropertyAccess(){
-        return $this->belongsTo('App\QuotePropertyAccess','quote_property_access_id','id');
+        return $this->belongsTo('App\QuotePropertyAccess','quote_id','id');
     }
 
 

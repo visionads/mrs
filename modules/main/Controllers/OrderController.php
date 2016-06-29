@@ -471,7 +471,7 @@ class OrderController extends Controller
 
 
 
-        $quote_property_image = QuotePropertyImage::where('quote_property_access_id', $quote_property_access['id'])->get();
+        $quote_property_image = QuotePropertyImage::where('quote_id', $quote_id)->get();
 
 
         if(isset($quote_property_access)){
@@ -480,15 +480,15 @@ class OrderController extends Controller
             $quote_property_access = '';
         }
 
-        $count = count($quote_property_image);
+        #$count = count($quote_property_image);
 
 
-        if($count == 0){
+        /*if($count == 0){
             $quote_property_image_path = '';
         }else{
             $quote_property_image_path = $quote_property_image[0]['image_path'];
-        }
-        #print_r($quote_property_image_path);exit;
+        }*/
+        #print_r($quote_property_access);exit;
 
 
 
@@ -669,8 +669,8 @@ class OrderController extends Controller
             'gst' => $gst,
             'total_with_gst' => $total_with_gst,
             'print_material_distribution_id' => $quote->print_material_distribution_id,
-            'quote_property_access' => $quote_property_access,
-            'quote_property_image' => $quote_property_image_path
+            'quote_property_access' => $quote_property_access
+
         ]);
     }
 
@@ -688,9 +688,11 @@ class OrderController extends Controller
         $total_with_gst = $input['total_with_gst'];
 
 
-        $image=Input::file('image');
+        $images=Input::file('image');
 
-        if(count($image)>0) {
+        #print_r($image);exit;
+
+        if(count($images)>0) {
             $file_type_required = 'png,jpeg,jpg';
             $destinationPath = 'uploads/property_access/';
 
@@ -706,23 +708,27 @@ class OrderController extends Controller
                 mkdir ($destinationPath, 0777);
             }
 
-            $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
+            foreach($images as $image){
 
-            #print_r($file_name);exit();
+                $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
 
-            if($file_name != '') {
-                $input['image_path'] = $file_name[0];
-                #$input['image_thumb'] = $file_name[1];
-            }
-            else{
-                Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
-                return redirect()->back();
+                #print_r($file_name);exit();
+
+                if($file_name != '') {
+                    $input['image_path'][] = $file_name[0];
+                    #$input['image_thumb'] = $file_name[1];
+                }
+                else{
+                    Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
+                    return redirect()->back();
+                }
+
             }
         }
 
 
 
-        #print_r($input_property_access);exit();
+        #print_r($input['image_path']);exit();
 
         // Input data for "property_detail" table
         $input_property_details = [
@@ -838,19 +844,19 @@ class OrderController extends Controller
 
             $vh = QuotePropertyAccess::create($input_property_access);
 
-
             if(isset($input['image_path'])){
+                foreach($input['image_path'] as $ims){
+                    $input_property_image[] = [
+                        'quote_id' => $quote_id,
+                        'image'=>$ims,
 
-                $input_property_image = [
-                    'quote_property_access_id' => $vh['id'],
-                    'image_path'=>$input['image_path'],
+                    ];
+                }
+                foreach($input_property_image as $input_property){
 
-                ];
-                // insert data into quote property image table
-                QuotePropertyImage::create($input_property_image);
-
+                    QuotePropertyImage::create($input_property);
+                }
             }
-
 
 
             // commit the changes
@@ -886,11 +892,11 @@ class OrderController extends Controller
         $gst = $input['gst'];
         $total_with_gst = $input['total_with_gst'];
 
-        $image=Input::file('image');
+        $images=Input::file('image');
 
-        #print_r($image);exit;
+        #print_r($images[0]);exit;
 
-        if(count($image)>0) {
+        if($images[0]!='') {
             $file_type_required = 'png,jpeg,jpg';
             $destinationPath = 'uploads/property_access/';
 
@@ -906,17 +912,23 @@ class OrderController extends Controller
                 mkdir ($destinationPath, 0777);
             }
 
-            $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
-
-            #print_r($file_name);exit();
-
-            if($file_name != '') {
-                $input['image_path'] = $file_name[0];
-                #$input['image_thumb'] = $file_name[1];
+            $model = QuotePropertyImage::where('quote_id',$quote_id)->get();
+            foreach($model as $model2){
+                unlink(public_path()."/".$model2->image);
             }
-            else{
-                Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
-                return redirect()->back();
+
+            foreach($images as $image){
+                $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
+                #print_r($file_name);exit();
+                if($file_name != '') {
+                    $input['image_path'][] = $file_name[0];
+                    #$input['image_thumb'] = $file_name[1];
+                }
+                else{
+                    Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
+                    return redirect()->back();
+                }
+
             }
         }
 
@@ -1040,30 +1052,29 @@ class OrderController extends Controller
 
             $access_id = QuotePropertyAccess::where('quote_id',$quote_id )->first();
 
-            #print_r($access_id_exists->id);exit;
+            #print_r($access_id->id);exit;
 
             $vh_model = QuotePropertyAccess::findOrNew($access_id->id);
             $vh_model->update($input_property_access);
 
-            $access_image_id = QuotePropertyImage::where('quote_property_access_id',$access_id->id )->get();
+            #$access_image_id = QuotePropertyImage::where('quote_property_access_id',$access_id->id )->get();
 
 
 
             if(isset($input['image_path'])){
-                $input_property_image = [
-                    'quote_property_access_id' => $access_id->id,
-                    'image_path'=>$input['image_path'],
-
-                ];
-
-                #print_r($input_property_image);exit;
-                // insert data into quote property image table
-
-                $vh_model2 = QuotePropertyImage::findOrNew($access_image_id[0]['id']);
-                $vh_model2->update($input_property_image);
-
-
+                foreach($input['image_path'] as $ims){
+                    $input_property_image[] = [
+                        'quote_id' => $quote_id,
+                        'image'=>$ims,
+                    ];
+                }
+                foreach($input_property_image as $input_property){
+                    #print_r($input_property);exit;
+                    $vh_model2 = QuotePropertyImage::where('quote_id',$quote_id);
+                    $vh_model2->update($input_property);
+                }
             }
+
             // commit the changes
             DB::commit();
             Session::flash('message', 'Successfully Updated!');

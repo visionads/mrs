@@ -438,8 +438,8 @@ class CreateAdmin extends Migration
 
         Schema::create('quote_property_image', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('quote_property_access_id')->nullable();
-            $table->string('image_path', 256)->nullable();
+            $table->unsignedInteger('quote_id')->nullable();
+            $table->string('image', 256)->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
@@ -449,7 +449,7 @@ class CreateAdmin extends Migration
             /*if 'print_material' table  exists */
             if(Schema::hasTable('quote_property_access'))
             {
-                $table->foreign('quote_property_access_id')->references('id')->on('quote_property_access');
+                $table->foreign('quote_id')->references('id')->on('quote_property_access');
             }
         });
 
