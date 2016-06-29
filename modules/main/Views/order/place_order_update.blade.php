@@ -12,7 +12,7 @@
             background-color: #f36f21;
         }
     </style>
-    {!! Form::open(['route' => ['place-order-update', $quote_id], 'method' => 'POST' ]) !!}
+    {!! Form::open(['route' => ['place-order-update', $quote_id], 'method' => 'POST', 'files'=>true ]) !!}
     {{--{!! Form::open(['method'=>'POST','route'=>'place-order-update']) !!}--}}
     {{--1st Step of the form--}}
     <div id="step-one" class="container pages new_order font-droid step-one">
@@ -38,6 +38,10 @@
                 {!! Form::hidden('gst',$gst?$gst:'0.00') !!}
                 {!! Form::hidden('total_with_gst',$total_with_gst?$total_with_gst:'0.00') !!}
                 {!! Form::hidden('material_distribution_id',$print_material_distribution_id,['id'=>'material_distribution_id']) !!}
+
+                @if($quote_property_access!='')
+                {!! Form::hidden('quote_property_access_id',$quote_property_access['id'],['id'=>'quote_property_access_id']) !!}
+                @endif
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                     <div class="col-sm-12">
@@ -144,6 +148,13 @@
                 if($print_material_distribution_id == '' || $print_material_distribution_id == null){
                     $value1 = 1; $value2 = 0; }
                 else{ $value1 = 0;  $value2 = 1; }
+
+
+                if($quote_property_access !=''){
+                    $value3 = 1;
+                }else{
+                    $value3 = 0;
+                }
                 ?>
 
                 <label>
@@ -222,10 +233,10 @@
                 <h4 style="color:#f31f21">Will you take photography by yourself ?</h4>
 
                 <label>
-                    <input type="radio" name="quote_property_access" value="0" class="" id="property_access_close" checked> &nbsp; No
+                    <input type="radio" name="quote_property_access" value="0" class="" id="property_access_close" {{$value3==0?"checked":""}}> &nbsp; No
                 </label>
                 <label>
-                    <input type="radio" name="quote_property_access" value="1" class="btn-next" id="property_access_open"> &nbsp; Yes
+                    <input type="radio" name="quote_property_access" value="1" class="btn-next" id="property_access_open" {{$value3==1?"checked":""}}> &nbsp; Yes
                 </label>
             </div>
         </div>
@@ -239,7 +250,7 @@
             <div class="col-sm-12">
                 {!! Form::label('date', 'Prefered Date and Time :', []) !!}
                 <div class="input-group date">
-                    {!! Form::text('prefered_date', isset($date_of_distribution)?$date_of_distribution:null, ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                    {!! Form::text('prefered_date', isset($quote_property_access['prefered_date'])?$quote_property_access['prefered_date']:null, ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
                     {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
@@ -275,16 +286,16 @@
                 <div class="col-sm-12">
                     {!! Form::label('property_access_information', 'Property Access Information :', ['class' => 'control-label']) !!}<br>
                     <label>
-                        <input type="radio" name="property_access_options" value="tennant" checked> &nbsp; Tennant
+                        <input type="radio" name="property_access_options" value="tennant" {{isset($quote_property_access['property_access_options'])=='tennant'?"checked":""}}> &nbsp; Tennant
                     </label>
                     <label>
-                        <input type="radio" name="property_access_options" value="vendor" > &nbsp; Vendor
+                        <input type="radio" name="property_access_options" value="vendor" {{isset($quote_property_access['property_access_options'])=='vendor'?"checked":""}}> &nbsp; Vendor
                     </label>
                     <label>
-                        <input type="radio" name="property_access_options" value="agent" > &nbsp; Agent/ Agency
+                        <input type="radio" name="property_access_options" value="agent" {{isset($quote_property_access['property_access_options'])=='agent'?"checked":""}}> &nbsp; Agent/ Agency
                     </label>
                     <label>
-                        <input type="radio" name="property_access_options" value="other" > &nbsp; Other, pick up keys from
+                        <input type="radio" name="property_access_options" value="other" {{isset($quote_property_access['property_access_options'])=='other'?"checked":""}}> &nbsp; Other, pick up keys from
                     </label>
                 </div>
             </div>
@@ -292,28 +303,28 @@
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('contact_name', 'Contact Name : ', []) !!}
-                    {!! Form::text('contact_name', isset($other_address)?$other_address:null, ['id'=>'contact_name', 'class' => 'form-control','title'=>'contact name']) !!}
+                    {!! Form::text('contact_name', isset($quote_property_access['contact_name'])?$quote_property_access['contact_name']:null, ['id'=>'contact_name', 'class' => 'form-control','title'=>'contact name']) !!}
                 </div>
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('contact_number', 'Contact Number : ', []) !!}
-                    {!! Form::text('contact_number', isset($other_address)?$other_address:null, ['id'=>'contact_number', 'class' => 'form-control','title'=>'contact number']) !!}
+                    {!! Form::text('contact_number', isset($quote_property_access['contact_number'])?$quote_property_access['contact_number']:null, ['id'=>'contact_number', 'class' => 'form-control','title'=>'contact number']) !!}
                 </div>
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('contact_alternate_number', 'Contact Alternate Number : ', []) !!}
-                    {!! Form::text('contact_alternate_number', isset($other_address)?$other_address:null, ['id'=>'contact_alternate_number', 'class' => 'form-control','title'=>'contact alternate number']) !!}
+                    {!! Form::text('contact_alternate_number', isset($quote_property_access['contact_alternate_number'])?$quote_property_access['contact_alternate_number']:null, ['id'=>'contact_alternate_number', 'class' => 'form-control','title'=>'contact alternate number']) !!}
                 </div>
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('contact_email', 'Contact Email : ', []) !!}
-                    {!! Form::text('contact_email', isset($other_address)?$other_address:null, ['id'=>'contact_email', 'class' => 'form-control','title'=>'contact email']) !!}
+                    {!! Form::text('contact_email', isset($quote_property_access['contact_email'])?$quote_property_access['contact_email']:null, ['id'=>'contact_email', 'class' => 'form-control','title'=>'contact email']) !!}
                 </div>
             </div>
 
@@ -322,7 +333,7 @@
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('property_note', 'Note :', ['class' => 'control-label']) !!}
-                    {!! Form::textarea('property_note', isset($print_metal_dist_note)?$print_metal_dist_note:null,['size' => '6x10','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                    {!! Form::textarea('property_note', isset($quote_property_access['property_note'])?$quote_property_access['property_note']:null,['size' => '6x10','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
                 </div>
             </div>
         </div>
@@ -362,7 +373,25 @@
                 $(".step-three").fadeOut();
                 $(".step-no-submit").fadeIn();
             }
+
         });
     </script>
+
+    @if($quote_property_access!='')
+    <script type="text/javascript">
+        $(function(){
+            var access_id = document.getElementById('quote_property_access_id').value;
+            if(access_id != ''){
+                $(".step-four").fadeIn();
+                $(".step-no-submit").fadeIn();
+            }else{
+                $(".step-four").fadeOut();
+                $(".step-no-submit").fadeIn();
+            }
+
+        });
+    </script>
+    @endif
+
 
 @stop

@@ -242,7 +242,7 @@
             <div class="col-sm-12">
                 {!! Form::label('date', 'Prefered Date and Time :', []) !!}
                 <div class="input-group date">
-                    {!! Form::text('prefered_date', isset($date_of_distribution)?$date_of_distribution:null, ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                    {!! Form::text('prefered_date', null, ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
                     {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
@@ -295,28 +295,28 @@
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('contact_name', 'Contact Name : ', []) !!}
-                    {!! Form::text('contact_name', isset($other_address)?$other_address:null, ['id'=>'contact_name', 'class' => 'form-control','title'=>'contact name']) !!}
+                    {!! Form::text('contact_name', null, ['id'=>'contact_name', 'class' => 'form-control','title'=>'contact name']) !!}
                 </div>
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('contact_number', 'Contact Number : ', []) !!}
-                    {!! Form::text('contact_number', isset($other_address)?$other_address:null, ['id'=>'contact_number', 'class' => 'form-control','title'=>'contact number']) !!}
+                    {!! Form::text('contact_number', null, ['id'=>'contact_number', 'class' => 'form-control','title'=>'contact number']) !!}
                 </div>
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('contact_alternate_number', 'Contact Alternate Number : ', []) !!}
-                    {!! Form::text('contact_alternate_number', isset($other_address)?$other_address:null, ['id'=>'contact_alternate_number', 'class' => 'form-control','title'=>'contact alternate number']) !!}
+                    {!! Form::text('contact_alternate_number', null, ['id'=>'contact_alternate_number', 'class' => 'form-control','title'=>'contact alternate number']) !!}
                 </div>
             </div>
 
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('contact_email', 'Contact Email : ', []) !!}
-                    {!! Form::text('contact_email', isset($other_address)?$other_address:null, ['id'=>'contact_email', 'class' => 'form-control','title'=>'contact email']) !!}
+                    {!! Form::text('contact_email', null, ['id'=>'contact_email', 'class' => 'form-control','title'=>'contact email']) !!}
                 </div>
             </div>
 
@@ -325,7 +325,7 @@
             <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                 <div class="col-sm-12">
                     {!! Form::label('property_note', 'Note :', ['class' => 'control-label']) !!}
-                    {!! Form::textarea('property_note', isset($print_metal_dist_note)?$print_metal_dist_note:null,['size' => '6x10','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                    {!! Form::textarea('property_note', null,['size' => '6x10','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
                 </div>
             </div>
         </div>
