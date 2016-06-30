@@ -16,6 +16,8 @@ use App\QuoteDigitalMedia;
 use App\QuoteLocalMedia;
 use App\QuotePhotography;
 use App\QuotePrintMaterial;
+use App\QuotePropertyAccess;
+use App\QuotePropertyImage;
 use App\QuoteSignboard;
 use App\SignboardPackage;
 use App\SignboardPackageSize;
@@ -68,6 +70,11 @@ class QuoteController extends Controller
         $data['photography_packages']= PhotographyPackage::with('relPhotographyPackage')->get();
         $data['signboard_packages']= SignboardPackage::with('relSignboardPackage')->get();
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
+        $data['quote_property']= QuotePropertyAccess::where('quote_id',$id)->get();
+        $data['quote_image']= QuotePropertyImage::where('quote_id',$id)->get();
+
+        #print_r($data['quote_property']);exit;
+
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         //$data['print_material_dist']=PrintMaterialDistribution::with('relPrintMaterialDistribution')->get();
         $data['digital_medias']= DigitalMedia::get();

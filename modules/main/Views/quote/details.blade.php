@@ -558,14 +558,82 @@
                                 </div>
                             </div>
                         @endif
+                    </div>
+                </fieldset>
 
-                        <div class="row">
-                            <div class="col-sm-12 center">
-                                <div class="h-space"></div>
-                                <a href="{{ URL::previous() }}" class="btn new_button proceedBtn"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+
+
+                <fieldset><hr>
+                        @if(isset($data['quote_property'][0]->id))
+                            <div class="form-bottom">
+                                <h3 class="instruction">Quote Property Access Information</h3>
+                                <br>
+                                <div class="row">
+
+                                    <style>
+                                        .tbl { background:none; color:#fff;}
+                                        .tbl th { text-align:right; width: 48%; background:none !important;}
+                                        .tbl td.tdata { text-align: left; width: 48%; background:none !important;}
+                                        .tbl td { text-align: center; background: none !important;}
+                                        ul.genul { list-style:inside; padding:0px;}
+                                        ul.genul li { font-size:13px;}
+                                        .note { background:none; }
+                                        .note p { color:#fff; font-size:13px; font-style: italic;}
+                                        .note label { font-size:15px; font-weight: normal !important; }
+                                        .h-space { display: block; height: 30px;}
+                                        .h-space-10 { display: block; height: 10px;}
+                                        .text-normal { font-weight: normal !important;}
+                                        .circle { width: 50px; height: 50px; display: inline-block; border-radius:30px; font-size: 28px; background:#202020; }
+                                    </style>
+                                    {{--<div class="col-sm-offset-3 col-sm-6 size-13">--}}
+                                    <div class=" col-sm-12 size-13 center">
+                                        <table class="table tbl">
+                                            <tr><th>Prefered Date</th><td> : </td><td class="tdata">{{ $data['quote_property'][0]->prefered_date }}</td></tr>
+                                            <tr><th>Property Access Option :</th><td> : </td>
+                                                <td class="tdata">
+                                                    <label>
+                                                        <input type="radio" name="property_access_options" value="tennant" @if($data['quote_property'][0]->property_access_options=='tennant'){{'checked'}}@endif> &nbsp; Tennant
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="property_access_options" value="vendor" @if($data['quote_property'][0]->property_access_options=='vendor'){{'checked'}}@endif> &nbsp; Vendor
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="property_access_options" value="agent" @if($data['quote_property'][0]->property_access_options=='agent'){{'checked'}}@endif> &nbsp; Agent/ Agency
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="property_access_options" value="other" @if($data['quote_property'][0]->property_access_options=='other'){{'checked'}}@endif> &nbsp; Other, pick up keys from
+                                                    </label>
+                                                </td></tr>
+                                            <tr><th>Contact Name</th><td> : </td><td class="tdata">{{ $data['quote_property'][0]->contact_name }} </td></tr>
+                                            <tr><th>Contact Number</th><td> : </td><td class="tdata">{{ $data['quote_property'][0]->contact_number }} </td></tr>
+                                            <tr><th>Contact Alternate Number</th><td> : </td><td class="tdata">{{ $data['quote_property'][0]->contact_alternate_number }}</td></tr>
+                                            <tr><th>Contact Email</th><td> : </td><td class="tdata">{{ $data['quote_property'][0]->contact_email }}</td></tr>
+                                            <tr><th>Property Note</th><td> : </td><td class="tdata">{{ $data['quote_property'][0]->property_note }}</td></tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-sm-12 center">
+                                        @foreach($data['quote_image'] as $quote_images)
+                                        <label>
+                                            <img width="100%" height="150" src="{{ asset($quote_images->image) }}">
+                                        </label>
+                                        @endforeach
+                                    </div>
+
+                                </div>
                             </div>
+                        @else
+                            <div class="row">
+                                <div class="col-sm-12 note">
+                                    <p class="center">Sorry, No print material selected.</p>
+                                </div>
+                            </div>
+                        @endif
+                    <div class="row">
+                        <div class="col-sm-12 center">
+                            <div class="h-space"></div>
+                            <a href="{{ URL::previous() }}" class="btn new_button proceedBtn"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
                         </div>
-
                     </div>
                 </fieldset>
             </div>

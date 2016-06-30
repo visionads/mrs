@@ -32,6 +32,10 @@ class QuotePropertyAccess extends Model
         return $this->belongsTo('App\Quote','quote_id','id');
     }
 
+    public function relImage(){
+        return $this->hasMany('App\QuotePropertyImage');
+    }
+
 
 
     // TODO :: boot

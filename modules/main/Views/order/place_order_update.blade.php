@@ -40,7 +40,7 @@
                 {!! Form::hidden('material_distribution_id',$print_material_distribution_id,['id'=>'material_distribution_id']) !!}
 
                 @if($quote_property_access!='')
-                {!! Form::hidden('quote_property_access_id',$quote_property_access['id'],['id'=>'quote_property_access_id']) !!}
+                {!! Form::hidden('quote_id',$quote_property_access['id'],['id'=>'quote_id']) !!}
                 @endif
 
                 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
@@ -284,16 +284,16 @@
                 <div class="col-sm-12">
                     {!! Form::label('property_access_information', 'Property Access Information :', ['class' => 'control-label']) !!}<br>
                     <label>
-                        <input type="radio" name="property_access_options" value="tennant" {{isset($quote_property_access['property_access_options'])=='tennant'?"checked":""}}> &nbsp; Tennant
+                        <input type="radio" name="property_access_options" value="tennant" @if($quote_property_access['property_access_options']=='tennant'){{'checked'}}@endif> &nbsp; Tennant
                     </label>
                     <label>
-                        <input type="radio" name="property_access_options" value="vendor" {{isset($quote_property_access['property_access_options'])=='vendor'?"checked":""}}> &nbsp; Vendor
+                        <input type="radio" name="property_access_options" value="vendor" @if($quote_property_access['property_access_options']=='vendor'){{'checked'}}@endif> &nbsp; Vendor
                     </label>
                     <label>
-                        <input type="radio" name="property_access_options" value="agent" {{isset($quote_property_access['property_access_options'])=='agent'?"checked":""}}> &nbsp; Agent/ Agency
+                        <input type="radio" name="property_access_options" value="agent" @if($quote_property_access['property_access_options']=='agent'){{'checked'}}@endif> &nbsp; Agent/ Agency
                     </label>
                     <label>
-                        <input type="radio" name="property_access_options" value="other" {{isset($quote_property_access['property_access_options'])=='other'?"checked":""}}> &nbsp; Other, pick up keys from
+                        <input type="radio" name="property_access_options" value="other" @if($quote_property_access['property_access_options']=='other'){{'checked'}}@endif> &nbsp; Other, pick up keys from
                     </label>
                 </div>
             </div>
@@ -378,7 +378,7 @@
     @if($quote_property_access!='')
     <script type="text/javascript">
         $(function(){
-            var access_id = document.getElementById('quote_property_access_id').value;
+            var access_id = document.getElementById('quote_id').value;
             if(access_id != ''){
                 $(".step-four").fadeIn();
                 $(".step-no-submit").fadeIn();

@@ -677,6 +677,7 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+
         $input = $request->all();
         $property_details_id = $input['property_detail_id'];
         $print_material_id = $input['print_material_id'];
@@ -690,9 +691,9 @@ class OrderController extends Controller
 
         $images=Input::file('image');
 
-        #print_r($image);exit;
+        #print_r($images[0]);exit;
 
-        if(count($images)>0) {
+        if($images[0]!='') {
             $file_type_required = 'png,jpeg,jpg';
             $destinationPath = 'uploads/property_access/';
 
@@ -842,21 +843,27 @@ class OrderController extends Controller
                 'property_note'=>$input['property_note']
             ];
 
-            $vh = QuotePropertyAccess::create($input_property_access);
+            #print_r($input['quote_property_access']);exit;
 
-            if(isset($input['image_path'])){
-                foreach($input['image_path'] as $ims){
-                    $input_property_image[] = [
-                        'quote_id' => $quote_id,
-                        'image'=>$ims,
+            if($input['quote_property_access'] == 1){
+                $vh = QuotePropertyAccess::create($input_property_access);
 
-                    ];
-                }
-                foreach($input_property_image as $input_property){
+                if(isset($input['image_path'])){
+                    foreach($input['image_path'] as $ims){
+                        $input_property_image[] = [
+                            'quote_id' => $quote_id,
+                            'image'=>$ims,
 
-                    QuotePropertyImage::create($input_property);
+                        ];
+                    }
+                    foreach($input_property_image as $input_property){
+
+                        QuotePropertyImage::create($input_property);
+                    }
                 }
             }
+
+
 
 
             // commit the changes
@@ -912,10 +919,10 @@ class OrderController extends Controller
                 mkdir ($destinationPath, 0777);
             }
 
-            $model = QuotePropertyImage::where('quote_id',$quote_id)->get();
+            /*$model = QuotePropertyImage::where('quote_id',$quote_id)->get();
             foreach($model as $model2){
                 unlink(public_path()."/".$model2->image);
-            }
+            }*/
 
             foreach($images as $image){
                 $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
@@ -1054,24 +1061,24 @@ class OrderController extends Controller
 
             #print_r($access_id->id);exit;
 
-            $vh_model = QuotePropertyAccess::findOrNew($access_id->id);
-            $vh_model->update($input_property_access);
+            if(isset($access_id)){
+                $vh_model = QuotePropertyAccess::findOrNew($access_id->id);
+                $vh_model->update($input_property_access);
 
-            #$access_image_id = QuotePropertyImage::where('quote_property_access_id',$access_id->id )->get();
+                if(isset($input['image_path'])){
+                    foreach($input['image_path'] as $ims){
+                        $input_property_image[] = [
+                            'quote_id' => $quote_id,
+                            'image'=>$ims,
+                        ];
+                    }
 
-
-
-            if(isset($input['image_path'])){
-                foreach($input['image_path'] as $ims){
-                    $input_property_image[] = [
-                        'quote_id' => $quote_id,
-                        'image'=>$ims,
-                    ];
-                }
-                foreach($input_property_image as $input_property){
-                    #print_r($input_property);exit;
                     $vh_model2 = QuotePropertyImage::where('quote_id',$quote_id);
-                    $vh_model2->update($input_property);
+                    # print_r($vh_model2);exit;
+                    foreach($input_property_image as $input_property){
+                        #print_r($input_property);echo "-----------------";
+                        $vh_model2->update($input_property);
+                    }
                 }
             }
 

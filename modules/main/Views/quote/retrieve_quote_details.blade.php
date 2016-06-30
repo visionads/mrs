@@ -15,7 +15,7 @@
         .commtable tr td { background:#303030; color:#d0d0d0; border-bottom: 1px solid #404040 !important;}
         .items { color:orange;}
     </style>
-
+sdfsdgsd
     <div class="container pages font-droid">
         <div class="row">
         <div class="col-md-12">

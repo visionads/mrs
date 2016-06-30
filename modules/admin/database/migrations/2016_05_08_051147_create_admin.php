@@ -447,9 +447,9 @@ class CreateAdmin extends Migration
         });
         Schema::table('quote_property_image', function($table) {
             /*if 'print_material' table  exists */
-            if(Schema::hasTable('quote_property_access'))
+            if(Schema::hasTable('quote'))
             {
-                $table->foreign('quote_id')->references('id')->on('quote_property_access');
+                $table->foreign('quote_id')->references('id')->on('quote');
             }
         });
 
