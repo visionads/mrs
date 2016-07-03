@@ -45,7 +45,7 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-        <h3 class="green-yellow" id="total">Total : $100</h3>
+        <h3 class="green-yellow" id="total">Total : $00</h3>
     </div>
 </div>
 <script>
@@ -53,7 +53,7 @@
         var x = document.getElementById("qty").value;
         var y = document.getElementById("stock").value;
         var ttl = 0;
-        ttl = parseInt(x+y);
+        ttl = parseInt(x) + parseInt(y);
         document.getElementById("total").innerHTML = "Total : $" + ttl;
     }
 </script>
