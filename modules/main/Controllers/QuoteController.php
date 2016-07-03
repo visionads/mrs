@@ -72,8 +72,8 @@ class QuoteController extends Controller
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['quote_property']= QuotePropertyAccess::where('quote_id',$id)->get();
         $data['quote_image']= QuotePropertyImage::where('quote_id',$id)->get();
-
-        #print_r($data['quote_property']);exit;
+        //echo $id.'----';
+        //print_r(count($data['quote_image']));exit;
 
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         //$data['print_material_dist']=PrintMaterialDistribution::with('relPrintMaterialDistribution')->get();
