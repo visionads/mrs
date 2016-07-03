@@ -73,6 +73,19 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
         'uses' => 'InvoiceController@invoice_list'
     ]);
 
+    /*---------------Marketing Material (Printing)-----*/
+
+    Route::get('marketing-material-printing',[
+        //'middleware' => 'acl_access:main/marketing-material-printing',
+        'as' => 'marketing-material-printing',
+        'uses' => 'MarketingMaterialController@index'
+    ]);
+    Route::get('marketing-material-proceed',[
+        //'middleware' => 'acl_access:main/marketing-material-printing',
+        'as' => 'marketing-material-proceed',
+        'uses' => 'MarketingMaterialController@proceed'
+    ]);
+
     /*------------Pages Router---------------*/
 
     Route::get('what-we-do', [

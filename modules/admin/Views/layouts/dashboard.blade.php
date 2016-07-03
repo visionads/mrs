@@ -76,7 +76,7 @@
                             <a href="{{route('new-order')}}" class="quote">NEW ORDER</a>
                         </div>
                         <div class="form-group" id="new_quote">
-                            <a href="#" class="quote">Marketing Material ( Printing )</a>
+                            <a href="{{ route('marketing-material-printing') }}" class="quote">Marketing Material ( Printing )</a>
                         </div>
                         <div class="form-group" id="new_quote">
                             <a href="{{ route('invoice-list') }}" class="quote">Pay invoice</a>
