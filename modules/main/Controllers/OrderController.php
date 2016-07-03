@@ -848,6 +848,9 @@ class OrderController extends Controller
             if($input['quote_property_access'] == 1){
                 $vh = QuotePropertyAccess::create($input_property_access);
 
+                #$last_id = QuotePropertyImage::all()->last()->id;
+                #print_r($last_id);exit;
+
                 if(isset($input['image_path'])){
                     foreach($input['image_path'] as $ims){
                         $input_property_image[] = [
