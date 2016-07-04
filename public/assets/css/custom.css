@@ -887,3 +887,6 @@ div.upload-path-css:before { content: "Signature"; position:absolute; font-size:
 
 .image-box { border:3px solid #c4d82e; border-radius:10px; }
 .select-inpt { width: 70%; float: right; margin-top: 10px; }
+
+.btn-green { background:#c4d82e; color:#000;}
+.margin-bottom-15 { margin-bottom: 15px !important;}

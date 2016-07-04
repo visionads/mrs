@@ -1,21 +1,3 @@
-{{--<div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-    <div class="row">
-        <div class="col-sm-12">
-            {!! Form::label('quantity', 'Quantity :', ['class' => 'control-label']) !!}
-            <small class="required">(Required)</small>
-            --}}{{--{!! Form::text('username',Input::old('username'),['class' => 'form-control','placeholder'=>'User Name','required','autofocus', 'title'=>'Enter User Name']) !!}--}}{{--
-            {!!  Form::select('quantity', ['1', '2', '3','4','5'],['class' => 'form-control','placeholder'=>'User Name','required']) !!}
-            <br>
-            {!! Form::label('stock', 'Stock :', ['class' => 'control-label']) !!}
-            <small class="required">(Required)</small>
-            {!!  Form::select('stock', ['1', '2', '3','4','5'],['class' => 'form-control','placeholder'=>'User Name','required']) !!}
-        </div>
-    </div>
-</div>
-<div class="form-margin-btn">
-    {!! Form::submit('Save changes', ['id'=>'btn-disabled','class' => 'btn btn-primary','data-placement'=>'top','data-content'=>'click save changes button for save role information']) !!}
-    <a href="{{route('user-list')}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>
-</div>--}}
 <div class="row">
     <div class="col-md-6">
         <label class="green-yellow">Quantity : </label>

@@ -73,7 +73,7 @@
                                         <img src="{{ URL::to('/assets/img/presentation.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Presentation folders
                                         </a>
                                     </div>
@@ -84,7 +84,7 @@
                                         <img src="{{ URL::to('/assets/img/withcomp.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Withcomp slips
                                         </a>
                                     </div>
@@ -95,7 +95,7 @@
                                         <img src="{{ URL::to('/assets/img/envelopes.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Envelopes
                                         </a>
                                     </div>
@@ -106,7 +106,7 @@
                                         <img src="{{ URL::to('/assets/img/forms.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Forms
                                         </a>
                                     </div>
@@ -117,7 +117,7 @@
                                         <img src="{{ URL::to('/assets/img/carbon-books.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Carbon books (NCR)
                                         </a>
                                     </div>
@@ -136,7 +136,7 @@
             </div>
         </div>
 
-        <!-- Modal for Agency Stationary Material ====================================================================== -->
+        <!-- Modal for Agency / Agent Marketing ====================================================================== -->
         <div id="AAM" class="modal fade" role="dialog" style="background: black !important;">
             <div class="modal-dialog" style="background: black !important;">
 
@@ -161,7 +161,7 @@
                                         <img src="{{ URL::to('/assets/img/letter-head.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
@@ -172,7 +172,7 @@
                                         <img src="{{ URL::to('/assets/img/presentation.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Presentation folders
                                         </a>
                                     </div>
@@ -183,7 +183,7 @@
                                         <img src="{{ URL::to('/assets/img/withcomp.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
@@ -194,7 +194,7 @@
                                         <img src="{{ URL::to('/assets/img/envelopes.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
@@ -205,7 +205,7 @@
                                         <img src="{{ URL::to('/assets/img/forms.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
@@ -216,7 +216,7 @@
                                         <img src="{{ URL::to('/assets/img/carbon-books.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
@@ -235,7 +235,7 @@
             </div>
         </div>
 
-        <!-- Modal for Agency Stationary Material ====================================================================== -->
+        <!-- Modal for Property Marketing ====================================================================== -->
         <div id="PM" class="modal fade" role="dialog" style="background: black !important;">
             <div class="modal-dialog" style="background: black !important;">
 
@@ -260,7 +260,7 @@
                                         <img src="{{ URL::to('/assets/img/letter-head.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
@@ -271,7 +271,7 @@
                                         <img src="{{ URL::to('/assets/img/presentation.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Presentation folders
                                         </a>
                                     </div>
@@ -282,7 +282,7 @@
                                         <img src="{{ URL::to('/assets/img/withcomp.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
@@ -293,7 +293,7 @@
                                         <img src="{{ URL::to('/assets/img/envelopes.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
@@ -304,7 +304,7 @@
                                         <img src="{{ URL::to('/assets/img/forms.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
@@ -315,7 +315,7 @@
                                         <img src="{{ URL::to('/assets/img/carbon-books.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="#" class="below">
+                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
