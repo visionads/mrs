@@ -73,7 +73,7 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
         'uses' => 'InvoiceController@invoice_list'
     ]);
 
-    /*---------------Marketing Material (Printing)-----*/
+/*--------------------Marketing Material (Printing)-----*/
 
     Route::get('marketing-material-printing',[
         //'middleware' => 'acl_access:main/marketing-material-printing',
@@ -86,7 +86,39 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
         'uses' => 'MarketingMaterialController@proceed'
     ]);
 
-    /*------------Pages Router---------------*/
+    //===== For Agency Stationary Materials ***//
+    Route::get('letterhead',[
+        //'middleware' => 'acl_access:main/letterhead',
+        'as' => 'letterhead',
+        'uses' => 'MarketingMaterialController@letterhead'
+    ]);
+    Route::get('presentation',[
+        //'middleware' => 'acl_access:main/presentation',
+        'as' => 'presentation',
+        'uses' => 'MarketingMaterialController@presentation'
+    ]);
+    Route::get('withcomp',[
+        //'middleware' => 'acl_access:main/withcomp',
+        'as' => 'withcomp',
+        'uses' => 'MarketingMaterialController@withcomp'
+    ]);
+    Route::get('envelopes',[
+        //'middleware' => 'acl_access:main/envelopes',
+        'as' => 'envelopes',
+        'uses' => 'MarketingMaterialController@envelopes'
+    ]);
+    Route::get('forms',[
+        //'middleware' => 'acl_access:main/forms',
+        'as' => 'forms',
+        'uses' => 'MarketingMaterialController@forms'
+    ]);
+    Route::get('carbon',[
+        //'middleware' => 'acl_access:main/carbon',
+        'as' => 'carbon',
+        'uses' => 'MarketingMaterialController@carbon'
+    ]);
+
+/*-----------------Pages Router---------------*/
 
     Route::get('what-we-do', [
         'middleware' => 'acl_access:main/what-we-do',

@@ -16,7 +16,13 @@
                     </div>
                 </div>
                 <div class="col-md-8 green-yellow">
-                    <h3 class="green-yellow">Letterhead / Followers</h3>
+                    <h3 class="green-yellow">{{ $pageTitle }}</h3>
+                    <form class="form-horizontal" action="" role="form">
+                        @include('main::marketing_material.agency_stationary_materials.letterhead_form')
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <h3 class="green-yellow">Description</h3>
                     <p class="green-yellow size-14">
                         What better way to introduce your business to the world than through professional full-colour
                         brochures. A versatile medium, brochures can be used for a variety of marketing needs, as well as
@@ -24,11 +30,7 @@
                         Printed CMYK on both sides on matt or gloss 170GSM stock, these tri-fold brochures are both
                         high quality and durable.
                     </p>
-                    <form class="form-horizontal" role="form">
-                        @include('main::marketing_material._form')
-                        {{--{!! Form::submit('Proceed',['id'=>'','class'=>'btn btn-primary btn-green']) !!}--}}
-                        <a href=" #place" class="btn btn-green pull-right" id="proceed">Proceed <span class="glyphicon glyphicon-chevron-down"></span></a>
-                    </form>
+                    <a href=" #place" class="btn btn-green pull-right" id="proceed">Proceed <span class="glyphicon glyphicon-chevron-down"></span></a>
                 </div>
             </div>
         </div>
@@ -77,7 +79,7 @@
                         </label>
                     </div>
                     <div class="col-md-12">
-                            {{--{!! Form::submit('Order',['class'=>'btn btn-green pull-right']) !!}--}}
+                        {{--{!! Form::submit('Order',['class'=>'btn btn-green pull-right']) !!}--}}
                         <button class="btn btn-green pull-right" type="button" id="order">Order <span class="glyphicon glyphicon-chevron-right"></span></button>
                     </div>
                 </div>

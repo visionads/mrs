@@ -7,11 +7,14 @@
         <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label green-yellow">{{ $pageTitle }}</span></div>
         </div>
-        {{--<div class="col-md-12" style="border: 1px solid #303030;">
+        <div class="col-md-12" style="border: 1px solid #303030;">
             <img src="{{ URL::to('/assets/img/vid.jpg') }}" class="img-responsive">
-        </div>--}}
+        </div>
 
-        {{--First Level--}}
+        <!-- First Level Button boxes ==================================================================== -->
+        <div class="col-md-12">
+            <div class="col-sm-12" id="new_order_title"><span class="label green-yellow">Please select one of the following</span></div>
+        </div>
         <div class="col-md-4">
             <div class="green-yellow-bg-btn">
                 <a href="#" data-toggle="modal" data-target="#ASM">
@@ -62,7 +65,7 @@
                                         <img src="{{ URL::to('/assets/img/letter-head.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
+                                        <a href="{{ route('letterhead') }}" class="below">
                                             Letterhead / Followers
                                         </a>
                                     </div>
@@ -73,7 +76,7 @@
                                         <img src="{{ URL::to('/assets/img/presentation.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
+                                        <a href="{{ route('presentation') }}" class="below">
                                             Presentation folders
                                         </a>
                                     </div>
@@ -84,7 +87,7 @@
                                         <img src="{{ URL::to('/assets/img/withcomp.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
+                                        <a href="{{ route('withcomp') }}" class="below">
                                             Withcomp slips
                                         </a>
                                     </div>
@@ -95,7 +98,7 @@
                                         <img src="{{ URL::to('/assets/img/envelopes.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
+                                        <a href="{{ route('envelopes') }}" class="below">
                                             Envelopes
                                         </a>
                                     </div>
@@ -106,7 +109,7 @@
                                         <img src="{{ URL::to('/assets/img/forms.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
+                                        <a href="{{ route('forms') }}" class="below">
                                             Forms
                                         </a>
                                     </div>
@@ -117,7 +120,7 @@
                                         <img src="{{ URL::to('/assets/img/carbon-books.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
+                                        <a href="{{ route('carbon') }}" class="below">
                                             Carbon books (NCR)
                                         </a>
                                     </div>

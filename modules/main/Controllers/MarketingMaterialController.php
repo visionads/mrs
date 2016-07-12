@@ -29,6 +29,43 @@ class MarketingMaterialController extends Controller
        return view('main::marketing_material.index',$data);
     }
 
+    //===== For Agency Stationary Material ***//
+    public function letterhead()
+    {
+        $data['pageTitle'] = 'Letterhead / Followers';
+        return view('main::marketing_material.agency_stationary_materials.letterhead',$data);
+    }
+    public function presentation()
+    {
+        $data['pageTitle'] = 'Presentation folders';
+        return view('main::marketing_material.agency_stationary_materials.presentation',$data);
+    }
+    public function withcomp()
+    {
+        $data['pageTitle'] = 'Withcomp Slips';
+        return view('main::marketing_material.agency_stationary_materials.withcomp',$data);
+    }
+    public function envelopes()
+    {
+        $data['pageTitle'] = 'Envelopes';
+        return view('main::marketing_material.agency_stationary_materials.envelopes',$data);
+    }
+    public function forms()
+    {
+        $data['pageTitle'] = 'Forms';
+        return view('main::marketing_material.agency_stationary_materials.forms',$data);
+    }
+    public function carbon()
+    {
+        $data['pageTitle'] = 'Carbon Books (NCR)';
+        return view('main::marketing_material.agency_stationary_materials.carbon',$data);
+    }
+
+
+
+
+
+
     public function proceed()
     {
         $data['pageTitle'] = 'Proceed';
