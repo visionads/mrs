@@ -23,7 +23,9 @@ class PrintMaterialDistribution extends Model
         'updated_by'
     ];
 
-
+    public function quote(){
+        return $this->belongsTo('App\Quote','id','print_material_distribution_id');
+    }
 
 
     // TODO :: boot

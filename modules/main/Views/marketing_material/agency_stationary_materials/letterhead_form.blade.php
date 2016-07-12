@@ -11,7 +11,7 @@
         <div class="col-sm-6">
             <div class="checkbox">
                 <label class="green-yellow"><input type="checkbox"> Free Delivery</label><br>
-                <label class="green-yellow"><input type="checkbox"> 2 dyas turnaround time</label><br>
+                <label class="green-yellow"><input type="checkbox"> 2 days turnaround time</label><br>
             </div>
         </div>
         <div class="col-sm-12" style="height: 30px;"></div>
