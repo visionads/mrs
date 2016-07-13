@@ -14,10 +14,10 @@
                 </div>
                 <div class="col-md-8 green-yellow">
                     <h3 class="green-yellow">{{ $pageTitle }}</h3>
-                    {{--<form class="form-horizontal" action="" role="form">--}}
+                    <p class="green-yellow">Please select one option</p>
                     {{--{!! Form::open(['method'=>'GET','route'=>'solution-type-search','class'=>'form-inline']) !!}--}}
                     {!! Form::open(['method'=>'GET','class'=>'form-horizontal']) !!}
-                    @include('main::marketing_material.agency_stationary_materials.carbon_form')
+                    @include('main::marketing_material.agent_marketing.teardrop_form')
                     {!! Form::close() !!}
                 </div>
                 <div class="col-md-12">
@@ -44,6 +44,6 @@
 
     </div>
 
-    @include('main::marketing_material.agency_stationary_materials._scripts')
+    @include('main::marketing_material.agent_marketing._scripts')
 
 @stop

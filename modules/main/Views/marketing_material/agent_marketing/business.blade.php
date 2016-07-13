@@ -17,7 +17,7 @@
                     {{--<form class="form-horizontal" action="" role="form">--}}
                     {{--{!! Form::open(['method'=>'GET','route'=>'solution-type-search','class'=>'form-inline']) !!}--}}
                     {!! Form::open(['method'=>'GET','class'=>'form-horizontal']) !!}
-                    @include('main::marketing_material.agency_stationary_materials.carbon_form')
+                    @include('main::marketing_material.agent_marketing.business_form')
                     {!! Form::close() !!}
                 </div>
                 <div class="col-md-12">
@@ -44,6 +44,6 @@
 
     </div>
 
-    @include('main::marketing_material.agency_stationary_materials._scripts')
+    @include('main::marketing_material.agent_marketing._scripts')
 
 @stop

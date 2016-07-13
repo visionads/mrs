@@ -118,6 +118,58 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
         'uses' => 'MarketingMaterialController@carbon'
     ]);
 
+    //===== For Agency /Agent Marketing ***//
+    Route::get('teardrop',[
+        //'middleware' => 'acl_access:main/teardrop',
+        'as' => 'teardrop',
+        'uses' => 'MarketingMaterialController@teardrop'
+    ]);
+    Route::get('directional',[
+        //'middleware' => 'acl_access:main/directional',
+        'as' => 'directional',
+        'uses' => 'MarketingMaterialController@directional'
+    ]);
+    Route::get('vynle',[
+        //'middleware' => 'acl_access:main/vynle',
+        'as' => 'vynle',
+        'uses' => 'MarketingMaterialController@vynle'
+    ]);
+    Route::get('pullup',[
+        //'middleware' => 'acl_access:main/pullup',
+        'as' => 'pullup',
+        'uses' => 'MarketingMaterialController@pullup'
+    ]);
+    Route::get('business',[
+        //'middleware' => 'acl_access:main/business',
+        'as' => 'business',
+        'uses' => 'MarketingMaterialController@business'
+    ]);
+    Route::get('brochure',[
+        //'middleware' => 'acl_access:main/brochure',
+        'as' => 'brochure',
+        'uses' => 'MarketingMaterialController@brochure'
+    ]);
+    Route::get('fridge',[
+        //'middleware' => 'acl_access:main/fridge',
+        'as' => 'fridge',
+        'uses' => 'MarketingMaterialController@fridge'
+    ]);
+    Route::get('magazine',[
+        //'middleware' => 'acl_access:main/magazine',
+        'as' => 'magazine',
+        'uses' => 'MarketingMaterialController@magazine'
+    ]);
+    Route::get('calender',[
+        //'middleware' => 'acl_access:main/calender',
+        'as' => 'calender',
+        'uses' => 'MarketingMaterialController@calender'
+    ]);
+    Route::get('letterdrop',[
+        //'middleware' => 'acl_access:main/letterdrop',
+        'as' => 'letterdrop',
+        'uses' => 'MarketingMaterialController@letterdrop'
+    ]);
+
 /*-----------------Pages Router---------------*/
 
     Route::get('what-we-do', [

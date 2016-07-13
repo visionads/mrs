@@ -164,8 +164,8 @@
                                         <img src="{{ URL::to('/assets/img/letter-head.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
-                                            Letterhead / Followers
+                                        <a href="{{ route('teardrop') }}" class="below">
+                                            Teardrop flags
                                         </a>
                                     </div>
                                 </div>
@@ -175,8 +175,8 @@
                                         <img src="{{ URL::to('/assets/img/presentation.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
-                                            Presentation folders
+                                        <a href="{{ route('directional') }}" class="below">
+                                            Directional signs
                                         </a>
                                     </div>
                                 </div>
@@ -186,8 +186,8 @@
                                         <img src="{{ URL::to('/assets/img/withcomp.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
-                                            Letterhead / Followers
+                                        <a href="{{ route('vynle') }}" class="below">
+                                            Vynle Banner (outdoor)
                                         </a>
                                     </div>
                                 </div>
@@ -197,8 +197,8 @@
                                         <img src="{{ URL::to('/assets/img/envelopes.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
-                                            Letterhead / Followers
+                                        <a href="{{ route('pullup') }}" class="below">
+                                            Pull up Banner (Indoor)
                                         </a>
                                     </div>
                                 </div>
@@ -208,8 +208,8 @@
                                         <img src="{{ URL::to('/assets/img/forms.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
-                                            Letterhead / Followers
+                                        <a href="{{ route('business') }}" class="below">
+                                            Business Card
                                         </a>
                                     </div>
                                 </div>
@@ -219,8 +219,52 @@
                                         <img src="{{ URL::to('/assets/img/carbon-books.jpg') }}" class="img-responsive image-center">
                                     </div>
                                     <div class="green-yellow-bg-btn">
-                                        <a href="{{ route('marketing-material-proceed') }}" class="below">
-                                            Letterhead / Followers
+                                        <a href="{{ route('brochure') }}" class="below">
+                                            Flyer / Brochure
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 padding-bot-10">
+                                    <div>
+                                        <img src="{{ URL::to('/assets/img/carbon-books.jpg') }}" class="img-responsive image-center">
+                                    </div>
+                                    <div class="green-yellow-bg-btn">
+                                        <a href="{{ route('fridge') }}" class="below">
+                                            Fridge Magnet
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 padding-bot-10">
+                                    <div>
+                                        <img src="{{ URL::to('/assets/img/carbon-books.jpg') }}" class="img-responsive image-center">
+                                    </div>
+                                    <div class="green-yellow-bg-btn">
+                                        <a href="{{ route('magazine') }}" class="below">
+                                            Magazine/ Newsletter
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 padding-bot-10">
+                                    <div>
+                                        <img src="{{ URL::to('/assets/img/carbon-books.jpg') }}" class="img-responsive image-center">
+                                    </div>
+                                    <div class="green-yellow-bg-btn">
+                                        <a href="{{ route('calender') }}" class="below">
+                                            Tent Calendar
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 padding-bot-10">
+                                    <div>
+                                        <img src="{{ URL::to('/assets/img/carbon-books.jpg') }}" class="img-responsive image-center">
+                                    </div>
+                                    <div class="green-yellow-bg-btn">
+                                        <a href="{{ route('letterdrop') }}" class="below">
+                                            Letterdrop
                                         </a>
                                     </div>
                                 </div>

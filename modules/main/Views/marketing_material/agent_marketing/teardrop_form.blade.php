@@ -3,10 +3,11 @@
     <div class="col-md-12">
 
         <div class="col-md-6">
-            <div class="checkbox">
-                <label class="green-yellow"><input name="skoc" type="checkbox" checked onclick="return false" > Standard knife or custom </label><br>
-                <label class="green-yellow"><input name="fullcolor" type="checkbox" checked onclick="return false" > Full colour print 1side</label><br>
-            </div>
+
+            <label class="radio-inline black btn-green" >
+                {!! Form::radio('art','no','true',['id'=>'','class'=>'padding-5']) !!}
+                SMALL (830mm x 2175mm)
+            </label>
         </div>
         <div class="col-sm-6">
             <div class="checkbox">
@@ -19,12 +20,18 @@
 
             {!! Form::label('qty', 'Quantity:', ['class'=>'green-yellow']) !!}
             {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'deeppink select-inpt size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
-
-            {!! Form::label('stock', 'Stock:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('stock', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('stock'),['class' => 'deeppink select-inpt size-15','id'=>'stock', 'onchange'=>'myFunction()','required']) !!}
-
-            {!! Form::label('finishcoat', 'Finish coat:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('finishcoat', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('finishcoat'),['class' => 'deeppink select-inpt size-15','id'=>'stock', 'onchange'=>'myFunction()','required']) !!}
+            <br>
+            {!! Form::label('size', 'Size:', ['class'=>'green-yellow']) !!}
+            {!! Form::select('size', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('size'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+            <br>
+            {!! Form::label('copies', 'Copies:', ['class'=>'green-yellow']) !!}
+            {!! Form::select('copies', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('copies'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+            <br>
+            {!! Form::label('sets_of', 'Sets of:', ['class'=>'green-yellow']) !!}
+            {!! Form::select('sets_of', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('sets_of'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+            <br>
+            {!! Form::label('printed_sides', 'Printed sides:', ['class'=>'green-yellow']) !!}
+            {!! Form::select('printed_sides', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('printed_sides'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
 
         </div>
 

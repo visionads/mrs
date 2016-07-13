@@ -24,7 +24,7 @@
                         <li>2 dyas turnaround time</li>
                     </ul>
                     <form class="form-horizontal" role="form">
-                        @include('main::marketing_material._form')
+                        {{--@include('main::marketing_material._form')--}}
                         {{--{!! Form::submit('Proceed',['id'=>'','class'=>'btn btn-primary btn-green']) !!}--}}
 
                     </form>
