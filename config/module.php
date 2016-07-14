@@ -10,6 +10,7 @@ return [
     'modules'=>array(
         "user",
         "admin",
-        "main"
+        "main",
+        "mktg"
     ),
 ];

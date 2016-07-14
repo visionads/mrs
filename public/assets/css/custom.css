@@ -892,3 +892,6 @@ div.upload-path-css:before { content: "Signature"; position:absolute; font-size:
 .margin-bottom-15 { margin-bottom: 15px !important;}
 
 .padding-5 { padding: 5px !important;}
+
+.image-wrapper { position: relative; height:400px; width:auto;}
+.image-wrapper img { position: absolute; bottom: 10px;}
