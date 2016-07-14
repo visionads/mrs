@@ -127,12 +127,14 @@ class MarketingMaterialController extends Controller
     }
     public function sold()
     {
-        $data['pageTitle'] = 'Sold / Leased Stickers (Custom & Genric)';
+        //$data['pageTitle'] = 'Sold / Leased Stickers (Custom & Genric)';
+        $data['pageTitle'] = 'Vynle stickers outdoor (SOLD)';
         return view('mktg::marketing_material.property_marketing.sold',$data);
     }
     public function congratulation()
     {
-        $data['pageTitle'] = 'Congratulations Pack';
+        //$data['pageTitle'] = 'Congratulations Pack';
+        $data['pageTitle'] = 'Congratulatory Pack';
         return view('mktg::marketing_material.property_marketing.congratulation',$data);
     }
 

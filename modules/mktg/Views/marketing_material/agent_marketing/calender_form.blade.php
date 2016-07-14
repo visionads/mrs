@@ -4,8 +4,8 @@
 
         <div class="col-md-6">
             <div class="checkbox">
-                <label class="green-yellow"><input name="size" type="checkbox" checked onclick="return false" > Range of sizes </label><br>
-                <label class="green-yellow"><input name="fullcolor" type="checkbox" checked onclick="return false" > Full colour print 2 side</label><br>
+                <label class="green-yellow"><input name="size" type="checkbox" checked onclick="return false" > Size DL (210mm x 99mm </label><br>
+                <label class="green-yellow"><input name="fullcolor" type="checkbox" checked onclick="return false" > Full colour print 1 side</label><br>
             </div>
         </div>
         <div class="col-sm-6">
@@ -15,23 +15,13 @@
             </div>
         </div>
         <div class="col-sm-12" style="height: 30px;"></div>
-        <div class="col-sm-6">
-
-            {!! Form::label('qty', 'Quantity:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'deeppink select-inpt size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('size', 'Size:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('size', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('size'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('copies', 'Copies:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('copies', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('copies'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('sets_of', 'Sets of:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('sets_of', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('sets_of'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('printed_sides', 'Printed sides:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('printed_sides', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('printed_sides'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-
+        <div class="col-md-9" style="border-left: 3px dashed #404040;">
+            <div class="form-group">
+                {!! Form::label('qty', 'Quantity:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
         </div>
 
         <div class="col-sm-12" style="height: 30px;"></div>

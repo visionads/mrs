@@ -1,7 +1,7 @@
 <div class="row">
 
     <div class="col-md-12">
-
+        <h2>Documentation Note : ******will use the same link as used in the other form </h2>
         <div class="col-md-6">
             <div class="checkbox">
                 <label class="green-yellow"><input name="size" type="checkbox" checked onclick="return false" > Range of sizes </label><br>
@@ -15,23 +15,44 @@
             </div>
         </div>
         <div class="col-sm-12" style="height: 30px;"></div>
-        <div class="col-sm-6">
+        <div class="col-md-9" style="border-left: 3px dashed #404040;">
 
-            {!! Form::label('qty', 'Quantity:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'deeppink select-inpt size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('size', 'Size:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('size', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('size'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('copies', 'Copies:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('copies', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('copies'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('sets_of', 'Sets of:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('sets_of', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('sets_of'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('printed_sides', 'Printed sides:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('printed_sides', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('printed_sides'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-
+            <div class="form-group">
+                {!! Form::label('size', 'Size:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('size', array('0'=>'Select Size','a4'=>'A4','a5'=>'A5'),Input::old('size'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('qty', 'Quantity:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('stock', 'Stock:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('stock', array('0'=>'Select','128gsm_gloss'=>'128gsm gloss','150gsm_gloss'=>'150gsm gloss','170gsm'=>'170gsm','250gsm'=>'250gsm'),Input::old('stock'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('cover', 'Cover :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('cover', array('00'=>'Select','150gsm_gloss'=>'150gsm gloss','170gsm'=>'170gsm','250gsm'=>'250gsm'),Input::old('cover'),['class' => 'form-control deeppink size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('number_of_page', 'Number of Page [PP]:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('number_of_page', array('0'=>'Select','1'=>'1','2'=>'2'),Input::old('number_of_page'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('cover_special_effects', 'Cover Special Effects :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('cover_special_effects', array('0'=>'Select','matt_glazed'=>'Matt glazed','gloss_varnish'=>'Gloss Varnish','spot_glazing'=>'Spot Glazing'),Input::old('cover_special_effects'),['class' => 'form-control deeppink  size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
         </div>
 
         <div class="col-sm-12" style="height: 30px;"></div>
