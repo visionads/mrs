@@ -43,7 +43,6 @@
 
         <div class="col-md-12">
             Do you need Artwork ?
-            {{--<a href=" #place" class="btn btn-green " id="proceed">Yes <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;--}}
             <label class="radio-inline green-yellow" >
                 {!! Form::radio('art','no','true',['id'=>'no']) !!}
                 No
