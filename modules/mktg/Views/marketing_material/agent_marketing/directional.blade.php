@@ -13,8 +13,11 @@
                     </div>
                 </div>
                 <div class="col-md-8 green-yellow">
-                    <h3 class="green-yellow">{{ $pageTitle }}</h3>
-                    {{--<form class="form-horizontal" action="" role="form">--}}
+                    <div class="col-md-12">
+                        <h3 class="green-yellow">{{ $pageTitle }}</h3>
+                        <p class="green-yellow">Please select one option<br>Each sign requires 2x  printed corflute or vynle stickers</p>
+                    </div>
+
                     {{--{!! Form::open(['method'=>'GET','route'=>'solution-type-search','class'=>'form-inline']) !!}--}}
                     {!! Form::open(['method'=>'GET','class'=>'form-horizontal']) !!}
                     @include('mktg::marketing_material.agent_marketing.directional_form')

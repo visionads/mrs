@@ -15,23 +15,38 @@
             </div>
         </div>
         <div class="col-sm-12" style="height: 30px;"></div>
-        <div class="col-sm-6">
 
-            {!! Form::label('qty', 'Quantity:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'deeppink select-inpt size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('size', 'Size:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('size', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('size'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('copies', 'Copies:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('copies', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('copies'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('sets_of', 'Sets of:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('sets_of', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('sets_of'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('printed_sides', 'Printed sides:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('printed_sides', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('printed_sides'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-
+        <div class="col-md-6" style="border-left: 3px dashed #404040;">
+            <div class="form-group">
+                {!! Form::label('qty', 'Quantity :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('sides', 'Printed sides:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('sides', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('sides'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('size', 'Size:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('size', array('90x55'=>'90 x 55','90x50'=>'90 x 50','86x45'=>'86 x 45'),Input::old('size'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('finish', 'Finish:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('finish', array('basic'=>'Basic ( no Glazing)','matt'=>'Matt','gloss'=>'Gloss','front_gloss_matt_back'=>'front gloss matt back'),Input::old('finish'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('special_effects', 'Special Effects :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('special_effects', array('spot_glazing'=>'Spot Glazing','scodex'=>'Scodex'),Input::old('special_effects'),['class' => 'form-control deeppink  size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
         </div>
 
         <div class="col-sm-12" style="height: 30px;"></div>

@@ -74,7 +74,7 @@ class MarketingMaterialController extends Controller
     }
     public function vynle()
     {
-        $data['pageTitle'] = 'Vynle Banner (Outdoor)';
+        $data['pageTitle'] = 'Outdoor Vynle Banner';
         return view('mktg::marketing_material.agent_marketing.vynle',$data);
     }
     public function pullup()

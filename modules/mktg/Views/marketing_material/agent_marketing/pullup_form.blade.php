@@ -3,34 +3,40 @@
     <div class="col-md-12">
 
         <div class="col-md-6">
-            <div class="checkbox">
-                <label class="green-yellow"><input name="size" type="checkbox" checked onclick="return false" > Range of sizes </label><br>
-                <label class="green-yellow"><input name="fullcolor" type="checkbox" checked onclick="return false" > Full colour print 2 side</label><br>
+            <div class="image-wrapper-fixed">
+                <img src="{{ URL::to('/assets/img/pull-up-banner.jpg') }}" class="img-responsive image-center">
+            </div>
+            <div class="radio-btn-green">
+                <label class="radio-inline black size-13 text-left" >
+                    {!! Form::radio('art','small-1',['id'=>'']) !!}
+                    Economy (850mm W x 2000mm H) Vynle synthetic
+                </label>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="checkbox">
-                <label class="green-yellow"><input name="delivery" type="checkbox" checked onclick="return false"> Free Delivery</label><br>
-                <label class="green-yellow"><input name="ttime" type="checkbox" checked onclick="return false"> 2 days turnaround time</label><br>
+        <div class="col-md-6">
+            <div class="image-wrapper-fixed">
+                <img src="{{ URL::to('/assets/img/pull-up-banner.jpg') }}" class="img-responsive image-center">
+            </div>
+            <div class="radio-btn-green">
+                <label class="radio-inline black size-13 text-left" >
+                    {!! Form::radio('art','enduro-1',['id'=>'']) !!}
+                    Premium Anti curl (850mm W x 2000mm H) Polyproalene synthetic
+                </label>
             </div>
         </div>
+
+
         <div class="col-sm-12" style="height: 30px;"></div>
         <div class="col-sm-6">
 
-            {!! Form::label('qty', 'Quantity:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'deeppink select-inpt size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('size', 'Size:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('size', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('size'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('copies', 'Copies:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('copies', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('copies'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('sets_of', 'Sets of:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('sets_of', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('sets_of'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-            <br>
-            {!! Form::label('printed_sides', 'Printed sides:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('printed_sides', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('printed_sides'),['class' => 'deeppink select-inpt size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+            {{--{!! Form::label('qty', 'Quantity:', ['class'=>'green-yellow']) !!}
+            {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'deeppink select-inpt size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}--}}
+            <div class="form-group">
+                {!! Form::label('qty', 'Quantity :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
+                </div>
+            </div>
 
         </div>
 

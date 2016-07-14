@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-md-8 green-yellow">
                     <h3 class="green-yellow">{{ $pageTitle }}</h3>
-                    {{--<form class="form-horizontal" action="" role="form">--}}
+                    <p class="green-yellow">Please select one option</p>
                     {{--{!! Form::open(['method'=>'GET','route'=>'solution-type-search','class'=>'form-inline']) !!}--}}
                     {!! Form::open(['method'=>'GET','class'=>'form-horizontal']) !!}
                     @include('mktg::marketing_material.agent_marketing.pullup_form')
