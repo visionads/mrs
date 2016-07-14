@@ -1,7 +1,8 @@
 This is Market Reality System (mrs).
 
 
-2nd Part :
+#2nd Part :
 Migration 
 
-# php artisan migrate --path="modules/mktg/database/migrations/"
+    php artisan migrate --path="modules/mktg/database/migrations/"
+
