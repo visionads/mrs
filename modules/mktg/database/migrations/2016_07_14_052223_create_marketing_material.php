@@ -246,8 +246,8 @@ class CreateMarketingMaterial extends Migration
         Schema::drop('mktg_artwork');
         Schema::drop('mktg_menu_item');
         Schema::drop('mktg_menu_item_img');
-        Schema::drop('item_option');
-        Schema::drop('item_value');
+        Schema::drop('mktg_item_option');
+        Schema::drop('mktg_item_value');
         Schema::drop('mktg_order');
         Schema::drop('mktg_order_detail');
         Schema::drop('mktg_artwork_image');
