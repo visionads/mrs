@@ -13,7 +13,9 @@
                     </div>
                 </div>
                 <div class="col-md-8 green-yellow">
-                    <h3 class="green-yellow">{{ $pageTitle }}</h3>
+                    <div class="col-md-12">
+                        <h3 class="green-yellow">{{ $pageTitle }}</h3>
+                    </div>
                     {{--<form class="form-horizontal" action="" role="form">--}}
                     {{--{!! Form::open(['method'=>'GET','route'=>'solution-type-search','class'=>'form-inline']) !!}--}}
                     {!! Form::open(['method'=>'GET','class'=>'form-horizontal']) !!}

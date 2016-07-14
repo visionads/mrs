@@ -15,17 +15,19 @@
             </div>
         </div>
         <div class="col-sm-12" style="height: 30px;"></div>
-        <div class="col-sm-6" style="border-left:3px dashed #404040; ">
-            <div class="form-group">
-                {!! Form::label('qty', 'Quantity:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+        <div class="col-sm-6">
+            <div style="border-left: 3px dashed #404040;">
+                <div class="form-group">
+                    {!! Form::label('qty', 'Quantity:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('stock', 'Stock:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('stock', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('stock'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                <div class="form-group">
+                    {!! Form::label('stock', 'Stock:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('stock', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('stock'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
             </div>
         </div>

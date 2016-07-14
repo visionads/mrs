@@ -8,7 +8,7 @@
             </div>
             <a role="tab" class="btn btn-green">
                 <label class="radio-inline black size-13" >
-                    {!! Form::radio('art','small','true',['id'=>'']) !!}
+                    {!! Form::radio('option','small','true',['id'=>'']) !!}
                     SMALL (830mm x 2175mm)
                 </label>
             </a>
@@ -19,7 +19,7 @@
             </div>
             <a role="tab" class="btn btn-green">
                 <label class="radio-inline black size-13" >
-                    {!! Form::radio('art','medium',['id'=>'']) !!}
+                    {!! Form::radio('option','medium','',['id'=>'']) !!}
                     MEDIUM (885mm x 3500mm)
                 </label>
             </a>
@@ -30,7 +30,7 @@
             </div>
             <a role="tab" class="btn btn-green">
                 <label class="radio-inline black size-13" >
-                    {!! Form::radio('art','large',['id'=>'']) !!}
+                    {!! Form::radio('option','large','',['id'=>'']) !!}
                     LARGE (1245mm x 4560mm)
                 </label>
             </a>
@@ -38,11 +38,16 @@
         </div>
 
         <div class="col-sm-12" style="height: 30px;"></div>
-        <div class="col-sm-6">
 
-            {!! Form::label('qty', 'Quantity:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'deeppink select-inpt size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
-
+        <div class="col-md-6">
+            <div style="border-left: 2px dashed #909000;">
+                <div class="form-group">
+                    {!! Form::label('qty', 'Quantity:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-sm-12" style="height: 30px;"></div>

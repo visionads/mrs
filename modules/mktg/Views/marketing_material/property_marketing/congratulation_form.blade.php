@@ -49,16 +49,16 @@
 
         <div class="col-sm-12" style="height: 30px;"></div>
 
-        <div class="col-md-12" style="border: 1px dashed #404040;">
-            <div class="row" style="padding: 15px;">
+        <div class="col-md-12">
+            <div style="border: 1px dashed #909000; padding: 15px;">
                 <div class="form-group">
-                    {!! Form::label('send_to', 'SEND TO:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    {!! Form::label('send_to', 'SEND TO :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
                     <div class="col-sm-8">
                         {!! Form::select('send_to', array('0'=>'Select Size','vendor'=>'Vendor','purchaser'=>'Purchaser'),Input::old('send_to'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('delivery_to', 'DELIVERY TO:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    {!! Form::label('delivery_to', 'DELIVERY TO :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
                     <div class="col-sm-8">
                         {!! Form::textarea('delivery_to',Input::old('delivery_to'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
                     </div>

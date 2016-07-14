@@ -15,42 +15,43 @@
             </div>
         </div>
         <div class="col-sm-12" style="height: 30px;"></div>
-        <div class="col-md-9" style="border-left: 3px dashed #404040;">
-
-            <div class="form-group">
-                {!! Form::label('size', 'Size:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('size', array('0'=>'Select Size','a4'=>'A4','a5'=>'A5'),Input::old('size'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+        <div class="col-md-10">
+            <div style="border-left: 2px dashed #909000;">
+                <div class="form-group">
+                    {!! Form::label('size', 'Size:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('size', array('0'=>'Select Size','a4'=>'A4','a5'=>'A5'),Input::old('size'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('qty', 'Quantity:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                <div class="form-group">
+                    {!! Form::label('qty', 'Quantity :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('stock', 'Stock:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('stock', array('0'=>'Select','128gsm_gloss'=>'128gsm gloss','150gsm_gloss'=>'150gsm gloss','170gsm'=>'170gsm','250gsm'=>'250gsm'),Input::old('stock'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                <div class="form-group">
+                    {!! Form::label('stock', 'Stock :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('stock', array('0'=>'Select','128gsm_gloss'=>'128gsm gloss','150gsm_gloss'=>'150gsm gloss','170gsm'=>'170gsm','250gsm'=>'250gsm'),Input::old('stock'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('cover', 'Cover :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('cover', array('00'=>'Select','150gsm_gloss'=>'150gsm gloss','170gsm'=>'170gsm','250gsm'=>'250gsm'),Input::old('cover'),['class' => 'form-control deeppink size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
+                <div class="form-group">
+                    {!! Form::label('cover', 'Cover :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('cover', array('00'=>'Select','150gsm_gloss'=>'150gsm gloss','170gsm'=>'170gsm','250gsm'=>'250gsm'),Input::old('cover'),['class' => 'form-control deeppink size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('number_of_page', 'Number of Page [PP]:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('number_of_page', array('0'=>'Select','1'=>'1','2'=>'2'),Input::old('number_of_page'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                <div class="form-group">
+                    {!! Form::label('number_of_page', 'Number of Page [PP] :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('number_of_page', array('0'=>'Select','1'=>'1','2'=>'2'),Input::old('number_of_page'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('cover_special_effects', 'Cover Special Effects :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('cover_special_effects', array('0'=>'Select','matt_glazed'=>'Matt glazed','gloss_varnish'=>'Gloss Varnish','spot_glazing'=>'Spot Glazing'),Input::old('cover_special_effects'),['class' => 'form-control deeppink  size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                <div class="form-group">
+                    {!! Form::label('cover_special_effects', 'Cover Special Effects :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('cover_special_effects', array('0'=>'Select','matt_glazed'=>'Matt glazed','gloss_varnish'=>'Gloss Varnish','spot_glazing'=>'Spot Glazing'),Input::old('cover_special_effects'),['class' => 'form-control deeppink  size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
             </div>
         </div>

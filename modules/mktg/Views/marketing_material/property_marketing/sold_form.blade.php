@@ -15,23 +15,25 @@
             </div>
         </div>
         <div class="col-sm-12" style="height: 30px;"></div>
-        <div class="col-md-6" style="border-left: 3px dashed #404040;">
-            <div class="form-group">
-                {!! Form::label('product', 'Product :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('product', array('00'=>'Select','generic'=>'Generic','custom'=>'Custom'),Input::old('product'),['class' => 'form-control deeppink size-15','id'=>'product', 'onchange'=>'myFunction()','required']) !!}
+        <div class="col-md-6">
+            <div style="border-left: 2px dashed #909000;">
+                <div class="form-group">
+                    {!! Form::label('product', 'Product :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('product', array('00'=>'Select','generic'=>'Generic','custom'=>'Custom'),Input::old('product'),['class' => 'form-control deeppink size-15','id'=>'product', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('qty', 'Quantity:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                <div class="form-group">
+                    {!! Form::label('qty', 'Quantity:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('size', 'Size:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('size', array('0'=>'Select','450x600'=>'450 x 600','600x900'=>'600 x 900','900x1200'=>'900 x 1200'),Input::old('size'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                <div class="form-group">
+                    {!! Form::label('size', 'Size:', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('size', array('0'=>'Select','450x600'=>'450 x 600','600x900'=>'600 x 900','900x1200'=>'900 x 1200'),Input::old('size'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
             </div>
         </div>

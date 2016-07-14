@@ -28,13 +28,14 @@
 
         <div class="col-sm-12" style="height: 30px;"></div>
         <div class="col-sm-6">
-
-            {{--{!! Form::label('qty', 'Quantity:', ['class'=>'green-yellow']) !!}
-            {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'deeppink select-inpt size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}--}}
-            <div class="form-group">
-                {!! Form::label('qty', 'Quantity :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                <div class="col-sm-8">
-                    {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
+            <div style="border-left:2px dashed #909000; ">
+                {{--{!! Form::label('qty', 'Quantity:', ['class'=>'green-yellow']) !!}
+                {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'deeppink select-inpt size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}--}}
+                <div class="form-group">
+                    {!! Form::label('qty', 'Quantity :', ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('qty', array('00'=>'00','01'=>'01','02'=>'02','03'=>'03','04'=>'04','05'=>'05','06'=>'06'),Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'qty', 'onchange'=>'myFunction()','required']) !!}
+                    </div>
                 </div>
             </div>
 

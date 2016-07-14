@@ -8,7 +8,7 @@
 
 
 
-Route::group(array('prefix' => 'Marketing','modules'=>'Mktg', 'namespace' => 'Modules\Main\Controllers'), function() {
+Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Modules\Main\Controllers'), function() {
 
 /*--------------------Marketing Material (Printing)-----*/
 
