@@ -19,6 +19,14 @@ class MktgOrder extends Model
         'status',
     ];
 
+    public function MktgOrder(){
+        return $this->hasMany('App\MktgOrderDetail');
+    }
+
+    public function MktgInvoice(){
+        return $this->hasOne('App\MktgInvoice');
+    }
+
 
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'

@@ -14,6 +14,10 @@ class MktgArtworkImage extends Model
         'image',
     ];
 
+    public function ArtworkImage(){
+        return $this->belongsTo('App\MktgOrderDetail','mktg_order_detail_id','id');
+    }
+
 
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'

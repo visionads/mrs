@@ -19,6 +19,12 @@ class MktgInvoice extends Model
         'status',
     ];
 
+    public function MktInv(){
+        return $this->belongsTo('App\MktgOrder','mktg_order_id','id');
+    }
+
+
+
 
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'
