@@ -16,7 +16,7 @@ class MktgMaterial extends Model
     ];
 
 
-    public function relMktgMaterial(){
+    public function relMktgMenuItem(){
         return $this->hasMany('App\MktgMenuItem');
     }
 

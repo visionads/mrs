@@ -16,6 +16,10 @@ class MktgArtwork extends Model
         'status',
     ];
 
+    public function relMktgOrderDetail(){
+        return $this->hasMany('App\MktgOrderDetail');
+    }
+
 
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'

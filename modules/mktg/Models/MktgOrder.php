@@ -19,11 +19,11 @@ class MktgOrder extends Model
         'status',
     ];
 
-    public function MktgOrder(){
+    public function relMktgOrderDetail(){
         return $this->hasMany('App\MktgOrderDetail');
     }
 
-    public function MktgInvoice(){
+    public function relMktgInvoice(){
         return $this->hasOne('App\MktgInvoice');
     }
 

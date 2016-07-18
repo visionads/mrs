@@ -14,7 +14,7 @@ class MktgMenuItemImage extends Model
         'image',
     ];
 
-    public function relMktMenuItem(){
+    public function relMktgMenuItem(){
         return $this->belongsTo('App\MktgMenuItem','mktg_menu_item_id','id');
     }
 

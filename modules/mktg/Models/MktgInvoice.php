@@ -19,7 +19,7 @@ class MktgInvoice extends Model
         'status',
     ];
 
-    public function MktInv(){
+    public function relMktgOrder(){
         return $this->belongsTo('App\MktgOrder','mktg_order_id','id');
     }
 

@@ -14,7 +14,7 @@ class MktgArtworkImage extends Model
         'image',
     ];
 
-    public function ArtworkImage(){
+    public function relMktgOrderDetail(){
         return $this->belongsTo('App\MktgOrderDetail','mktg_order_detail_id','id');
     }
 

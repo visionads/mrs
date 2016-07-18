@@ -19,16 +19,20 @@ class MktgOrderDetail extends Model
         'total_amount',
     ];
 
-    public function OrderDet(){
+    public function relMktgItemValue(){
         return $this->belongsTo('App\MktgItemValue','mktg_item_value_id','id');
     }
 
-    public function MktgOrderDetail(){
+    public function relMktgArtworkImage(){
         return $this->hasMany('App\MktgArtworkImage');
     }
 
-    public function MktOrders(){
+    public function relMktgOrder(){
         return $this->belongsTo('App\MktgOrder','mktg_order_id','id');
+    }
+
+    public function relMktgArtwork(){
+        return $this->belongsTo('App\MktgArtwork','mktg_artwork_id','id');
     }
 
 

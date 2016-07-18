@@ -18,11 +18,11 @@ class MktgItemOption extends Model
         'status',
     ];
 
-    public function relMktMenusItem(){
+    public function relMktgMenuItem(){
         return $this->belongsTo('App\MktgMenuItem','mktg_menu_item_id','id');
     }
 
-    public function relMktgItemOption(){
+    public function relMktgItemValue(){
         return $this->hasMany('App\MktgItemValue');
     }
 

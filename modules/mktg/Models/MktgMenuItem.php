@@ -17,15 +17,15 @@ class MktgMenuItem extends Model
         'status',
     ];
 
-    public function MktMaterial(){
+    public function relMktgMaterial(){
         return $this->belongsTo('App\MktgMaterial','mktg_material_id','id');
     }
 
-    public function relMktgMenuItem(){
+    public function relMktgMenuItemImage(){
         return $this->hasMany('App\MktgMenuItemImage');
     }
 
-    public function relMktgMenuOption(){
+    public function relMktgItemOption(){
         return $this->hasMany('App\MktgItemOption');
     }
 
