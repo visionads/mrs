@@ -129,4 +129,16 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         'uses' => 'MarketingMaterialController@congratulation'
     ]);
 
+    //===== Form Menu Items ***//
+    Route::get('mktg-menu-item',[
+        //'middleware' => 'acl_access:main/congratulation',
+        'as' => 'mktg-menu-item',
+        'uses' => 'MarketingMaterialController@mktg_menu_item_index'
+    ]);
+    Route::get('store-menu-item',[
+        //'middleware' => 'acl_access:main/congratulation',
+        'as' => 'store-menu-item',
+        'uses' => 'MarketingMaterialController@mktg_menu_item_store'
+    ]);
+
 });

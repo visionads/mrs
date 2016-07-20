@@ -14,8 +14,11 @@ use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\Admin\Helpers\ImageResize;
 use App\MktgMaterial;
 use App\MktgArtwork;
+use App\MktgMenuItem;
+use App\MktgItemOption;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -161,7 +164,125 @@ class MarketingMaterialController extends Controller
         return view('mktg::marketing_material.property_marketing.congratulation',$data);
     }
 
+//======================================================================================================================
+    //===== For Menu Items CRUD ***//
+    public function mktg_menu_item_index()
+    {
+        $data['pageTitle'] = 'Marketing Menu Item';
+        $data['material'] = MktgMaterial::orderBy('id','ASC')->get();
+        $data['data'] = MktgMenuItem::orderBy('id','ASC')->paginate(30);
+        return view('mktg::marketing_material_crud.menu_item.index',$data);
+    }
+    /*public function print_material_search(){
 
+        $pageTitle = 'Print Material Informations';
+        $title = Input::get('title');
+        $data = PrintMaterial::where('title', 'LIKE', '%'.$title.'%')->paginate(7);
+
+        return view('admin::print_material.index',['data' => $data,'pageTitle'=>$pageTitle]);
+    }*/
+
+    /*public function mktg_menu_item_store(Requests\PrintMaterialRequest $request)*/
+    public function mktg_menu_item_store(Requests $request)
+    {
+        $input = $request->all();
+        $image=Input::file('image');
+
+        if(count($image)>0) {
+            $file_type_required = 'png,jpeg,jpg';
+            $destinationPath = 'uploads/mktg_menu_item_image/';
+
+            $uploadfolder = 'uploads/';
+
+            if ( !file_exists($uploadfolder) ) {
+                $oldmask = umask(0);  // helpful when used in linux server
+                mkdir ($uploadfolder, 0777);
+            }
+
+            if ( !file_exists($destinationPath) ) {
+                $oldmask = umask(0);  // helpful when used in linux server
+                mkdir ($destinationPath, 0777);
+            }
+
+            $file_name = MarketingMaterialController::image_upload($image,$file_type_required,$destinationPath);
+            if($file_name != '') {
+                $input['image'] = $file_name[0];
+                $input['image_thumb'] = $file_name[1];
+            }
+            else{
+                Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
+                return redirect()->back();
+            }
+        }
+
+        //print_r($input);exit;
+
+        //===== input data for head ***//
+        $input_head =[
+            'mktg_material_id'=>$input['mktg_material_id'],
+            'title'=>$input['title'],
+            'slug'=>$input['slug'],
+            'description'=>$input['description'],
+            'image'=>$input['image'],
+            'image_thumb'=>$input['image_thumb']
+        ];
+
+        //===== input data for Menu Options ***//
+        for($i=0; $i<count($input['title']); $i++){
+            $i_detail[] = array(
+                'title'=>$input['title'][$i],
+                'type'=>$input['type'][$i],
+                'slug'=>$input['slug'][$i]
+            );
+        }
+
+        /* Transaction Start Here */
+        DB::beginTransaction();
+        try {
+            //insert into head table
+            $vh = MktgMenuItem::create($input_head);
+
+            // Store data into item_option table
+            foreach($i_detail as $value){
+
+                if($value['title_size'] != null) {
+                    //Menu options
+                    $data = [
+                        'mktg_material_id' => $vh['id'],
+                        'title' => $value['title_size'],
+                        'price' => $value['price'],
+                        'description' => $value['description'],
+                    ];
+                    // insert data into item_option table
+                    MktgItemOption::create($data);
+                }
+
+            }
+
+            //Commit the transaction
+            DB::commit();
+            Session::flash('message', 'Successfully added!');
+
+        } catch (\Exception $e) {
+            //If there are any exceptions, rollback the transaction`
+            DB::rollback();
+            Session::flash('danger', $e->getMessage());
+
+        }
+
+        return redirect()->route('print-material');
+    }
+
+    /*public function mktg_menu_item_store()
+    {
+        $data['pageTitle'] = 'Marketing Menu Item';
+        $data['material'] = MktgMaterial::orderBy('id','ASC')->get();
+        $data['data'] = MktgMenuItem::orderBy('id','ASC')->paginate(30);
+
+        return view('mktg::marketing_material_crud.menu_item.index',$data);
+    }*/
+
+    //===== For Image Upload Common Function ***//
     public function image_upload($image,$file_type_required,$destinationPath)
     {
         if ($image != '') {
@@ -171,7 +292,7 @@ class MarketingMaterialController extends Controller
 
             $thumb_name = 'thumb_400x400_'.$random_number.'_'.$img_name;
 
-            $newWidth=400;
+            $newWidth=80;
             $targetFile=$destinationPath.$thumb_name;
             $originalFile=$image;
 
