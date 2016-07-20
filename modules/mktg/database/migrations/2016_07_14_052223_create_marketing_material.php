@@ -17,6 +17,7 @@ class CreateMarketingMaterial extends Migration
             $table->increments('id');
             $table->string('title', 64)->nullable();
             $table->string('slug', 64)->unique();
+            $table->string('icon', 255)->unique();
             $table->enum('status',array('open','close'))->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
@@ -81,7 +82,7 @@ class CreateMarketingMaterial extends Migration
             $table->increments('id');
             $table->unsignedInteger('mktg_menu_item_id')->nullable();
             $table->enum('type', array(
-                'option', 'value'
+                'single', 'multiple'
             ))->nullable();
 
             $table->string('title', 64)->nullable();

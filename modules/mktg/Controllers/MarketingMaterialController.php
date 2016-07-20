@@ -14,7 +14,7 @@ use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-
+use App\MktgMaterial;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -24,9 +24,11 @@ class MarketingMaterialController extends Controller
 {
     public function index()
     {
-       //$data['pageTitle'] = 'Marketing Material Printing';
-       $data['pageTitle'] = 'Agency Marketing Material';
-       return view('mktg::marketing_material.index',$data);
+        //$data['pageTitle'] = 'Marketing Material Printing';
+        $data['pageTitle'] = 'Agency Marketing Material';
+        $data['data'] = MktgMaterial::orderBy('id','ASC')->get();
+        //print_r($data['data']); exit();
+        return view('mktg::marketing_material.index',$data);
     }
 
     //===== For Agency Stationary Material ***//

@@ -15,15 +15,19 @@
         <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label green-yellow">Please select one of the following</span></div>
         </div>
-        <div class="col-md-4">
-            <div class="green-yellow-bg-btn">
-                <a href="#" data-toggle="modal" data-target="#ASM">
-                    <span class="glyphicon glyphicon-paperclip size-25"></span><br>
-                    Agency Stationary Material
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4">
+        @if(isset($data))
+            @foreach($data as $row)
+                <div class="col-md-4">
+                    <div class="green-yellow-bg-btn">
+                        <a href="#" data-toggle="modal" data-target="{{ $row->slug }}">
+                            <span class="{{ $row->icon }} size-25"></span><br>
+                            {{ $row->title }}
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+        {{--<div class="col-md-4">
             <div class="green-yellow-bg-btn">
                 <a href="#" data-toggle="modal" data-target="#AAM">
                     <span class="glyphicon glyphicon-home size-25"></span><span class="glyphicon glyphicon-user size-25"></span><br>
@@ -38,7 +42,7 @@
                     Property Marketing
                 </a>
             </div>
-        </div>
+        </div>--}}
 
         <!-- Modal for Agency Stationary Material ====================================================================== -->
         <div id="ASM" class="modal fade" role="dialog" style="background: black !important;">
