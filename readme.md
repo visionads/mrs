@@ -6,6 +6,6 @@ Migration
 
     php artisan migrate --path="modules/mktg/database/migrations/"
 
-Seed
+Seed ( For the tables of - mktg_material, mktg_artwork):
     php artisan db:seed
 
