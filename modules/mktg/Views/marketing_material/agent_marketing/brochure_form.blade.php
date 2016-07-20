@@ -78,36 +78,30 @@
                     Please select one of the options:
                 </div>
                 <div>
-                    <div class="col-md-6">
-                        <label class="radio-inline green-yellow size-13" >
-                            {!! Form::radio('check','check1','',['id'=>'check1']) !!}
-                            Use existing file (RE ORDER NO CHANGES)
-                        </label><br><br>
-                        <label class="radio-inline green-yellow size-13" id="btn_req">
-                            {!! Form::radio('check','check3','',['id'=>'check3']) !!}
-                            Use existing file (CHANGES REQ UIRED DETAILS ONLY) Please write below the changes, eg Name: John Smith, Phone 0234565...
-                            <div id="txt_req">
-                                {!! Form::textarea('note', Input::old('note'),['class' => 'form-control text-left','rows'=>'10','placeholder'=>'CHANGES REQ UIRED DETAILS ONLY']) !!}
+                    @if(isset($artwork))
+                        @foreach($artwork as $artitem)
+                            <div class="col-md-6">
+                                <?php
+                                $type_id = '';
+                                if($artitem->field_type == 'description'){ $type_id = "btn_req";}
+                                if($artitem->field_type == 'file'){ $type_id = "btn_upload";}
+                                ?>
+                                <label class="radio-inline green-yellow size-13" id="{{ $type_id }}" >
+                                    {!! Form::radio('check',$artitem->price,'',['id'=>$artitem->slug]) !!}
+                                    {{ $artitem->title }}
+                                    @if($artitem->field_type == 'description')
+                                        <div id="txt_req">
+                                            {!! Form::textarea('note', Input::old('note'),['class' => 'form-control text-left','rows'=>'10','placeholder'=>'CHANGES REQ UIRED DETAILS ONLY']) !!}
+                                        </div>
+                                    @elseif($artitem->field_type == 'file')
+                                        <div id="file_upload">
+                                            {!! Form::file('file','',['class'=>'form-control']) !!}
+                                        </div>
+                                    @endif
+                                </label><br><br>
                             </div>
-                        </label><br><br>
-                        <label class="radio-inline green-yellow size-13">
-                            {!! Form::radio('check','check5','',['id'=>'check5']) !!}
-                            Artwork and design required (one of our friendly graphics designers will be in touch with you)
-                        </label>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="radio-inline green-yellow size-13" id="btn_upload">
-                            {!! Form::radio('check','check2','',['id'=>'check2']) !!}
-                            Upload Artwork (file)
-                            <div id="file_upload">
-                                {!! Form::file('file','',['class'=>'form-control']) !!}
-                            </div>
-                        </label><br><br>
-                        <label class="radio-inline green-yellow size-13">
-                            {!! Form::radio('check', 'check4','',['id'=>'check4']) !!}
-                            Use existing file (CHANGES REQ UIRED DETAILS ONLY) Please write below the changes, eg Name: John Smith, Phone 0234565...
-                        </label>
-                    </div>
+                        @endforeach
+                    @endif
                     <div class="col-md-12">
                         {{--{!! Form::submit('Order',['class'=>'btn btn-green pull-right']) !!}--}}
                         {{--<button class="btn btn-green pull-right" type="button" id="order">Order <span class="glyphicon glyphicon-chevron-right"></span></button>--}}

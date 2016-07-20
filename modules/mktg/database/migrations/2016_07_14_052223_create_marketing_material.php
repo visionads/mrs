@@ -31,6 +31,7 @@ class CreateMarketingMaterial extends Migration
             $table->string('title', 128)->nullable();
             $table->string('slug', 128)->unique();
             $table->float('price')->nullable();
+            $table->enum('field_type',array('description','file'))->nullable();
             $table->enum('status',array('open','close'))->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);

@@ -15,6 +15,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\MktgMaterial;
+use App\MktgArtwork;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -35,31 +36,37 @@ class MarketingMaterialController extends Controller
     public function letterhead()
     {
         $data['pageTitle'] = 'Letterhead / Followers';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agency_stationary_materials.letterhead',$data);
     }
     public function presentation()
     {
         $data['pageTitle'] = 'Presentation folders';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agency_stationary_materials.presentation',$data);
     }
     public function withcomp()
     {
         $data['pageTitle'] = 'Withcomp Slips';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agency_stationary_materials.withcomp',$data);
     }
     public function envelopes()
     {
         $data['pageTitle'] = 'Envelopes';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agency_stationary_materials.envelopes',$data);
     }
     public function forms()
     {
         $data['pageTitle'] = 'Forms';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agency_stationary_materials.forms',$data);
     }
     public function carbon()
     {
         $data['pageTitle'] = 'Carbon Books (NCR)';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agency_stationary_materials.carbon',$data);
     }
 
@@ -67,51 +74,61 @@ class MarketingMaterialController extends Controller
     public function teardrop()
     {
         $data['pageTitle'] = 'Tear Drop flag';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agent_marketing.teardrop',$data);
     }
     public function directional()
     {
         $data['pageTitle'] = 'Directional Signs';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agent_marketing.directional',$data);
     }
     public function vynle()
     {
         $data['pageTitle'] = 'Outdoor Vynle Banner';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agent_marketing.vynle',$data);
     }
     public function pullup()
     {
         $data['pageTitle'] = 'Pull up Banner (Indoor)';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agent_marketing.pullup',$data);
     }
     public function business()
     {
         $data['pageTitle'] = 'Business Card';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agent_marketing.business',$data);
     }
     public function brochure()
     {
         $data['pageTitle'] = 'Flyer / Brochure';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agent_marketing.brochure',$data);
     }
     public function fridge()
     {
         $data['pageTitle'] = 'Fridge Magnet';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agent_marketing.fridge',$data);
     }
     public function magazine()
     {
         $data['pageTitle'] = 'Magazine / Newsletter';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agent_marketing.magazine',$data);
     }
     public function calender()
     {
         $data['pageTitle'] = 'Tent Calender';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agent_marketing.calender',$data);
     }
     public function letterdrop()
     {
         $data['pageTitle'] = 'Letterdrop';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.agent_marketing.letterdrop',$data);
     }
 
@@ -120,23 +137,27 @@ class MarketingMaterialController extends Controller
     public function property_cards()
     {
         $data['pageTitle'] = 'Property Cards';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.property_marketing.property_cards',$data);
     }
     public function pvc_sign()
     {
         $data['pageTitle'] = 'Corflute / PVC Sign';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.property_marketing.pvc_sign',$data);
     }
     public function sold()
     {
         //$data['pageTitle'] = 'Sold / Leased Stickers (Custom & Genric)';
         $data['pageTitle'] = 'Vynle stickers outdoor (SOLD)';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.property_marketing.sold',$data);
     }
     public function congratulation()
     {
         //$data['pageTitle'] = 'Congratulations Pack';
         $data['pageTitle'] = 'Congratulatory Pack';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.property_marketing.congratulation',$data);
     }
 
@@ -197,6 +218,7 @@ class MarketingMaterialController extends Controller
     public function proceed()
     {
         $data['pageTitle'] = 'Proceed';
+        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
         return view('mktg::marketing_material.trash.proceed',$data);
     }
 
