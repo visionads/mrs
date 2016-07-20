@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Seeder;
 /**
  * Created by PhpStorm.
  * User: etsb
@@ -10,7 +11,8 @@ class MktgMaterialTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('mktg_material')->truncate();
+        //DB::table('mktg_material')->truncate();
+        DB::table('mktg_material')->delete();
 
         $materials = array(
             array('Agency Stationary Material','#ASM','glyphicon glyphicon-paperclip','open'),
