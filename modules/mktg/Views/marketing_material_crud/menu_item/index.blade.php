@@ -69,7 +69,8 @@
                                     <td>{{ ucfirst($values->title) }}</td>
                                     <td>{{ @($values->slug) }}</td>
                                     <td>{{ ($values->relMktgMaterial['title']) }}</td>
-                                    <td>{{ @($values->description) }}</td>
+                                    {{--<td>{{ @($values->description) }}</td>--}}
+                                    <td>{{ substr($values->description, 0, 120) }} ...</td>
                                     <td>
                                         <a href="{{ route('mktg-menu-item-view', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><i class="glyphicon glyphicon-eye-open"></i></a>
                                         <a href="{{ route('mktg-menu-item-edit', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="glyphicon glyphicon-edit"></i></a>
