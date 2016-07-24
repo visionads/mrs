@@ -23,6 +23,7 @@ class MktgMenuItem extends Model
 
     public function relMktgMenuItemImage(){
         return $this->hasMany('App\MktgMenuItemImage');
+        //return $this->belongsTo('App\MktgMenuItemImage','mktg_menu_item_id','id');
     }
 
     public function relMktgItemOption(){

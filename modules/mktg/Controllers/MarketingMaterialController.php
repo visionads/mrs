@@ -19,8 +19,12 @@ use App\MktgMaterial;
 use App\MktgArtwork;
 use App\MktgMenuItem;
 use App\MktgItemOption;
+use App\MktgMenuItemImage;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Validator;
 
 
 
@@ -170,8 +174,17 @@ class MarketingMaterialController extends Controller
     {
         $data['pageTitle'] = 'Marketing Menu Item';
         $data['material'] = MktgMaterial::orderBy('id','ASC')->get();
-        $data['data'] = MktgMenuItem::orderBy('id','ASC')->paginate(30);
+        $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage')->orderBy('id','DESC')->paginate(30);
+        //print_r($data['data']);exit();
         return view('mktg::marketing_material_crud.menu_item.index',$data);
+    }
+
+    public function mktg_menu_item_view($id)
+    {
+        $data['pageTitle'] = 'Marketing Material Details';
+        $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage','relMktgItemOption')->where('id',$id)->first();
+
+        return view('mktg::marketing_material_crud.menu_item.view',$data);
     }
     /*public function print_material_search(){
 
@@ -183,10 +196,13 @@ class MarketingMaterialController extends Controller
     }*/
 
     /*public function mktg_menu_item_store(Requests\PrintMaterialRequest $request)*/
-    public function mktg_menu_item_store(Requests $request)
+    public function mktg_menu_item_store(Requests\MarketingMaterialRequest $request)
     {
+        //exit('Exit');
         $input = $request->all();
         $image=Input::file('image');
+
+        //print_r($input);exit();
 
         if(count($image)>0) {
             $file_type_required = 'png,jpeg,jpg';
@@ -205,58 +221,105 @@ class MarketingMaterialController extends Controller
             }
 
             $file_name = MarketingMaterialController::image_upload($image,$file_type_required,$destinationPath);
+            //print_r($file_name);exit();
             if($file_name != '') {
-                $input['image'] = $file_name[0];
-                $input['image_thumb'] = $file_name[1];
+                /*$input['image'] = $file_name[0];
+                $input['image_thumb'] = $file_name[1];*/
+                $menu_item_img = $file_name[0];
+                $menu_item_img_thumb = $file_name[1];
+                //print_r($menu_item_img_thumb);exit();
             }
             else{
                 Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
                 return redirect()->back();
             }
         }
+        //print_r($input);exit;
 
-        print_r($input);exit;
 
         //===== input data for head ***//
-        $input_head =[
+        $input_mktg_menu_item =[
             'mktg_material_id'=>$input['mktg_material_id'],
             'title'=>$input['title'],
             'slug'=>$input['slug'],
-            'description'=>$input['description'],
-            'image'=>$input['image'],
-            'image_thumb'=>$input['image_thumb']
+            'status'=>$input['status'],
+            'description'=>$input['description']
         ];
+        //print_r($input_head);exit();
 
-        //===== input data for Menu Options ***//
-        for($i=0; $i<count($input['title']); $i++){
+
+        //===== input data for Menu Options [ table :: item_option ] ***//
+        for($i=0; $i<count($input['title_option']); $i++) {
+
+            /*$image_option = Input::file('image_option');
+            //print_r($image_option);exit();
+            if(count($image_option)>0)
+            {
+                $file_type_required = 'png,jpeg,jpg';
+                $destinationPath = 'uploads/mktg_menu_item_options_image/';
+
+                $uploadfolder = 'uploads/';
+
+                 if ( !file_exists($uploadfolder) ) {
+                     $oldmask = umask(0);  // helpful when used in linux server
+                     mkdir ($uploadfolder, 0777);
+                 }
+
+                 if ( !file_exists($destinationPath) ) {
+                     $oldmask = umask(0);  // helpful when used in linux server
+                     mkdir ($destinationPath, 0777);
+                 }
+
+                 $file_name = MarketingMaterialController::image_upload_options($image_option,$file_type_required,$destinationPath);
+                 if($file_name != '') {
+                     $input['image_option'][$i] = $file_name[0];
+                     //$input['image_thumb'] = $file_name[1];
+                 }
+                 else{
+                     Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
+                     return redirect()->back();
+                 }
+            }*/
+
             $i_detail[] = array(
-                'title'=>$input['title'][$i],
-                'type'=>$input['type'][$i],
-                'slug'=>$input['slug'][$i]
+                'title' => $input['title_option'][$i],
+                'type' => $input['type_option'][$i],
+                'slug' => $input['slug_option'][$i],
+                'image' => $input['image_option'][$i]
             );
         }
+        //print_r($i_detail);exit();
 
         /* Transaction Start Here */
         DB::beginTransaction();
         try {
-            //insert into head table
-            $vh = MktgMenuItem::create($input_head);
+            //===== insert into head table
+            $vh = MktgMenuItem::create($input_mktg_menu_item);
+
+            //===== Input data for mktg_menu_item_img ***//
+            $input_mktg_menu_item_img = [
+                'mktg_menu_item_id' => $vh['id'],
+                'image'=>$menu_item_img,
+                'image_thumb'=>$menu_item_img_thumb,
+            ];
+            MktgMenuItemImage::create($input_mktg_menu_item_img);
 
             // Store data into item_option table
             foreach($i_detail as $value){
 
-                if($value['title_size'] != null) {
+                if($value['title'] != null) {
                     //Menu options
                     $data = [
-                        'mktg_material_id' => $vh['id'],
-                        'title' => $value['title_size'],
-                        'price' => $value['price'],
-                        'description' => $value['description'],
+                        //'mktg_material_id' => $vh['id'],
+                        'mktg_menu_item_id' => $vh['id'],
+                        'title' => $value['title'],
+                        'type' => $value['type'],
+                        'slug' => $value['slug'],
+                        'image' => $value['image'],
                     ];
                     // insert data into item_option table
                     MktgItemOption::create($data);
                 }
-
             }
 
             //Commit the transaction
@@ -270,7 +333,7 @@ class MarketingMaterialController extends Controller
 
         }
 
-        return redirect()->route('print-material');
+        return redirect()->route('mktg-menu-item');
     }
 
     /*public function mktg_menu_item_store()
@@ -283,6 +346,7 @@ class MarketingMaterialController extends Controller
     }*/
 
     //===== For Image Upload Common Function ***//
+    /*For menu Item Images*/
     public function image_upload($image,$file_type_required,$destinationPath)
     {
         if ($image != '') {
@@ -329,6 +393,53 @@ class MarketingMaterialController extends Controller
             }
         }
     }
+    /*For menu item options images*/
+    /*public function image_upload_options($image,$file_type_required,$destinationPath)
+    {
+        if ($image != '') {
+
+            $img_name = ($_FILES['image_option']['name']);
+            $random_number = rand(111, 999);
+
+            $thumb_name = 'thumb_400x400_'.$random_number.'_'.$img_name;
+
+            $newWidth=80;
+            $targetFile=$destinationPath.$thumb_name;
+            $originalFile=$image;
+
+            $resizedImages 	= ImageResize::resize($newWidth, $targetFile,$originalFile);
+
+            $thumb_image_destination=$destinationPath;
+            $thumb_image_name=$thumb_name;
+
+            //$rules = array('image' => 'required|mimes:png,jpeg,jpg');
+            $rules = array('image' => 'required|mimes:'.$file_type_required);
+            $validator = Validator::make(array('image' => $image), $rules);
+            if ($validator->passes()) {
+                // Files destination
+                //$destinationPath = 'uploads/slider_image/';
+                // Create folders if they don't exist
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0777, true);
+                }
+                $image_original_name = $image->getClientOriginalName();
+                $image_name = rand(111, 999) . $image_original_name;
+                $upload_success = $image->move($destinationPath, $image_name);
+
+                $file=array($destinationPath . $image_name, $thumb_image_destination.$thumb_image_name);
+
+                if ($upload_success) {
+                    return $file_name = $file;
+                }
+                else{
+                    return $file_name = '';
+                }
+            }
+            else{
+                return $file_name = '';
+            }
+        }
+    }*/
 
 
 

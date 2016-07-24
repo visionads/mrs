@@ -12,6 +12,7 @@ class MktgMenuItemImage extends Model
     protected $fillable = [
         'mktg_menu_item_id',
         'image',
+        'image_thumb',
     ];
 
     public function relMktgMenuItem(){

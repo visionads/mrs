@@ -135,10 +135,30 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         'as' => 'mktg-menu-item',
         'uses' => 'MarketingMaterialController@mktg_menu_item_index'
     ]);
-    Route::get('store-menu-item',[
+    Route::post('store-menu-item',[
         //'middleware' => 'acl_access:main/congratulation',
         'as' => 'store-menu-item',
         'uses' => 'MarketingMaterialController@mktg_menu_item_store'
+    ]);
+    Route::get('mktg-menu-item-view/{id}',[
+        //'middleware' => 'acl_access:main/congratulation',
+        'as' => 'mktg-menu-item-view',
+        'uses' => 'MarketingMaterialController@mktg_menu_item_view'
+    ]);
+    Route::get('mktg-menu-item-edit/{id}',[
+        //'middleware' => 'acl_access:main/congratulation',
+        'as' => 'mktg-menu-item-edit',
+        'uses' => 'MarketingMaterialController@mktg_menu_item_edit'
+    ]);
+    Route::get('mktg-menu-item-update/{id}',[
+        //'middleware' => 'acl_access:main/congratulation',
+        'as' => 'mktg-menu-item-update',
+        'uses' => 'MarketingMaterialController@mktg_menu_item_update'
+    ]);
+    Route::get('mktg-menu-item-delete/{id}',[
+        //'middleware' => 'acl_access:main/congratulation',
+        'as' => 'mktg-menu-item-delete',
+        'uses' => 'MarketingMaterialController@mktg_menu_item_delete'
     ]);
 
 });

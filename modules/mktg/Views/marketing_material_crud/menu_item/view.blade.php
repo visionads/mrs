@@ -11,46 +11,82 @@
 
 <div class="modal-body">
     <div style="padding: 10px;">
-        <table id="" class="table table-bordered table-hover table-striped">
-            <h4 class="text-center">Print Material</h4>
-            <tr>
-                <th class="col-lg-2">Title</th>
-                <td class="col-lg-4">{{ isset($data[0]['title'])?$data[0]['title']:''}}</td>
+        <table id="" class="table table-hover table-striped">
+            <h4 class="text-center">Marketing Menu Item</h4>
 
-                <th class="col-lg-2">Is Distribution</th>
-                <td class="col-lg-4">{{ @$data[0]['is_distribution']==1?'Yes':'No'}}</td>
-            </tr>
             <tr>
-                <th class="col-lg-4">Image</th>
-                <td>
-                    <div>
-                        <a href="{{ route('print-image-show', $data[0]['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView"><img src="{{ URL::to($data[0]['image_thumb']) }}" alt="{{$data[0]['image_path']}}" />
-                        </a>
-                    </div>
+                <td class="col-lg-7">
+                    <table class="table  table-hover table-striped" >
+                        <tr>
+                            <th class="col-lg-2">Title</th>
+                            <td class="col-lg-2 text-center">:</td>
+                            <td class="col-lg-8">{{ isset($data->title) ? $data->title:'' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Slug</th>
+                            <td>:</td>
+                            <td>{{ isset($data->slug) ? $data->slug:'' }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Description</th>
+                            <td>:</td>
+                            <td>{{ isset($data->description) ? $data->description:'' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>:</td>
+                            <td>{{ isset($data->status) ? $data->status:'' }}</td>
+                        </tr>
+                    </table>
+                </td>
+
+                <td class="col-lg-5">
+                    <table class="table table-bordered table-hover table-striped" >
+                        <tr>
+                            {{--<th class="col-lg-6">Image : </th>--}}
+                            <td class="col-lg-6" colspan="3">
+                                <div>
+                                    {{--<a href="{{ route('print-image-show', $data[0]['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView"><img src="{{ URL::to($data[0]['image_thumb']) }}" alt="{{$data[0]['image_path']}}" /></a>--}}
+                                    @if(isset($data->relMktgMenuItemImage[0]['image']))
+                                        <img src="{{ URL::to($data->relMktgMenuItemImage[0]['image']) }}" style="width: auto; max-width: 100%">
+                                    @else
+                                        <h1>No Image Available</h1>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
+
+
+
+
         </table>
 
-        @if(count($data[0]['relPrintMaterial'])>0)
+        @if(count($data->relMktgItemOption)>0)
 
-            <h4 class="text-center-header">Sizes</h4>
+            <h4 class="text-left-header">Marketing Menu Options</h4>
 
             <div class="table-primary">
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example">
                     <thead>
                     <tr>
-                        <th>Title:</th>
-                        <th>Price:</th>
-                        <th>Description:</th>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Slug</th>
+                        <th>Image</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @if(@$data[0]['relPrintMaterial'])
-                        @foreach($data[0]['relPrintMaterial'] as $values )
+                    @if(@$data->relMktgItemOption)
+                        @foreach($data->relMktgItemOption as $values )
                             <tr class="gradeX">
-                                <td>{{$values['title']}}</td>
-                                <td>{{$values['price']}}</td>
-                                <td>{{$values['description']}}</td>
+                                <td>{{$values->title }}</td>
+                                <td>{{$values->type }}</td>
+                                <td>{{$values->slug }}</td>
+                                <td>{{$values->image}}</td>
                             </tr>
                         @endforeach
                     @endif

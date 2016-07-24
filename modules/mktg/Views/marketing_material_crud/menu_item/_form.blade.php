@@ -20,13 +20,13 @@
         <div>
             {!! Form::label('description', 'Description :', []) !!}
             <small class="required">(Required)</small>
-            {!! Form::textarea('description', Input::old('description'), ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title','rows'=>'4']) !!}
+            {!! Form::textarea('description', Input::old('description'), ['id'=>'title', 'class' => 'form-control','title'=>'enter title','rows'=>'4']) !!}
         </div>
-        {{--<div>
-            {!! Form::label('is_distribution', 'Is Distribution:', []) !!}
+        <div>
+            {!! Form::label('status', 'Status:', []) !!}
             <small class="required">(Required)</small>
-            {!! Form::select('is_distribution', array('1'=>'Yes','0'=>'No'),Input::old('is_distribution'),['class' => 'form-control','required','title'=>'select status of branch']) !!}
-        </div>--}}
+            {!! Form::select('status', array('open'=>'Open','close'=>'Close'),Input::old('status'),['class' => 'form-control','required','title'=>'select status of Item']) !!}
+        </div>
         <div>
             {!! Form::label('mktg_material_id', 'Parent:', []) !!}
             <small class="required">(Required)</small>
@@ -52,10 +52,13 @@
         {!! Form::label('Image Upload', 'Image Upload:', []) !!}
         <small class="required">(Required)</small>
 
+        {{--{!! Form::file('image', Input::old('image'), ['id'=>'title', 'class' => 'form-control']) !!}--}}
+
+
         <div class="fileupload fileupload-new" data-provides="fileupload">
             <div class="fileupload-new thumbnail pull-left" style="width: 120px; height: 120px;">
                 @if($data['image'] != '')
-                    {{--<img src="{{URL::to($data['image'])}}" alt="" />--}}
+                    <img src="{{URL::to($data['image'])}}" alt="" />
                     <a href="{{ route('gal_image.image.show', $data['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView">
                         <img src="{{ URL::to($data['image']) }}" height="50px" width="50px" alt="{{$data['image']}}" />
                     </a>
@@ -97,22 +100,22 @@
         <tr>
             <td>
                 <div>
-                    {!! Form::text('title_size[]', Input::old('title_size'), ['title'=>'enter title', 'class' => 'form-control']) !!}
+                    {!! Form::text('title_option[]', Input::old('title_option'), ['title'=>'enter title', 'class' => 'form-control']) !!}
                 </div>
             </td>
             <td>
                 <div>
-                    {!! Form::select('type[]',array('option'=>'Option','value'=>'Value'), Input::old('type'), ['title'=>'enter type', 'class' => 'form-control']) !!}
+                    {!! Form::select('type_option[]',array('option'=>'Option','value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control']) !!}
                 </div>
             </td>
             <td>
                 <div>
-                    {!! Form::text('slug[]', Input::old('slug'), ['title'=>'enter slug', 'class' => 'form-control']) !!}
+                    {!! Form::text('slug_option[]', Input::old('slug_option'), ['title'=>'enter slug', 'class' => 'form-control']) !!}
                 </div>
             </td>
             <td>
                 <div>
-                    {!! Form::file('image[]', Input::old('image'), ['title'=>'enter slug', 'class' => 'form-control']) !!}
+                    {!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}
                 </div>
             </td>
 
@@ -137,4 +140,4 @@
 </div>
 
 
-@include('admin::print_material._script')
+@include('mktg::marketing_material_crud.menu_item._script')

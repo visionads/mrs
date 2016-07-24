@@ -47,9 +47,11 @@
 
                         <thead>
                         <tr class="bg-primary">
+                            <th> Image </th>
                             <th> Title </th>
-                            <th> Image Path</th>
-                            <th> Distribution</th>
+                            <th> Slug </th>
+                            <th> Parent </th>
+                            <th> Description</th>
                             <th> Action &nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-placement="top" data-content="view : click for details informations<br>update : click for update informations<br>delete : click for delete informations"></span></th>
                         </tr>
                         </thead>
@@ -57,13 +59,21 @@
                         @if(isset($data))
                             @foreach($data as $values)
                                 <tr class="gradeX">
-                                    <td>{{ucfirst($values->title)}}</td>
-                                    <td>{{--{{ucfirst($values->image_path)}}--}}</td>
+                                    <td class="text-center">
+                                        @if(isset($values->relMktgMenuItemImage[0]['image_thumb']))
+                                            <img src="{{ url($values->relMktgMenuItemImage[0]['image_thumb']) }}">
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>{{ ucfirst($values->title) }}</td>
+                                    <td>{{ @($values->slug) }}</td>
+                                    <td>{{ ($values->relMktgMaterial['title']) }}</td>
                                     <td>{{ @($values->description) }}</td>
                                     <td>
-                                        <a href="{{ route('view-print-material', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                        <a href="{{ route('edit-print-material', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="glyphicon glyphicon-edit"></i></a>
-                                        <a href="{{ route('delete-print-material', $values->id) }}" class="btn btn-danger btn-xs" data-placement="top" onclick="return confirm('Are you sure to Delete?')" data-content="delete"><i class="glyphicon glyphicon-trash"></i></a>
+                                        <a href="{{ route('mktg-menu-item-view', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                        <a href="{{ route('mktg-menu-item-edit', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="glyphicon glyphicon-edit"></i></a>
+                                        <a href="{{ route('mktg-menu-item-delete', $values->id) }}" class="btn btn-danger btn-xs" data-placement="top" onclick="return confirm('Are you sure to Delete?')" data-content="delete"><i class="glyphicon glyphicon-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

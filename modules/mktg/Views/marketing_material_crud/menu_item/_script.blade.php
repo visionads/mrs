@@ -36,15 +36,18 @@
             //append the new row here.
             var table = $("#table");
             var element = '<tr>\
-            <td>\
-            <div>{!! Form::text('title_size[]', Input::old('title_size'), ['title'=>'enter title', 'class' => 'form-control']) !!}</div>\
-            </td>\
-            \<td>\
-            <div>{!! Form::input('number','price[]', Input::old('price'), ['title'=>'enter price', 'class' => 'form-control']) !!}</div>\
-            </td>\
-            <td>\
-            <div>{!! Form::text('description[]', Input::old('description'), ['title'=>'enter description', 'class' => 'form-control']) !!}</div>\
-            </td>\
+                <td>\
+                    <div>{!! Form::text('title_option[]', Input::old('title_option'), ['title'=>'enter title', 'class' => 'form-control']) !!}</div>\
+                </td>\
+                \<td>\
+                    <div>{!! Form::select('type_option[]',array('option'=>'Option','value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control']) !!}</div>\
+                </td>\
+                <td>\
+                    <div>{!! Form::text('slug_option[]', Input::old('slug_option'), ['title'=>'enter Slug', 'class' => 'form-control']) !!}</div>\
+                </td>\
+                <td>\
+                    <div>{!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}</div>\
+                </td>\
             </tr>';
             table.append(element);
         }
