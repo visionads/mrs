@@ -19,6 +19,22 @@ class MktgOrderDetail extends Model
         'total_amount',
     ];
 
+    public function relMktgItemValue(){
+        return $this->belongsTo('App\MktgItemValue','mktg_item_value_id','id');
+    }
+
+    public function relMktgArtworkImage(){
+        return $this->hasMany('App\MktgArtworkImage');
+    }
+
+    public function relMktgOrder(){
+        return $this->belongsTo('App\MktgOrder','mktg_order_id','id');
+    }
+
+    public function relMktgArtwork(){
+        return $this->belongsTo('App\MktgArtwork','mktg_artwork_id','id');
+    }
+
 
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'

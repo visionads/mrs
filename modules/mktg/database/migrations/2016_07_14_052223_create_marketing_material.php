@@ -235,6 +235,21 @@ class CreateMarketingMaterial extends Migration
         });
 
 
+        // mktg_settings
+        Schema::create('mktg_settings', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('type', 100);
+            $table->string('code', 10);
+            $table->integer('last_number');
+            $table->integer('increment');
+            $table->enum('status',array('open','close'))->nullable();
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+
     }
 
     /**
@@ -254,6 +269,7 @@ class CreateMarketingMaterial extends Migration
         Schema::drop('mktg_order_detail');
         Schema::drop('mktg_artwork_image');
         Schema::drop('mktg_invoice');
+        Schema::drop('mktg_settings');
 
     }
 

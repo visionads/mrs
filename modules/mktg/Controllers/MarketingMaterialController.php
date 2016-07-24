@@ -215,7 +215,7 @@ class MarketingMaterialController extends Controller
             }
         }
 
-        //print_r($input);exit;
+        print_r($input);exit;
 
         //===== input data for head ***//
         $input_head =[

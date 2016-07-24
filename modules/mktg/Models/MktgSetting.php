@@ -1,22 +1,30 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: etsb
+ * Date: 7/18/16
+ * Time: 2:59 PM
+ */
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class MktgMenuItemImage extends Model
+
+class MktgSetting extends Model
 {
-    protected $table = 'mktg_menu_item_img';
+    protected $table='mktg_settings';
 
-    protected $fillable = [
-        'mktg_menu_item_id',
-        'image',
+    protected $fillable=[
+        'type',
+        'code',
+        'last_number',
+        'increment',
+        'status',
+        'created_by',
+        'updated_by'
     ];
-
-    public function relMktgMenuItem(){
-        return $this->belongsTo('App\MktgMenuItem','mktg_menu_item_id','id');
-    }
 
 
     // TODO :: boot
@@ -27,11 +35,13 @@ class MktgMenuItemImage extends Model
         static::creating(function($query){
             if(Auth::check()){
                 $query->created_by = Auth::user()->id;
+                $query->business_id = isset(Auth::user()->business_id)?Auth::user()->business_id:null;
             }
         });
         static::updating(function($query){
             if(Auth::check()){
                 $query->updated_by = Auth::user()->id;
+                $query->business_id = isset(Auth::user()->business_id)?Auth::user()->business_id:null;
             }
         });
     }

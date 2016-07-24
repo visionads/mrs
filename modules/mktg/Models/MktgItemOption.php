@@ -18,6 +18,15 @@ class MktgItemOption extends Model
         'status',
     ];
 
+    public function relMktgMenuItem(){
+        return $this->belongsTo('App\MktgMenuItem','mktg_menu_item_id','id');
+    }
+
+    public function relMktgItemValue(){
+        return $this->hasMany('App\MktgItemValue');
+    }
+
+
 
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'

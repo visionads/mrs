@@ -17,6 +17,17 @@ class MktgMenuItem extends Model
         'status',
     ];
 
+    public function relMktgMaterial(){
+        return $this->belongsTo('App\MktgMaterial','mktg_material_id','id');
+    }
+
+    public function relMktgMenuItemImage(){
+        return $this->hasMany('App\MktgMenuItemImage');
+    }
+
+    public function relMktgItemOption(){
+        return $this->hasMany('App\MktgItemOption');
+    }
 
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'
