@@ -102,7 +102,7 @@
                                     <th>Type</th>
                                     <th>Slug</th>
                                     <th width="100">Image</th>
-                                    <th width="30">Action</th>
+                                    <th width="30">Value</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -116,10 +116,12 @@
                                                 @if(isset($values->image))
                                                     <img src="{{ URL::to($values->image) }}" width="80" height="60">
                                                 @else
-                                                    <h3>No Image</h3>
+                                                    <h5>No Image</h5>
                                                 @endif
                                             </td>
-                                            <td><a href="#" class="btn btn-primary btn-xs">Update</a> </td>
+                                            <td>
+                                                <a href="{{ route('mktg-item-option-add-value', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="Add Value"><i class="glyphicon glyphicon-plus "></i> Add</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @endif
