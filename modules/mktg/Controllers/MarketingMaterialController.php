@@ -213,13 +213,14 @@ class MarketingMaterialController extends Controller
         $image_input_arr=Input::file('image');
         //print_r($image_input_arr);exit();
         //print_r(count($image_input_arr));exit();
+        $image_arr = array();
         for($i=0; $i<count($image_input_arr); $i++)
         {
             $image_option_head = $_FILES['image']['name'][$i];
             //print_r($image_option_head);exit();
             $image_data_head = Input::file('image')[$i];
 
-            $image_arr = array();
+
             if(count($image_option_head)>0)
             {
                 $file_type_required = 'png,jpeg,jpg';
@@ -245,10 +246,9 @@ class MarketingMaterialController extends Controller
                         'menu_item_img_thumb'=>$file_name[1],
                     );
                 }
-
             }
         }
-        print_r($image_arr);exit;
+        //print_r($image_arr);exit;
 
 
         //===== input data for head ***//
@@ -263,6 +263,7 @@ class MarketingMaterialController extends Controller
 
 
         //===== input data for Menu Options [ table :: item_option ] ***//
+        $i_detail = array();
         for($i=0; $i<count($input['title_option']); $i++)
         {
             $image_option = $_FILES['image_option']['name'][$i];
@@ -321,13 +322,15 @@ class MarketingMaterialController extends Controller
             //===== insert into head table
             if($vh = MktgMenuItem::create($input_mktg_menu_item)){
                 //===== Input data for mktg_menu_item_img ***//
-                $input_mktg_menu_item_img = [
-                    'mktg_menu_item_id' => $vh['id'],
-                    'image'=>isset($menu_item_img)?$menu_item_img:null,
-                    'image_thumb'=>isset($menu_item_img_thumb)?$menu_item_img_thumb:null,
-                ];
-                //menu item image
-                MktgMenuItemImage::create($input_mktg_menu_item_img);
+                foreach($image_arr as $imgrow){
+                    $input_mktg_menu_item_img = [
+                        'mktg_menu_item_id' => $vh['id'],
+                        'image'=>isset($imgrow['menu_item_img'])?$imgrow['menu_item_img']:null,
+                        'image_thumb'=>isset($imgrow['menu_item_img_thumb'])?$imgrow['menu_item_img_thumb']:null,
+                    ];
+                    MktgMenuItemImage::create($input_mktg_menu_item_img);
+                }
+
 
 
                 // Store data into item_option table

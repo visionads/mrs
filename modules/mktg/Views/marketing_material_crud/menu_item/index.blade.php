@@ -5,11 +5,11 @@
 
         <!-- page start-->
 
-<div class="form-group" id="back_button2">
+{{--<div class="form-group" id="back_button2">
     <a class="btn" href="{{route('settings')}}">
         <strong>Back To Settings</strong>
     </a>
-</div>
+</div>--}}
 
 <div class="row">
     <div class="col-sm-12">

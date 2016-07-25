@@ -45,15 +45,25 @@
                     <table class="table table-bordered table-hover table-striped" >
                         <tr>
                             {{--<th class="col-lg-6">Image : </th>--}}
-                            <td class="col-lg-6" colspan="3">
+                            <td class="col-lg-6" colspan="3" style="background: #fff !important;">
                                 <div>
                                     {{--<a href="{{ route('print-image-show', $data[0]['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView"><img src="{{ URL::to($data[0]['image_thumb']) }}" alt="{{$data[0]['image_path']}}" /></a>--}}
                                     @if(isset($data->relMktgMenuItemImage[0]['image']))
-                                        <img src="{{ URL::to($data->relMktgMenuItemImage[0]['image']) }}" style="width: auto; max-width: 100%">
+                                        <img src="{{ URL::to($data->relMktgMenuItemImage[0]['image']) }}" class="img-rounded" style="width: auto; max-width: 100%">
                                     @else
                                         <h1>No Image Available</h1>
                                     @endif
                                 </div>
+
+                                @if(isset($data->relMktgMenuItemImage))
+                                    <div class="row" style="margin-top: 10px;">
+                                        @foreach($data->relMktgMenuItemImage as $imgdata)
+                                            <div class="col-sm-4">
+                                                <img src="{{ URL::to($imgdata->image) }}" class="img-rounded" style="width: auto; max-width:100%;">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                     </table>
