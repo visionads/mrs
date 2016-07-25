@@ -335,6 +335,14 @@ class MarketingMaterialController extends Controller
 
         return redirect()->route('mktg-menu-item');
     }
+    public function mktg_menu_item_edit($id)
+    {
+        $data['pageTitle'] = 'Edit Marketing Material Menu Item';
+        $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage','relMktgItemOption')->where('id',$id)->first();
+        //$data['image']->relMktgMenuItemImage[0]['image'];
+        //$data['image_id']->relMktgMenuItemImage[0]['id'];
+        return view('mktg::marketing_material_crud.menu_item.update',$data);
+    }
 
     /*public function mktg_menu_item_store()
     {

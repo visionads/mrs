@@ -52,7 +52,7 @@
                             <th> Slug </th>
                             <th> Parent </th>
                             <th> Description</th>
-                            <th> Action &nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-placement="top" data-content="view : click for details informations<br>update : click for update informations<br>delete : click for delete informations"></span></th>
+                            <th width="60"> Action &nbsp;&nbsp;<span style="color: #A54A7B;" class="user-guideline" data-placement="top" data-content="view : click for details informations<br>update : click for update informations<br>delete : click for delete informations"></span></th>
                         </tr>
                         </thead>
                         <tbody>
