@@ -76,7 +76,7 @@
                         <th>Title</th>
                         <th>Type</th>
                         <th>Slug</th>
-                        <th>Image</th>
+                        <th width="100">Image</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -86,7 +86,13 @@
                                 <td>{{$values->title }}</td>
                                 <td>{{$values->type }}</td>
                                 <td>{{$values->slug }}</td>
-                                <td>{{$values->image}}</td>
+                                <td>
+                                    @if(isset($values->image))
+                                        <img src="{{ URL::to($values->image) }}" width="80" height="60">
+                                    @else
+                                        <h5>No Image</h5>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     @endif

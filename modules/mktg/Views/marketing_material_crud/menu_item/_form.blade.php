@@ -68,7 +68,7 @@
             </div>
             <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
             <div class="image-center">
-                <input type="file" name="image" id="image" class="default" />
+                <input type="file" name="image[]" id="image" class="default" multiple >
             </div>
         </div>
         <br>

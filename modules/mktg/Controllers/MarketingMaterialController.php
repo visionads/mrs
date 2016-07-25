@@ -186,6 +186,13 @@ class MarketingMaterialController extends Controller
 
         return view('mktg::marketing_material_crud.menu_item.view',$data);
     }
+    public function mktg_menu_item_details($id)
+    {
+        $data['pageTitle'] = 'Marketing Material Details';
+        $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage','relMktgItemOption')->where('id',$id)->first();
+
+        return view('mktg::marketing_material_crud.menu_item.details',$data);
+    }
     /*public function print_material_search(){
 
         $pageTitle = 'Print Material Informations';
@@ -200,43 +207,48 @@ class MarketingMaterialController extends Controller
     {
         //exit('Exit');
         $input = $request->all();
-        $image=Input::file('image');
+        //$image=Input::file('image');
+        //print_r($image);exit();
+
+        for($i=0; $i<count($input['image']); $i++)
+        {
+            $image_option_head = $_FILES['image']['name'][$i];
+            //print_r($image_option_head);exit();
+            $image_data_head = Input::file('image')[$i];
+
+            $image_arr = array();
+            if(count($image_option_head)>0)
+            {
+                $file_type_required = 'png,jpeg,jpg';
+                $destinationPath = 'uploads/mktg_menu_item_image/';
+
+                $uploadfolder = 'uploads/';
+
+                if ( !file_exists($uploadfolder) ) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir ($uploadfolder, 0777);
+                }
+                if ( !file_exists($destinationPath) ) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir ($destinationPath, 0777);
+                }
 
 
+                $file_name = $this->image_upload_options($image_option_head,$image_data_head, $file_type_required,$destinationPath);
+                //print_r($file_name);exit;
+                if($file_name != '') {
+                    $image_arr [] = array(
+                        'menu_item_img'=>$file_name[0],
+                        'menu_item_img_thumb'=>$file_name[1],
+                    );
+                }
 
-
-        if(count($image)>0) {
-            $file_type_required = 'png,jpeg,jpg';
-            $destinationPath = 'uploads/mktg_menu_item_image/';
-
-            $uploadfolder = 'uploads/';
-
-            if ( !file_exists($uploadfolder) ) {
-                $oldmask = umask(0);  // helpful when used in linux server
-                mkdir ($uploadfolder, 0777);
-            }
-
-            if ( !file_exists($destinationPath) ) {
-                $oldmask = umask(0);  // helpful when used in linux server
-                mkdir ($destinationPath, 0777);
-            }
-
-            $file_name = MarketingMaterialController::image_upload($image,$file_type_required,$destinationPath);
-            //print_r($file_name);exit();
-            if($file_name != '') {
-                /*$input['image'] = $file_name[0];
-                $input['image_thumb'] = $file_name[1];*/
-                $menu_item_img = $file_name[0];
-                $menu_item_img_thumb = $file_name[1];
-                //print_r($menu_item_img_thumb);exit();
-            }
-            else{
-                Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
-                #return redirect()->back();
             }
         }
+        //exit();
 
-        #print_r($input);exit;
+
+        //print_r($image_arr);exit;
 
 
         //===== input data for head ***//
@@ -302,7 +314,7 @@ class MarketingMaterialController extends Controller
 
 
         }
-        
+
         /* Transaction Start Here */
         DB::beginTransaction();
         try {
@@ -373,7 +385,59 @@ class MarketingMaterialController extends Controller
 
     //===== For Image Upload Common Function ***//
     /*For menu Item Images*/
-    public function image_upload($image,$file_type_required,$destinationPath)
+    /*public function image_upload($image_option_head,$image_data_head, $file_type_required,$destinationPath)
+    {
+        if ($image_option_head != '')
+        {
+            //exit('dfd');
+            $img_name = $image_option_head;
+            $image = $image_data_head;
+
+
+            $random_number = rand(111, 999);
+
+            $thumb_name = 'thumb_400x400_'.$random_number.'_'.$img_name;
+
+            $newWidth=80;
+            $targetFile=$destinationPath.$thumb_name;
+            $originalFile=$image;
+
+
+
+            $resizedImages 	= ImageResize::resize($newWidth, $targetFile,$originalFile);
+
+            $thumb_image_destination=$destinationPath;
+            $thumb_image_name=$thumb_name;
+
+            //$rules = array('image' => 'required|mimes:png,jpeg,jpg');
+            $rules = array('image' => 'required|mimes:'.$file_type_required);
+            $validator = Validator::make(array('image' => $image), $rules);
+            if ($validator->passes()) {
+                // Files destination
+                //$destinationPath = 'uploads/slider_image/';
+                // Create folders if they don't exist
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0777, true);
+                }
+                $image_original_name = $image->getClientOriginalName();
+                $image_name = rand(111, 999) . $image_original_name;
+                $upload_success = $image->move($destinationPath, $image_name);
+
+                $file=array($destinationPath . $image_name, $thumb_image_destination.$thumb_image_name);
+
+                if ($upload_success) {
+                    return $file_name = $file;
+                }
+                else{
+                    return $file_name = '';
+                }
+            }
+            else{
+                return $file_name = '';
+            }
+        }
+    }*/
+    /*public function image_upload($image,$file_type_required,$destinationPath)
     {
         if ($image != '') {
 
@@ -418,12 +482,13 @@ class MarketingMaterialController extends Controller
                 return $file_name = '';
             }
         }
-    }
+    }*/
 
 
     /*
      * For menu item options images
      */
+
 
     public function image_upload_options($image,$image_data, $file_type_required,$destinationPath)
     {

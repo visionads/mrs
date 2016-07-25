@@ -72,9 +72,10 @@
                                     {{--<td>{{ @($values->description) }}</td>--}}
                                     <td>{{ substr($values->description, 0, 120) }} ...</td>
                                     <td>
-                                        <a href="{{ route('mktg-menu-item-view', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                        <a href="{{ route('mktg-menu-item-view', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="Quick view"><i class="glyphicon glyphicon-eye-open"></i></a>
                                         <a href="{{ route('mktg-menu-item-edit', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="glyphicon glyphicon-edit"></i></a>
                                         <a href="{{ route('mktg-menu-item-delete', $values->id) }}" class="btn btn-danger btn-xs" data-placement="top" onclick="return confirm('Are you sure to Delete?')" data-content="delete"><i class="glyphicon glyphicon-trash"></i></a>
+                                        <a href="{{ route('mktg-menu-item-details', $values->id) }}" class="btn btn-success btn-xs" data-placement="top" data-content="View Details" style="margin-top:5px;">View Details</a>
                                     </td>
                                 </tr>
                             @endforeach
