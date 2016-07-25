@@ -286,6 +286,9 @@ class MarketingMaterialController extends Controller
 
             }
 
+            print_r($option_image);
+            print  "\n";
+
             // index checking if not null
             if($input['title_option'][$i] != null){
                 $i_detail[] = array(
@@ -299,7 +302,7 @@ class MarketingMaterialController extends Controller
 
 
         }
-
+        
         /* Transaction Start Here */
         DB::beginTransaction();
         try {
