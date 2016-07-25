@@ -292,15 +292,13 @@ class MarketingMaterialController extends Controller
                     'title' => $input['title_option'][$i],
                     'type' => $input['type_option'][$i],
                     'slug' => str_slug($input['title_option'][$i]),
-                    'image' => isset($option_image[$i]['image'])?$option_image[$i]['image']:null,
-                    'image_thumb' => isset($option_image[$i]['image_thumb'])?$option_image[$i]['image_thumb']:null,
+                    'image' => isset($option_image[0]['image'])?$option_image[0]['image']:null,
+                    'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
                 );
             }
 
 
         }
-
-
 
         /* Transaction Start Here */
         DB::beginTransaction();

@@ -12,11 +12,11 @@
             <small class="required">(Required)</small>
             {!! Form::text('title', Input::old('title'), ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
         </div>
-        <div>
+        {{--<div>
             {!! Form::label('slug', 'Slug :', []) !!}
             <small class="required">(Required)</small>
             {!! Form::text('slug', Input::old('slug'), ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
-        </div>
+        </div>--}}
         <div>
             {!! Form::label('description', 'Description :', []) !!}
             <small class="required">(Required)</small>

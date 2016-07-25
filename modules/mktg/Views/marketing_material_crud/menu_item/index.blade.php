@@ -61,7 +61,7 @@
                                 <tr class="gradeX">
                                     <td class="text-center">
                                         @if(isset($values->relMktgMenuItemImage[0]['image_thumb']))
-                                            <img src="{{ url($values->relMktgMenuItemImage[0]['image_thumb']) }}">
+                                            <img src="{{ url($values->relMktgMenuItemImage[0]['image_thumb']) }}" width="80" height="60">
                                         @else
                                             -
                                         @endif

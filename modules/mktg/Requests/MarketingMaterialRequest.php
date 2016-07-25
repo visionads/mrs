@@ -23,7 +23,7 @@ class MarketingMaterialRequest extends Request
     {
         return [
             'title' => 'required',
-            'slug' => 'required',
+            //'slug' => 'required',
             'description' => 'required',
             'status' => 'required',
             'mktg_material_id' => 'required',
