@@ -202,7 +202,8 @@ class MarketingMaterialController extends Controller
         $input = $request->all();
         $image=Input::file('image');
 
-        //print_r($input);exit();
+
+
 
         if(count($image)>0) {
             $file_type_required = 'png,jpeg,jpg';
@@ -231,28 +232,31 @@ class MarketingMaterialController extends Controller
             }
             else{
                 Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
-                return redirect()->back();
+                #return redirect()->back();
             }
         }
-        //print_r($input);exit;
+
+        #print_r($input);exit;
 
 
         //===== input data for head ***//
         $input_mktg_menu_item =[
             'mktg_material_id'=>$input['mktg_material_id'],
             'title'=>$input['title'],
-            'slug'=>$input['slug'],
+            'slug'=>str_slug($input['title']),
             'status'=>$input['status'],
             'description'=>$input['description']
         ];
-        //print_r($input_head);exit();
+        //print_r($input_mktg_menu_item);exit();
 
 
         //===== input data for Menu Options [ table :: item_option ] ***//
-        for($i=0; $i<count($input['title_option']); $i++) {
+        for($i=0; $i<count($input['title_option']); $i++)
+        {
+            $image_option = $_FILES['image_option']['name'][$i];
+            $image_data = Input::file('image_option')[$i];
 
-            /*$image_option = Input::file('image_option');
-            //print_r($image_option);exit();
+            $option_image = array();
             if(count($image_option)>0)
             {
                 $file_type_required = 'png,jpeg,jpg';
@@ -264,63 +268,76 @@ class MarketingMaterialController extends Controller
                      $oldmask = umask(0);  // helpful when used in linux server
                      mkdir ($uploadfolder, 0777);
                  }
-
                  if ( !file_exists($destinationPath) ) {
                      $oldmask = umask(0);  // helpful when used in linux server
                      mkdir ($destinationPath, 0777);
                  }
 
-                 $file_name = MarketingMaterialController::image_upload_options($image_option,$file_type_required,$destinationPath);
-                 if($file_name != '') {
-                     $input['image_option'][$i] = $file_name[0];
-                     //$input['image_thumb'] = $file_name[1];
-                 }
-                 else{
-                     Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
-                     return redirect()->back();
-                 }
-            }*/
 
-            $i_detail[] = array(
-                'title' => $input['title_option'][$i],
-                'type' => $input['type_option'][$i],
-                'slug' => $input['slug_option'][$i],
-                'image' => $input['image_option'][$i]
-            );
+                 $file_name = $this->image_upload_options($image_option,$image_data, $file_type_required,$destinationPath);
+
+                 if($file_name != '') {
+                     $option_image [] = array(
+                         'image'=>$file_name[0],
+                         'image_thumb'=>$file_name[1],
+
+                     );
+                 }
+
+            }
+
+            // index checking if not null
+            if($input['title_option'][$i] != null){
+                $i_detail[] = array(
+                    'title' => $input['title_option'][$i],
+                    'type' => $input['type_option'][$i],
+                    'slug' => str_slug($input['title_option'][$i]),
+                    'image' => isset($option_image[$i]['image'])?$option_image[$i]['image']:null,
+                    'image_thumb' => isset($option_image[$i]['image_thumb'])?$option_image[$i]['image_thumb']:null,
+                );
+            }
+
+
         }
-        //print_r($i_detail);exit();
+
+
 
         /* Transaction Start Here */
         DB::beginTransaction();
         try {
             //===== insert into head table
-            $vh = MktgMenuItem::create($input_mktg_menu_item);
+            if($vh = MktgMenuItem::create($input_mktg_menu_item)){
+                //===== Input data for mktg_menu_item_img ***//
+                $input_mktg_menu_item_img = [
+                    'mktg_menu_item_id' => $vh['id'],
+                    'image'=>isset($menu_item_img)?$menu_item_img:null,
+                    'image_thumb'=>isset($menu_item_img_thumb)?$menu_item_img_thumb:null,
+                ];
+                //menu item image
+                MktgMenuItemImage::create($input_mktg_menu_item_img);
 
-            //===== Input data for mktg_menu_item_img ***//
-            $input_mktg_menu_item_img = [
-                'mktg_menu_item_id' => $vh['id'],
-                'image'=>$menu_item_img,
-                'image_thumb'=>$menu_item_img_thumb,
-            ];
-            MktgMenuItemImage::create($input_mktg_menu_item_img);
 
-            // Store data into item_option table
-            foreach($i_detail as $value){
+                // Store data into item_option table
+                foreach($i_detail as $value){
 
-                if($value['title'] != null) {
-                    //Menu options
-                    $data = [
-                        //'mktg_material_id' => $vh['id'],
-                        'mktg_menu_item_id' => $vh['id'],
-                        'title' => $value['title'],
-                        'type' => $value['type'],
-                        'slug' => $value['slug'],
-                        'image' => $value['image'],
-                    ];
-                    // insert data into item_option table
-                    MktgItemOption::create($data);
+                    if($value['title'] != null) {
+                        //Menu options
+                        $data = [
+                            //'mktg_material_id' => $vh['id'],
+                            'mktg_menu_item_id' => $vh['id'],
+                            'title' => $value['title'],
+                            'type' => $value['type'],
+                            'slug' => $value['slug'],
+                            'image' => $value['image'],
+                            'image_thumb' => $value['image_thumb'],
+                        ];
+                        // insert data into item_option table
+                        MktgItemOption::create($data);
+                    }
                 }
+
             }
+
 
             //Commit the transaction
             DB::commit();
@@ -401,12 +418,21 @@ class MarketingMaterialController extends Controller
             }
         }
     }
-    /*For menu item options images*/
-    /*public function image_upload_options($image,$file_type_required,$destinationPath)
-    {
-        if ($image != '') {
 
-            $img_name = ($_FILES['image_option']['name']);
+
+    /*
+     * For menu item options images
+     */
+
+    public function image_upload_options($image,$image_data, $file_type_required,$destinationPath)
+    {
+        if ($image != '')
+        {
+
+            $img_name = $image;
+            $image = $image_data;
+
+
             $random_number = rand(111, 999);
 
             $thumb_name = 'thumb_400x400_'.$random_number.'_'.$img_name;
@@ -447,7 +473,7 @@ class MarketingMaterialController extends Controller
                 return $file_name = '';
             }
         }
-    }*/
+    }
 
 
 
