@@ -205,12 +205,15 @@ class MarketingMaterialController extends Controller
     /*public function mktg_menu_item_store(Requests\PrintMaterialRequest $request)*/
     public function mktg_menu_item_store(Requests\MarketingMaterialRequest $request)
     {
-        //exit('Exit');
         $input = $request->all();
-        //$image=Input::file('image');
-        //print_r($image);exit();
 
-        for($i=0; $i<count($input['image']); $i++)
+
+
+        //===Multiple Image Upload for Menu Item ***//
+        $image_input_arr=Input::file('image');
+        //print_r($image_input_arr);exit();
+        //print_r(count($image_input_arr));exit();
+        for($i=0; $i<count($image_input_arr); $i++)
         {
             $image_option_head = $_FILES['image']['name'][$i];
             //print_r($image_option_head);exit();
@@ -234,7 +237,7 @@ class MarketingMaterialController extends Controller
                 }
 
 
-                $file_name = $this->image_upload_options($image_option_head,$image_data_head, $file_type_required,$destinationPath);
+                $file_name = $this->image_upload($image_option_head,$image_data_head, $file_type_required,$destinationPath);
                 //print_r($file_name);exit;
                 if($file_name != '') {
                     $image_arr [] = array(
@@ -245,10 +248,7 @@ class MarketingMaterialController extends Controller
 
             }
         }
-        //exit();
-
-
-        //print_r($image_arr);exit;
+        print_r($image_arr);exit;
 
 
         //===== input data for head ***//
@@ -298,8 +298,8 @@ class MarketingMaterialController extends Controller
 
             }
 
-            print_r($option_image);
-            print  "\n";
+            //print_r($option_image);
+            //print  "\n";
 
             // index checking if not null
             if($input['title_option'][$i] != null){
@@ -385,7 +385,7 @@ class MarketingMaterialController extends Controller
 
     //===== For Image Upload Common Function ***//
     /*For menu Item Images*/
-    /*public function image_upload($image_option_head,$image_data_head, $file_type_required,$destinationPath)
+    public function image_upload($image_option_head,$image_data_head, $file_type_required,$destinationPath)
     {
         if ($image_option_head != '')
         {
@@ -436,7 +436,7 @@ class MarketingMaterialController extends Controller
                 return $file_name = '';
             }
         }
-    }*/
+    }
     /*public function image_upload($image,$file_type_required,$destinationPath)
     {
         if ($image != '') {
