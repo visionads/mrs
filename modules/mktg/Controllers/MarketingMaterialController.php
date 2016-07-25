@@ -286,20 +286,22 @@ class MarketingMaterialController extends Controller
 
             }
 
+            print_r($option_image);
+            print  "\n";
+
             // index checking if not null
             if($input['title_option'][$i] != null){
                 $i_detail[] = array(
                     'title' => $input['title_option'][$i],
                     'type' => $input['type_option'][$i],
                     'slug' => str_slug($input['title_option'][$i]),
-                    'image' => isset($option_image[$i]['image'])?$option_image[$i]['image']:null,
-                    'image_thumb' => isset($option_image[$i]['image_thumb'])?$option_image[$i]['image_thumb']:null,
+                    'image' => isset($option_image[0]['image'])?$option_image[0]['image']:null,
+                    'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
                 );
             }
 
 
         }
-
 
 
         /* Transaction Start Here */

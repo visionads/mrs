@@ -110,12 +110,12 @@
             </td>
             <td>
                 <div>
-                    {!! Form::text('slug_option[]', Input::old('slug_option'), ['title'=>'enter slug', 'class' => 'form-control']) !!}
+                    {!! Form::text('slug_option[]', null, ['title'=>'enter slug', 'class' => 'form-control']) !!}
                 </div>
             </td>
             <td>
                 <div>
-                    {!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}
+                    {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
                 </div>
             </td>
 
