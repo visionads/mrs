@@ -165,6 +165,8 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         'as' => 'mktg-menu-item-delete',
         'uses' => 'MarketingMaterialController@mktg_menu_item_delete'
     ]);
+
+    //=== Item value
     Route::get('mktg-item-option-add-value/{id}',[
         //'middleware' => 'acl_access:main/congratulation',
         'as' => 'mktg-item-option-add-value',
@@ -174,6 +176,11 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         //'middleware' => 'acl_access:main/congratulation',
         'as' => 'mktg-item-option-add-value-store',
         'uses' => 'MarketingMaterialController@mktg_item_option_add_value_store'
+    ]);
+    Route::patch('mktg-item-option-add-value-update/{id}',[
+        //'middleware' => 'acl_access:main/congratulation',
+        'as' => 'mktg-item-option-add-value-update',
+        'uses' => 'MarketingMaterialController@mktg_item_option_add_value_update'
     ]);
 
 });

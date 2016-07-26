@@ -122,7 +122,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('mktg-item-option-add-value', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="Add Value"><i class="glyphicon glyphicon-plus "></i> Add</a>
+                                                <a href="{{ route('mktg-item-option-add-value', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="Add Value"><i class="glyphicon glyphicon-plus "></i> Add / <i class="glyphicon glyphicon-edit "></i> Edit</a>
                                             </td>
                                         </tr>
                                     @endforeach

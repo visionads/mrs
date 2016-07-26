@@ -192,7 +192,8 @@ class MarketingMaterialController extends Controller
     {
         $data['pageTitle'] = 'Marketing Material Details';
         $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage','relMktgItemOption')->where('id',$id)->first();
-
+        //$data['option_value'] = MktgItemValue::orderBy('id','ASC')->get();
+        //print_r($data['option_value']);exit();
         return view('mktg::marketing_material_crud.menu_item.details',$data);
     }
     /*public function print_material_search(){
@@ -417,7 +418,7 @@ class MarketingMaterialController extends Controller
     public function mktg_item_option_add_value($id)
     {
         //exit('OK');
-        $data['pageTitle'] = 'Marketing Menu Item Option Edit';
+        $data['pageTitle'] = 'Add / Edit Marketing Menu Item Option Value';
         //$data['material'] = MktgMaterial::orderBy('id','ASC')->get();
         $data['data'] = MktgItemOption::where('id',$id)->first();
         $data['options'] = MktgItemValue::where('mktg_item_option_id',$id)->first();
@@ -452,8 +453,32 @@ class MarketingMaterialController extends Controller
         return redirect()->back();
 
     }
+    public function mktg_item_option_add_value_update($id)
+    {
+        $input = Input::all();
+        //print_r($input);exit();;
 
-    //===== For Image Upload Common Function ***//
+        DB::beginTransaction();
+        try {
+            $model = MktgItemValue::findOrFail($id);
+            $model->title = $input['title'];
+            $model->price = $input['price'];
+            $model->slug = str_slug($input['title']);
+            $model->save();
+            //Commit the transaction
+            DB::commit();
+            Session::flash('message', 'Successfully added!');
+
+        } catch (\Exception $e) {
+            //If there are any exceptions, rollback the transaction`
+            DB::rollback();
+            Session::flash('danger', $e->getMessage());
+        }
+
+        return redirect()->back();
+    }
+
+    //===== For Image Upload Common Method ***//
     /*For menu Item Images*/
     public function image_upload($image_option_head,$image_data_head, $file_type_required,$destinationPath)
     {
