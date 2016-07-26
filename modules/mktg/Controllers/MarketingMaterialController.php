@@ -20,6 +20,7 @@ use App\MktgArtwork;
 use App\MktgMenuItem;
 use App\MktgItemOption;
 use App\MktgMenuItemImage;
+use App\MktgItemValue;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -377,14 +378,44 @@ class MarketingMaterialController extends Controller
         return view('mktg::marketing_material_crud.menu_item.update',$data);
     }
 
-    /*public function mktg_menu_item_store()
+    public function mktg_item_option_add_value($id)
     {
-        $data['pageTitle'] = 'Marketing Menu Item';
-        $data['material'] = MktgMaterial::orderBy('id','ASC')->get();
-        $data['data'] = MktgMenuItem::orderBy('id','ASC')->paginate(30);
+        //exit('OK');
+        $data['pageTitle'] = 'Marketing Menu Item Option Edit';
+        //$data['material'] = MktgMaterial::orderBy('id','ASC')->get();
+        $data['data'] = MktgItemOption::where('id',$id)->first();
+        $data['options'] = MktgItemValue::where('mktg_item_option_id',$id)->first();
+        //print_r($data['data']);exit();
 
-        return view('mktg::marketing_material_crud.menu_item.index',$data);
-    }*/
+        return view('mktg::marketing_material_crud.menu_item.item_option_value_add',$data);
+    }
+    public function mktg_item_option_add_value_store($id)
+    {
+        $input = Input::all();
+        $input_data_arr = [
+            'title'=>$input['title'],
+            'price'=>$input['price'],
+            'mktg_item_option_id'=>$input['mktg_item_option_id'],
+            'slug'=>str_slug($input['title'])
+        ];
+        //print_r($input);exit();;
+        DB::beginTransaction();
+        try {
+            $model = MktgItemValue::create($input_data_arr);
+            //Commit the transaction
+            DB::commit();
+            Session::flash('message', 'Successfully added!');
+
+        } catch (\Exception $e) {
+            //If there are any exceptions, rollback the transaction`
+            DB::rollback();
+            Session::flash('danger', $e->getMessage());
+
+        }
+
+        return redirect()->back();
+
+    }
 
     //===== For Image Upload Common Function ***//
     /*For menu Item Images*/
@@ -440,53 +471,6 @@ class MarketingMaterialController extends Controller
             }
         }
     }
-    /*public function image_upload($image,$file_type_required,$destinationPath)
-    {
-        if ($image != '') {
-
-            $img_name = ($_FILES['image']['name']);
-            $random_number = rand(111, 999);
-
-            $thumb_name = 'thumb_400x400_'.$random_number.'_'.$img_name;
-
-            $newWidth=80;
-            $targetFile=$destinationPath.$thumb_name;
-            $originalFile=$image;
-
-            $resizedImages 	= ImageResize::resize($newWidth, $targetFile,$originalFile);
-
-            $thumb_image_destination=$destinationPath;
-            $thumb_image_name=$thumb_name;
-
-            //$rules = array('image' => 'required|mimes:png,jpeg,jpg');
-            $rules = array('image' => 'required|mimes:'.$file_type_required);
-            $validator = Validator::make(array('image' => $image), $rules);
-            if ($validator->passes()) {
-                // Files destination
-                //$destinationPath = 'uploads/slider_image/';
-                // Create folders if they don't exist
-                if (!file_exists($destinationPath)) {
-                    mkdir($destinationPath, 0777, true);
-                }
-                $image_original_name = $image->getClientOriginalName();
-                $image_name = rand(111, 999) . $image_original_name;
-                $upload_success = $image->move($destinationPath, $image_name);
-
-                $file=array($destinationPath . $image_name, $thumb_image_destination.$thumb_image_name);
-
-                if ($upload_success) {
-                    return $file_name = $file;
-                }
-                else{
-                    return $file_name = '';
-                }
-            }
-            else{
-                return $file_name = '';
-            }
-        }
-    }*/
-
 
     /*
      * For menu item options images

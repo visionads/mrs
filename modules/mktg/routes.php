@@ -165,5 +165,15 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         'as' => 'mktg-menu-item-delete',
         'uses' => 'MarketingMaterialController@mktg_menu_item_delete'
     ]);
+    Route::get('mktg-item-option-add-value/{id}',[
+        //'middleware' => 'acl_access:main/congratulation',
+        'as' => 'mktg-item-option-add-value',
+        'uses' => 'MarketingMaterialController@mktg_item_option_add_value'
+    ]);
+    Route::patch('mktg-item-option-add-value-store/{id}',[
+        //'middleware' => 'acl_access:main/congratulation',
+        'as' => 'mktg-item-option-add-value-store',
+        'uses' => 'MarketingMaterialController@mktg_item_option_add_value_store'
+    ]);
 
 });

@@ -8,6 +8,23 @@
     {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-7">--}}
     <div class="form-group col-sm-7">
         <div>
+            {!! Form::label('mktg_material_id', 'Parent:', []) !!}
+            <small class="required">(Required)</small>
+            @if(isset($material))
+                <select name="mktg_material_id" class="form-control">
+                    <?php $default = Input::old('mktg_material_id'); ?>
+                    @if(!empty($default))
+                        <option value="{{ $default }}">{{ $default }}</option>
+                    @else
+                        <option value="">Select</option>
+                    @endif
+                    @foreach($material as $mat)
+                        <option value="{{ $mat->id }}">{{ $mat->title }}</option>
+                    @endforeach
+                </select>
+            @endif
+        </div>
+        <div>
             {!! Form::label('title', 'Title :', []) !!}
             <small class="required">(Required)</small>
             {!! Form::text('title', Input::old('title'), ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
@@ -26,23 +43,6 @@
             {!! Form::label('status', 'Status:', []) !!}
             <small class="required">(Required)</small>
             {!! Form::select('status', array('open'=>'Open','close'=>'Close'),Input::old('status'),['class' => 'form-control','required','title'=>'select status of Item']) !!}
-        </div>
-        <div>
-            {!! Form::label('mktg_material_id', 'Parent:', []) !!}
-            <small class="required">(Required)</small>
-            @if(isset($material))
-                <select name="mktg_material_id" class="form-control">
-                    <?php $default = Input::old('mktg_material_id'); ?>
-                    @if(!empty($default))
-                        <option value="{{ $default }}">{{ $default }}</option>
-                    @else
-                        <option value="">Select</option>
-                    @endif
-                    @foreach($material as $mat)
-                       <option value="{{ $mat->id }}">{{ $mat->title }}</option>
-                    @endforeach
-                </select>
-            @endif
         </div>
     </div>
 
@@ -105,7 +105,7 @@
             </td>
             <td>
                 <div>
-                    {!! Form::select('type_option[]',array('option'=>'Option','value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control']) !!}
+                    {!! Form::select('type_option[]',array(''=>'Select','option'=>'Option','value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control','required']) !!}
                 </div>
             </td>
             <td>
