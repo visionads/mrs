@@ -392,10 +392,16 @@ class MarketingMaterialController extends Controller
     public function mktg_item_option_add_value_store($id)
     {
         $input = Input::all();
+        $input_data_arr = [
+            'title'=>$input['title'],
+            'price'=>$input['price'],
+            'mktg_item_option_id'=>$input['mktg_item_option_id'],
+            'slug'=>str_slug($input['title'])
+        ];
         //print_r($input);exit();;
         DB::beginTransaction();
         try {
-            $model = MktgItemValue::create($input);
+            $model = MktgItemValue::create($input_data_arr);
             //Commit the transaction
             DB::commit();
             Session::flash('message', 'Successfully added!');

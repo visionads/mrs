@@ -44,7 +44,11 @@
                         <th>Title</th>
                         <td>:</td>
                         <td>
-                            {!! Form::text('title', Input::old('title'), ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
+                            @if(isset($options))
+                                {!! Form::text('title', $options->title, ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
+                            @else
+                                {!! Form::text('title', '', ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
+                            @endif
                             {!! Form::hidden('mktg_item_option_id', $data->id, [ 'class' => 'form-control']) !!}
                         </td>
                     </tr>
@@ -52,7 +56,11 @@
                         <th>Price</th>
                         <td>:</td>
                         <td>
-                            {!! Form::text('price', Input::old('price'), ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
+                            @if(isset($options))
+                                {!! Form::text('price', $options->price, ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
+                            @else
+                                {!! Form::text('price', '', ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
+                            @endif
                         </td>
                     </tr>
                 </table>
