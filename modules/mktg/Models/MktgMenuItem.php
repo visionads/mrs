@@ -30,6 +30,10 @@ class MktgMenuItem extends Model
         return $this->hasMany('App\MktgItemOption');
     }
 
+    /*public function relMktgItemValue(){
+        return $this->hasMany('App\MktgItemValue');
+    }*/
+
     // TODO :: boot
     // boot() function used to insert logged user_id at 'created_by' & 'updated_by'
 

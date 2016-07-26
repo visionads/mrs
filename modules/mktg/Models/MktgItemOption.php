@@ -14,7 +14,9 @@ class MktgItemOption extends Model
         'type',
         'title',
         'slug',
+        'icon',
         'image',
+        'image_thumb',
         'status',
     ];
 

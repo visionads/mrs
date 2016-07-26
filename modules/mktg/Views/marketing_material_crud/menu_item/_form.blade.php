@@ -89,9 +89,7 @@
         <tr>
             <th>Title:</th>
             <th>Type:</th>
-            <th>Slug:</th>
-            {{--<th>Price:</th>--}}
-            {{--<th>Description:</th>--}}
+            <th>Icon:</th>
             <th>Image</th>
         </tr>
         </thead>
@@ -100,17 +98,17 @@
         <tr>
             <td>
                 <div>
-                    {!! Form::text('title_option[]', Input::old('title_option'), ['title'=>'enter title', 'class' => 'form-control']) !!}
+                    {!! Form::text('title_option[]', Input::old('title_option'), ['title'=>'enter title', 'class' => 'form-control','required']) !!}
                 </div>
             </td>
             <td>
                 <div>
-                    {!! Form::select('type_option[]',array(''=>'Select','option'=>'Option','value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control','required']) !!}
+                    {!! Form::select('type_option[]',array(''=>'Select','option'=>'Option','value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control']) !!}
                 </div>
             </td>
             <td>
                 <div>
-                    {!! Form::text('slug_option[]', null, ['title'=>'enter slug', 'class' => 'form-control']) !!}
+                    {!! Form::text('icon_option[]', null, ['title'=>'enter Icon', 'class' => 'form-control']) !!}
                 </div>
             </td>
             <td>

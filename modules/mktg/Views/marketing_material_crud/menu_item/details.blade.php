@@ -99,8 +99,9 @@
                                 <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Type</th>
                                     <th>Slug</th>
+                                    <th>Type</th>
+                                    <th>Icont</th>
                                     <th width="100">Image</th>
                                     <th width="30">Value</th>
                                 </tr>
@@ -110,8 +111,9 @@
                                     @foreach($data->relMktgItemOption as $values )
                                         <tr class="gradeX">
                                             <td>{{$values->title }}</td>
-                                            <td>{{$values->type }}</td>
                                             <td>{{$values->slug }}</td>
+                                            <td>{{$values->type }}</td>
+                                            <td><span class="{{ $values->icon }}"></span></td>
                                             <td>
                                                 @if(isset($values->image))
                                                     <img src="{{ URL::to($values->image) }}" width="80" height="60">

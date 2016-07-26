@@ -90,6 +90,7 @@ class CreateMarketingMaterial extends Migration
             $table->string('slug', 64)->unique();
             $table->string('image', 128)->nullable();
             $table->string('image_thumb', 128)->nullable();
+            $table->string('icon', 64)->nullable();
             $table->enum('status',array('open','close'))->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);

@@ -175,7 +175,7 @@ class MarketingMaterialController extends Controller
     {
         $data['pageTitle'] = 'Marketing Menu Item';
         $data['material'] = MktgMaterial::orderBy('id','ASC')->get();
-        $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage')->orderBy('id','DESC')->paginate(30);
+        $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage')->where('status','open')->orderBy('id','DESC')->paginate(30);
         //print_r($data['data']);exit();
         return view('mktg::marketing_material_crud.menu_item.index',$data);
     }
@@ -309,6 +309,7 @@ class MarketingMaterialController extends Controller
                     'title' => $input['title_option'][$i],
                     'type' => $input['type_option'][$i],
                     'slug' => str_slug($input['title_option'][$i]),
+                    'icon' => $input['icon_option'][$i],
                     'image' => isset($option_image[0]['image'])?$option_image[0]['image']:null,
                     'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
                 );
@@ -345,9 +346,11 @@ class MarketingMaterialController extends Controller
                             'title' => $value['title'],
                             'type' => $value['type'],
                             'slug' => $value['slug'],
+                            'icon' => $value['icon'],
                             'image' => $value['image'],
                             'image_thumb' => $value['image_thumb'],
                         ];
+                        //print_r($data);exit();
                         // insert data into item_option table
                         MktgItemOption::create($data);
                     }
@@ -376,6 +379,38 @@ class MarketingMaterialController extends Controller
         //$data['image']->relMktgMenuItemImage[0]['image'];
         //$data['image_id']->relMktgMenuItemImage[0]['id'];
         return view('mktg::marketing_material_crud.menu_item.update',$data);
+    }
+    public function mktg_menu_item_delete($id)
+    {
+        DB::beginTransaction();
+        try {
+            //=== For Manue Item Delete ( to make inactive)
+            $menu_item = MktgMenuItem::findOrFail($id);
+            $menu_item->status = "close";
+            $menu_item->save();
+            if($menu_item->save())
+            {
+                //=== For Menu Item options Delete ( to make inactive)
+                $menu_item_options = MktgItemOption::where('mktg_menu_item_id',$id)->get();
+                //print_r($menu_item_options);exit();
+                foreach($menu_item_options as $value) {
+                    $case = MktgItemOption::find($value['id']);
+                    //print_r($case);
+                    $case->status = "close";
+                    $case->save();
+                    //unlink(public_path()."/".$value->image);
+                    //unlink(public_path()."/".$value->image_thumb);
+                }
+            }
+            DB::commit();
+            Session::flash('message', 'Successfully deleted!');
+
+        } catch(\Exception $e) { exit('ksdjflskdjklf');
+            DB::rollback();
+            Session::flash('flash_message_error', 'Invalid Delete Process !');
+        }
+
+        return redirect()->route('mktg-menu-item');
     }
 
     public function mktg_item_option_add_value($id)
