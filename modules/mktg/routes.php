@@ -8,7 +8,10 @@
 
 
 
-Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Modules\Main\Controllers'), function() {
+Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers'), function() {
+
+
+    @include('routes_sh.php');
 
 /*--------------------Marketing Material (Printing)-----*/
 

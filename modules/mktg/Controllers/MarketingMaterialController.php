@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Main\Controllers;
+namespace Modules\Mktg\Controllers;
 
 /**
  * Created by PhpStorm.
