@@ -43,7 +43,7 @@
                     <div>{!! Form::select('type_option[]',array('option'=>'Option','value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control']) !!}</div>\
                 </td>\
                 <td>\
-                    <div>{!! Form::text('slug_option[]', Input::old('slug_option'), ['title'=>'enter Slug', 'class' => 'form-control']) !!}</div>\
+                    <div>{!! Form::text('icon_option[]', Input::old('icon_option'), ['title'=>'enter Icon', 'class' => 'form-control']) !!}</div>\
                 </td>\
                 <td>\
                     <div>{!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}</div>\
