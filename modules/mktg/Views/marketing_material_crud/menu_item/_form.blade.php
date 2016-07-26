@@ -48,13 +48,8 @@
 
     {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-5">--}}
     <div class="form-group col-sm-5 pull-right">
-
         {!! Form::label('Image Upload', 'Image Upload:', []) !!}
         <small class="required">(Required)</small>
-
-        {{--{!! Form::file('image', Input::old('image'), ['id'=>'title', 'class' => 'form-control']) !!}--}}
-
-
         <div class="fileupload fileupload-new" data-provides="fileupload">
             <div class="fileupload-new thumbnail pull-left" style="width: 120px; height: 120px;">
                 @if($data['image'] != '')

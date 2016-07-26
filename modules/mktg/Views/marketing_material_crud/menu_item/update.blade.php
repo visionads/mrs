@@ -12,32 +12,13 @@
 {!! Form::model($data, ['method' => 'PATCH', 'route'=> ['mktg-menu-item-update', $data[0]['id']], 'files'=>true]) !!}
 
 <div class="col-sm-12">
-    {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-7">--}}
+
     <div class="form-group col-sm-7">
-        <div>
-            {!! Form::label('title', 'Title :', []) !!}
-            <small class="required">(Required)</small>
-            {!! Form::text('title', Input::old('title'), ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
-        </div>
-        <div>
-            {!! Form::label('slug', 'Slug :', []) !!}
-            <small class="required">(Required)</small>
-            {!! Form::text('slug', Input::old('slug'), ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
-        </div>
-        <div>
-            {!! Form::label('description', 'Description :', []) !!}
-            <small class="required">(Required)</small>
-            {!! Form::textarea('description', Input::old('description'), ['id'=>'title', 'class' => 'form-control','title'=>'enter title','rows'=>'4']) !!}
-        </div>
-        <div>
-            {!! Form::label('status', 'Status:', []) !!}
-            <small class="required">(Required)</small>
-            {!! Form::select('status', array('open'=>'Open','close'=>'Close'),Input::old('status'),['class' => 'form-control','required','title'=>'select status of Item']) !!}
-        </div>
         <div>
             {!! Form::label('mktg_material_id', 'Parent:', []) !!}
             <small class="required">(Required)</small>
             @if(isset($material))
+                <?php echo $default = Input::old('mktg_material_id'); ?>
                 <select name="mktg_material_id" class="form-control">
                     <?php $default = Input::old('mktg_material_id'); ?>
                     @if(!empty($default))
@@ -51,37 +32,45 @@
                 </select>
             @endif
         </div>
+        <div>
+            {!! Form::label('title', 'Title :', []) !!}
+            <small class="required">(Required)</small>
+            {!! Form::text('title', Input::old('title'), ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
+        </div>
+        <div>
+            {!! Form::label('description', 'Description :', []) !!}
+            <small class="required">(Required)</small>
+            {!! Form::textarea('description', Input::old('description'), ['id'=>'title', 'class' => 'form-control','title'=>'enter title','rows'=>'4']) !!}
+        </div>
+        <div>
+            {!! Form::label('status', 'Status:', []) !!}
+            <small class="required">(Required)</small>
+            {!! Form::select('status', array('open'=>'Open','close'=>'Close'),Input::old('status'),['class' => 'form-control','required','title'=>'select status of Item']) !!}
+        </div>
     </div>
 
     {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-5">--}}
     <div class="form-group col-sm-5 pull-right">
-
         {!! Form::label('Image Upload', 'Image Upload:', []) !!}
         <small class="required">(Required)</small>
+        <div class="row">
         @if($data->relMktgMenuItemImage[0]['image'])
-        <img src="{{URL::to($data->relMktgMenuItemImage[0]['image'])}}" alt="" width="100%" />
+            @foreach($data->relMktgMenuItemImage as $imgdata)
+                <div class="col-sm-4">
+                    <img src="{{URL::to($imgdata['image'])}}" alt="" width="100%">
+                    <div class="checkbox" style="border: 1px solid #d0d0d0;">
+                        <label class="checkbox-inline text-right">
+                            <input type="checkbox" name="img_delete" value="{{ $imgdata->id }}">
+                            <span class="pull-right" style="line-height: 20px;">Delete &nbsp;</span>
+                        </label>
+                    </div>
+                </div>
+            @endforeach
         @else
             <h2>No Image Available</h2>
         @endif
-        {!! Form::file('image', Input::old('image'), ['id'=>'title', 'class' => 'form-control']) !!}
-
-
-        {{--<div class="fileupload fileupload-new" data-provides="fileupload">
-            <div class="fileupload-new thumbnail pull-left" style="width: 120px; height: 120px;">
-                @if($data['image'] != '')
-                    <img src="{{URL::to($data['image'])}}" alt="" />
-                    <a href="{{ route('gal_image.image.show', $data['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView">
-                        <img src="{{ URL::to($data['image']) }}" height="50px" width="50px" alt="{{$data['image']}}" />
-                    </a>
-                @else
-                    <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
-                @endif
-            </div>
-            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-            <div class="image-center">
-                <input type="file" name="image" id="image" class="default" />
-            </div>
-        </div>--}}
+        </div>
+        {!! Form::file('image[]', '', ['id'=>'title', 'class' => 'form-control','multiple']) !!}
         <br>
         <span class="label label-danger">NOTE!</span>
         <span>System will allow these types of image(png,jpeg,jpg Format)</span>
