@@ -35,7 +35,8 @@ class MarketingMaterialController extends Controller
     {
         //$data['pageTitle'] = 'Marketing Material Printing';
         $data['pageTitle'] = 'Agency Marketing Material';
-        $data['data'] = MktgMaterial::orderBy('id','ASC')->get();
+        //$data['data'] = MktgMaterial::orderBy('id','ASC')->get();
+        $data['data'] = MktgMaterial::with('relMktgMenuItem','relMktgMenuItem.relMktgMenuItemImage')->orderBy('id','ASC')->get();
         //print_r($data['data']); exit();
         return view('mktg::marketing_material.index',$data);
     }
