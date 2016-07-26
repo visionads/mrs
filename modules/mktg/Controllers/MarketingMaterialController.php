@@ -210,8 +210,6 @@ class MarketingMaterialController extends Controller
     {
         $input = $request->all();
 
-
-
         //===Multiple Image Upload for Menu Item ***//
         $image_input_arr=Input::file('image');
         //print_r($image_input_arr);exit();
@@ -222,7 +220,6 @@ class MarketingMaterialController extends Controller
             $image_option_head = $_FILES['image']['name'][$i];
             //print_r($image_option_head);exit();
             $image_data_head = Input::file('image')[$i];
-
 
             if(count($image_option_head)>0)
             {
@@ -240,7 +237,6 @@ class MarketingMaterialController extends Controller
                     mkdir ($destinationPath, 0777);
                 }
 
-
                 $file_name = $this->image_upload($image_option_head,$image_data_head, $file_type_required,$destinationPath);
                 //print_r($file_name);exit;
                 if($file_name != '') {
@@ -253,7 +249,6 @@ class MarketingMaterialController extends Controller
         }
         //print_r($image_arr);exit;
 
-
         //===== input data for head ***//
         $input_mktg_menu_item =[
             'mktg_material_id'=>$input['mktg_material_id'],
@@ -263,7 +258,6 @@ class MarketingMaterialController extends Controller
             'description'=>$input['description']
         ];
         //print_r($input_mktg_menu_item);exit();
-
 
         //===== input data for Menu Options [ table :: item_option ] ***//
         $i_detail = array();
@@ -289,7 +283,6 @@ class MarketingMaterialController extends Controller
                      mkdir ($destinationPath, 0777);
                  }
 
-
                  $file_name = $this->image_upload_options($image_option,$image_data, $file_type_required,$destinationPath);
 
                  if($file_name != '') {
@@ -301,10 +294,6 @@ class MarketingMaterialController extends Controller
                  }
 
             }
-
-            //print_r($option_image);
-            //print  "\n";
-
             // index checking if not null
             if($input['title_option'][$i] != null){
                 $i_detail[] = array(
@@ -316,8 +305,6 @@ class MarketingMaterialController extends Controller
                     'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
                 );
             }
-
-
         }
 
         /* Transaction Start Here */
@@ -334,8 +321,6 @@ class MarketingMaterialController extends Controller
                     ];
                     MktgMenuItemImage::create($input_mktg_menu_item_img);
                 }
-
-
 
                 // Store data into item_option table
                 foreach($i_detail as $value){
@@ -357,10 +342,7 @@ class MarketingMaterialController extends Controller
                         MktgItemOption::create($data);
                     }
                 }
-
             }
-
-
             //Commit the transaction
             DB::commit();
             Session::flash('message', 'Successfully added!');
@@ -371,17 +353,178 @@ class MarketingMaterialController extends Controller
             Session::flash('danger', $e->getMessage());
 
         }
-
         return redirect()->route('mktg-menu-item');
     }
+    /*====For Edit Menu Item*/
     public function mktg_menu_item_edit($id)
     {
         $data['pageTitle'] = 'Edit Marketing Material Menu Item';
         $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage','relMktgItemOption')->where('id',$id)->first();
-        //$data['image']->relMktgMenuItemImage[0]['image'];
-        //$data['image_id']->relMktgMenuItemImage[0]['id'];
+        $data['material'] = MktgMaterial::orderBy('id','ASC')->get();
         return view('mktg::marketing_material_crud.menu_item.update',$data);
     }
+    public function mktg_menu_item_update(Requests\MarketingMaterialRequest $request, $id)
+    {
+        //exit('got it');
+        $model = MktgMenuItem::where('id',$id)->first();
+        //print_r($model);exit();
+        //$model_option = MktgItemOption::where()->first();
+
+        $input = $request->all();
+
+        //===Multiple Image Upload for Menu Item ***//
+        $image_input_arr=Input::file('image');
+        //print_r($image_input_arr);exit();
+        $image_arr = array();
+        for($i=0; $i<count($image_input_arr); $i++)
+        {
+            $image_option_head = $_FILES['image']['name'][$i];
+            //print_r($image_option_head);exit();
+            $image_data_head = Input::file('image')[$i];
+
+            if(count($image_option_head)>0)
+            {
+                $file_type_required = 'png,jpeg,jpg';
+                $destinationPath = 'uploads/mktg_menu_item_image/';
+
+                $uploadfolder = 'uploads/';
+
+                if ( !file_exists($uploadfolder) ) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir ($uploadfolder, 0777);
+                }
+                if ( !file_exists($destinationPath) ) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir ($destinationPath, 0777);
+                }
+
+                $file_name = $this->image_upload($image_option_head,$image_data_head, $file_type_required,$destinationPath);
+                //print_r($file_name);exit;
+                if($file_name != '') {
+                    $image_arr [] = array(
+                        'menu_item_img'=>$file_name[0],
+                        'menu_item_img_thumb'=>$file_name[1],
+                    );
+                }
+            }
+        }
+        //print_r($image_arr);exit;
+
+        //===== input data for head ***//
+        $input_mktg_menu_item =[
+            'mktg_material_id'=>$input['mktg_material_id'],
+            'title'=>$input['title'],
+            'slug'=>str_slug($input['title']),
+            'status'=>$input['status'],
+            'description'=>$input['description']
+        ];
+        //print_r($input_mktg_menu_item);exit();
+
+        //===== input data for Menu Options [ table :: item_option ] ***//
+        $i_detail = array();
+        for($i=0; $i<count($input['title_option']); $i++)
+        {
+            $image_option = $_FILES['image_option']['name'][$i];
+            $image_data = Input::file('image_option')[$i];
+
+            $option_image = array();
+            if(count($image_option)>0)
+            {
+                $file_type_required = 'png,jpeg,jpg';
+                $destinationPath = 'uploads/mktg_menu_item_options_image/';
+                $uploadfolder = 'uploads/';
+
+                 if ( !file_exists($uploadfolder) ) {
+                     $oldmask = umask(0);  // helpful when used in linux server
+                     mkdir ($uploadfolder, 0777);
+                 }
+                 if ( !file_exists($destinationPath) ) {
+                     $oldmask = umask(0);  // helpful when used in linux server
+                     mkdir ($destinationPath, 0777);
+                 }
+                 $file_name = $this->image_upload_options($image_option,$image_data, $file_type_required,$destinationPath);
+                 if($file_name != '') {
+                     unlink(public_path()."/".$model->image);
+                     unlink(public_path()."/".$model->image_thumb);
+                     $option_image [] = array(
+                         'image'=>$file_name[0],
+                         'image_thumb'=>$file_name[1],
+
+                     );
+                 }
+
+            }
+            // index checking if not null
+            if($input['title_option'][$i] != null){
+                $i_detail[] = array(
+                    'opt_id' => $input['opt_id'][$i],
+                    'title' => $input['title_option'][$i],
+                    'type' => $input['type_option'][$i],
+                    'slug' => str_slug($input['title_option'][$i]),
+                    'icon' => $input['icon_option'][$i],
+                    'image' => isset($option_image[0]['image'])?$option_image[0]['image']:null,
+                    'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
+                );
+            }
+        }//=== End of Option data with images
+
+        /* Transaction Start Here */
+        DB::beginTransaction();
+        try {
+            //===== insert into head table
+            //if($vh = MktgMenuItem::create($input_mktg_menu_item)){
+            //$dd = $model->update($input_mktg_menu_item);
+            //print_r($dd); exit();
+            if($vh = $model->update($input_mktg_menu_item)){
+                //===== Input data for mktg_menu_item_img ***//
+                foreach($image_arr as $imgrow){
+                    $input_mktg_menu_item_img = [
+                        'mktg_menu_item_id' => $vh['id'],
+                        'image'=>isset($imgrow['menu_item_img']) ? $imgrow['menu_item_img']:null,
+                        'image_thumb'=>isset($imgrow['menu_item_img_thumb'])?$imgrow['menu_item_img_thumb']:null,
+                    ];
+                    $model->update($input_mktg_menu_item_img);
+                }
+
+                // Store data into item_option table
+                foreach($i_detail as $value){
+                    $opt_model = $value['opt_id'] ? MktgItemOption::findOrNew($value['dt_id']) : new MktgItemOption();
+                    if($value['title'] != null) {
+                        //Menu options
+                        $data = [
+                            //'mktg_material_id' => $vh['id'],
+                            'mktg_menu_item_id' => $vh['id'],
+                            'title' => $value['title'],
+                            'type' => $value['type'],
+                            'slug' => $value['slug'],
+                            'icon' => $value['icon'],
+                            'image' => $value['image'],
+                            'image_thumb' => $value['image_thumb'],
+                        ];
+                        //print_r($data);exit();
+                        // insert data into item_option table
+                        if($value['opt_id']){
+                            $opt_model->update($data);
+                        }else{
+                            $opt_model->create($data);
+                        }
+                    }
+                }
+            }
+            //Commit the transaction
+            DB::commit();
+            Session::flash('message', 'Successfully added!');
+
+        } catch (\Exception $e) {
+            //If there are any exceptions, rollback the transaction`
+            DB::rollback();
+            Session::flash('danger', $e->getMessage());
+
+        }
+        return redirect()->route('mktg-menu-item');
+    }
+
+
     public function mktg_menu_item_delete($id)
     {
         DB::beginTransaction();
