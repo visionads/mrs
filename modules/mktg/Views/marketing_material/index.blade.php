@@ -63,7 +63,8 @@
                                                         <img src="{{ url($row_data->relMktgMenuItemImage[0]['image']) }}" class="img-responsive image-center" width="100%" style="height:130px; margin:20px 0 5px 0">
                                                     </div>
                                                     <div class="green-yellow-bg-btn">
-                                                        <a href="{{ route('letterhead') }}" class="below">
+                                                        {{--<a href="{{ route('letterhead') }}" class="below">--}}
+                                                        <a href="{{ route('agency-stationary-material', $row_data->slug ) }}" class="below">
                                                             {{$row_data->title}}
                                                         </a>
                                                     </div>
