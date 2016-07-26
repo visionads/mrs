@@ -19,7 +19,7 @@
             @foreach($data as $row)
                 <div class="col-md-4">
                     <div class="green-yellow-bg-btn">
-                        <a href="#" data-toggle="modal" data-target="{{ $row->slug }}">
+                        <a href="#{{ $row->id }}" data-toggle="modal">
                             <span class="{{ $row->icon }} size-25"></span><br>
                             {{ $row->title }}
                         </a>
@@ -27,6 +27,68 @@
                 </div>
             @endforeach
         @endif
+
+
+
+
+        @if(isset($data))
+        @foreach($data as $row)
+
+                <div id="{{ $row->id }}" class="modal fade" role="dialog" style="background: black !important;">
+                    <div class="modal-dialog" style="background: black !important;">
+
+                        <!-- Modal content-->
+                        <div class="modal-content" style="background: black !important; padding: 0px !important; width:100% !important;">
+                            {{--Modal Header--}}
+                            <div class="modal-header no-border" style="background: none !important; padding: 0px !important;">
+                                <div class="size-20 green-yellow-bg center" style="padding: 5px;">
+                                    <span class="glyphicon glyphicon-paperclip "></span>
+                                    {{ $row->title }}
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                            </div>
+
+
+                            {{--Modal Body--}}
+                            <div class="modal-body no-padding no-border" style="padding-top: 20px !important; background: black;">
+                                {{--Second Level--}}
+                                <div class="col-md-12 no-padding">
+                                    <div class="row">
+
+                                        @if(isset($row->relMktgMenuItem))
+                                            @foreach($row->relMktgMenuItem as $row_data)
+                                                <div class="col-sm-4">
+                                                    <div>
+                                                        {{--<img src="{{ URL::to('/assets/img/letter-head.jpg') }}" class="img-responsive image-center">--}}
+                                                        <img src="{{ url($row_data->relMktgMenuItemImage[0]['image']) }}" class="img-responsive image-center" width="100%" style="height:130px; margin:20px 0 5px 0">
+                                                    </div>
+                                                    <div class="green-yellow-bg-btn">
+                                                        <a href="{{ route('letterhead') }}" class="below">
+                                                            {{$row_data->title}}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{--Modal Footer--}}
+                            <div class="modal-footer no-border">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-top: 20px !important; ">Close</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+        @endforeach
+        @endif
+
+
+
         {{--<div class="col-md-4">
             <div class="green-yellow-bg-btn">
                 <a href="#" data-toggle="modal" data-target="#AAM">
@@ -44,13 +106,15 @@
             </div>
         </div>--}}
 
+                {{--shajjad start--}}
+
         <!-- Modal for Agency Stationary Material ====================================================================== -->
-        <div id="ASM" class="modal fade" role="dialog" style="background: black !important;">
+        {{--<div id="ASM" class="modal fade" role="dialog" style="background: black !important;">
             <div class="modal-dialog" style="background: black !important;">
 
                 <!-- Modal content-->
                 <div class="modal-content" style="background: black !important; padding: 0px !important; width:100% !important;">
-                    {{--Modal Header--}}
+                    --}}{{--Modal Header--}}{{--
                     <div class="modal-header no-border" style="background: none !important; padding: 0px !important;">
                         <div class="size-20 green-yellow-bg center" style="padding: 5px;">
                             <span class="glyphicon glyphicon-paperclip "></span>
@@ -59,9 +123,9 @@
                         </div>
                     </div>
 
-                    {{--Modal Body--}}
+                    --}}{{--Modal Body--}}{{--
                     <div class="modal-body no-padding no-border" style="padding-top: 20px !important; background: black;">
-                        {{--Second Level--}}
+                        --}}{{--Second Level--}}{{--
                         <div class="col-md-12 no-padding">
                             <div class="row">
                                 <div class="col-sm-4">
@@ -134,22 +198,22 @@
                         </div>
                     </div>
 
-                    {{--Modal Footer--}}
+                    --}}{{--Modal Footer--}}{{--
                     <div class="modal-footer no-border">
                         <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-top: 20px !important; ">Close</button>
                     </div>
                 </div>
 
             </div>
-        </div>
+        </div>--}}
 
         <!-- Modal for Agency / Agent Marketing ====================================================================== -->
-        <div id="AAM" class="modal fade" role="dialog" style="background: black !important;">
+        {{--<div id="AAM" class="modal fade" role="dialog" style="background: black !important;">
             <div class="modal-dialog" style="background: black !important;">
 
                 <!-- Modal content-->
                 <div class="modal-content" style="background: black !important; padding: 0px !important; width:100% !important;">
-                    {{--Modal Header--}}
+                    --}}{{--Modal Header--}}{{--
                     <div class="modal-header no-border" style="background: none !important; padding: 0px !important;">
                         <div class="size-20 green-yellow-bg center" style="padding: 5px;">
                             <span class="glyphicon glyphicon-home size-25"></span><span class="glyphicon glyphicon-user size-25"></span></span>
@@ -158,9 +222,9 @@
                         </div>
                     </div>
 
-                    {{--Modal Body--}}
+                    --}}{{--Modal Body--}}{{--
                     <div class="modal-body no-padding no-border" style="padding-top: 20px !important; background: black;">
-                        {{--Second Level--}}
+                        --}}{{--Second Level--}}{{--
                         <div class="col-md-12 no-padding">
                             <div class="row">
                                 <div class="col-sm-4">
@@ -277,22 +341,22 @@
                         </div>
                     </div>
 
-                    {{--Modal Footer--}}
+                    --}}{{--Modal Footer--}}{{--
                     <div class="modal-footer no-border">
                         <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-top: 20px !important; ">Close</button>
                     </div>
                 </div>
 
             </div>
-        </div>
+        </div>--}}
 
         <!-- Modal for Property Marketing ====================================================================== -->
-        <div id="PM" class="modal fade" role="dialog" style="background: black !important;">
+        {{--<div id="PM" class="modal fade" role="dialog" style="background: black !important;">
             <div class="modal-dialog" style="background: black !important;">
 
                 <!-- Modal content-->
                 <div class="modal-content" style="background: black !important; padding: 0px !important; width:100% !important;">
-                    {{--Modal Header--}}
+                    --}}{{--Modal Header--}}{{--
                     <div class="modal-header no-border" style="background: none !important; padding: 0px !important;">
                         <div class="size-20 green-yellow-bg center" style="padding: 5px;">
                             <span class="glyphicon glyphicon-home size-25 relative"></span>
@@ -301,9 +365,9 @@
                         </div>
                     </div>
 
-                    {{--Modal Body--}}
+                    --}}{{--Modal Body--}}{{--
                     <div class="modal-body no-padding no-border" style="padding-top: 20px !important; background: black;">
-                        {{--Second Level--}}
+                        --}}{{--Second Level--}}{{--
                         <div class="col-md-12 no-padding">
                             <div class="row">
                                 <div class="col-sm-4">
@@ -354,15 +418,16 @@
                         </div>
                     </div>
 
-                    {{--Modal Footer--}}
+                    --}}{{--Modal Footer--}}{{--
                     <div class="modal-footer no-border">
                         <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-top: 20px !important; ">Close</button>
                     </div>
                 </div>
 
             </div>
-        </div>
+        </div>--}}
 
+                {{--shajjad end--}}
 
     </div>
 
