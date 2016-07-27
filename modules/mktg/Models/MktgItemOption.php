@@ -28,6 +28,13 @@ class MktgItemOption extends Model
         return $this->hasMany('App\MktgItemValue');
     }
 
+    /*public function relMktgSpecificItemValue(){
+        return $this->hasMany('App\MktgItemValue')->where('title', 'foo')->first();
+    }*/
+
+
+
+
 
 
     // TODO :: boot
