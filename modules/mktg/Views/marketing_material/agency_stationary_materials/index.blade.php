@@ -5,21 +5,6 @@
 
     <div id="container" class="container pages new_order font-droid">
 
-
-        {{--@foreach($data as $val)
-            {{$val['title']}}
-            {{$val['rel_mktg_menu_item_image'][0]['image']}}
-            <br>
-            @foreach($val['rel_mktg_item_option'] as $item_opt)
-                {{$item_opt['title']}}<br>
-                @foreach($item_opt['rel_mktg_item_value'] as $item_val)
-                    {{$item_val['title']}}<br>
-                @endforeach
-                <br>
-            @endforeach
-            <br><br>
-        @endforeach--}}
-
         <div class="col-md-12">
             @if(isset($data))
             @foreach($data as $val)
@@ -27,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="image-box">
-                            <img src="{{ url($val['rel_mktg_menu_item_image'][0]['image']) }}" class="img-responsive image-center">
+                            <img src="{{ url($val['rel_mktg_menu_item_image'][0]['image']) }}" class="img-responsive image-center" width="100%" style="height:130px;">
                         </div>
                     </div>
                     <div class="col-md-8 green-yellow">
@@ -69,7 +54,7 @@
                                                 <div class="col-sm-6">
                                                     <div style="border-left: 3px dashed #404040;">
                                                         <div class="form-group">
-                                                            {!! Form::label('qty', $item_val['title'], ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                                                            {!! Form::label('qty', $item_opt['title'], ['class'=>'control-label col-sm-4 green-yellow']) !!}
                                                             <div class="col-sm-8">
                                                                 {!! Form::select('qty', [$value[$item_val['id']]],Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
                                                             </div>
@@ -93,7 +78,7 @@
 
                                 <div class="col-md-12">
                                     Do you need Artwork ?
-                                    <a href=" #place" class="btn btn-green " id="proceed">Yes <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;
+                                    {{--<a href=" #place" class="btn btn-green " id="proceed">Yes <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;--}}
                                     <label class="radio-inline green-yellow" >
                                         {!! Form::radio('art','no','true',['id'=>'no']) !!}
                                         No

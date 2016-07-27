@@ -37,13 +37,17 @@ class AgencyMarketingController extends Controller
         $data = MktgMenuItem::with('relMktgMenuItemImage','relMktgItemOption','relMktgItemOption.relMktgItemValue')->where('slug',$slug)->get()->toArray();
 
         $value = DB::table('mktg_item_value')->lists('title', 'id');
-        #print_r($value[3]);exit;
+
+        $artwork = MktgArtwork::orderBy('slug','ASC')->get();
+
+        #print_r($artwork);exit;
         /*return view('mktg::marketing_material.agency_stationary_materials.index',$data,$value);*/
 
         return view('mktg::marketing_material.agency_stationary_materials.index',array(
             'pageTitle'=>$pageTitle,
             'data'=>$data,
             'value'=>$value,
+            'artwork'=>$artwork,
         ));
 
     }
