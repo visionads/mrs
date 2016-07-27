@@ -50,14 +50,13 @@
                                     @if($row_data->type=='value')
 
 
-
                                     <div class="col-sm-12" style="height: 30px;"></div>
                                     <div class="col-sm-6">
                                         <div style="border-left: 3px dashed #404040;">
                                             <div class="form-group">
                                                 {!! Form::label('qty', $row_data->title, ['class'=>'control-label col-sm-4 green-yellow']) !!}
                                                 <div class="col-sm-8">
-                                                    {!! Form::select('qty', $row_data->relMktgItemValue,Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
+                                                    {!! Form::select('qty', $value,Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
                                                 </div>
                                             </div>
                                         </div>

@@ -36,9 +36,11 @@ class AgencyMarketingController extends Controller
         $data['pageTitle'] = $title['title'];
         $data['data'] = MktgMenuItem::with('relMktgMenuItemImage','relMktgItemOption','relMktgItemOption.relMktgItemValue')->where('slug',$slug)->get();
 
-        #print_r($title['title']);exit;
+        $data['value'] = DB::table('mktg_item_value')->lists('title', 'id');
+        /*return view('mktg::marketing_material.agency_stationary_materials.index',$data,$value);*/
 
         return view('mktg::marketing_material.agency_stationary_materials.index',$data);
+
     }
 
 }
