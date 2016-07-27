@@ -127,10 +127,10 @@
                                                 @endforeach
                                             @endif
 
-                                            <div class="col-md-12">
+                                            {{--<div class="col-md-12">
                                                 {!! Form::submit('Order',['class'=>'btn btn-green pull-right']) !!}
                                                 <button class="btn btn-green pull-right" type="button" id="order">Order <span class="glyphicon glyphicon-chevron-right"></span></button>
-                                            </div>
+                                            </div>--}}
                                         </div>
                                     </div>
                                 </div>
