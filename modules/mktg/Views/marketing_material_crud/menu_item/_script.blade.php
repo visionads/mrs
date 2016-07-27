@@ -37,7 +37,7 @@
             var table = $("#table");
             var element = '<tr>\
                 <td>\
-                    <div>{!! Form::text('title_option[]', Input::old('title_option'), ['title'=>'enter title', 'class' => 'form-control','required']) !!}</div>\
+                    <div>{!! Form::text('title_option[]', Input::old('title_option'), ['title'=>'enter title', 'class' => 'form-control']) !!}</div>\
                 </td>\
                 \<td>\
                     <div>{!! Form::select('type_option[]',array(''=>'Select','option'=>'Option','value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control']) !!}</div>\

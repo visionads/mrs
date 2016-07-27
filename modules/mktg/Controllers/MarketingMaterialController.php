@@ -364,6 +364,7 @@ class MarketingMaterialController extends Controller
         $data['material'] = MktgMaterial::orderBy('id','ASC')->get();
         return view('mktg::marketing_material_crud.menu_item.update',$data);
     }
+    /*===== For Menu Item Update*/
     public function mktg_menu_item_update(Requests\MarketingMaterialRequest $request, $id)
     {
         //exit('got it');
@@ -418,17 +419,18 @@ class MarketingMaterialController extends Controller
         //print_r($delete_menu_item_image_arr);exit();
 
         //===== input data for head ***//
-        $input_mktg_menu_item =[
+        /*$input_mktg_menu_item =[
             'mktg_material_id'=>$input['mktg_material_id'],
             'title'=>$input['title'],
             'slug'=>str_slug($input['title']),
             'status'=>$input['status'],
             'description'=>$input['description']
-        ];
+        ];*/
         //print_r($input_mktg_menu_item);exit();
 
         //===== input data for Menu Options [ table :: item_option ] ***//
         $i_detail = array();
+        //print_r($input['title_option']);exit();
         for($i=0; $i<count($input['title_option']); $i++)
         {
             $image_option = $_FILES['image_option']['name'][$i];
@@ -460,6 +462,7 @@ class MarketingMaterialController extends Controller
                  }
 
             }
+            //print_r($option_image); exit();
             // index checking if not null
             if($input['title_option'][$i] != null){
                 $i_detail[] = array(
@@ -473,34 +476,31 @@ class MarketingMaterialController extends Controller
                 );
             }
         }//=== End of Option data with images
+        //print_r($i_detail);exit();
+
 
         /* Transaction Start Here */
         DB::beginTransaction();
         try {
-            //===== Update head table
-            /*'mktg_material_id'=>$input['mktg_material_id'],
-            'title'=>$input['title'],
-            'slug'=>str_slug($input['title']),
-            'status'=>$input['status'],
-            'description'=>$input['description']*/
-
+            //===== To Update head table ( table::mktg_menu_item )
             $model->mktg_material_id = $input['mktg_material_id'];
             $model->title = $input['title'];
             $model->slug = str_slug($input['title']);
             $model->status = $input['status'];
             $model->description = $input['description'];
             $model->save();
-            print_r($model->id);exit();
-            if($updt){
+            //print_r($model->id);exit();
+            if($model->save()){
                 //===== To Create New Menu Item Image into mktg_menu_item_img table ***//
                 foreach($image_arr as $imgrow){
                     $input_mktg_menu_item_img = [
-                        'mktg_menu_item_id' => $updt['id'],
+                        'mktg_menu_item_id' => $model->id,
                         'image'=>isset($imgrow['menu_item_img'])?$imgrow['menu_item_img']:null,
                         'image_thumb'=>isset($imgrow['menu_item_img_thumb'])?$imgrow['menu_item_img_thumb']:null,
                     ];
                     MktgMenuItemImage::create($input_mktg_menu_item_img);
                 }
+
                 //=== To delete Menu Item image from mktg_menu_item_img table and directory ***//
                 foreach($delete_menu_item_image_arr as $dltimg){
                     $getimgpath = MktgMenuItemImage::where('id',$dltimg)->first();
@@ -513,14 +513,14 @@ class MarketingMaterialController extends Controller
                 }
 
 
-                //=== Update data of mktg_item_option table ***//
+                //=== To Update data of mktg_item_option table ***//
                 foreach($i_detail as $value){
                     $opt_model = $value['opt_id'] ? MktgItemOption::findOrNew($value['opt_id']) : new MktgItemOption();
                     if($value['title'] != null) {
                         //Menu options
                         $data = [
                             //'mktg_material_id' => $vh['id'],
-                            'mktg_menu_item_id' => $updt['id'],
+                            'mktg_menu_item_id' => $model->id,
                             'title' => $value['title'],
                             'type' => $value['type'],
                             'slug' => $value['slug'],

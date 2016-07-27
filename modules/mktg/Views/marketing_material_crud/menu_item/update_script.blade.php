@@ -46,7 +46,7 @@
                     <div>{!! Form::text('icon_option[]', Input::old('icon_option'), ['title'=>'enter Icon', 'class' => 'form-control']) !!}</div>\
                 </td>\
                 <td>\
-                    <div>{!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}</div>\
+                    <div>{!! Form::file('image_option[]', '', ['title'=>'enter Image', 'class' => 'form-control']) !!}</div>\
                 </td>\
             </tr>';
             table.append(element);

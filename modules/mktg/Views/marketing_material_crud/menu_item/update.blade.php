@@ -98,7 +98,7 @@
                     <td>
                         <div>
                             {!! Form::text('title_option[]', $options->title, ['title'=>'enter title', 'class' => 'form-control']) !!}
-                            {!! Form::hidden('opt_id',$options->id,[]) !!}
+                            {!! Form::hidden('opt_id[]',$options->id,[]) !!}
                         </div>
                     </td>
                     <td>
@@ -121,9 +121,10 @@
                         <div>
                             @if(isset($options->image_thumb))
                                 <img src="{{ URL::to($options->image_thumb) }}">
-                                {!! Form::hidden('del_option_img',$options->image_thumb,[]) !!}
+                                {!! Form::text('del_option_img[]',$options->image_thumb,[]) !!}
+                            @else
+                            {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
                             @endif
-                            {!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}
                         </div>
                     </td>
                 </tr>
@@ -142,12 +143,12 @@
             </td>
             <td>
                 <div>
-                    {!! Form::text('slug_option[]', Input::old('slug_option'), ['title'=>'enter slug', 'class' => 'form-control']) !!}
+                    {!! Form::text('icon_option[]', null, ['title'=>'enter slug', 'class' => 'form-control']) !!}
                 </div>
             </td>
             <td>
                 <div>
-                    {!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}
+                    {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
                 </div>
             </td>
         </tr>
