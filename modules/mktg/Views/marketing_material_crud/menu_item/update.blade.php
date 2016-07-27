@@ -56,7 +56,7 @@
                     <img src="{{URL::to($imgdata['image'])}}" alt="" width="100%">
                     <div class="checkbox" style="border: 1px solid #d0d0d0;">
                         <label class="checkbox-inline text-right">
-                            <input type="checkbox" name="img_delete" value="{{ $imgdata->id }}">
+                            <input type="checkbox" name="img_delete[]" value="{{ $imgdata->id }}">
                             <span class="pull-right" style="line-height: 20px;">Delete &nbsp;</span>
                         </label>
                     </div>
@@ -66,7 +66,8 @@
             <h2>No Image Available</h2>
         @endif
         </div>
-        {!! Form::file('image[]', '', ['id'=>'title', 'class' => 'form-control','multiple']) !!}
+        {{--{!! Form::file('image[]', '', ['id'=>'title', 'class' => 'form-control','multiple']) !!}--}}
+        <input type="file" name="image[]" id="image" class="default" multiple >
         <br>
         <span class="label label-danger">NOTE!</span>
         <span>System will allow these types of image(png,jpeg,jpg Format)</span>

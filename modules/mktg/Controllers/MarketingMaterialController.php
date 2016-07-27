@@ -8,6 +8,7 @@ namespace Modules\Mktg\Controllers;
  * Time: 1:55 PM
  */
 
+use App\MktgArtworkImage;
 use App\UserImage;
 use Illuminate\Http\Request;
 use Auth;
@@ -367,10 +368,9 @@ class MarketingMaterialController extends Controller
     {
         //exit('got it');
         $model = MktgMenuItem::where('id',$id)->first();
-        //print_r($model);exit();
-        //$model_option = MktgItemOption::where()->first();
 
         $input = $request->all();
+        //print_r($input);exit();
 
         //===Multiple Image Upload for Menu Item ***//
         $image_input_arr=Input::file('image');
@@ -410,6 +410,17 @@ class MarketingMaterialController extends Controller
         }
         //print_r($image_arr);exit;
 
+        //===== Delete Menu Item Image ****//
+        $delete_menu_item_image_arr = array();
+        if(isset($input['img_delete'])){
+            $delete_menu_item_image_arr =  $input['img_delete'];
+        }
+        //print_r($delete_menu_item_image_arr);exit();
+        /*foreach($delete_menu_item_image_arr as $dltimg){
+            print_r($dltimg);print"/";
+        }
+        exit();*/
+
         //===== input data for head ***//
         $input_mktg_menu_item =[
             'mktg_material_id'=>$input['mktg_material_id'],
@@ -444,12 +455,11 @@ class MarketingMaterialController extends Controller
                  }
                  $file_name = $this->image_upload_options($image_option,$image_data, $file_type_required,$destinationPath);
                  if($file_name != '') {
-                     unlink(public_path()."/".$model->image);
-                     unlink(public_path()."/".$model->image_thumb);
+                     //unlink(public_path()."/".$model->image);
+                     //unlink(public_path()."/".$model->image_thumb);
                      $option_image [] = array(
                          'image'=>$file_name[0],
                          'image_thumb'=>$file_name[1],
-
                      );
                  }
 
@@ -471,24 +481,35 @@ class MarketingMaterialController extends Controller
         /* Transaction Start Here */
         DB::beginTransaction();
         try {
-            //===== insert into head table
-            //if($vh = MktgMenuItem::create($input_mktg_menu_item)){
-            //$dd = $model->update($input_mktg_menu_item);
-            //print_r($dd); exit();
+            //===== Update head table
             if($vh = $model->update($input_mktg_menu_item)){
-                //===== Input data for mktg_menu_item_img ***//
+                //===== To Create New Menu Item Image into mktg_menu_item_img table ***//
                 foreach($image_arr as $imgrow){
                     $input_mktg_menu_item_img = [
                         'mktg_menu_item_id' => $vh['id'],
-                        'image'=>isset($imgrow['menu_item_img']) ? $imgrow['menu_item_img']:null,
+                        'image'=>isset($imgrow['menu_item_img'])?$imgrow['menu_item_img']:null,
                         'image_thumb'=>isset($imgrow['menu_item_img_thumb'])?$imgrow['menu_item_img_thumb']:null,
                     ];
-                    $model->update($input_mktg_menu_item_img);
+                    MktgMenuItemImage::create($input_mktg_menu_item_img);
+                }
+                //=== To delete Menu Item image from mktg_menu_item_img table and directory ***//
+                foreach($delete_menu_item_image_arr as $dltimg){
+                    $getimgpath = MktgMenuItemImage::where('mktg_menu_item_id',$dltimg)->first();
+                    //print_r($getimgpath['image']);exit();
+                    //$deleted = MktgMenuItemImage::where('mktg_menu_item_id',$dltimg)->delete();
+                    $deleted = DB::table('mktg_menu_item_img')->where('mktg_menu_item_id',$dltimg)->delete();
+                    //print_r($deleted);exit('--');
+                    //$getimgpath->delete();
+                    if($deleted){
+                        unlink(public_path()."/".$getimgpath['image']);
+                        unlink(public_path()."/".$getimgpath['image_thumb']);
+                    }
                 }
 
-                // Store data into item_option table
+
+                //=== Update data of mktg_item_option table ***//
                 foreach($i_detail as $value){
-                    $opt_model = $value['opt_id'] ? MktgItemOption::findOrNew($value['dt_id']) : new MktgItemOption();
+                    $opt_model = $value['opt_id'] ? MktgItemOption::findOrNew($value['opt_id']) : new MktgItemOption();
                     if($value['title'] != null) {
                         //Menu options
                         $data = [
@@ -511,6 +532,7 @@ class MarketingMaterialController extends Controller
                     }
                 }
             }
+
             //Commit the transaction
             DB::commit();
             Session::flash('message', 'Successfully added!');
