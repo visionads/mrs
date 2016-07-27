@@ -489,8 +489,8 @@ class MarketingMaterialController extends Controller
             $model->slug = str_slug($input['title']);
             $model->status = $input['status'];
             $model->description = $input['description'];
-            $updt = $model->save();
-            print_r($updt);exit();
+            $model->save();
+            print_r($model->id);exit();
             if($updt){
                 //===== To Create New Menu Item Image into mktg_menu_item_img table ***//
                 foreach($image_arr as $imgrow){
