@@ -177,7 +177,7 @@ class MarketingMaterialController extends Controller
     {
         $data['pageTitle'] = 'Marketing Menu Item';
         $data['material'] = MktgMaterial::orderBy('id','ASC')->get();
-        $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage')->where('status','open')->orderBy('id','DESC')->paginate(30);
+        $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage')->where('status','open')->orderBy('id','DESC')->paginate(10);
         //print_r($data['data']);exit();
         return view('mktg::marketing_material_crud.menu_item.index',$data);
     }
@@ -197,14 +197,14 @@ class MarketingMaterialController extends Controller
         //print_r($data['option_value']);exit();
         return view('mktg::marketing_material_crud.menu_item.details',$data);
     }
-    /*public function print_material_search(){
+    public function mktg_menu_item_search(){
 
-        $pageTitle = 'Print Material Informations';
+        $data['pageTitle'] = 'Marketing Material Menu Item Search Item';
         $title = Input::get('title');
-        $data = PrintMaterial::where('title', 'LIKE', '%'.$title.'%')->paginate(7);
+        $data['data'] = MktgMenuItem::where('title', 'LIKE', '%'.$title.'%')->paginate(7);
 
-        return view('admin::print_material.index',['data' => $data,'pageTitle'=>$pageTitle]);
-    }*/
+        return view('mktg::marketing_material_crud.menu_item.index',$data);
+    }
 
     /*public function mktg_menu_item_store(Requests\PrintMaterialRequest $request)*/
     public function mktg_menu_item_store(Requests\MarketingMaterialRequest $request)

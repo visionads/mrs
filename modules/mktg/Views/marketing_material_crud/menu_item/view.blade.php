@@ -59,7 +59,7 @@
                                     <div class="row" style="margin-top: 10px;">
                                         @foreach($data->relMktgMenuItemImage as $imgdata)
                                             <div class="col-sm-4">
-                                                <img src="{{ URL::to($imgdata->image) }}" class="img-rounded" style="width: auto; max-width:100%;">
+                                                <img src="{{ URL::to($imgdata->image) }}" class="img-rounded" style="width: auto; max-width:100%; margin-bottom:5px;">
                                             </div>
                                         @endforeach
                                     </div>
