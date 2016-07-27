@@ -33,13 +33,19 @@ class AgencyMarketingController extends Controller
     public function agency_stationary_material($slug)
     {
         $title = MktgMenuItem::where('slug',$slug)->first();
-        $data['pageTitle'] = $title['title'];
-        $data['data'] = MktgMenuItem::with('relMktgMenuItemImage','relMktgItemOption','relMktgItemOption.relMktgItemValue')->where('slug',$slug)->get();
+        $pageTitle = $title['title'];
+        $data = MktgMenuItem::with('relMktgMenuItemImage','relMktgItemOption','relMktgItemOption.relMktgItemValue')->where('slug',$slug)->get()->toArray();
 
-        $data['value'] = DB::table('mktg_item_value')->lists('title', 'id');
+
+
+
+        #$data['value'] = DB::table('mktg_item_value')->lists('title', 'id');
         /*return view('mktg::marketing_material.agency_stationary_materials.index',$data,$value);*/
 
-        return view('mktg::marketing_material.agency_stationary_materials.index',$data);
+        return view('mktg::marketing_material.agency_stationary_materials.index',array(
+            'pageTitle'=>$pageTitle,
+            'data'=>$data,
+        ));
 
     }
 
