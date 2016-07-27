@@ -123,7 +123,7 @@
                                 <img src="{{ URL::to($options->image_thumb) }}">
                                 {!! Form::text('del_option_img[]',$options->image_thumb,[]) !!}
                             @else
-                            {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
+                            {!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}
                             @endif
                         </div>
                     </td>
