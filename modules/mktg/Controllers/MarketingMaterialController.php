@@ -435,49 +435,55 @@ class MarketingMaterialController extends Controller
         {
             $image_option = $_FILES['image_option']['name'][$i];
             $image_data = Input::file('image_option')[$i];
+            //$del_option_img = $input['del_option_img'][$i];
+            //$del_option_img_thumb = $input['del_option_img_thumb'][$i];
 
+            //$image_option_edit = $_FILES['image_option_edit']['name'][$i];
             $option_image = array();
+
             if(count($image_option)>0)
+            //if($image_option !== null)
             {
                 $file_type_required = 'png,jpeg,jpg';
                 $destinationPath = 'uploads/mktg_menu_item_options_image/';
                 $uploadfolder = 'uploads/';
 
-                 if ( !file_exists($uploadfolder) ) {
-                     $oldmask = umask(0);  // helpful when used in linux server
-                     mkdir ($uploadfolder, 0777);
-                 }
-                 if ( !file_exists($destinationPath) ) {
-                     $oldmask = umask(0);  // helpful when used in linux server
-                     mkdir ($destinationPath, 0777);
-                 }
-                 $file_name = $this->image_upload_options($image_option,$image_data, $file_type_required,$destinationPath);
-                 if($file_name != '') {
-                     //unlink(public_path()."/".$model->image);
-                     //unlink(public_path()."/".$model->image_thumb);
-                     $option_image [] = array(
-                         'image'=>$file_name[0],
-                         'image_thumb'=>$file_name[1],
-                     );
-                 }
+                if ( !file_exists($uploadfolder) ) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir ($uploadfolder, 0777);
+                }
+                if ( !file_exists($destinationPath) ) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir ($destinationPath, 0777);
+                }
+                $file_name = $this->image_upload_options($image_option,$image_data, $file_type_required,$destinationPath);
+                if($file_name != '') {
+                    //unlink(public_path()."/".$model->image);
+                    //unlink(public_path()."/".$model->image_thumb);
 
+                    $option_image [] = array(
+                        'image'=>$file_name[0],
+                        'image_thumb'=>$file_name[1],
+                    );
+                }
             }
+
             //print_r($option_image); exit();
             // index checking if not null
             if($input['title_option'][$i] != null){
                 $i_detail[] = array(
-                    'opt_id' => $input['opt_id'][$i],
-                    'title' => $input['title_option'][$i],
-                    'type' => $input['type_option'][$i],
+                    'opt_id' => @$input['opt_id'][$i],
+                    'title' => @$input['title_option'][$i],
+                    'type' => @$input['type_option'][$i],
                     'slug' => str_slug($input['title_option'][$i]),
-                    'icon' => $input['icon_option'][$i],
-                    'image' => isset($option_image[0]['image'])?$option_image[0]['image']:null,
-                    'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
+                    'icon' => @$input['icon_option'][$i],
+                    'image' => isset($option_image[0]['image'])?$option_image[0]['image']:@$input['del_option_img'][$i],
+                    'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:@$input['del_option_img_thumb'][$i],
                 );
             }
         }//=== End of Option data with images
         //print_r($i_detail);exit();
-
+        //print_r($option_image);exit();
 
         /* Transaction Start Here */
         DB::beginTransaction();

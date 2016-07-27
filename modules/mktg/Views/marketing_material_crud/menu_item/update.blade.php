@@ -121,10 +121,11 @@
                         <div>
                             @if(isset($options->image_thumb))
                                 <img src="{{ URL::to($options->image_thumb) }}">
-                                {!! Form::text('del_option_img[]',$options->image_thumb,[]) !!}
-                            @else
-                            {!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}
+                                {!! Form::hidden('del_option_img_thumb[]',$options->image_thumb,[]) !!}
+                                {!! Form::hidden('del_option_img[]',$options->image,[]) !!}
                             @endif
+                            {{--{!! Form::file('image_option_edit[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}--}}
+                            {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
                         </div>
                     </td>
                 </tr>
