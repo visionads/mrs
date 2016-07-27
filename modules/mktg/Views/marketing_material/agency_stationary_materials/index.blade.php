@@ -5,9 +5,26 @@
 
     <div id="container" class="container pages new_order font-droid">
 
+
+        @foreach($data as $val)
+            {{$val['title']}}<br>
+            @foreach($val['rel_mktg_item_option'] as $item_opt)
+                {{$item_opt['title']}}<br>
+                @foreach($item_opt['rel_mktg_item_value'] as $item_val)
+                    {{$item_val['title']}}<br>
+                @endforeach
+                <br>
+            @endforeach
+            <br><br>
+        @endforeach
+
+
+
         <div class="col-md-12">
 
-            @if(isset($data))
+
+
+            {{--@if(isset($data))
                 @foreach($data as $row)
 
             <div class="row">
@@ -18,17 +35,17 @@
                 </div>
                 <div class="col-md-8 green-yellow">
                     <h3 class="green-yellow">{{ $pageTitle }}</h3>
-                    {{--{!! Form::open(['method'=>'GET','route'=>'solution-type-search','class'=>'form-inline']) !!}--}}
-                    {{--{!! Form::open(['method'=>'GET','class'=>'form-horizontal']) !!}
+                    --}}{{--{!! Form::open(['method'=>'GET','route'=>'solution-type-search','class'=>'form-inline']) !!}--}}{{--
+                    --}}{{--{!! Form::open(['method'=>'GET','class'=>'form-horizontal']) !!}
                     @include('mktg::marketing_material.agency_stationary_materials.letterhead_form')
-                    {!! Form::close() !!}--}}
+                    {!! Form::close() !!}--}}{{--
 
 
                     <div class="row">
 
                         <div class="col-md-12">
 
-                            {{--option--}}
+                            --}}{{--option--}}{{--
                             @if(isset($row->relMktgItemOption))
                                 @foreach($row->relMktgItemOption as $row_data)
 
@@ -43,7 +60,7 @@
                                 @endforeach
                             @endif
 
-                            {{--value--}}
+                            --}}{{--value--}}{{--
                             @if(isset($row->relMktgItemOption))
                                 @foreach($row->relMktgItemOption as $row_data)
 
@@ -71,7 +88,7 @@
 
                             <div class="col-md-12">
                                 Do you need Artwork ?
-                                {{--<a href=" #place" class="btn btn-green " id="proceed">Yes <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;--}}
+                                --}}{{--<a href=" #place" class="btn btn-green " id="proceed">Yes <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;--}}{{--
                                 <label class="radio-inline green-yellow" >
                                     {!! Form::radio('art','no','true',['id'=>'no']) !!}
                                     No
@@ -85,7 +102,7 @@
 
                             <div class="col-sm-12" style="height: 30px;"></div>
 
-                            {{--Artwork Form Start--}}
+                            --}}{{--Artwork Form Start--}}{{--
                             <a name="place">&nbsp;</a>
                             <div class="col-md-12" id="place_order">
                                 <div class="row">
@@ -121,13 +138,13 @@
                                         @endif
 
                                         <div class="col-md-12">
-                                            {{--{!! Form::submit('Order',['class'=>'btn btn-green pull-right']) !!}--}}
-                                            {{--<button class="btn btn-green pull-right" type="button" id="order">Order <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
+                                            --}}{{--{!! Form::submit('Order',['class'=>'btn btn-green pull-right']) !!}--}}{{--
+                                            --}}{{--<button class="btn btn-green pull-right" type="button" id="order">Order <span class="glyphicon glyphicon-chevron-right"></span></button>--}}{{--
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {{--Artwork Form End--}}
+                            --}}{{--Artwork Form End--}}{{--
 
                             <div class="col-sm-12" style="height: 30px;"></div>
 
@@ -148,7 +165,7 @@
                         <a href="#" class="btn btn-green " id="">Checkout </a>
                     </div>
                     <div class="pull-right">
-                        {{--<a href=" #place" class="btn btn-green " id="proceed">Proceed <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;--}}
+                        --}}{{--<a href=" #place" class="btn btn-green " id="proceed">Proceed <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;--}}{{--
                         <a href="#" class="btn btn-green " id="">Add To Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
                     </div>
 
@@ -156,7 +173,7 @@
             </div>
 
                 @endforeach
-            @endif
+            @endif--}}
 
         </div>
 
