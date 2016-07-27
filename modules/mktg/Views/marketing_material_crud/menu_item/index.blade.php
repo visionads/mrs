@@ -28,7 +28,7 @@
                 {{-------------- Filter :Starts -------------------------------------------}}
 
 
-                {!! Form::open(['method' =>'GET','route'=>'print-material-search']) !!}
+                {!! Form::open(['method' =>'GET','route'=>'mktg-menu-item-search']) !!}
 
                 <div id="index-search">
                     <div class="col-sm-3">

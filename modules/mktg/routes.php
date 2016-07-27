@@ -148,9 +148,9 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         'as' => 'mktg-menu-item-view',
         'uses' => 'MarketingMaterialController@mktg_menu_item_view'
     ]);
-    Route::get('mktg-menu-item-search/{id}',[
+    Route::get('mktg-menu-item-search',[
         //'middleware' => 'acl_access:main/congratulation',
-        'as' => 'mktg-menu-item-view',
+        'as' => 'mktg-menu-item-search',
         'uses' => 'MarketingMaterialController@mktg_menu_item_search'
     ]);
     Route::get('mktg-menu-item-details/{id}',[
