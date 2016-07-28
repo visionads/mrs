@@ -7,12 +7,11 @@
 
         <div class="col-md-12">
             @if(isset($data))
-            @foreach($data as $val)
 
                 <div class="row">
                     <div class="col-md-4">
                         <div class="image-box">
-                            <img src="{{ url($val['rel_mktg_menu_item_image'][0]['image']) }}" class="img-responsive image-center" width="100%" style="height:130px;">
+                            <img src="{{ url($data['rel_mktg_menu_item_image'][0]['image']) }}" class="img-responsive image-center" width="100%" style="height:130px;">
                         </div>
                     </div>
                     <div class="col-md-8 green-yellow">
@@ -27,8 +26,8 @@
 
                             <div class="col-md-12">
                                 {{--option--}}
-                                @if(isset($val['rel_mktg_item_option']))
-                                    @foreach($val['rel_mktg_item_option'] as $item_opt)
+                                @if(isset($data['rel_mktg_item_option']))
+                                    @foreach($data['rel_mktg_item_option'] as $item_opt)
 
                                         @if($item_opt['type']=='option')
                                             <div class="col-md-6">
@@ -42,8 +41,8 @@
                                 @endif
 
                                         {{--value--}}
-                                @if(isset($val['rel_mktg_item_option']))
-                                    @foreach($val['rel_mktg_item_option'] as $item_opt)
+                                @if(isset($data['rel_mktg_item_option']))
+                                    @foreach($data['rel_mktg_item_option'] as $item_opt)
 
                                         @if($item_opt['type']=='value')
 
@@ -150,7 +149,7 @@
                     <div class="col-md-12">
                         <h3 class="green-yellow">Description</h3>
                         <p class="green-yellow size-14">
-                            {{ $val['description'] }}
+                            {{ $data['description'] }}
                         </p>
                         <div class="pull-left">
                             <a href="{{ route('marketing-material-printing') }}" class="btn btn-green " id="">Continue Shopping </a>
@@ -164,15 +163,9 @@
                     </div>
 
                 </div>
-
-            @endforeach
             @endif
-
-
+            
         </div>
-
-
-
     </div>
 
     @include('mktg::marketing_material.agency_stationary_materials._scripts')

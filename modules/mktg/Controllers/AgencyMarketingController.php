@@ -34,7 +34,7 @@ class AgencyMarketingController extends Controller
     {
         $title = MktgMenuItem::where('slug',$slug)->first();
         $pageTitle = $title['title'];
-        $data = MktgMenuItem::with('relMktgMenuItemImage','relMktgItemOption','relMktgItemOption.relMktgItemValue')->where('slug',$slug)->get()->toArray();
+        $data = MktgMenuItem::with('relMktgMenuItemImage','relMktgItemOption','relMktgItemOption.relMktgItemValue')->where('slug',$slug)->first()->toArray();
 
         $value = DB::table('mktg_item_value')->lists('title', 'id');
 
