@@ -11,14 +11,26 @@
 <div class="modal-body">
 
     {!! Form::model($data, ['method' => 'PATCH', 'route'=> ['mktg-item-option-add-value-update', $options->id], 'files'=>true]) !!}
-
-    {{--===== Options Start =====--}}
-    {{--<div class="col-sm-12">
-        <br><h4 class="text-left-header" style="border-top: 1px solid #d0d0d0;"><br>Menu Options</h4>
-    </div>--}}
-
     <div class="col-sm-12">
         @if($data)
+            <div class="col-sm-6">
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <th valign="top">Image</th>
+                            <td width="5">:</td>
+                            <td>
+                                @if(isset($data->image))
+                                    <img src="{{ URL::to(isset($data->image)?$data->image:'') }}" width="100%">
+                                @else
+                                    <h5>No Image Available</h5>
+                                @endif
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
             <div class="col-sm-6">
                 <div class="row">
                 <table class="table table-striped">
@@ -68,24 +80,6 @@
                 </table>
                 </div>
             </div>
-
-            <div class="col-sm-6">
-                <div class="row">
-                <table class="table">
-                    <tr>
-                        <th valign="top">Image</th>
-                        <td width="5">:</td>
-                        <td>
-                            @if(isset($data->image))
-                                <img src="{{ URL::to(isset($data->image)?$data->image:'') }}" width="100%">
-                            @else
-                                <h5>No Image Available</h5>
-                            @endif
-                        </td>
-                    </tr>
-                </table>
-                </div>
-            </div>
         @endif
     </div>
 
@@ -94,20 +88,11 @@
         {{--<a href="{{route('mktg-menu-item')}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>--}}
         <a href="{{URL::previous()}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>
     </div>
-
-
     {!! Form::close() !!}
 </div>
 @else
 <div class="modal-body">
-
     {!! Form::model($data, ['method' => 'PATCH', 'route'=> ['mktg-item-option-add-value-store', $data->id], 'files'=>true]) !!}
-
-    {{--===== Options Start =====--}}
-    {{--<div class="col-sm-12">
-        <br><h4 class="text-left-header" style="border-top: 1px solid #d0d0d0;"><br>Menu Options</h4>
-    </div>--}}
-
     <div class="col-sm-12">
         @if($data)
             <div class="col-sm-6">
@@ -116,43 +101,34 @@
                     <tr>
                         <th>Title</th>
                         <td width="5">:</td>
-                        <td>{{ $data->title }}</td>
+                        <td colspan="5">{{ $data->title }}</td>
                     </tr>
                     <tr>
                         <th>Slug</th>
                         <td>:</td>
-                        <td>{{ $data->slug }}</td>
+                        <td colspan="5">{{ $data->slug }}</td>
                     </tr>
                     <tr>
                         <th>Type</th>
                         <td>:</td>
-                        <td>{{ $data->type }}</td>
+                        <td colspan="5">{{ $data->type }}</td>
                     </tr>
-
+                </table>
+                <table class="table table-striped" id="table">
                     <tr>
-                        <td colspan="3"><h4><span class="glyphicon glyphicon-plus"></span> Add Value</h4></td>
+                        <td colspan="6"><h4><span class="glyphicon glyphicon-plus"></span> Add Value</h4></td>
                     </tr>
                     <tr>
                         <th>Title</th>
-                        <td>:</td>
-                        <td>
-                            @if(isset($options))
-                                {!! Form::text('title', $options->title, ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
-                            @else
-                                {!! Form::text('title', '', ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
-                            @endif
-                            {!! Form::hidden('mktg_item_option_id', $data->id, [ 'class' => 'form-control']) !!}
-                        </td>
+                        <th>Price</th>
                     </tr>
                     <tr>
-                        <th>Price</th>
-                        <td>:</td>
                         <td>
-                            @if(isset($options))
-                                {!! Form::text('price', $options->price, ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
-                            @else
-                                {!! Form::text('price', '', ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
-                            @endif
+                            {!! Form::text('title[]', null, ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
+                            {!! Form::hidden('mktg_item_option_id[]', $data->id, [ 'class' => 'form-control']) !!}
+                        </td>
+                        <td>
+                            {!! Form::text('price[]', null, ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
                         </td>
                     </tr>
 
@@ -185,8 +161,6 @@
         {{--<a href="{{route('mktg-menu-item')}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>--}}
         <a href="{{URL::previous()}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>
     </div>
-
-
     {!! Form::close() !!}
 </div>
 @endif
@@ -203,3 +177,4 @@
 </script>
 {{--
 @include('mktg::marketing_material_crud.menu_item.update_script')--}}
+@include('mktg::marketing_material_crud.menu_item.item_option_value_script')

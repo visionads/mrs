@@ -27,7 +27,7 @@ class MktgMenuItem extends Model
     }
 
     public function relMktgItemOption(){
-        return $this->hasMany('App\MktgItemOption');
+        return $this->hasMany('App\MktgItemOption')->orderBy('type','ASC');
     }
 
     /*public function relMktgItemValue(){
