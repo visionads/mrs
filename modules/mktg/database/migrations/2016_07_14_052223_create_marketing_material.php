@@ -82,11 +82,10 @@ class CreateMarketingMaterial extends Migration
         Schema::create('mktg_item_option', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('mktg_menu_item_id')->nullable();
-            //$table->enum('type', array('single', 'multiple'))->nullable();
             $table->enum('type', array('option', 'value'))->nullable();
-
             $table->string('title', 64)->nullable();
-            $table->string('slug', 64)->unique();
+            $table->string('slug', 64)->nullable();
+            $table->unique(array('mktg_menu_item_id', 'slug'));
             $table->string('image', 128)->nullable();
             $table->string('image_thumb', 128)->nullable();
             $table->string('icon', 64)->nullable();

@@ -12,6 +12,7 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
 
 
     @include('routes_sh.php');
+    @include('routes_order.php');
 
 /*--------------------Marketing Material (Printing)-----*/
 
