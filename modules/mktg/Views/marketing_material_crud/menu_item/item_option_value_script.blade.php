@@ -38,10 +38,29 @@
             var element = '<tr>\
                 <td>\
                     {!! Form::text('title[]', null, ['title'=>'enter title', 'class' => 'form-control']) !!}\
-                    {!! Form::hidden('mktg_item_option_id[]', $data->id, [ 'class' => 'form-control']) !!}\
                 </td>\
                 <td>\
                     {!! Form::text('price[]', null, ['title'=>'enter Price', 'class' => 'form-control']) !!}\
+                </td>\
+            </tr>';
+            table.append(element);
+        }
+    });
+
+    $(document).on("focus",'#table_edit tr:last-child td:last-child',function(e) {
+
+        e.preventDefault();
+        var coa_name = $('#table_edit tr:last-child td:first-child input').val();
+        if(coa_name != "")
+        {
+            //append the new row here.
+            var table = $("#table_edit");
+            var element = '<tr>\
+                <td>\
+                    {!! Form::text('title[]', Input::old('title'), ['title'=>'enter title', 'class' => 'form-control']) !!}\
+                </td>\
+                <td>\
+                    {!! Form::text('price[]', Input::old('price'), ['title'=>'enter Price', 'class' => 'form-control']) !!}\
                 </td>\
             </tr>';
             table.append(element);

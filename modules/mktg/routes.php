@@ -181,7 +181,7 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         'as' => 'mktg-item-option-add-value',
         'uses' => 'MarketingMaterialController@mktg_item_option_add_value'
     ]);
-    Route::patch('mktg-item-option-add-value-store/{id}',[
+    Route::post('mktg-item-option-add-value-store/{id}',[
         //'middleware' => 'acl_access:main/congratulation',
         'as' => 'mktg-item-option-add-value-store',
         'uses' => 'MarketingMaterialController@mktg_item_option_add_value_store'

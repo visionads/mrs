@@ -599,29 +599,33 @@ class MarketingMaterialController extends Controller
         //$data['material'] = MktgMaterial::orderBy('id','ASC')->get();
         $data['data'] = MktgItemOption::where('id',$id)->first();
         $data['options'] = MktgItemValue::where('mktg_item_option_id',$id)->first();
-        //print_r($data['data']);exit();
+        $data['options_edit'] = MktgItemValue::where('mktg_item_option_id',$id)->get();
+        /*foreach($data['options'] as $val){
+            print_r($val->title);
+        }
+        exit();*/
+        //print_r($data['options']);exit();
 
         return view('mktg::marketing_material_crud.menu_item.item_option_value_add',$data);
     }
     public function mktg_item_option_add_value_store($id)
     {
         $input = Input::all();
-        //print_r($input);exit();
         $input_value_arr = array();
-        //print_r(count($input['title']));exit();
         for($i=0; $i<count($input['title']); $i++)
         {
             // index checking if not null
             if($input['title'][$i] != null){
+                //print_r($input['title'][$i]);
                 $input_value_arr[] = array(
-                    'title'=>$input['title'][$i],
-                    'price'=>$input['price'][$i],
-                    'mktg_item_option_id'=>$input['mktg_item_option_id'][$i],
-                    'slug'=>str_slug($input['title'])[$i]
+                    'title' => $input['title'][$i],
+                    'price' => $input['price'][$i],
+                    'mktg_item_option_id' => $id,
+                    //'slug' => str_slug($input['title'])[$i],
                 );
             }
         }
-        print_r($input_value_arr);exit();
+        //print_r($input_value_arr);exit();
         DB::beginTransaction();
         try {
             // Store data into item_option table
@@ -632,7 +636,8 @@ class MarketingMaterialController extends Controller
                         'title'=>$value['title'],
                         'price'=>$value['price'],
                         'mktg_item_option_id'=>$value['mktg_item_option_id'],
-                        'slug'=>$value['slug'],
+                        'slug'=>str_slug($value['title']),
+                        //'slug'=>time(),
                     ];
                     MktgItemValue::create($data);
                 }
@@ -651,16 +656,54 @@ class MarketingMaterialController extends Controller
 
     public function mktg_item_option_add_value_update($id)
     {
+        //print_r($id);exit();
         $input = Input::all();
-        //print_r($input);exit();;
+        $input_edit_value_arr = array();
+        for($i=0; $i<count($input['title']); $i++)
+        {
+            // index checking if not null
+            if($input['title'][$i] != null){
+                //print_r($input['title'][$i]);
+                $input_edit_value_arr[] = array(
+                    'val_id' => @$input['val_id'][$i],
+                    'title' => $input['title'][$i],
+                    'price' => $input['price'][$i],
+                    'mktg_item_option_id' => $id,
+                    //'slug' => str_slug($input['title'])[$i],
+                );
+            }
+        }
+        //print_r($input_edit_value_arr);exit();
 
         DB::beginTransaction();
         try {
-            $model = MktgItemValue::findOrFail($id);
+            foreach($input_edit_value_arr as $value){
+                $val_model = $value['val_id'] ? MktgItemValue::findOrNew($value['val_id']) : new MktgItemValue();
+                if($value['title'] != null) {
+                    //Menu options
+                    $data = [
+                        'title'=>$value['title'],
+                        'price'=>$value['price'],
+                        'mktg_item_option_id'=>$value['mktg_item_option_id'],
+                        'slug'=>str_slug($value['title']),
+                        //'slug'=>time(),
+                    ];
+                    //print_r($data);exit();
+                    // insert data into item_option table
+                    if($value['val_id']){
+                        $val_model->update($data);
+                    }else{
+                        $val_model->create($data);
+                    }
+                }
+            }
+
+
+            /*$model = MktgItemValue::findOrFail($id);
             $model->title = $input['title'];
             $model->price = $input['price'];
             $model->slug = str_slug($input['title']);
-            $model->save();
+            $model->save();*/
             //Commit the transaction
             DB::commit();
             Session::flash('message', 'Successfully added!');

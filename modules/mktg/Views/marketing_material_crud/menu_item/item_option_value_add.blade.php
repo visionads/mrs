@@ -10,7 +10,7 @@
 @if(isset($options))
 <div class="modal-body">
 
-    {!! Form::model($data, ['method' => 'PATCH', 'route'=> ['mktg-item-option-add-value-update', $options->id], 'files'=>true]) !!}
+    {!! Form::model($data, ['method' => 'PATCH', 'route'=> ['mktg-item-option-add-value-update', $data->id], 'files'=>true]) !!}
     <div class="col-sm-12">
         @if($data)
             <div class="col-sm-6">
@@ -33,58 +33,52 @@
 
             <div class="col-sm-6">
                 <div class="row">
-                <table class="table table-striped">
-                    <tr>
-                        <th>Title</th>
-                        <td width="5">:</td>
-                        <td>{{ $data->title }}</td>
-                    </tr>
-                    <tr>
-                        <th>Slug</th>
-                        <td>:</td>
-                        <td>{{ $data->slug }}</td>
-                    </tr>
-                    <tr>
-                        <th>Type</th>
-                        <td>:</td>
-                        <td>{{ $data->type }}</td>
-                    </tr>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Title</th>
+                            <td width="5">:</td>
+                            <td colspan="5">{{ $data->title }}</td>
+                        </tr>
+                        <tr>
+                            <th>Slug</th>
+                            <td>:</td>
+                            <td colspan="5">{{ $data->slug }}</td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td>:</td>
+                            <td colspan="5">{{ $data->type }}</td>
+                        </tr>
+                    </table>
 
-                    <tr>
-                        <td colspan="3"><h4><span class="glyphicon glyphicon-edit"></span> Edit Value</h4></td>
-                    </tr>
-                    <tr>
-                        <th>Title</th>
-                        <td>:</td>
-                        <td>
-                            @if(isset($options))
-                                {!! Form::text('title', $options->title, ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
-                            @else
-                                {!! Form::text('title', '', ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
-                            @endif
-                            {!! Form::hidden('mktg_item_option_id', $data->id, [ 'class' => 'form-control']) !!}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Price</th>
-                        <td>:</td>
-                        <td>
-                            @if(isset($options))
-                                {!! Form::text('price', $options->price, ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
-                            @else
-                                {!! Form::text('price', '', ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
-                            @endif
-                        </td>
-                    </tr>
-
-                </table>
+                    <table class="table table-striped" id="table_edit">
+                        <tr>
+                            <td colspan="6"><h4><span class="glyphicon glyphicon-edit"></span> Edit Value</h4></td>
+                        </tr>
+                        <tr>
+                            <th>Title</th>
+                            <th>Price</th>
+                        </tr>
+                        @foreach($options_edit as $val)
+                            <tr>
+                                <td>
+                                    {!! Form::text('title[]', $val->title, ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
+                                    {{--{!! Form::text('val_id[]', $val->id,[]) !!}
+                                    {{ $data->id }}--}}
+                                </td>
+                                <td>
+                                    {!! Form::text('price[]', $val->price, ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         @endif
     </div>
 
     <div class="modal-footer">
-        {!! Form::submit('Save changes', ['class' => 'btn btn-primary','data-placement'=>'top','data-content'=>'click save changes button for save journal voucher information']) !!}&nbsp;
+        {!! Form::submit('Save changes', ['class' => 'btn btn-primary','data-placement'=>'left','data-content'=>'click save changes button for save the above informatin']) !!}&nbsp;
         {{--<a href="{{route('mktg-menu-item')}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>--}}
         <a href="{{URL::previous()}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>
     </div>
@@ -92,7 +86,8 @@
 </div>
 @else
 <div class="modal-body">
-    {!! Form::model($data, ['method' => 'PATCH', 'route'=> ['mktg-item-option-add-value-store', $data->id], 'files'=>true]) !!}
+    {{--{!! Form::model($data, ['method' => 'PATCH', 'route'=> ['mktg-item-option-add-value-store', $data->id], 'files'=>true]) !!}--}}
+    {!! Form::open(['route'=> ['mktg-item-option-add-value-store', $data->id],'class' => 'form-horizontal','id' => 'jq-validation-form']) !!}
     <div class="col-sm-12">
         @if($data)
             <div class="col-sm-6">
@@ -125,7 +120,7 @@
                     <tr>
                         <td>
                             {!! Form::text('title[]', null, ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
-                            {!! Form::hidden('mktg_item_option_id[]', $data->id, [ 'class' => 'form-control']) !!}
+                            {{--{{ $data->id }}--}}
                         </td>
                         <td>
                             {!! Form::text('price[]', null, ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
@@ -157,7 +152,7 @@
     </div>
 
     <div class="modal-footer">
-        {!! Form::submit('Save changes', ['class' => 'btn btn-primary','data-placement'=>'top','data-content'=>'click save changes button for save journal voucher information']) !!}&nbsp;
+        {!! Form::submit('Save changes', ['class' => 'btn btn-primary','data-placement'=>'left','data-content'=>'click save changes button for save the above Information']) !!}&nbsp;
         {{--<a href="{{route('mktg-menu-item')}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>--}}
         <a href="{{URL::previous()}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>
     </div>
