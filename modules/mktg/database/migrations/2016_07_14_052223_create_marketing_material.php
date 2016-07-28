@@ -65,6 +65,7 @@ class CreateMarketingMaterial extends Migration
             $table->increments('id');
             $table->unsignedInteger('mktg_menu_item_id')->nullable();
             $table->string('image', 128)->nullable();
+            $table->string('image_thumb', 128)->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
