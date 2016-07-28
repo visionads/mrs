@@ -606,16 +606,37 @@ class MarketingMaterialController extends Controller
     public function mktg_item_option_add_value_store($id)
     {
         $input = Input::all();
-        $input_data_arr = [
-            'title'=>$input['title'],
-            'price'=>$input['price'],
-            'mktg_item_option_id'=>$input['mktg_item_option_id'],
-            'slug'=>str_slug($input['title'])
-        ];
-        //print_r($input);exit();;
+        //print_r($input);exit();
+        $input_value_arr = array();
+        //print_r(count($input['title']));exit();
+        for($i=0; $i<count($input['title']); $i++)
+        {
+            // index checking if not null
+            if($input['title'][$i] != null){
+                $input_value_arr[] = array(
+                    'title'=>$input['title'][$i],
+                    'price'=>$input['price'][$i],
+                    'mktg_item_option_id'=>$input['mktg_item_option_id'][$i],
+                    'slug'=>str_slug($input['title'])[$i]
+                );
+            }
+        }
+        print_r($input_value_arr);exit();
         DB::beginTransaction();
         try {
-            $model = MktgItemValue::create($input_data_arr);
+            // Store data into item_option table
+            foreach($input_value_arr as $value){
+                if($value['title'] != null) {
+                    //Menu options
+                    $data = [
+                        'title'=>$value['title'],
+                        'price'=>$value['price'],
+                        'mktg_item_option_id'=>$value['mktg_item_option_id'],
+                        'slug'=>$value['slug'],
+                    ];
+                    MktgItemValue::create($data);
+                }
+            }
             //Commit the transaction
             DB::commit();
             Session::flash('message', 'Successfully added!');
@@ -624,12 +645,10 @@ class MarketingMaterialController extends Controller
             //If there are any exceptions, rollback the transaction`
             DB::rollback();
             Session::flash('danger', $e->getMessage());
-
         }
-
         return redirect()->back();
-
     }
+
     public function mktg_item_option_add_value_update($id)
     {
         $input = Input::all();
