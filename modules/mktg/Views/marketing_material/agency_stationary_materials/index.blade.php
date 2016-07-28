@@ -7,6 +7,7 @@
 
         <div class="col-md-12">
             @if(isset($data))
+                {!! Form::open(['route'=>['add-to-cart',$data['id']],'file'=>true]) !!}
 
                 <div class="row">
                     <div class="col-md-4">
@@ -23,16 +24,19 @@
 
 
                         <div class="row">
-
                             <div class="col-md-12">
                                 {{--option--}}
                                 @if(isset($data['rel_mktg_item_option']))
+                                    <?php $i=1; ?>
                                     @foreach($data['rel_mktg_item_option'] as $item_opt)
 
                                         @if($item_opt['type']=='option')
                                             <div class="col-md-6">
                                                 <div class="checkbox">
-                                                    <label class="green-yellow"><input name="a4size" type="checkbox" checked onclick="return false" > {{$item_opt['title']}}</label><br>
+                                                    <label class="green-yellow">
+                                                        <input name="option[{!! $item_opt['rel_mktg_item_value'][0]['id'] !!}]" value="{!! $item_opt['rel_mktg_item_value'][0]['price'] !!}" type="hidden">
+                                                        <i class="{{ $item_opt['icon'] }}"></i> {{$item_opt['title']}}
+                                                    </label><br>
                                                 </div>
                                             </div>
                                         @endif
@@ -40,38 +44,34 @@
                                     @endforeach
                                 @endif
 
-                                        {{--value--}}
+                                {{--value--}}
                                 @if(isset($data['rel_mktg_item_option']))
                                     @foreach($data['rel_mktg_item_option'] as $item_opt)
-
                                         @if($item_opt['type']=='value')
-
-                                        @if(isset($item_opt['rel_mktg_item_value']))
-                                            @foreach($item_opt['rel_mktg_item_value'] as $item_val)
-
-                                                <div class="col-sm-12" style="height: 30px;"></div>
-                                                <div class="col-sm-6">
-                                                    <div style="border-left: 3px dashed #404040;">
-                                                        <div class="form-group">
-                                                            {!! Form::label('qty', $item_opt['title'], ['class'=>'control-label col-sm-4 green-yellow']) !!}
-                                                            <div class="col-sm-8">
-                                                                {!! Form::select('qty', [$value[$item_val['id']]],Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}
-                                                            </div>
+                                            <div class="col-sm-12" style="height: 30px;"></div>
+                                            <div class="col-sm-6">
+                                                <div style="border-left: 3px dashed #404040;">
+                                                    <div class="form-group">
+                                                        {!! Form::label('qty', $item_opt['title'], ['class'=>'control-label col-sm-4 green-yellow']) !!}
+                                                        <div class="col-sm-8">
+                                                            <?php $i=0; ?>
+                                                            <select name="option[{{ $item_opt['rel_mktg_item_value'][$i]['id'] }}]" class='form-control deeppink size-15'>
+                                                                @if(isset($item_opt['rel_mktg_item_value']))
+                                                                    @foreach($item_opt['rel_mktg_item_value'] as $item_val)
+                                                                        <option value="{{ $item_val['price'] }}">{{ $item_val['title'] }}</option>
+                                                                        <?php $i++; ?>
+                                                                    @endforeach
+                                                                @endif
+                                                            </select>
+                                                            {{--                                                                {!! Form::select('qty'.$i, [$value[$item_val['id']]],Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}--}}
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                            @endforeach
-                                        @endif
+                                            </div>
 
                                         @endif
                                     @endforeach
                                 @endif
-
-
-
-
-
 
                                 <div class="col-sm-12" style="height: 30px;"></div>
 
@@ -110,7 +110,7 @@
                                                         if($artitem->field_type == 'file'){ $type_id = "btn_upload";}
                                                         ?>
                                                         <label class="radio-inline green-yellow size-13" id="{{ $type_id }}" >
-                                                            {!! Form::radio('check',$artitem->price,'',['id'=>$artitem->slug]) !!}
+                                                            {!! Form::radio('art_work_id',$artitem->id,'',['id'=>$artitem->slug]) !!}
                                                             {{ $artitem->title }}
                                                             @if($artitem->field_type == 'description')
                                                                 <div id="txt_req">
@@ -153,16 +153,17 @@
                         </p>
                         <div class="pull-left">
                             <a href="{{ route('marketing-material-printing') }}" class="btn btn-green " id="">Continue Shopping </a>
-                            <a href="#" class="btn btn-green " id="">Checkout </a>
+                            {{--<a href="#" class="btn btn-green " id="">Checkout </a>--}}
                         </div>
                         <div class="pull-right">
                             <a href=" #place" class="btn btn-green " id="proceed">Proceed <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;
-                            <a href="#" class="btn btn-green " id="">Add To Cart <span class="glyphicon glyphicon-shopping-cart"></span></a>
+                            <button type="submit" class="btn btn-green " id="">Add To Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
                         </div>
 
                     </div>
 
                 </div>
+                {!! Form::close() !!}
             @endif
             
         </div>

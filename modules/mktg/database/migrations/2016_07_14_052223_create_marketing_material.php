@@ -130,7 +130,7 @@ class CreateMarketingMaterial extends Migration
         Schema::create('mktg_order', function (Blueprint $table) {
             $table->increments('id');
             $table->string('order_no', 16)->unique();
-            $table->timestamp('date')->nullable();
+            $table->date('date')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->float('amount')->nullable();
             $table->float('gst')->nullable();
@@ -158,16 +158,11 @@ class CreateMarketingMaterial extends Migration
             $table->increments('id');
 
             $table->unsignedInteger('mktg_order_id')->nullable();
-            $table->unsignedInteger('mktg_item_value_id')->nullable();
-
+            $table->enum('type',['item','art']);
+            $table->unsignedInteger('parent_id')->nullable();
             $table->float('amount')->nullable();
-
-            $table->unsignedInteger('mktg_artwork_id')->nullable();
-            $table->text('artwork_comment')->nullable();
-            $table->float('artwork_amount')->nullable();
-
+            $table->text('comment')->nullable();
             $table->float('total_amount')->nullable();
-
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
@@ -178,12 +173,12 @@ class CreateMarketingMaterial extends Migration
             if(Schema::hasTable('mktg_order')){
                 $table->foreign('mktg_order_id')->references('id')->on('mktg_order');
             }
-            if(Schema::hasTable('mktg_item_value')){
+            /*if(Schema::hasTable('mktg_item_value')){
                 $table->foreign('mktg_item_value_id')->references('id')->on('mktg_item_value');
             }
             if(Schema::hasTable('mktg_artwork')){
                 $table->foreign('mktg_artwork_id')->references('id')->on('mktg_artwork');
-            }
+            }*/
         });
 
         // mktg_artwork_image
