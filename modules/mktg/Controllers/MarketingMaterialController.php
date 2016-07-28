@@ -302,6 +302,7 @@ class MarketingMaterialController extends Controller
                     'type' => $input['type_option'][$i],
                     'slug' => str_slug($input['title_option'][$i]),
                     'icon' => $input['icon_option'][$i],
+                    //'status' => $input['status'][$i],
                     'image' => isset($option_image[0]['image'])?$option_image[0]['image']:null,
                     'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
                 );
@@ -335,6 +336,7 @@ class MarketingMaterialController extends Controller
                             'type' => $value['type'],
                             'slug' => $value['slug'],
                             'icon' => $value['icon'],
+                            //'status' => $value['status'],
                             'image' => $value['image'],
                             'image_thumb' => $value['image_thumb'],
                         ];
@@ -477,6 +479,7 @@ class MarketingMaterialController extends Controller
                     'type' => @$input['type_option'][$i],
                     'slug' => str_slug($input['title_option'][$i]),
                     'icon' => @$input['icon_option'][$i],
+                    //'status' => @$input['status'][$i],
                     'image' => isset($option_image[0]['image'])?$option_image[0]['image']:@$input['del_option_img'][$i],
                     'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:@$input['del_option_img_thumb'][$i],
                 );
@@ -530,6 +533,7 @@ class MarketingMaterialController extends Controller
                             'title' => $value['title'],
                             'type' => $value['type'],
                             'slug' => $value['slug'],
+                            //'status' => $value['status'],
                             'icon' => $value['icon'],
                             'image' => $value['image'],
                             'image_thumb' => $value['image_thumb'],
@@ -621,6 +625,7 @@ class MarketingMaterialController extends Controller
                     'title' => $input['title'][$i],
                     'price' => $input['price'][$i],
                     'mktg_item_option_id' => $id,
+                    'status' => $input['status'][$i],
                     //'slug' => str_slug($input['title'])[$i],
                 );
             }
@@ -637,6 +642,7 @@ class MarketingMaterialController extends Controller
                         'price'=>$value['price'],
                         'mktg_item_option_id'=>$value['mktg_item_option_id'],
                         'slug'=>str_slug($value['title']),
+                        'status'=>$value['status'],
                         //'slug'=>time(),
                     ];
                     MktgItemValue::create($data);
@@ -658,7 +664,9 @@ class MarketingMaterialController extends Controller
     {
         //print_r($id);exit();
         $input = Input::all();
+        //print_r($input);exit();
         $input_edit_value_arr = array();
+        $input_edit_value_arr_del = array();
         for($i=0; $i<count($input['title']); $i++)
         {
             // index checking if not null
@@ -668,12 +676,14 @@ class MarketingMaterialController extends Controller
                     'val_id' => @$input['val_id'][$i],
                     'title' => $input['title'][$i],
                     'price' => $input['price'][$i],
+                    'status' => $input['status'][$i],
                     'mktg_item_option_id' => $id,
                     //'slug' => str_slug($input['title'])[$i],
                 );
             }
         }
         //print_r($input_edit_value_arr);exit();
+
 
         DB::beginTransaction();
         try {
@@ -684,8 +694,9 @@ class MarketingMaterialController extends Controller
                     $data = [
                         'title'=>$value['title'],
                         'price'=>$value['price'],
+                        'status'=>$value['status'],
                         'mktg_item_option_id'=>$value['mktg_item_option_id'],
-                        'slug'=>str_slug($value['title']),
+                        //'slug'=>str_slug($value['title']),
                         //'slug'=>time(),
                     ];
                     //print_r($data);exit();
@@ -697,8 +708,6 @@ class MarketingMaterialController extends Controller
                     }
                 }
             }
-
-
             /*$model = MktgItemValue::findOrFail($id);
             $model->title = $input['title'];
             $model->price = $input['price'];

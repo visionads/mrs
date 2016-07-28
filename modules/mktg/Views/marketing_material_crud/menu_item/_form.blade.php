@@ -86,6 +86,7 @@
             <th>Type:</th>
             <th>Icon:</th>
             <th>Image</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
@@ -111,6 +112,11 @@
                     {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
                 </div>
             </td>
+            {{--<td>
+                <div>
+                    {!! Form::select('status[]',array('open'=>'Open','close'=>'Close'), Input::old('status'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}
+                </div>
+            </td>--}}
 
             {{--<td>
                 <div>

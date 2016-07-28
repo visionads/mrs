@@ -42,6 +42,9 @@
                 <td>\
                     {!! Form::text('price[]', null, ['title'=>'enter Price', 'class' => 'form-control']) !!}\
                 </td>\
+                <td>\
+                    <div>{!! Form::select('status[]',array(''=>'Select','open'=>'Open','close'=>'Close'), Input::old('status'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}</div>\
+                </td>\
             </tr>';
             table.append(element);
         }
@@ -61,6 +64,9 @@
                 </td>\
                 <td>\
                     {!! Form::text('price[]', Input::old('price'), ['title'=>'enter Price', 'class' => 'form-control']) !!}\
+                </td>\
+                <td>\
+                    <div>{!! Form::select('status[]',array(''=>'Select','open'=>'Open','close'=>'Close'), Input::old('status'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}</div>\
                 </td>\
             </tr>';
             table.append(element);

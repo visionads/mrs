@@ -11,9 +11,10 @@
 <div class="modal-body">
 
     {!! Form::model($data, ['method' => 'PATCH', 'route'=> ['mktg-item-option-add-value-update', $data->id], 'files'=>true]) !!}
+    {{--{!! Form::open(['route'=> ['mktg-item-option-add-value-update', $data->id],'class' => 'form-horizontal','id' => 'jq-validation-form']) !!}--}}
     <div class="col-sm-12">
         @if($data)
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <div class="row">
                     <table class="table">
                         <tr>
@@ -31,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-6 col-sm-offset-1">
                 <div class="row">
                     <table class="table table-striped">
                         <tr>
@@ -58,16 +59,20 @@
                         <tr>
                             <th>Title</th>
                             <th>Price</th>
+                            <th>Status</th>
                         </tr>
                         @foreach($options_edit as $val)
                             <tr>
                                 <td>
                                     {!! Form::text('title[]', $val->title, ['placeholder'=>'Enter Title', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
-                                    {{--{!! Form::text('val_id[]', $val->id,[]) !!}
-                                    {{ $data->id }}--}}
+                                    {!! Form::hidden('val_id[]', $val->id,[]) !!}
+                                    {{--{{ $data->id }}--}}
                                 </td>
                                 <td>
                                     {!! Form::text('price[]', $val->price, ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
+                                </td>
+                                <td>
+                                    {!! Form::select('status[]',array($val->status=>$val->status,'open'=>'Open','close'=>'Close'), Input::old('status'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}
                                 </td>
                             </tr>
                         @endforeach
@@ -125,13 +130,16 @@
                         <td>
                             {!! Form::text('price[]', null, ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
                         </td>
+                        <td>
+                            {!! Form::select('status[]',array(''=>'Select','open'=>'Open','close'=>'Close'), Input::old('status'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}
+                        </td>
                     </tr>
 
                 </table>
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-5 col-sm-offset-1">
                 <div class="row">
                 <table class="table">
                     <tr>

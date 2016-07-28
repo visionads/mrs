@@ -89,6 +89,7 @@
             <th>Type:</th>
             <th>Icon:</th>
             <th>Image</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
@@ -128,6 +129,18 @@
                             {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
                         </div>
                     </td>
+                    {{--<td>
+
+                        @if($options->status == 'open')
+                            <div>
+                                {!! Form::select('status[]',array($options->status=>$options->status,'close'=>'Close'), Input::old('status'), ['title'=>'enter Status', 'class' => 'form-control']) !!}
+                            </div>
+                        @else
+                            <div>
+                                {!! Form::select('status[]',array($options->status=>$options->status,'open'=>'Open'), Input::old('status'), ['title'=>'enter Status', 'class' => 'form-control']) !!}
+                            </div>
+                        @endif
+                    </td>--}}
                 </tr>
             @endforeach
         @endif
@@ -150,6 +163,11 @@
             <td>
                 <div>
                     {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
+                </div>
+            </td>
+            <td>
+                <div>
+                    {!! Form::select('status[]',array('open'=>'Open','close'=>'Close'), '', ['title'=>'enter status', 'class' => 'form-control']) !!}
                 </div>
             </td>
         </tr>

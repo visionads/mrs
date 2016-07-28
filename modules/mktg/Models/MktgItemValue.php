@@ -12,7 +12,7 @@ class MktgItemValue extends Model
     protected $fillable = [
         'mktg_item_option_id',
         'title',
-        'slug',
+        //'slug',
         'price',
         'image',
         'status',

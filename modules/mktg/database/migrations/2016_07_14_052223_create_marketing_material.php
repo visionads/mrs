@@ -109,8 +109,8 @@ class CreateMarketingMaterial extends Migration
             $table->increments('id');
             $table->unsignedInteger('mktg_item_option_id')->nullable();
             $table->string('title', 64)->nullable();
-            $table->string('slug', 64)->nullable();
-            $table->unique(array('mktg_item_option_id', 'slug'));
+            //$table->string('slug', 64)->nullable();
+            //$table->unique(array('mktg_item_option_id', 'slug'));
             $table->float('price')->nullable();
             $table->string('image', 128)->nullable();
             $table->enum('status',array('open','close'))->nullable();
