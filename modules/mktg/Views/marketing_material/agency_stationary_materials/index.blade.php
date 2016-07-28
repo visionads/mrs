@@ -7,7 +7,7 @@
 
         <div class="col-md-12">
             @if(isset($data))
-                {!! Form::open(['route'=>['add-to-cart',$data['id']],'file'=>true]) !!}
+                {!! Form::open(['route'=>['add-to-cart',$data['id']],'files'=>true]) !!}
 
                 <div class="row">
                     <div class="col-md-4">
@@ -114,7 +114,7 @@
                                                             {{ $artitem->title }}
                                                             @if($artitem->field_type == 'description')
                                                                 <div id="txt_req">
-                                                                    {!! Form::textarea('note', Input::old('note'),['class' => 'form-control text-left','rows'=>'10','placeholder'=>'CHANGES REQ UIRED DETAILS ONLY']) !!}
+                                                                    {!! Form::textarea('description', Input::old('note'),['class' => 'form-control text-left','rows'=>'10','placeholder'=>'CHANGES REQ UIRED DETAILS ONLY']) !!}
                                                                 </div>
                                                             @elseif($artitem->field_type == 'file')
                                                                 <div id="file_upload">

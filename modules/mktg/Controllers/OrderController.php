@@ -12,6 +12,7 @@ namespace Modules\Mktg\Controllers;
 use App\GenerateNumber;
 use App\Http\Controllers\Controller;
 use App\MktgArtwork;
+use App\MktgArtworkImage;
 use App\MktgItemOption;
 use App\MktgOrder;
 use App\MktgOrderDetail;
@@ -55,20 +56,31 @@ class OrderController extends Controller
             if($request['art']=='yes' && isset($request['art_work_id']))
             {
                 $artWork=MktgArtwork::findOrFail($request['art_work_id']);
-                if($artWork->field_type=='file' && !empty($request['file'])){
-//                    if ($reques->file('file')->isValid()) {
-//                        exit('yes');
-//                    }
-                    dd($reques->file('f'));
-                }else{
-                    Session::flash('error','Sorry, You did not select any file to upload.');
-                    return redirect()->back();
+                $orderDetails= new MktgOrderDetail();
+                $orderDetails->type='art';
+                $orderDetails->mktg_order_id= $order->id;
+                $orderDetails->parent_id= $artWork->id;
+                $orderDetails->amount= $artWork->price;
+                $orderDetails->comment= $request['description'];
+                $orderDetails->save();
+                $path=public_path('assets/artImg');
+                if($artWork->field_type=='file') {
+                    if (!empty($request['file'])) {
+                        if ($reques->file('file')->isValid()) {
+                            $fileName = rand(10, 99) . $reques->file('file')->getClientOriginalName();
+                            $reques->file('file')->move($path, $fileName);
+
+                            $artImg = new MktgArtworkImage();
+                            $artImg->mktg_order_detail_id = $orderDetails->id;
+                            $artImg->image = 'assets/artImg/' . $fileName;
+                            $artImg->save();
+                        }
+                    } else {
+                        Session::flash('error', 'Sorry, You did not select any file to upload.');
+                        return redirect()->back();
+                    }
                 }
-                dd($artWork);
             }
-
-
-            dd($request);
 
 
             DB::commit();
@@ -79,6 +91,6 @@ class OrderController extends Controller
             Session::flash('error',$e->getMessage());
             return redirect()->back();
         }
-        $order_no= GenerateNumber::generate_number('order-number');
+        return redirect()->to('marketing/marketing-material-printing');
     }
 }
