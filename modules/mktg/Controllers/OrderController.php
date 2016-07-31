@@ -87,9 +87,9 @@ class OrderController extends Controller
                 }
             }
             $gst= ($total_amount*10)/100;
-            $order->amount=$total_amount;
-            $order->gst= $gst;
-            $order->total_amount=$gst+$total_amount;
+            $order->amount+=$total_amount;
+            $order->gst+= $gst;
+            $order->total_amount+=$gst+$total_amount;
             $order->save();
 
             DB::commit();
