@@ -23,5 +23,10 @@ Route::get('delete-order-details/{order_id}',[
     'as'    =>  'delete-order-details',
     'uses'  =>  'OrderController@delete_order_details'
 ]);
+Route::get('delete-order/{order_id}',[
+    //'middleware' => 'acl_access:marketing/delete-order/{order_id}',
+    'as'    =>  'delete-order',
+    'uses'  =>  'OrderController@delete_order'
+]);
 
 

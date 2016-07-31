@@ -120,6 +120,24 @@ WHERE `mktg_order_id`=$order_id"));
         $data['order']=MktgOrder::findOrFail($order_id);
         return view('mktg::order.details',$data);
     }
+    public function delete_order($order_id)
+    {
+        DB::beginTransaction();
+        try{
+            $order_details=MktgOrderDetail::where('mktg_order_id',$order_id)->get();
+            foreach ($order_details as $od) {
+                MktgArtworkImage::where('mktg_order_detail_id',$od->id)->delete();
+            }
+            MktgOrderDetail::where('mktg_order_id',$order_id)->delete();
+            MktgOrder::findOrFail($order_id)->delete();
+            Session::flash('message','Order has been successfully deleted.');
+            DB::commit();
+        }catch (Exception $e){
+            DB::rollback();
+            Session::flash('error',$e->getMessage());
+        }
+        return redirect()->back();
+    }
     public function delete_order_details($order_id)
     {
         DB::beginTransaction();

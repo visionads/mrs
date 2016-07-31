@@ -36,8 +36,11 @@
                             <td>{{ isset($row->total_amount)?$row->total_amount:'0.00' }}</td>
                             <td>{{ $row->status }}</td>
                             <td>
-                                <a href="{{ route('make-invoice',$row->id) }}" class="btn btn-primary">Make Invoice</a>
-                                <a href="{{ route('order-details',$row->id) }}" class="btn btn-primary">Details</a>
+                                <a href="{{ route('order-details',$row->id) }}" class="btn btn-info">Details</a>
+                                @if($row->status != 'invoiced')
+                                    <a href="{{ route('make-invoice',$row->id) }}" class="btn btn-primary">Make Invoice</a>
+                                    <a href="{{ route('delete-order',$row->id) }}" class="btn btn-danger" onclick="return confirm('Are you confirm to delete ?')">Delete</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

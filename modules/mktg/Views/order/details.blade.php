@@ -25,7 +25,9 @@
                     <th>Title</th>
                     <th>Type</th>
                     <th>Amount</th>
+                    @if($order->status != 'invoiced')
                     <th>Action</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -35,16 +37,34 @@
                             <td>@if($od->io_title==null){{ $od->title }} @else {{ $od->io_title }} @endif</td>
                             <td>{{ $od->type }}</td>
                             <td>{{ $od->price }}</td>
+                            @if($order->status != 'invoiced')
                             <td>
-                                <a href="{{ route('delete-order-details',$od->id) }}" class="btn btn-danger" onclick="return confirm('Are you confirm to delete it ?')"><i class="fa fa-trash"></i></a>
+                                    <a href="{{ route('delete-order-details',$od->id) }}" class="btn btn-danger" onclick="return confirm('Are you confirm to delete it ?')"><i class="fa fa-trash"></i></a>
                             </td>
+                            @endif
                         </tr>
                     @endforeach
                 @endif
                 <tr>
                     <th colspan="2" class="text-right">Total</th>
-                    <th>{{ $order->total_amount }}</th>
+                    <th>{{ $order->amount }}</th>
+                    @if($order->status != 'invoiced')
                     <th></th>
+                    @endif
+                </tr>
+                <tr>
+                    <th colspan="2" class="text-right">GST 10%</th>
+                    <th>{{ $order->gst }}</th>
+                    @if($order->status != 'invoiced')
+                    <th></th>
+                    @endif
+                </tr>
+                <tr>
+                    <th colspan="2" class="text-right">Total</th>
+                    <th>{{ $order->total_amount }}</th>
+                    @if($order->status != 'invoiced')
+                    <th></th>
+                    @endif
                 </tr>
                 </tbody>
             </table>
