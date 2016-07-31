@@ -200,12 +200,18 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         'uses' => 'MarketingMaterialController@mktg_order'
     ]);
 
-    //==== Make Invoice
-
+    //==== Invoice
+    Route::get('invoice-list',[
+        //'middleware' => 'acl_access:marketing/make-invoice/{order_id}',
+        'as' => 'invoice-list',
+        'uses' => 'MktgInvoiceController@index'
+    ]);
     Route::get('make-invoice/{order_id}',[
         //'middleware' => 'acl_access:marketing/make-invoice/{order_id}',
         'as' => 'make-invoice',
-        'uses' => 'MarketingMaterialController@make_invoice'
+        'uses' => 'MktgInvoiceController@make_invoice'
     ]);
+
+
 
 });
