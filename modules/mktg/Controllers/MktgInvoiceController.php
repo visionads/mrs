@@ -37,6 +37,7 @@ class MktgInvoiceController extends Controller
     {
         //exit('Welcome !');
         $data['pageTitle'] = 'Invoice List';
+        $data['invoices']= MktgInvoice::get();
         return view('mktg::invoice.invoice_list',$data);
     }
 

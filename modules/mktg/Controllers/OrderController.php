@@ -100,7 +100,7 @@ class OrderController extends Controller
             Session::flash('error',$e->getMessage());
             return redirect()->back();
         }
-        return redirect()->to('marketing/marketing-material-printing');
+        return redirect()->to('marketing/order-details/'.$order->id);
     }
     public function order_details($order_id)
     {

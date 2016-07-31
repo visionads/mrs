@@ -34,7 +34,6 @@
                 <tr>
                     <th>Invoice No.{{--Transaction ID--}}</th>
                     <th>Bill Amount</th>
-                    <th>Paid Amount</th>
                     <th>Status</th>
                     <th>Date</th>
                     <th>Action</th>
@@ -42,55 +41,22 @@
                 </thead>
 
                 <tbody>
-                {{--@if(isset($transactions))--}}
-                    {{--@foreach($transactions as $transaction)--}}
+                @if(isset($invoices))
+                    @foreach($invoices as $invoice)
                         <tr>
-                            <td class="text-center">{{--{{ $transaction->invoice_no }}--}}</td>
-                            <td class="text-center">{{--{{ '$ '.number_format($transaction->total_amount,2) }}--}}</td>
-                            <td class="text-center">
-                                <?php /*$amount=0*/ ?>
-                                {{--@if(count($transaction->relPayment)>0)--}}
-                                    {{--@foreach($transaction->relPayment as $payment)--}}
-                                        <?php /*$amount+=$payment['amount']*/ ?>
-                                    {{--@endforeach--}}
-                               {{-- @endif--}}
-                                {{--{{ '$ '.number_format($amount,2) }}--}}
-                            </td>
+                            <td class="text-center">{{ $invoice->invoice_no }}</td>
+                            <td class="text-center">{{ '$ '.number_format($invoice->amount,2) }}</td>
                             <td>
-                                <?php
-                                /*if($transaction->total_amount == $amount && $amount > 0){
-                                    echo '<span class="glyphicon glyphicon-ok green"></span>&nbsp; <span class=""> Paid</span>';
-                                }
-                                $difference = $transaction->total_amount - $amount;
-                                if($difference < $transaction->total_amount && $difference > 0 )
-                                {
-                                    //echo '<span class="green">'.$transaction->total_amount.'Partially Paid-'.$amount.'-'.$difference.'</span>';
-                                    echo '<span class="glyphicon glyphicon-off orange"></span>&nbsp; <span class=""> Partially Paid</span>';
-                                }
-                                //echo $amount;
-                                if($amount <1 )
-                                {
-                                    echo '<span class="glyphicon glyphicon-remove darkred"></span>&nbsp; <span class=""> Not Paid</span>';
-                                }
-                                if($amount>$transaction->total_amount)
-                                {
-                                    echo '<span class="glyphicon glyphicon-flash darkpink"></span>&nbsp; <span class="">Over Paid</span>';
-                                }*/
-                                ?>
+                                {{ $invoice->status }}
                             </td>
-                            <td class="text-center"></td>
+                            <td class="text-center">{{ date('Y-m-d',strtotime($invoice->created_at)) }}</td>
                             <td>
-                                {{--@if($amount !== 0)--}}
-                                    <a href="{{--{{ URL::to('main/invoice/'.$transaction->quote_id) }}--}}" class="btn btn-default" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"></span>Invoice</a>
-                                    <a href="{{--{{ URL::to('main/view-payment-detail/'.$transaction->id) }}--}}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"></span> Details</a>
-                                {{--@else--}}
-                                    <a href="{{--{{ URL::to('main/view-payment-detail/'.$transaction->id) }}--}}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="glyphicon glyphicon-stats"></span> Details</a>
-                                {{--@endif--}}
+                                    <a href="{{--{{ URL::to('main/invoice/'.$transaction->quote_id) }}--}}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="fa fa-credit-card"></span> Pay Now</a>
 
                             </td>
                         </tr>
-                    {{--@endforeach--}}
-                {{--@endif--}}
+                    @endforeach
+                @endif
                 </tbody>
             </table>
             {{--

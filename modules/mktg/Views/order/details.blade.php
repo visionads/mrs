@@ -6,7 +6,7 @@
     <div id="container" class="container pages new_order font-droid">
 
         <div class="col-sm-12">
-            <a href="{{ route('make-invoice',$order->id) }}" class="btn btn-primary pull-right">Make Invoice</a>
+            <a href="{{ route('make-invoice',$order->id) }}" class="btn btn-primary pull-right" onclick="return confirm('Are your sure ?')">Confirm Order</a>
             <a href="{{ route('marketing-material-printing') }}" class="btn btn-warning pull-right">Continue Shopping</a>
             <a href="{{ route('mktg-order') }}" class="btn btn-danger pull-right">Back</a>
 
@@ -68,7 +68,7 @@
                 </tr>
                 </tbody>
             </table>
-            <a href="{{ route('make-invoice',$order->id) }}" class="btn btn-primary pull-right">Make Invoice</a>
+            <a href="{{ route('make-invoice',$order->id) }}" class="btn btn-primary pull-right" onclick="return confirm('Are your sure ?')">Confirm Order</a>
 
         </div>
 

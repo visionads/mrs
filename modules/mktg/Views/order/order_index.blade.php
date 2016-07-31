@@ -38,7 +38,7 @@
                             <td>
                                 <a href="{{ route('order-details',$row->id) }}" class="btn btn-info">Details</a>
                                 @if($row->status != 'invoiced')
-                                    <a href="{{ route('make-invoice',$row->id) }}" class="btn btn-primary">Make Invoice</a>
+                                    <a href="{{ route('make-invoice',$row->id) }}" class="btn btn-primary" onclick="return confirm('Are your sure ?')">Confirm Order</a>
                                     <a href="{{ route('delete-order',$row->id) }}" class="btn btn-danger" onclick="return confirm('Are you confirm to delete ?')">Delete</a>
                                 @endif
                             </td>
