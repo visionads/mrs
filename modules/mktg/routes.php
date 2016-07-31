@@ -194,10 +194,18 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
 
 
     //===== Order Details
-    Route::get('mktg-order-details',[
+    Route::get('mktg-order',[
         //'middleware' => 'acl_access:main/congratulation',
-        'as' => 'mktg-order-details',
-        'uses' => 'MarketingMaterialController@mktg_order_details'
+        'as' => 'mktg-order',
+        'uses' => 'MarketingMaterialController@mktg_order'
+    ]);
+
+    //==== Make Invoice
+
+    Route::get('make-invoice/{order_id}',[
+        //'middleware' => 'acl_access:marketing/make-invoice/{order_id}',
+        'as' => 'make-invoice',
+        'uses' => 'MarketingMaterialController@make_invoice'
     ]);
 
 });

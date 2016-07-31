@@ -9,7 +9,7 @@
             <table class="table table-striped table-responsive size-13 mktg_quote-list" cellspacing="0" cellpadding="0" border="0">
                 <thead class="head-top">
                 <tr>
-                    <td colspan="5">
+                    <td colspan="7">
                         <h3>
                             <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }}
                         </h3>
@@ -18,18 +18,27 @@
                 </thead>
                 <thead>
                     <tr>
-                        <th>Order Type</th>
+                        <th>Order No.</th>
+                        <th>Date</th>
                         <th>Amount</th>
                         <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if(isset($data))
                         @foreach($data as $row)
                         <tr>
-                            <td>{{ $row->type }}</td>
+                            <td>{{ $row->order_no }}</td>
+                            <td>{{ $row->date }}</td>
                             <td>{{ number_format($row->amount,2) }}</td>
                             <td>{{ isset($row->total_amount)?$row->total_amount:'0.00' }}</td>
+                            <td>{{ $row->status }}</td>
+                            <td>
+                                <a href="{{ route('make-invoice') }}" class="btn btn-primary">Make Invoice</a>
+                                <a href="{{ route('make-invoice') }}" class="btn btn-primary">Make Invoice</a>
+                            </td>
                         </tr>
                         @endforeach
                     @endif

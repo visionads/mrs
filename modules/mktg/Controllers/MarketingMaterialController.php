@@ -845,14 +845,15 @@ class MarketingMaterialController extends Controller
 
 
     //===== it will go to MKTG Order Controller ***//
-    public function mktg_order_details()
+    public function mktg_order()
     {
         $data['pageTitle'] = 'Marketing Material Order Details';
         //$data['data'] = MktgOrder::with('relMktgMaterial','relMktgMenuItemImage','relMktgItemOption')->where('id',$id)->first();
-        $data['data'] = MktgOrderDetail::orderBy('id','DESC')->get();
+        //$data['data'] = MktgOrderDetail::orderBy('id','DESC')->get();
+        $data['data'] = MktgOrder::orderBy('id','DESC')->get();
         //print_r($data['data']);exit();
 
-        return view('mktg::order.order_details_index',$data);
+        return view('mktg::order.order_index',$data);
     }
 
 

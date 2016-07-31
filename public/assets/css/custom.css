@@ -922,5 +922,5 @@ div.upload-path-css:before { content: "Signature"; position:absolute; font-size:
 
 .no-border { border:0px !important; }
 .no-padding { padding:0px !important;}
-.mktg_quote-list h1, .mktg_quote-list.table thead tr th { text-shadow:1px 1px 3px #fff;}
-.mktg_quote-list h1 {padding: 10px; margin:0; font-size:20px; color:#000 !important;}
+.mktg_quote-list h3, .mktg_quote-list.table thead tr th { text-shadow:1px 1px 3px #fff;}
+.mktg_quote-list h3 {padding: 10px; margin:0; font-size:20px; color:#000 !important;}
