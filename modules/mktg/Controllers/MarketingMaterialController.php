@@ -22,6 +22,8 @@ use App\MktgMenuItem;
 use App\MktgItemOption;
 use App\MktgMenuItemImage;
 use App\MktgItemValue;
+use App\MktgOrder;
+use App\MktgOrderDetail;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -302,7 +304,7 @@ class MarketingMaterialController extends Controller
                     'type' => $input['type_option'][$i],
                     'slug' => str_slug($input['title_option'][$i]),
                     'icon' => $input['icon_option'][$i],
-                    //'status' => $input['status'][$i],
+                    'status' => $input['status_option'][$i],
                     'image' => isset($option_image[0]['image'])?$option_image[0]['image']:null,
                     'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
                 );
@@ -336,7 +338,7 @@ class MarketingMaterialController extends Controller
                             'type' => $value['type'],
                             'slug' => $value['slug'],
                             'icon' => $value['icon'],
-                            //'status' => $value['status'],
+                            'status' => $value['status'],
                             'image' => $value['image'],
                             'image_thumb' => $value['image_thumb'],
                         ];
@@ -479,7 +481,7 @@ class MarketingMaterialController extends Controller
                     'type' => @$input['type_option'][$i],
                     'slug' => str_slug($input['title_option'][$i]),
                     'icon' => @$input['icon_option'][$i],
-                    //'status' => @$input['status'][$i],
+                    'status' => @$input['status_option'][$i],
                     'image' => isset($option_image[0]['image'])?$option_image[0]['image']:@$input['del_option_img'][$i],
                     'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:@$input['del_option_img_thumb'][$i],
                 );
@@ -533,7 +535,7 @@ class MarketingMaterialController extends Controller
                             'title' => $value['title'],
                             'type' => $value['type'],
                             'slug' => $value['slug'],
-                            //'status' => $value['status'],
+                            'status' => $value['status'],
                             'icon' => $value['icon'],
                             'image' => $value['image'],
                             'image_thumb' => $value['image_thumb'],
@@ -842,13 +844,17 @@ class MarketingMaterialController extends Controller
 
 
 
-    //===== Old Code ***//
-    public function proceed()
+    //===== it will go to MKTG Order Controller ***//
+    public function mktg_order_details()
     {
-        $data['pageTitle'] = 'Proceed';
-        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
-        return view('mktg::marketing_material.trash.proceed',$data);
+        $data['pageTitle'] = 'Marketing Material Order Details';
+        //$data['data'] = MktgOrder::with('relMktgMaterial','relMktgMenuItemImage','relMktgItemOption')->where('id',$id)->first();
+        $data['data'] = MktgOrderDetail::orderBy('id','DESC')->get();
+        //print_r($data['data']);exit();
+
+        return view('mktg::order.order_details_index',$data);
     }
+
 
     /*public function order()
     {

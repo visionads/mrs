@@ -88,6 +88,7 @@
                         <th>Type</th>
                         <th>Icon</th>
                         <th width="100">Image</th>
+                        <th width="100">Status</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -105,6 +106,7 @@
                                         <h5>No Image</h5>
                                     @endif
                                 </td>
+                                <td>{{ $values->status }}</td>
                             </tr>
                         @endforeach
                     @endif

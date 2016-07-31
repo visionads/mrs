@@ -129,18 +129,17 @@
                             {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
                         </div>
                     </td>
-                    {{--<td>
-
+                    <td>
                         @if($options->status == 'open')
                             <div>
-                                {!! Form::select('status[]',array($options->status=>$options->status,'close'=>'Close'), Input::old('status'), ['title'=>'enter Status', 'class' => 'form-control']) !!}
+                                {!! Form::select('status_option[]',array($options->status=>$options->status,'close'=>'Close'), Input::old('status_option'), ['title'=>'enter Status', 'class' => 'form-control']) !!}
                             </div>
                         @else
                             <div>
-                                {!! Form::select('status[]',array($options->status=>$options->status,'open'=>'Open'), Input::old('status'), ['title'=>'enter Status', 'class' => 'form-control']) !!}
+                                {!! Form::select('status_option[]',array($options->status=>$options->status,'open'=>'Open'), Input::old('status_option'), ['title'=>'enter Status', 'class' => 'form-control']) !!}
                             </div>
                         @endif
-                    </td>--}}
+                    </td>
                 </tr>
             @endforeach
         @endif
@@ -167,7 +166,7 @@
             </td>
             <td>
                 <div>
-                    {!! Form::select('status[]',array('open'=>'Open','close'=>'Close'), '', ['title'=>'enter status', 'class' => 'form-control']) !!}
+                    {!! Form::select('status_option[]',array('open'=>'Open','close'=>'Close'), null, ['title'=>'enter status', 'class' => 'form-control']) !!}
                 </div>
             </td>
         </tr>
