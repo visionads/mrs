@@ -43,10 +43,8 @@ class MktgInvoiceController extends Controller
     public function make_invoice($order_id)
     {
         //exit('welcome!');
-        $data['pageTitle'] = 'Marketing Material Invoice List';
         //=== load Order model
-        $model_order = new MktgOrder();
-        $order_data = $model_order->findOrFail($order_id);
+        $order_data = MktgOrder::findOrFail($order_id);
         //print_r($order_data); exit();
 
         //=== load Invoice model
@@ -80,6 +78,8 @@ class MktgInvoiceController extends Controller
             MktgInvoice::create($input_arr);
             GenerateInvoiceNumber::update_row($invoice_no['setting_id'],$invoice_no['number']);
 
+            $order_data->status='invoiced';
+            $order_data->save();
             DB::commit();
             Session::flash('message', 'Successfully Added!');
         }catch(\Exception $e){
