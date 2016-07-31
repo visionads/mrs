@@ -112,11 +112,11 @@
                     {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
                 </div>
             </td>
-            {{--<td>
+            <td>
                 <div>
-                    {!! Form::select('status[]',array('open'=>'Open','close'=>'Close'), Input::old('status'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}
+                    {!! Form::select('status_option[]',array('open'=>'Open','close'=>'Close'), Input::old('status_option'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}
                 </div>
-            </td>--}}
+            </td>
 
             {{--<td>
                 <div>

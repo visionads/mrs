@@ -48,6 +48,9 @@
                 <td>\
                     <div>{!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}</div>\
                 </td>\
+                <td>\
+                    <div>{!! Form::select('status_option[]',array('open'=>'Open','close'=>'Close'), Input::old('status_option'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}</div>\
+                </td>\
             </tr>';
             table.append(element);
         }

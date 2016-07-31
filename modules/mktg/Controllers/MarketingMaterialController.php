@@ -302,7 +302,7 @@ class MarketingMaterialController extends Controller
                     'type' => $input['type_option'][$i],
                     'slug' => str_slug($input['title_option'][$i]),
                     'icon' => $input['icon_option'][$i],
-                    //'status' => $input['status'][$i],
+                    'status' => $input['status_option'][$i],
                     'image' => isset($option_image[0]['image'])?$option_image[0]['image']:null,
                     'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
                 );
@@ -336,7 +336,7 @@ class MarketingMaterialController extends Controller
                             'type' => $value['type'],
                             'slug' => $value['slug'],
                             'icon' => $value['icon'],
-                            //'status' => $value['status'],
+                            'status' => $value['status'],
                             'image' => $value['image'],
                             'image_thumb' => $value['image_thumb'],
                         ];
@@ -479,7 +479,7 @@ class MarketingMaterialController extends Controller
                     'type' => @$input['type_option'][$i],
                     'slug' => str_slug($input['title_option'][$i]),
                     'icon' => @$input['icon_option'][$i],
-                    //'status' => @$input['status'][$i],
+                    'status' => @$input['status_option'][$i],
                     'image' => isset($option_image[0]['image'])?$option_image[0]['image']:@$input['del_option_img'][$i],
                     'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:@$input['del_option_img_thumb'][$i],
                 );
@@ -533,7 +533,7 @@ class MarketingMaterialController extends Controller
                             'title' => $value['title'],
                             'type' => $value['type'],
                             'slug' => $value['slug'],
-                            //'status' => $value['status'],
+                            'status' => $value['status'],
                             'icon' => $value['icon'],
                             'image' => $value['image'],
                             'image_thumb' => $value['image_thumb'],
