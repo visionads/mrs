@@ -22,6 +22,8 @@ use App\MktgMenuItem;
 use App\MktgItemOption;
 use App\MktgMenuItemImage;
 use App\MktgItemValue;
+use App\MktgOrder;
+use App\MktgOrderDetail;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -842,13 +844,17 @@ class MarketingMaterialController extends Controller
 
 
 
-    //===== Old Code ***//
-    public function proceed()
+    //===== it will go to MKTG Order Controller ***//
+    public function mktg_order_details()
     {
-        $data['pageTitle'] = 'Proceed';
-        $data['artwork'] = MktgArtwork::orderBy('slug','ASC')->get();
-        return view('mktg::marketing_material.trash.proceed',$data);
+        $data['pageTitle'] = 'Marketing Material Order Details';
+        //$data['data'] = MktgOrder::with('relMktgMaterial','relMktgMenuItemImage','relMktgItemOption')->where('id',$id)->first();
+        $data['data'] = MktgOrderDetail::orderBy('id','DESC')->get();
+        //print_r($data['data']);exit();
+
+        return view('mktg::order.order_details_index',$data);
     }
+
 
     /*public function order()
     {

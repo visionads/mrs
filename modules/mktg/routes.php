@@ -192,4 +192,12 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         'uses' => 'MarketingMaterialController@mktg_item_option_add_value_update'
     ]);
 
+
+    //===== Order Details
+    Route::get('mktg-order-details',[
+        //'middleware' => 'acl_access:main/congratulation',
+        'as' => 'mktg-order-details',
+        'uses' => 'MarketingMaterialController@mktg_order_details'
+    ]);
+
 });
