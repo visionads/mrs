@@ -37,13 +37,14 @@
                             <td>{{ $row->status }}</td>
                             <td>
                                 <a href="{{ route('make-invoice',$row->id) }}" class="btn btn-primary">Make Invoice</a>
-                                <a href="{{ route('make-invoice') }}" class="btn btn-primary">Make Invoice</a>
+                                <a href="{{ route('order-details',$row->id) }}" class="btn btn-primary">Details</a>
                             </td>
                         </tr>
                         @endforeach
                     @endif
                 </tbody>
             </table>
+
         </div>
 
     </div>

@@ -13,5 +13,15 @@ Route::post('add-to-cart/{product_id}',[
     'as'    =>  'add-to-cart',
     'uses'  =>  'OrderController@add_to_cart'
 ]);
+Route::get('order-details/{order_id}',[
+    //'middleware' => 'acl_access:marketing/order-details/{order_id}',
+    'as'    =>  'order-details',
+    'uses'  =>  'OrderController@order_details'
+]);
+Route::get('delete-order-details/{order_id}',[
+    //'middleware' => 'acl_access:marketing/delete-order-details/{order_id}',
+    'as'    =>  'delete-order-details',
+    'uses'  =>  'OrderController@delete_order_details'
+]);
 
 
