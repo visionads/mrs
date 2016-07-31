@@ -31,13 +31,17 @@ class GenerateInvoiceNumber
         }
     }
     public static function update_row($row_id,$value) {
+        /*
+        $row_id= $setting_id from generate_invoice_number
+        $value= $number from generate_invoice_number
+         */
         $settings = Setting::findOrFail($row_id);
         if($settings){
             $settings->last_number=$value;
             $settings->save();
-            return  true;
+            return true;
         }else{
-            return  false;
+            return false;
         }
     }
 

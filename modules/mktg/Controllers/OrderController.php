@@ -31,7 +31,8 @@ class OrderController extends Controller
         $request=$reques->all();
         DB::beginTransaction();
         try{
-            $order= MktgOrder::where('date',date('Y-m-d'))->where('user_id',Auth::id())->first();
+            $total_amount=0;
+            $order= MktgOrder::where('date',date('Y-m-d'))->where('user_id',Auth::id())->where('status','open')->first();
             if(!$order)
             {
                 $order_no = GenerateNumber::generate_number('order-number');
@@ -41,6 +42,7 @@ class OrderController extends Controller
                 $order->user_id = Auth::id();
                 $order->status = 'open';
                 $order->save();
+                GenerateNumber::update_row($order_no['setting_id'],$order_no['number']);
             }
             if(isset($request['option']))
             {
@@ -50,7 +52,8 @@ class OrderController extends Controller
                     $orderDetails->mktg_order_id= $order->id;
                     $orderDetails->parent_id= $option_id;
                     $orderDetails->amount= $option_price;
-//                    $orderDetails->save();
+                    $orderDetails->save();
+                    $total_amount +=$option_price;
                 }
             }
             if($request['art']=='yes' && isset($request['art_work_id']))
@@ -63,6 +66,7 @@ class OrderController extends Controller
                 $orderDetails->amount= $artWork->price;
                 $orderDetails->comment= $request['description'];
                 $orderDetails->save();
+                $total_amount +=$artWork->price;
                 $path=public_path('assets/artImg');
                 if($artWork->field_type=='file') {
                     if (!empty($request['file'])) {
@@ -81,7 +85,11 @@ class OrderController extends Controller
                     }
                 }
             }
-
+            $gst= ($total_amount*10)/100;
+            $order->amount=$total_amount;
+            $order->gst= $gst;
+            $order->total_amount=$gst+$total_amount;
+            $order->save();
 
             DB::commit();
             Session::flash('message','Successfully added to cart');
