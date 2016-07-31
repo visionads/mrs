@@ -22,6 +22,7 @@ use App\GenerateOrderNumber;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Mockery\CountValidator\Exception;
 
 class OrderController extends Controller
@@ -100,5 +101,44 @@ class OrderController extends Controller
             return redirect()->back();
         }
         return redirect()->to('marketing/marketing-material-printing');
+    }
+    public function order_details($order_id)
+    {
+        $data['pageTitle']= 'Order Details';
+        $data['order_details']= DB::select(DB::raw("SELECT
+od.id,od.type,od.parent_id,od.amount,
+IF(od.type='item',iv.title,aw.title) title,
+IF(od.type='item',iv.price,aw.price) price,
+IF(io.id = NULL, '', io.title) io_title
+
+FROM mktg_order_detail AS od
+LEFT JOIN mktg_item_value as iv ON (od.parent_id=iv.id)
+ left join mktg_item_option as io on io.id = iv.mktg_item_option_id
+LEFT JOIN mktg_artwork as aw ON (od.parent_id=aw.id)
+WHERE `mktg_order_id`=$order_id"));
+//        dd($data['order_details']);
+        $data['order']=MktgOrder::findOrFail($order_id);
+        return view('mktg::order.details',$data);
+    }
+    public function delete_order_details($order_id)
+    {
+        DB::beginTransaction();
+        try {
+            $order_details = MktgOrderDetail::findOrFail($order_id);
+            $order = MktgOrder::findOrFail($order_details->mktg_order_id);
+            $amount = $order->amount - $order_details->amount;
+            $gst = ($amount * 10) / 100;
+            $order->amount = $amount;
+            $order->gst = $gst;
+            $order->total_amount = $gst + $amount;
+            $order->save();
+            $order_details->delete();
+            DB::commit();
+            Session::flash('message','Successfully delete');
+        }catch (Exception $e){
+            DB::rollback();
+            Session::flash('error',$e->getMessage());
+        }
+        return redirect()->back();
     }
 }

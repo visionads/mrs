@@ -20,7 +20,7 @@ class MktgOrderDetail extends Model
     ];
 
     public function relMktgItemValue(){
-        return $this->belongsTo('App\MktgItemValue','mktg_item_value_id','id');
+        return $this->belongsTo('App\MktgItemValue','parent_id','id');
     }
 
     public function relMktgArtworkImage(){
@@ -32,7 +32,7 @@ class MktgOrderDetail extends Model
     }
 
     public function relMktgArtwork(){
-        return $this->belongsTo('App\MktgArtwork','mktg_artwork_id','id');
+        return $this->belongsTo('App\MktgArtwork','parent_id','id');
     }
 
 
