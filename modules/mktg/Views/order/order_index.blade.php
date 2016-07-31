@@ -36,7 +36,7 @@
                             <td>{{ isset($row->total_amount)?$row->total_amount:'0.00' }}</td>
                             <td>{{ $row->status }}</td>
                             <td>
-                                <a href="{{ route('make-invoice') }}" class="btn btn-primary">Make Invoice</a>
+                                <a href="{{ route('make-invoice',$row->id) }}" class="btn btn-primary">Make Invoice</a>
                                 <a href="{{ route('make-invoice') }}" class="btn btn-primary">Make Invoice</a>
                             </td>
                         </tr>
