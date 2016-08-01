@@ -81,6 +81,123 @@
                                     <button id="propertyDetailsNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
                                 </div>
                             </fieldset>
+
+                            {{--===================Package Start--}}
+                            <fieldset><hr>
+                                <div class="form-bottom">
+                                    <h3 class="instruction">Packages<span class="required"> [Under Cnstruction !]</span></h3>
+                                    <br>
+                                    <div class="row text-center">
+                                        Choose a Package :
+                                        <label><input type="radio" name="choose" class="choose0" value="0">No</label>
+                                        <label><input type="radio" name="choose" class="choose1" value="1">Yes</label>
+                                    </div>
+                                    <div class="row pack-choise">
+                                        <div class="col-sm-4 size-13">
+                                            <label class="size-20" id="pack1">
+                                                <input type="radio" name="package" value="pack1"> Package - 01
+                                            </label>
+                                            <div class="form-group pack-1">
+                                                <h4 for="owner_name">Package details </h4>
+                                                <table class="table black-bg dark-border">
+                                                    <thead><tr><th>Items</th><th>Price</th></tr></thead>
+                                                    <tbody>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td align="right">Total =</td><td><strong style="border-bottom: 3px double #fff;">2300.00</strong></td></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 size-13">
+                                            <label class="size-20" id="pack2">
+                                                <input type="radio" name="package" value="pack2"> Package - 02
+                                            </label>
+                                            <div class="form-group pack-2">
+                                                <h4 for="owner_name">Package details </h4>
+                                                <table class="table black-bg dark-border">
+                                                    <thead><tr><th>Items</th><th>Price</th></tr></thead>
+                                                    <tbody>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td align="right">Total =</td><td><strong style="border-bottom: 3px double #fff;">2300.00</strong></td></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 size-13">
+                                            <label class="size-20" id="pack3">
+                                                <input type="radio" name="package" value="pack3"> Package - 03
+                                            </label>
+                                            <div class="form-group pack-3">
+                                                <h4 for="owner_name">Package details </h4>
+                                                <table class="table black-bg dark-border">
+                                                    <thead><tr><th>Items</th><th>Price</th></tr></thead>
+                                                    <tbody>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td>List of items</td><td>100</td></tr>
+                                                        <tr><td align="right">Total =</td><td><strong style="border-bottom: 3px double #fff;">2300.00</strong></td></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
+                                    <button id="propertyDetailsNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
+                                </div>
+                                <script>
+                                    $(document).ready(function(){
+                                        //=== For Parent (Yes/No)
+                                        $(".pack-choise").hide();
+                                        $(".choose0").click(function(){
+                                            $(".pack-choise").hide();
+                                        })
+                                        $(".choose1").click(function(){
+                                            $(".pack-choise").slideDown();
+                                        })
+
+                                        //=== For Childrens
+                                        $(".pack-1,.pack-2,.pack-3").hide();
+                                        $("#pack1").click(function(){
+                                            $(".pack-1").slideDown();
+                                            $(".pack-2").slideUp();
+                                            $(".pack-3").slideUp();
+                                        });
+                                        $("#pack2").click(function(){
+                                            $(".pack-1").slideUp();
+                                            $(".pack-2").slideDown();
+                                            $(".pack-3").slideUp();
+                                        });
+                                        $("#pack3").click(function(){
+                                            $(".pack-1").slideUp();
+                                            $(".pack-2").slideUp();
+                                            $(".pack-3").slideDown();
+                                        });
+                                    });
+                                </script>
+                            </fieldset>
+                            {{--==============================Package End--}}
+
                             <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Photography</h3>
