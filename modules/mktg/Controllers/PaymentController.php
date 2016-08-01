@@ -25,7 +25,8 @@ class PaymentController extends Controller
         $role_name = User::getRole(Auth::user()->id) ;
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
-            $data['invoices']=MktgInvoice::where('invoice_type', 'MR')->paginate(30);
+            $data['invoices']=MktgInvoice::with('relUser')->where('invoice_type', 'MR')->paginate(30);
+//            dd($data);
             $data['role']='admin';
         }else {
             $data['invoices'] = MktgInvoice::where('invoice_type', 'MR')->paginate(30);
@@ -38,6 +39,7 @@ class PaymentController extends Controller
     {
         $invoiceDetail= MktgInvoice::findOrFail($id);
         $data['mktg_order_id']=$invoiceDetail->mktg_order_id;
+        $data['user_id']=$invoiceDetail->user_id;
         $data['reference']='eway';
         $data['amount']=$total_amount;
         $data['status']='paid';

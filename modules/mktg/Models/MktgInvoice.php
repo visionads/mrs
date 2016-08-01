@@ -11,6 +11,7 @@ class MktgInvoice extends Model
 
     protected $fillable = [
         'mktg_order_id',
+        'user_id',
         'invoice_type',
         'invoice_no',
         'date',
@@ -21,6 +22,10 @@ class MktgInvoice extends Model
 
     public function relMktgOrder(){
         return $this->belongsTo('App\MktgOrder','mktg_order_id','id');
+    }
+
+    public function relUser(){
+        return $this->belongsTo('App\User','user_id','id');
     }
 
 
