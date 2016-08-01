@@ -7,7 +7,7 @@
 
         <div class="col-md-12">
             @if(isset($data))
-                {!! Form::open(['route'=>['add-to-cart',$data['id']],'files'=>true]) !!}
+                {!! Form::open(['route'=>['add-to-cart',$data['id']],'id'=>'genForm','files'=>true]) !!}
 
                 <div class="row">
                     <div class="col-md-4">
@@ -21,7 +21,10 @@
                         {!! Form::open(['method'=>'GET','class'=>'form-horizontal']) !!}
                         @include('mktg::marketing_material.agency_stationary_materials.letterhead_form')
                         {!! Form::close() !!}--}}
-
+                        <?php
+                            $option = 0;
+                            $value = 0;
+                        ?>
 
                         <div class="row">
                             <div class="col-md-12">
@@ -36,6 +39,7 @@
                                                     <label class="green-yellow">
                                                         <input name="option[{!! $item_opt['rel_mktg_item_value'][0]['id'] !!}]" value="{!! $item_opt['rel_mktg_item_value'][0]['price'] !!}" type="hidden">
                                                         <i class="{{ $item_opt['icon'] }}"></i> {{$item_opt['title']}}
+                                                        <?php $option += $item_opt['rel_mktg_item_value'][0]['price'] ?>
                                                     </label><br>
                                                 </div>
                                             </div>
@@ -55,15 +59,16 @@
                                                         {!! Form::label('qty', $item_opt['title'], ['class'=>'control-label col-sm-4 green-yellow']) !!}
                                                         <div class="col-sm-8">
                                                             <?php $i=0; ?>
-                                                            <select name="option[{{ $item_opt['rel_mktg_item_value'][$i]['id'] }}]" class='form-control deeppink size-15'>
+                                                            <select name="option[{{ $item_opt['rel_mktg_item_value'][$i]['id'] }}]" class='form-control deeppink size-15' onchange="myFunction(this.value)">
                                                                 @if(isset($item_opt['rel_mktg_item_value']))
                                                                     @foreach($item_opt['rel_mktg_item_value'] as $item_val)
-                                                                        <option value="{{ $item_val['price'] }}">{{ $item_val['title'] }}</option>
-                                                                        <?php $i++; ?>
+                                                                        <option value="{{ $item_val['price'] }}" >{{ $item_val['title'] }}</option>
+                                                                        <?php $i++;?>
                                                                     @endforeach
                                                                 @endif
                                                             </select>
-                                                            {{--                                                                {!! Form::select('qty'.$i, [$value[$item_val['id']]],Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}--}}
+                                                            <?php ?>
+                                                            {{--{!! Form::select('qty'.$i, [$value[$item_val['id']]],Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}--}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -138,7 +143,9 @@
                                 <div class="col-sm-12" style="height: 30px;"></div>
 
                                 <div class="col-md-12">
-                                    {!! Form::submit('GET PRICE',['id'=>'','class'=>'btn btn-primary btn-green']) !!}
+                                    {{--{!! Form::submit('GET PRICE',['id'=>'','class'=>'btn btn-primary btn-green']) !!}--}}
+                                    <button type="submit" class="btn btn-green" name="getprice" value="getprice" id="getprice">GET PRICE </button>
+                                    <button type="button" id="get" onclick="getData()">Get</button>
                                     <h3 class="green-yellow" id="total">Total : $00</h3>
                                 </div>
                             </div>
@@ -157,7 +164,8 @@
                         </div>
                         <div class="pull-right">
                             <a href=" #place" class="btn btn-green " id="proceed">Proceed <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;
-                            <button type="submit" class="btn btn-green " id="">Add To Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
+                            <button type="submit" class="btn btn-green " name="addtocart" value="addtocart" id="">Add To Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
+
                         </div>
 
                     </div>
@@ -168,6 +176,41 @@
             
         </div>
     </div>
+    <div class="white">
+        <h1>Totla calculation:</h1>
+        <input type="hidden" value="<?php echo $option; ?>" id="option">
+        Option = <?php echo $option; ?><br>
+        Value = <?php echo $value; ?>
+    </div>
+    <script>
+        function getData(){
+
+            alert($('#genForm').serialize());
+            //var object = formService.getObjectFormFields("#genForm");
+            alert(object);
+            //var data = {};
+            //alert($("#genForm").serializeArray().map(function(x){data[x.name] = x.value;}));
+            //$params = array();
+           // parse_str($_GET, $params);
+
+
+        }
+        function myFunction(value) {
+            var option = document.getElementById("option").value;
+            //var x = document.getElementById("qty").value;
+            //var y = document.getElementById("stock").value;
+            //var a = document.getElementById("stock").value;
+            //var b = document.getElementById("stock").value;
+            //alert(value);
+            var x = 0;
+            x += value;
+            var ttl = 0;
+            alert(x+option);
+            ttl = parseInt(x) + parseInt(y);
+            document.getElementById("total").innerHTML = "Total : $" + ttl;
+        }
+    </script>
+
 
     @include('mktg::marketing_material.agency_stationary_materials._scripts')
 

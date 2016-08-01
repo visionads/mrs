@@ -211,6 +211,12 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         'as' => 'make-invoice',
         'uses' => 'MktgInvoiceController@make_invoice'
     ]);
+    Route::get('get-price',[
+        //'middleware' => 'acl_access:marketing/make-invoice/{order_id}',
+        'as' => 'get-price',
+        'uses' => 'OrderController@add_to_cart'
+    ]);
+
 
 
 

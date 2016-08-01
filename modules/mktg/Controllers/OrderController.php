@@ -29,78 +29,143 @@ class OrderController extends Controller
 {
     public function add_to_cart(Request $reques, $product_id)
     {
+        //exit('Welcome to Index');
         $request=$reques->all();
-        DB::beginTransaction();
-        try{
+        //$slug = '';
+        //$slug = $request['slug'];
+        //print_r($slug);exit();
+        //=== When Client click on the Get Price Button ***//
+        if(isset($request['getprice']) && $request['getprice']=='getprice'){
+            //print_r('Get Price');exit();
+
             $total_amount=0;
-            $order= MktgOrder::where('date',date('Y-m-d'))->where('user_id',Auth::id())->where('status','open')->first();
-            if(!$order)
-            {
-                $order_no = GenerateNumber::generate_number('order-number');
-                $order = new MktgOrder();
-                $order->order_no = $order_no['generated_number'];
-                $order->date = date('Y-m-d');
-                $order->user_id = Auth::id();
-                $order->status = 'open';
-                $order->save();
-                GenerateNumber::update_row($order_no['setting_id'],$order_no['number']);
-            }
             if(isset($request['option']))
             {
                 foreach($request['option'] as $option_id=>$option_price){
-                    $orderDetails= new MktgOrderDetail();
-                    $orderDetails->type='item';
-                    $orderDetails->mktg_order_id= $order->id;
-                    $orderDetails->parent_id= $option_id;
-                    $orderDetails->amount= $option_price;
-                    $orderDetails->save();
                     $total_amount +=$option_price;
                 }
             }
             if($request['art']=='yes' && isset($request['art_work_id']))
             {
                 $artWork=MktgArtwork::findOrFail($request['art_work_id']);
-                $orderDetails= new MktgOrderDetail();
-                $orderDetails->type='art';
-                $orderDetails->mktg_order_id= $order->id;
-                $orderDetails->parent_id= $artWork->id;
-                $orderDetails->amount= $artWork->price;
-                $orderDetails->comment= $request['description'];
-                $orderDetails->save();
                 $total_amount +=$artWork->price;
-                $path=public_path('assets/artImg');
-                if($artWork->field_type=='file') {
-                    if (!empty($request['file'])) {
-                        if ($reques->file('file')->isValid()) {
-                            $fileName = rand(10, 99) . $reques->file('file')->getClientOriginalName();
-                            $reques->file('file')->move($path, $fileName);
-
-                            $artImg = new MktgArtworkImage();
-                            $artImg->mktg_order_detail_id = $orderDetails->id;
-                            $artImg->image = 'assets/artImg/' . $fileName;
-                            $artImg->save();
-                        }
-                    } else {
-                        Session::flash('error', 'Sorry, You did not select any file to upload.');
-                        return redirect()->back();
-                    }
-                }
             }
             $gst= ($total_amount*10)/100;
-            $order->amount+=$total_amount;
-            $order->gst+= $gst;
-            $order->total_amount+=$gst+$total_amount;
-            $order->save();
+            $grand_total_amount = $gst+$total_amount;
 
-            DB::commit();
-            Session::flash('message','Successfully added to cart');
-        }catch (Exception $e)
-        {
-            DB::rollback();
-            Session::flash('error',$e->getMessage());
-            return redirect()->back();
+            $price_arr = array
+            (
+              'total_price' => $grand_total_amount,
+              'gst' => $gst,
+              'total' => $total_amount
+            );
+            print_r($price_arr);
+
+
+
+            #print_r($artwork);exit;
+            /*return view('mktg::marketing_material.agency_stationary_materials.index',$data,$value);*/
+            /*$title = MktgMenuItem::where('slug',$slug)->first();
+            $pageTitle = $title['title'];
+            $data = MktgMenuItem::with('relMktgMenuItemImage','relMktgItemOption','relMktgItemOption.relMktgItemValue')->where('slug',$slug)->first()->toArray();
+
+            $value = DB::table('mktg_item_value')->lists('title', 'id');
+
+            $artwork = MktgArtwork::orderBy('slug','ASC')->get();
+            return view('mktg::marketing_material.agency_stationary_materials.index',array(
+                'pageTitle'=>$pageTitle,
+                'data'=>$data,
+                'value'=>$value,
+                'artwork'=>$artwork,
+                'price' =>$price_arr
+            ));*/
+            //return Redirect::back( array('total' => $price_arr));
+            //return redirect(array('total'=>$price_arr))->back();
+            //return view('mktg::marketing_material.agency_stationary_materials.index',array('price'=>$price_arr));
+
+            //return redirect()->to('marketing/order-details/'.$order->id);
         }
-        return redirect()->to('marketing/order-details/'.$order->id);
+
+        //=== When Client click on the Add To Cart ***//
+        if(isset($request['addtocart']) && $request['addtocart'] == 'addtocart'){
+            //print_r('Add To Cart');exit();
+            DB::beginTransaction();
+            try{
+                $total_amount=0;
+                $order= MktgOrder::where('date',date('Y-m-d'))->where('user_id',Auth::id())->where('status','open')->first();
+                if(!$order)
+                {
+                    $order_no = GenerateNumber::generate_number('order-number');
+                    $order = new MktgOrder();
+                    $order->order_no = $order_no['generated_number'];
+                    $order->date = date('Y-m-d');
+                    $order->user_id = Auth::id();
+                    $order->status = 'open';
+                    $order->save();
+                    GenerateNumber::update_row($order_no['setting_id'],$order_no['number']);
+                }
+                if(isset($request['option']))
+                {
+                    foreach($request['option'] as $option_id=>$option_price){
+                        $orderDetails= new MktgOrderDetail();
+                        $orderDetails->type='item';
+                        $orderDetails->mktg_order_id= $order->id;
+                        $orderDetails->parent_id= $option_id;
+                        $orderDetails->amount= $option_price;
+                        $orderDetails->save();
+                        $total_amount +=$option_price;
+                    }
+                }
+                if($request['art']=='yes' && isset($request['art_work_id']))
+                {
+                    $artWork=MktgArtwork::findOrFail($request['art_work_id']);
+                    $orderDetails= new MktgOrderDetail();
+                    $orderDetails->type='art';
+                    $orderDetails->mktg_order_id= $order->id;
+                    $orderDetails->parent_id= $artWork->id;
+                    $orderDetails->amount= $artWork->price;
+                    $orderDetails->comment= $request['description'];
+                    $orderDetails->save();
+                    $total_amount +=$artWork->price;
+                    $path=public_path('assets/artImg');
+                    if($artWork->field_type=='file') {
+                        if (!empty($request['file'])) {
+                            if ($reques->file('file')->isValid()) {
+                                $fileName = rand(10, 99) . $reques->file('file')->getClientOriginalName();
+                                $reques->file('file')->move($path, $fileName);
+
+                                $artImg = new MktgArtworkImage();
+                                $artImg->mktg_order_detail_id = $orderDetails->id;
+                                $artImg->image = 'assets/artImg/' . $fileName;
+                                $artImg->save();
+                            }
+                        } else {
+                            Session::flash('error', 'Sorry, You did not select any file to upload.');
+                            return redirect()->back();
+                        }
+                    }
+                }
+                $gst= ($total_amount*10)/100;
+                $order->amount+=$total_amount;
+                $order->gst+= $gst;
+                $order->total_amount+=$gst+$total_amount;
+                $order->save();
+
+                DB::commit();
+                Session::flash('message','Successfully added to cart');
+            }catch (Exception $e)
+            {
+                DB::rollback();
+                Session::flash('error',$e->getMessage());
+                return redirect()->back();
+            }
+            return redirect()->to('marketing/order-details/'.$order->id);
+        }
+        //exit();
+        //$req = $request['addtocart'];
+        //$req1 = $request['getprice'];
+        //print_r($req1);exit();
+
     }
     public function order_details($order_id)
     {

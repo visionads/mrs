@@ -48,6 +48,7 @@ class AgencyMarketingController extends Controller
             'data'=>$data,
             'value'=>$value,
             'artwork'=>$artwork,
+            'slug' => $title,
         ));
 
     }

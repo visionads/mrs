@@ -1,12 +1,12 @@
 <script>
     //===== For Form Select Options
-    function myFunction() {
+    /*function myFunction() {
         var x = document.getElementById("qty").value;
         var y = document.getElementById("stock").value;
         var ttl = 0;
         ttl = parseInt(x) + parseInt(y);
         document.getElementById("total").innerHTML = "Total : $" + ttl;
-    }
+    }*/
 
     $(document).ready(function(){
 
