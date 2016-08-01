@@ -28,5 +28,10 @@ Route::get('delete-order/{order_id}',[
     'as'    =>  'delete-order',
     'uses'  =>  'OrderController@delete_order'
 ]);
+// payment route
+Route::get('payment-success/{id}/{amount}', [
+    'as' => 'payment-success',
+    'uses' => 'PaymentController@store'
+]);
 
 
