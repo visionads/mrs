@@ -208,6 +208,7 @@ class CreateMarketingMaterial extends Migration
             $table->increments('id');
 
             $table->unsignedInteger('mktg_order_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->enum('invoice_type', array(
                 'INV', 'MR'
             ))->nullable();

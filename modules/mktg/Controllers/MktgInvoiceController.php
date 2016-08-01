@@ -65,13 +65,14 @@ class MktgInvoiceController extends Controller
         $input_arr = array
         (
             'mktg_order_id' =>  $order_data->id,
+            'user_id' =>  $order_data->user_id,
             'invoice_type'  =>  'INV',
             'invoice_no'    =>  $invoice_no['generated_number'],
             'amount'        =>  $order_data->total_amount,
             'reference'     =>  'n',
             'status'        =>  'Invoiced'
         );
-        //print_r($input_arr);exit();
+//        print_r($input_arr);exit();
 
         DB::beginTransaction();
         try{

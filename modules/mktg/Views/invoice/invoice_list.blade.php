@@ -42,6 +42,9 @@
                 <tr>
                     <th>Invoice No.{{--Transaction ID--}}</th>
                     <th>Bill Amount</th>
+                    @if(isset($role))
+                        <th>Agent</th>
+                    @endif
                     <th>Status</th>
                     <th>Date</th>
                     <th>Action</th>
@@ -57,6 +60,9 @@
                         <tr>
                             <td class="text-center">{{ $invoice->invoice_no }}</td>
                             <td class="text-center">{{ '$ '.number_format($invoice->amount,2) }}</td>
+                        @if(isset($role))
+                                <td class="text-center">{{ $invoice->relUser['username'] }}</td>
+                            @endif
                             <td>
                                 {{ $invoice->status }}
                             </td>
