@@ -144,9 +144,8 @@
 
                                 <div class="col-md-12">
                                     {{--{!! Form::submit('GET PRICE',['id'=>'','class'=>'btn btn-primary btn-green']) !!}--}}
-                                    <button type="submit" class="btn btn-green" name="getprice" value="getprice" id="getprice">GET PRICE </button>
-                                    <button type="button" id="get" onclick="getData()">Get</button>
-                                    <h3 class="green-yellow" id="total">Total : $00</h3>
+                                    <button type="button" class="btn btn-green" name="getprice" value="getprice" id="getprice">GET PRICE</button>
+                                    <h3 class="green-yellow" id="total"></h3>
                                 </div>
                             </div>
                         </div>
@@ -176,39 +175,21 @@
             
         </div>
     </div>
-    <div class="white">
-        <h1>Totla calculation:</h1>
-        <input type="hidden" value="<?php echo $option; ?>" id="option">
-        Option = <?php echo $option; ?><br>
-        Value = <?php echo $value; ?>
-    </div>
     <script>
-        function getData(){
+        $('#getprice').click(function () {
+            $.ajax({
+                url: "{{ route('get-price') }}",
+                data: $('#genForm').serialize(),
+                method : 'post'
+            }).success(function(data){
+                $('.totalAmount').remove();
+                $('#total').append('<span class="totalAmount">Total : $ '+data.total+'</span>');
+                console.log(data.total);
+            }).error(function(data){
+                alert('Error Occurred');
+            });
+        });
 
-            alert($('#genForm').serialize());
-            //var object = formService.getObjectFormFields("#genForm");
-            alert(object);
-            //var data = {};
-            //alert($("#genForm").serializeArray().map(function(x){data[x.name] = x.value;}));
-            //$params = array();
-           // parse_str($_GET, $params);
-
-
-        }
-        function myFunction(value) {
-            var option = document.getElementById("option").value;
-            //var x = document.getElementById("qty").value;
-            //var y = document.getElementById("stock").value;
-            //var a = document.getElementById("stock").value;
-            //var b = document.getElementById("stock").value;
-            //alert(value);
-            var x = 0;
-            x += value;
-            var ttl = 0;
-            alert(x+option);
-            ttl = parseInt(x) + parseInt(y);
-            document.getElementById("total").innerHTML = "Total : $" + ttl;
-        }
     </script>
 
 

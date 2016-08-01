@@ -64,6 +64,7 @@
                             <td>
                                 @if(isset($role))
                                     <a href="{{ URL::route('change_payment_status_for_mtkg_payment',$invoice->id.'/'.$status) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="fa fa-star"></span> Change Status</a>
+                                    <a href="{{ URL::route('order-details',$invoice->mktg_order_id) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="fa fa-street-view"></span> Details</a>
                                 @elseif(!isset($payment))
                                     <a href="{{--{{ URL::to('main/invoice/'.$transaction->quote_id) }}--}}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="fa fa-credit-card"></span> Pay Now</a>
                                 @endif
@@ -74,10 +75,8 @@
                 @endif
                 </tbody>
             </table>
-            {{--
-            <span class="pull-left size-13 paginate-right-top-40" style="text-align: right">{!! str_replace('/?', '?', $transactions->render()) !!} </span>
+            <span class="pull-left size-13 paginate-right-top-40" style="text-align: right">{!! str_replace('/?', '?', $invoices->render()) !!} </span>
 
-            --}}
         </div>
     </div>
 

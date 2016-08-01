@@ -48,6 +48,7 @@
                     @endif
                 </tbody>
             </table>
+            <span class="pull-left size-13 paginate-right-top-40" style="text-align: right">{!! str_replace('/?', '?', $data->render()) !!} </span>
 
         </div>
 

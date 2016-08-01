@@ -850,7 +850,7 @@ class MarketingMaterialController extends Controller
         $data['pageTitle'] = 'Marketing Material Order List';
         //$data['data'] = MktgOrder::with('relMktgMaterial','relMktgMenuItemImage','relMktgItemOption')->where('id',$id)->first();
         //$data['data'] = MktgOrderDetail::orderBy('id','DESC')->get();
-        $data['data'] = MktgOrder::orderBy('id','DESC')->get();
+        $data['data'] = MktgOrder::orderBy('id','DESC')->paginate(30);
         //print_r($data['data']);exit();
 
         return view('mktg::order.order_index',$data);

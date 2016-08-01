@@ -25,10 +25,10 @@ class PaymentController extends Controller
         $role_name = User::getRole(Auth::user()->id) ;
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
-            $data['invoices']=MktgInvoice::where('invoice_type', 'MR')->get();
+            $data['invoices']=MktgInvoice::where('invoice_type', 'MR')->paginate(30);
             $data['role']='admin';
         }else {
-            $data['invoices'] = MktgInvoice::where('invoice_type', 'MR')->get();
+            $data['invoices'] = MktgInvoice::where('invoice_type', 'MR')->paginate(30);
             $data['payment'] = 'MR';
         }
         return view('mktg::invoice.invoice_list',$data);
