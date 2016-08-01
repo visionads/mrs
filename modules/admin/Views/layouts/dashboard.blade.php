@@ -63,6 +63,9 @@
                         <div class="form-group" id="new_quote">
                             <a href="{{route('payment-list')}}" class="quote">Payment History</a>
                         </div>
+                        <div class="form-group" id="new_quote">
+                            <a href="{{route('payments')}}" class="quote">Payment History Marketing</a>
+                        </div>
                     </div>
                 @else
                     <div class="form-group col-sm-5">

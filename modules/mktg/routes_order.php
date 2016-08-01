@@ -39,5 +39,10 @@ Route::get('payments', [
     'as' => 'payments',
     'uses' => 'PaymentController@index'
 ]);
+Route::get('change_status/{id}/{status}', [
+    //'middleware' => 'acl_access:marketing/change_status/{id}/{status}',
+    'as' => 'change_payment_status_for_mtkg_payment',
+    'uses' => 'PaymentController@change_status'
+]);
 
 

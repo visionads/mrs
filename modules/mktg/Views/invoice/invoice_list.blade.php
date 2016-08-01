@@ -20,11 +20,13 @@
 
     <div class="container-fluid">
         <div class="no-border">
-            <a href="{{ route('mktg-order') }}" class="btn btn-info pull-right">Order List</a>
-            @if(!isset($payment))
-            <a href="{{ route('payments') }}" class="btn btn-primary pull-right">Payments</a>
-            @else
-                <a href="{{ route('invoice-list') }}" class="btn btn-primary pull-right">Invoice List</a>
+            @if(!isset($role))
+                <a href="{{ route('mktg-order') }}" class="btn btn-info pull-right">Order List</a>
+                @if(!isset($payment))
+                <a href="{{ route('payments') }}" class="btn btn-primary pull-right">Payments</a>
+                @else
+                    <a href="{{ route('invoice-list') }}" class="btn btn-primary pull-right">Invoice List</a>
+                @endif
             @endif
             <table cellspacing="0" cellpadding="0" border="0" class="table size-13 mktg_quote-list">
                 <thead class="head-top">
@@ -49,6 +51,9 @@
                 <tbody>
                 @if(isset($invoices))
                     @foreach($invoices as $invoice)
+                        <?php
+                        if($invoice->status=='paid') $status='approved'; else $status='paid';
+                        ?>
                         <tr>
                             <td class="text-center">{{ $invoice->invoice_no }}</td>
                             <td class="text-center">{{ '$ '.number_format($invoice->amount,2) }}</td>
@@ -57,7 +62,9 @@
                             </td>
                             <td class="text-center">{{ date('Y-m-d',strtotime($invoice->created_at)) }}</td>
                             <td>
-                                @if(!isset($payment))
+                                @if(isset($role))
+                                    <a href="{{ URL::route('change_payment_status_for_mtkg_payment',$invoice->id.'/'.$status) }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="fa fa-star"></span> Change Status</a>
+                                @elseif(!isset($payment))
                                     <a href="{{--{{ URL::to('main/invoice/'.$transaction->quote_id) }}--}}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="fa fa-credit-card"></span> Pay Now</a>
                                 @endif
 

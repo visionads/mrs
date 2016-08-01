@@ -216,7 +216,7 @@ class CreateMarketingMaterial extends Migration
             $table->float('amount')->nullable();
             $table->text('reference')->nullable();
             $table->enum('status', array(
-                'invoiced', 'paid', 'cancel'
+                'invoiced', 'paid', 'cancel','approved'
             ))->nullable();
 
             $table->integer('created_by', false, 11);

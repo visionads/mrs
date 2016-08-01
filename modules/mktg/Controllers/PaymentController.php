@@ -11,6 +11,10 @@ namespace Modules\Mktg\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\MktgInvoice;
+use App\MktgOrder;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
 {
@@ -18,8 +22,15 @@ class PaymentController extends Controller
     {
         //exit('Welcome !');
         $data['pageTitle'] = 'Payment List';
-        $data['invoices']= MktgInvoice::where('invoice_type','MR')->get();
-        $data['payment']=1;
+        $role_name = User::getRole(Auth::user()->id) ;
+        if($role_name == 'admin' || $role_name == 'super-admin')
+        {
+            $data['invoices']=MktgInvoice::where('invoice_type', 'MR')->get();
+            $data['role']='admin';
+        }else {
+            $data['invoices'] = MktgInvoice::where('invoice_type', 'MR')->get();
+            $data['payment'] = 'MR';
+        }
         return view('mktg::invoice.invoice_list',$data);
     }
 
@@ -60,5 +71,28 @@ class PaymentController extends Controller
             Session::flash('error', $e->getMessage());
         }
         return redirect('order-details/'.$id);
+    }
+    public function change_status($id,$status)
+    {
+        $invoice= MktgInvoice::findOrFail($id);
+        $invoice->status=$status;
+        $invoice->save();
+        $order= MktgOrder::findOrFail($invoice->mktg_order_id);
+        $user= User::findOrFail($order->user_id);
+        try{
+            \Mail::send('mktg::payment.confirm_mail',['status'=>$status,'invoice'=>$invoice],
+                function($message) use ($user)
+                {
+                    $message->from('mrs@gmail.com', 'MRS');
+                    $message->to($user->email);
+                    $message->subject('Payment Status Information');
+                });
+
+            Session::flash('message','Payment status Successfully Changed.');
+        }catch (\Exception $e){
+            dd($e->getMessage());
+            Session::flash('error', $e->getMessage());
+        }
+        return redirect('marketing/payments');
     }
 }
