@@ -30,8 +30,14 @@ Route::get('delete-order/{order_id}',[
 ]);
 // payment route
 Route::get('payment-success/{id}/{amount}', [
+    //'middleware' => 'acl_access:marketing/payment-success/{id}/{amount}',
     'as' => 'payment-success',
     'uses' => 'PaymentController@store'
+]);
+Route::get('payments', [
+    //'middleware' => 'acl_access:marketing/payments',
+    'as' => 'payments',
+    'uses' => 'PaymentController@index'
 ]);
 
 

@@ -20,6 +20,12 @@
 
     <div class="container-fluid">
         <div class="no-border">
+            <a href="{{ route('mktg-order') }}" class="btn btn-info pull-right">Order List</a>
+            @if(!isset($payment))
+            <a href="{{ route('payments') }}" class="btn btn-primary pull-right">Payments</a>
+            @else
+                <a href="{{ route('invoice-list') }}" class="btn btn-primary pull-right">Invoice List</a>
+            @endif
             <table cellspacing="0" cellpadding="0" border="0" class="table size-13 mktg_quote-list">
                 <thead class="head-top">
                 <tr>
@@ -51,7 +57,9 @@
                             </td>
                             <td class="text-center">{{ date('Y-m-d',strtotime($invoice->created_at)) }}</td>
                             <td>
+                                @if(!isset($payment))
                                     <a href="{{--{{ URL::to('main/invoice/'.$transaction->quote_id) }}--}}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="fa fa-credit-card"></span> Pay Now</a>
+                                @endif
 
                             </td>
                         </tr>

@@ -14,6 +14,14 @@ use App\MktgInvoice;
 
 class PaymentController extends Controller
 {
+    public function index()
+    {
+        //exit('Welcome !');
+        $data['pageTitle'] = 'Payment List';
+        $data['invoices']= MktgInvoice::where('invoice_type','MR')->get();
+        $data['payment']=1;
+        return view('mktg::invoice.invoice_list',$data);
+    }
 
     public function store($id,$total_amount)
     {
