@@ -209,7 +209,7 @@ class CreateMarketingMaterial extends Migration
 
             $table->unsignedInteger('mktg_order_id')->nullable();
             $table->enum('invoice_type', array(
-                'INV-', 'MR--'
+                'INV', 'MR'
             ))->nullable();
             $table->string('invoice_no', 16)->unique();
             $table->timestamp('date')->nullable();
