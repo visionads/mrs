@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\MktgArtwork;
 use App\MktgArtworkImage;
 use App\MktgItemOption;
+use App\MktgItemValue;
 use App\MktgOrder;
 use App\MktgOrderDetail;
 use Carbon\Carbon;
@@ -58,6 +59,20 @@ class OrderController extends Controller
                     $orderDetails->amount= $option_price;
                     $orderDetails->save();
                     $total_amount +=$option_price;
+                }
+            }
+            if(isset($request['img_option']))
+            {
+                $it=MktgItemValue::findOrFail($request['img_option']);
+                if(isset($it)) {
+
+                    $orderDetails = new MktgOrderDetail();
+                    $orderDetails->type = 'item';
+                    $orderDetails->mktg_order_id = $order->id;
+                    $orderDetails->parent_id = $it->id;
+                    $orderDetails->amount = $it->price;
+                    $orderDetails->save();
+                    $total_amount += $it->price;
                 }
             }
             if($request['art']=='yes' && isset($request['art_work_id']))
@@ -113,6 +128,13 @@ class OrderController extends Controller
         {
             foreach($request['option'] as $option_id=>$option_price){
                 $total_amount +=$option_price;
+            }
+        }
+        if(isset($request['img_option']))
+        {
+            $it=MktgItemValue::findOrFail($request['img_option']);
+            if(isset($it)) {
+                $total_amount += $it->price;
             }
         }
         if($request['art']=='yes' && isset($request['art_work_id']))

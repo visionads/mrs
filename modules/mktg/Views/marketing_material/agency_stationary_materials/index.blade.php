@@ -33,8 +33,7 @@
                                         <img src="{{ url($data['rel_mktg_menu_item_image'][$i]['image']) }}" class="image_{{$i}}" alt="" />
                                     @endfor
                                 </div>
-                                {{--<div class="clearfix" style="background: none !important;"></div>--}}
-
+                                
                                 <div class="thumbnail">
                                     @for($i=0; $i<sizeof($data['rel_mktg_menu_item_image']); $i++)
                                     <div class="thumb">
@@ -69,15 +68,31 @@
                                     @foreach($data['rel_mktg_item_option'] as $item_opt)
 
                                         @if($item_opt['type']=='option')
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label class="green-yellow">
-                                                        <input name="option[{!! $item_opt['rel_mktg_item_value'][0]['id'] !!}]" value="{!! $item_opt['rel_mktg_item_value'][0]['price'] !!}" type="hidden">
-                                                        <i class="{{ $item_opt['icon'] }}"></i> {{$item_opt['title']}}
-                                                        <?php $option += $item_opt['rel_mktg_item_value'][0]['price'] ?>
-                                                    </label><br>
+                                            {{--IF Image is available in menu option(**)--}}
+                                            @if($item_opt['image'])
+                                                <div class="col-md-4">
+                                                    <div class="image-wrapper">
+                                                        <img src="{{url($item_opt['image'])}}" class="img-responsive image-center">
+                                                    </div>
+                                                    <a role="tab" class="btn btn-green">
+                                                        <label class="radio-inline black size-13" >
+                                                            <input type="radio" name="img_option" value="{!! $item_opt['rel_mktg_item_value'][0]['id'] !!}">
+                                                            {{$item_opt['title']}}
+                                                        </label>
+                                                    </a>
                                                 </div>
-                                            </div>
+                                            @else
+                                                <div class="col-md-6">
+                                                    <div class="checkbox">
+                                                        <label class="green-yellow">
+                                                            <input name="option[{!! $item_opt['rel_mktg_item_value'][0]['id'] !!}]" value="{!! $item_opt['rel_mktg_item_value'][0]['price'] !!}" type="hidden">
+                                                            <i class="{{ $item_opt['icon'] }}"></i> {{$item_opt['title']}}
+                                                            <?php $option += $item_opt['rel_mktg_item_value'][0]['price'] ?>
+                                                        </label><br>
+                                                    </div>
+
+                                                </div>
+                                            @endif
                                         @endif
 
                                     @endforeach
