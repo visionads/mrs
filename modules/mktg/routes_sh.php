@@ -8,10 +8,6 @@
 
 
 
-Route::any('agency-stationary-material/{slug}',[
-    //'middleware' => 'acl_access:main/agency-stationary-material/{slug}',
-    'as'    =>  'agency-stationary-material',
-    'uses'  =>  'AgencyMarketingController@agency_stationary_material'
-]);
+
 
 

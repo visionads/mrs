@@ -8,206 +8,260 @@
 
 
 
-Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers'), function() {
+//Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers'), function() {
+Route::group(array('modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers'), function() {
 
 
     @include('routes_sh.php');
-    @include('routes_order.php');
+    //@include('routes_order.php');
+//===========================================================//
+//-------------------- From Shamimul --------------------------//
+//===========================================================//
+    Route::post('marketing/add-to-cart/{product_id}',[
+        'middleware' => 'acl_access:marketing/add-to-cart/{product_id}',
+        'as'    =>  'add-to-cart',
+        'uses'  =>  'OrderController@add_to_cart'
+    ]);
+    Route::get('marketing/order-details/{order_id}',[
+        'middleware' => 'acl_access:marketing/order-details/{order_id}',
+        'as'    =>  'order-details',
+        'uses'  =>  'OrderController@order_details'
+    ]);
+    Route::get('marketing/delete-order-details/{order_id}',[
+        'middleware' => 'acl_access:marketing/delete-order-details/{order_id}',
+        'as'    =>  'delete-order-details',
+        'uses'  =>  'OrderController@delete_order_details'
+    ]);
+    Route::get('marketing/delete-order/{order_id}',[
+        'middleware' => 'acl_access:marketing/delete-order/{order_id}',
+        'as'    =>  'delete-order',
+        'uses'  =>  'OrderController@delete_order'
+    ]);
+// payment route
+    Route::get('marketing/payment-success/{id}/{amount}', [
+        'middleware' => 'acl_access:marketing/payment-success/{id}/{amount}',
+        'as' => 'payment-success',
+        'uses' => 'PaymentController@store'
+    ]);
+    Route::get('marketing/payments', [
+        'middleware' => 'acl_access:marketing/payments',
+        'as' => 'payments',
+        'uses' => 'PaymentController@index'
+    ]);
+    Route::get('marketing/change_status/{id}/{status}', [
+        'middleware' => 'acl_access:marketing/change_status/{id}/{status}',
+        'as' => 'change_payment_status_for_mtkg_payment',
+        'uses' => 'PaymentController@change_status'
+    ]);
+
+//===============================================================//
+//----------------------- From Shajjad --------------------------//
+//===============================================================//
+
+    Route::any('marketing/agency-stationary-material/{slug}',[
+        'middleware' => 'acl_access:marketing/agency-stationary-material/{slug}',
+        'as'    =>  'agency-stationary-material',
+        'uses'  =>  'AgencyMarketingController@agency_stationary_material'
+    ]);
+
+//===============================================================//
+//----------------------- From Ram ------------------------------//
+//===============================================================//
 
 /*--------------------Marketing Material (Printing)-----*/
 
-    Route::get('marketing-material-printing',[
-        //'middleware' => 'acl_access:main/marketing-material-printing',
+    Route::get('marketing/marketing-material-printing',[
+        'middleware' => 'acl_access:marketing/marketing-material-printing',
         'as' => 'marketing-material-printing',
         'uses' => 'MarketingMaterialController@index'
     ]);
-    Route::get('marketing-material-proceed',[
-        //'middleware' => 'acl_access:main/marketing-material-printing',
+    Route::get('marketing/marketing-material-proceed',[
+        'middleware' => 'acl_access:marketing/marketing-material-printing',
         'as' => 'marketing-material-proceed',
         'uses' => 'MarketingMaterialController@proceed'
     ]);
 
     //===== For Agency Stationary Materials ***//
-    Route::get('letterhead',[
-        //'middleware' => 'acl_access:main/letterhead',
+    Route::get('marketing/letterhead',[
+        'middleware' => 'acl_access:marketing/letterhead',
         'as' => 'letterhead',
         'uses' => 'MarketingMaterialController@letterhead'
     ]);
-    Route::get('presentation',[
-        //'middleware' => 'acl_access:main/presentation',
+    Route::get('marketing/presentation',[
+        'middleware' => 'acl_access:marketing/presentation',
         'as' => 'presentation',
         'uses' => 'MarketingMaterialController@presentation'
     ]);
-    Route::get('withcomp',[
-        //'middleware' => 'acl_access:main/withcomp',
+    Route::get('marketing/withcomp',[
+        'middleware' => 'acl_access:marketing/withcomp',
         'as' => 'withcomp',
         'uses' => 'MarketingMaterialController@withcomp'
     ]);
-    Route::get('envelopes',[
-        //'middleware' => 'acl_access:main/envelopes',
+    Route::get('marketing/envelopes',[
+        'middleware' => 'acl_access:marketing/envelopes',
         'as' => 'envelopes',
         'uses' => 'MarketingMaterialController@envelopes'
     ]);
-    Route::get('forms',[
-        //'middleware' => 'acl_access:main/forms',
+    Route::get('marketing/forms',[
+        'middleware' => 'acl_access:marketing/forms',
         'as' => 'forms',
         'uses' => 'MarketingMaterialController@forms'
     ]);
-    Route::get('carbon',[
-        //'middleware' => 'acl_access:main/carbon',
+    Route::get('marketing/carbon',[
+        'middleware' => 'acl_access:marketing/carbon',
         'as' => 'carbon',
         'uses' => 'MarketingMaterialController@carbon'
     ]);
 
     //===== For Agency /Agent Marketing ***//
-    Route::get('teardrop',[
-        //'middleware' => 'acl_access:main/teardrop',
+    Route::get('marketing/teardrop',[
+        'middleware' => 'acl_access:marketing/teardrop',
         'as' => 'teardrop',
         'uses' => 'MarketingMaterialController@teardrop'
     ]);
-    Route::get('directional',[
-        //'middleware' => 'acl_access:main/directional',
+    Route::get('marketing/directional',[
+        'middleware' => 'acl_access:marketing/directional',
         'as' => 'directional',
         'uses' => 'MarketingMaterialController@directional'
     ]);
-    Route::get('vynle',[
-        //'middleware' => 'acl_access:main/vynle',
+    Route::get('marketing/vynle',[
+        'middleware' => 'acl_access:marketing/vynle',
         'as' => 'vynle',
         'uses' => 'MarketingMaterialController@vynle'
     ]);
-    Route::get('pullup',[
-        //'middleware' => 'acl_access:main/pullup',
+    Route::get('marketing/pullup',[
+        'middleware' => 'acl_access:marketing/pullup',
         'as' => 'pullup',
         'uses' => 'MarketingMaterialController@pullup'
     ]);
-    Route::get('business',[
-        //'middleware' => 'acl_access:main/business',
+    Route::get('marketing/business',[
+        'middleware' => 'acl_access:marketing/business',
         'as' => 'business',
         'uses' => 'MarketingMaterialController@business'
     ]);
-    Route::get('brochure',[
-        //'middleware' => 'acl_access:main/brochure',
+    Route::get('marketing/brochure',[
+        'middleware' => 'acl_access:marketing/brochure',
         'as' => 'brochure',
         'uses' => 'MarketingMaterialController@brochure'
     ]);
-    Route::get('fridge',[
-        //'middleware' => 'acl_access:main/fridge',
+    Route::get('marketing/fridge',[
+        'middleware' => 'acl_access:marketing/fridge',
         'as' => 'fridge',
         'uses' => 'MarketingMaterialController@fridge'
     ]);
-    Route::get('magazine',[
-        //'middleware' => 'acl_access:main/magazine',
+    Route::get('marketing/magazine',[
+        'middleware' => 'acl_access:marketing/magazine',
         'as' => 'magazine',
         'uses' => 'MarketingMaterialController@magazine'
     ]);
-    Route::get('calender',[
-        //'middleware' => 'acl_access:main/calender',
+    Route::get('marketing/calender',[
+        'middleware' => 'acl_access:marketing/calender',
         'as' => 'calender',
         'uses' => 'MarketingMaterialController@calender'
     ]);
-    Route::get('letterdrop',[
-        //'middleware' => 'acl_access:main/letterdrop',
+    Route::get('marketing/letterdrop',[
+        'middleware' => 'acl_access:marketing/letterdrop',
         'as' => 'letterdrop',
         'uses' => 'MarketingMaterialController@letterdrop'
     ]);
 
     //===== For Agency /Agent Marketing ***//
-    Route::get('property-cards',[
-        //'middleware' => 'acl_access:main/property-cards',
+    Route::get('marketing/property-cards',[
+        'middleware' => 'acl_access:marketing/property-cards',
         'as' => 'property-cards',
         'uses' => 'MarketingMaterialController@property_cards'
     ]);
-    Route::get('pvc-sign',[
-        //'middleware' => 'acl_access:main/pvc-sign',
+    Route::get('marketing/pvc-sign',[
+        'middleware' => 'acl_access:marketing/pvc-sign',
         'as' => 'pvc-sign',
         'uses' => 'MarketingMaterialController@pvc_sign'
     ]);
-    Route::get('sold',[
-        //'middleware' => 'acl_access:main/sold',
+    Route::get('marketing/sold',[
+        'middleware' => 'acl_access:marketing/sold',
         'as' => 'sold',
         'uses' => 'MarketingMaterialController@sold'
     ]);
-    Route::get('congratulation',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::get('marketing/congratulation',[
+        'middleware' => 'acl_access:marketing/congratulation',
         'as' => 'congratulation',
         'uses' => 'MarketingMaterialController@congratulation'
     ]);
 
     //===== Form Menu Items ***//
-    Route::get('mktg-menu-item',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::get('marketing/mktg-menu-item',[
+        'middleware' => 'acl_access:marketing/mktg-menu-item',
         'as' => 'mktg-menu-item',
         'uses' => 'MarketingMaterialController@mktg_menu_item_index'
     ]);
-    Route::post('store-menu-item',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::post('marketing/store-menu-item',[
+        'middleware' => 'acl_access:marketing/store-menu-item',
         'as' => 'store-menu-item',
         'uses' => 'MarketingMaterialController@mktg_menu_item_store'
     ]);
-    Route::get('mktg-menu-item-view/{id}',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::get('marketing/mktg-menu-item-view/{id}',[
+        'middleware' => 'acl_access:marketing/mktg-menu-item-view/{id}',
         'as' => 'mktg-menu-item-view',
         'uses' => 'MarketingMaterialController@mktg_menu_item_view'
     ]);
-    Route::get('mktg-menu-item-search',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::get('marketing/mktg-menu-item-search',[
+        'middleware' => 'acl_access:marketing/mktg-menu-item-search',
         'as' => 'mktg-menu-item-search',
         'uses' => 'MarketingMaterialController@mktg_menu_item_search'
     ]);
-    Route::get('mktg-menu-item-details/{id}',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::get('marketing/mktg-menu-item-details/{id}',[
+        'middleware' => 'acl_access:marketing/mktg-menu-item-details/{id}',
         'as' => 'mktg-menu-item-details',
         'uses' => 'MarketingMaterialController@mktg_menu_item_details'
     ]);
-    Route::get('mktg-menu-item-edit/{id}',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::get('marketing/mktg-menu-item-edit/{id}',[
+        'middleware' => 'acl_access:marketing/mktg-menu-item-edit/{id}',
         'as' => 'mktg-menu-item-edit',
         'uses' => 'MarketingMaterialController@mktg_menu_item_edit'
     ]);
-    Route::patch('mktg-menu-item-update/{id}',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::patch('marketing/mktg-menu-item-update/{id}',[
+        'middleware' => 'acl_access:marketing/mktg-menu-item-update/{id}',
         'as' => 'mktg-menu-item-update',
         'uses' => 'MarketingMaterialController@mktg_menu_item_update'
     ]);
-    Route::get('mktg-menu-item-delete/{id}',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::get('marketing/mktg-menu-item-delete/{id}',[
+        'middleware' => 'acl_access:marketing/mktg-menu-item-delete/{id}',
         'as' => 'mktg-menu-item-delete',
         'uses' => 'MarketingMaterialController@mktg_menu_item_delete'
     ]);
 
     //=== Item value
-    Route::get('mktg-item-option-add-value/{id}',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::get('marketing/mktg-item-option-add-value/{id}',[
+        'middleware' => 'acl_access:marketing/mktg-item-option-add-value/{id}',
         'as' => 'mktg-item-option-add-value',
         'uses' => 'MarketingMaterialController@mktg_item_option_add_value'
     ]);
-    Route::post('mktg-item-option-add-value-store/{id}',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::post('marketing/mktg-item-option-add-value-store/{id}',[
+        'middleware' => 'acl_access:marketing/mktg-item-option-add-value-store/{id}',
         'as' => 'mktg-item-option-add-value-store',
         'uses' => 'MarketingMaterialController@mktg_item_option_add_value_store'
     ]);
-    Route::patch('mktg-item-option-add-value-update/{id}',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::patch('marketing/mktg-item-option-add-value-update/{id}',[
+        'middleware' => 'acl_access:marketing/mktg-item-option-add-value-update/{id}',
         'as' => 'mktg-item-option-add-value-update',
         'uses' => 'MarketingMaterialController@mktg_item_option_add_value_update'
     ]);
 
 
     //===== Order Details
-    Route::get('mktg-order',[
-        //'middleware' => 'acl_access:main/congratulation',
+    Route::get('marketing/mktg-order',[
+        'middleware' => 'acl_access:marketing/mktg-order',
         'as' => 'mktg-order',
         'uses' => 'MarketingMaterialController@mktg_order'
     ]);
 
     //==== Invoice
-    Route::get('invoice-list',[
-        //'middleware' => 'acl_access:marketing/make-invoice/{order_id}',
+    Route::get('marketing/invoice-list',[
+        'middleware' => 'acl_access:marketing/invoice-list',
         'as' => 'invoice-list',
         'uses' => 'MktgInvoiceController@index'
     ]);
-    Route::get('make-invoice/{order_id}',[
-        //'middleware' => 'acl_access:marketing/make-invoice/{order_id}',
+    Route::get('marketing/make-invoice/{order_id}',[
+        'middleware' => 'acl_access:marketing/make-invoice/{order_id}',
         'as' => 'make-invoice',
         'uses' => 'MktgInvoiceController@make_invoice'
     ]);
@@ -215,8 +269,5 @@ Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Mo
         'as' => 'get-price',
         'uses'=>'OrderController@get_price'
     ]);
-
-
-
 
 });

@@ -1,7 +1,21 @@
 @extends('admin::layouts.master')
 
 @section('content')
+    <link href="{{ URL::asset('assets/css/simplegallery.demo1.min.css') }}" rel="stylesheet" type="text/css" >
+    <script type="text/javascript" src="{{ URL::asset('assets/js/simplegallery.min.js') }}"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $('#gallery').simplegallery({
+                galltime : 400,
+                gallcontent: '.content',
+                gallthumbnail: '.thumbnail',
+                gallthumb: '.thumb'
+            });
+
+        });
+    </script>
 
     <div id="container" class="container pages new_order font-droid">
 
@@ -10,11 +24,32 @@
                 {!! Form::open(['route'=>['add-to-cart',$data['id']],'id'=>'genForm','files'=>true]) !!}
 
                 <div class="row">
+                    {{--Left pan:: For Image gallery--}}
                     <div class="col-md-4">
                         <div class="image-box">
-                            <img src="{{ url($data['rel_mktg_menu_item_image'][0]['image']) }}" class="img-responsive image-center" width="100%" style="height:130px;">
+                            <section id="gallery" class="simplegallery">
+                                <div class="content">
+                                    @for($i=0; $i<sizeof($data['rel_mktg_menu_item_image']); $i++)
+                                        <img src="{{ url($data['rel_mktg_menu_item_image'][$i]['image']) }}" class="image_{{$i}}" alt="" />
+                                    @endfor
+                                </div>
+                                {{--<div class="clearfix" style="background: none !important;"></div>--}}
+
+                                <div class="thumbnail">
+                                    @for($i=0; $i<sizeof($data['rel_mktg_menu_item_image']); $i++)
+                                    <div class="thumb">
+                                        <a href="#" rel="1">
+                                            <img src="{{ url($data['rel_mktg_menu_item_image'][$i]['image_thumb']) }}" id="thumb_{{$i}}" alt="" />
+                                        </a>
+                                    </div>
+                                    @endfor
+                                    <div class="clearfix"></div>
+                                </div>
+                            </section>
                         </div>
                     </div>
+
+                    {{--Right pan::for form and other items--}}
                     <div class="col-md-8 green-yellow">
                         <h3 class="green-yellow">{{ $pageTitle }}</h3>
                         {{--{!! Form::open(['method'=>'GET','route'=>'solution-type-search','class'=>'form-inline']) !!}
