@@ -74,8 +74,8 @@
                                                     <div class="image-wrapper">
                                                         <img src="{{url($item_opt['image'])}}" class="img-responsive image-center">
                                                     </div>
-                                                    <a role="tab" class="btn btn-green">
-                                                        <label class="radio-inline black size-13" >
+                                                    <a role="tab" class="btn btn-green" style="width:100%;">
+                                                        <label class="radio-inline black size-13 text-left" style="width: 100%;" >
                                                             <input type="radio" name="img_option" value="{!! $item_opt['rel_mktg_item_value'][0]['id'] !!}">
                                                             {{$item_opt['title']}}
                                                         </label>
