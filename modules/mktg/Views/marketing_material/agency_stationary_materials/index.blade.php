@@ -66,21 +66,22 @@
                                 @if(isset($data['rel_mktg_item_option']))
                                     <?php $i=1; ?>
                                     @foreach($data['rel_mktg_item_option'] as $item_opt)
-
                                         @if($item_opt['type']=='option')
                                             {{--IF Image is available in menu option(**)--}}
                                             @if($item_opt['image'])
+
                                                 <div class="col-md-4">
                                                     <div class="image-wrapper">
                                                         <img src="{{url($item_opt['image'])}}" class="img-responsive image-center">
                                                     </div>
                                                     <a role="tab" class="btn btn-green" style="width:100%;">
                                                         <label class="radio-inline black size-13 text-left" style="width: 100%;" >
-                                                            <input type="radio" name="img_option" value="{!! $item_opt['rel_mktg_item_value'][0]['id'] !!}">
+                                                            <input type="radio" name="img_option" value="{!! $item_opt['rel_mktg_item_value'][0]['id'] !!}" <?php if($i++ =='1'){echo 'checked="checked"'; } ?> >
                                                             {{$item_opt['title']}}
                                                         </label>
                                                     </a>
                                                 </div>
+
                                             @else
                                                 <div class="col-md-6">
                                                     <div class="checkbox">
