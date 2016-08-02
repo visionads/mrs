@@ -660,6 +660,32 @@ div.profile-content > ul.profile-nav > li a:hover {
     border-radius: 18px;
     font-family: 'Droid Serif', serif;
 }
+#settings_button_one .btn{
+    background-color: #c4d82e;
+    border: solid 1px #000 !important;
+    color: black;
+    width: 280px !important;
+    line-height: 3.2em !important;
+    font-size: 15px;
+    border-radius: 18px;
+    font-family: 'Droid Serif', serif;
+}
+#settings_button_one .btn:hover{
+    background-color: #b3c71d;
+}
+#settings_button_two .btn{
+    background-color: #c4d82e;
+    border: solid 1px #000 !important;
+    color: black;
+    width: 280px !important;
+    line-height: 3.2em !important;
+    font-size: 15px;
+    border-radius: 18px;
+    font-family: 'Droid Serif', serif;
+}
+#settings_button_two .btn:hover{
+    background-color: #b3c71d;
+}
 
 #button_align .text-center{
     text-align: center;
@@ -877,6 +903,10 @@ div.upload-path-css:before { content: "Signature"; position:absolute; font-size:
 .green-yellow-bg-btn span { font-size: 70px !important;}
 .green-yellow-bg-btn a { display: block; color: black; padding:8% 4%;}
 .green-yellow-bg-btn a.below { display: block; color: black; padding:1% 1%;}
+
+a.green-yellow-bg-btn-1 { background:#c4d82e !important; border-radius:10px; text-align: center; padding: 4%; font-size: 14px; margin: 10px 0; }
+a.green-yellow-bg-btn-1:hover { display: block; color: black; padding:1% 1%;}
+
 .relative { position: relative; }
 .absolute { position: absolute; }
 .sticker-red { font-size:12px !important; width:40px; font-weight:bold; background: red; color: #fff !important; padding:5px 0; font-family: Arial !important; }
