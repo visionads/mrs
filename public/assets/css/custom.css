@@ -196,6 +196,9 @@ select.input-sm, select.form-group-sm .form-control {
 .green-bg { background: #f0fff0;}
 .red-bg { background: #fff0f0;}
 .gray-bg-light { background: #f0f0f0;}
+.black-bg { background: #202020 !important; color: #d0d0d0;}
+
+table.dark-border { border:1px solid #505050;}
 
 /* For table search*/
 #example_filter label { font-size:13px;}
