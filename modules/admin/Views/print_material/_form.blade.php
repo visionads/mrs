@@ -8,7 +8,7 @@
     <div>
         {!! Form::label('title', 'Title:', []) !!}
         <small class="required">(Required)</small>
-        {!! Form::text('title', Input::old('title'), ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
+        {!! Form::text('title', Input::old('title'), ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title','required']) !!}
     </div>
     <div>
         {!! Form::label('is_distribution', 'Is Distribution:', []) !!}
@@ -36,7 +36,7 @@
             </div>
             <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
             <div class="image-center">
-                <input type="file" name="image" id="image" class="default" />
+                <input type="file" name="image" id="image" class="default" required />
             </div>
         </div>
         <span class="label label-danger">NOTE!</span>

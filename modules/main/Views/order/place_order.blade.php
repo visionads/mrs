@@ -53,7 +53,7 @@
                     <div class="col-sm-12">
                         {!! Form::label('property_description', 'Property description :', ['class' => 'control-label']) !!}
                         <small class="required size-13">(Required)</small>
-                        {!! Form::textarea('property_description', isset($property_description)?$property_description:null,['size' => '6x9','title'=>'Type property description','id'=>'property_description','placeholder'=>'property description here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                        {!! Form::textarea('property_description', isset($property_description)?$property_description:null,['size' => '6x9','title'=>'Type property description','id'=>'property_description','placeholder'=>'property description here..','spellcheck'=>'true','class' => 'form-control text-left','required']) !!}
                     </div>
                 </div>
 

@@ -80,7 +80,7 @@
                                 <h4 class="modal-title" id="myModalLabel">Add : {{ $pageTitle }} </h4>
                         </div>
                         <div class="modal-body">
-                                {!! Form::open(['method'=>'GET', 'route'=>'solution-type-store','class' => '','id' => 'jq-validation-form']) !!}
+                                {!! Form::open(['method'=>'POST', 'route'=>'solution-type-store','class' => '','id' => 'jq-validation-form']) !!}
                                 @include('admin::solution_type._form')
                                 {!! Form::close() !!}
 

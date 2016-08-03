@@ -81,7 +81,7 @@
                 <h4 class="modal-title" id="myModalLabel">Add : {{ $pageTitle }} </h4>
             </div>
             <div class="modal-body">
-                {!! Form::open(['method'=>'GET', 'route'=>'digital-media-store','class' => '','id' => 'jq-validation-form']) !!}
+                {!! Form::open(['method'=>'POST', 'route'=>'digital-media-store','class' => '','id' => 'jq-validation-form']) !!}
                 @include('admin::digital_media._form')
                 {!! Form::close() !!}
 

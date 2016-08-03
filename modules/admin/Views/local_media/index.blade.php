@@ -79,7 +79,7 @@
                                         <h4 class="modal-title" id="myModalLabel">Add : {{ $pageTitle }} </h4>
                                 </div>
                                 <div class="modal-body">
-                                        {!! Form::open(['method'=>'GET', 'route'=>'local-media-store','class' => '','id' => 'jq-validation-form']) !!}
+                                        {!! Form::open(['method'=>'POST', 'route'=>'local-media-store','class' => '','id' => 'jq-validation-form']) !!}
                                                 @include('admin::local_media._form')
                                         {!! Form::close() !!}
 

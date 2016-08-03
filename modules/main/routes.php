@@ -77,12 +77,12 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
 /*-----------------Pages Router---------------*/
 
     Route::get('what-we-do', [
-        'middleware' => 'acl_access:main/what-we-do',
+        //'middleware' => 'acl_access:main/what-we-do',
         'as' => 'what-we-do',
         'uses' => 'PagesController@what_we_do'
     ]);
     Route::get('need-help', [
-        'middleware' => 'acl_access:main/need-help',
+        //'middleware' => 'acl_access:main/need-help',
         'as' => 'need-help',
         'uses' => 'PagesController@need_help'
     ]);

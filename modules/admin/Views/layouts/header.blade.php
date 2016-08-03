@@ -82,9 +82,9 @@
 
                     <ul class="nav navbar-nav navbar-right no-padding">
                         <li><a href="{{route('dashboard')}}"><span class="link-underline">HOME</span></a></li>
-                        <li><a href="{{ route('what-we-do') }}"><span class="link-underline">WHAT WE DO</span></a></li>
+
                         @if(isset(Auth::user()->username))
-                            <li><a href="{{ route('need-help') }}"><span class="link-underline">NEED HELP</span></a></li>
+                            {{--<li><a href="{{ route('need-help') }}"><span class="link-underline">NEED HELP</span></a></li>--}}
 
                             <!--Dropdown-->
                             <li class="dropdown">
@@ -112,6 +112,8 @@
                                 </ul>
                             </li>
                         @else
+                            <li><a href="{{ route('what-we-do') }}"><span class="link-underline">WHAT WE DO</span></a></li>
+                            <li><a href="{{ route('need-help') }}"><span class="link-underline">NEED HELP</span></a></li>
                             <li><a href="#">CONTACT US</a></li>
                             <li class="active"><a href="{{route('get-user-login')}}" class="button">SIGN</a></li>
                         @endif

@@ -35,12 +35,12 @@
 
 {!! Form::open(['route' => 'post-user-login','id'=>'login-data-validation']) !!}
 
-<div class="col-md-4 col-md-offset-4 login_div" id="login_signin2" >
+<div class="col-sm-4 col-sm-offset-4 login_div" id="login_signin2" >
     <div class="form-group" id="sign1">
-        {!! Form::text('email', Input::old('email'), ['class' => 'form-control input-lg','required','placeholder'=>'USERNAME OR EMAIL', 'autocomplete'=>'off','autofocus']) !!}
+        {!! Form::text('email', Input::old('email'), ['class' => 'form-control','required','placeholder'=>'USERNAME OR EMAIL', 'autocomplete'=>'off','autofocus']) !!}
     </div>
     <div class="form-group" id="sign1">
-        {!! Form::password('password', ['class'=>'form-control input-lg',''=>'', 'placeholder'=>'PASSWORD', 'required'=>'required']) !!}
+        {!! Form::password('password', ['class'=>'form-control',''=>'', 'placeholder'=>'PASSWORD', 'required'=>'required']) !!}
     </div>
     <br>
     <div class="form-group" id="sign">
