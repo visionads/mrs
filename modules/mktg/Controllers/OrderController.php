@@ -44,7 +44,7 @@ class OrderController extends Controller
                 $sms = $request['delivery_to'];
                 $token = csrf_token();
                 //print_r($token);exit();
-                try{
+                /*try{
                     Mail::send('mktg::marketing_material.property_marketing.mail_body_text', array('link'=>$token,'user'=>$email),
                         function($message) use ($email)
                         {
@@ -60,7 +60,7 @@ class OrderController extends Controller
                 }catch (\Exception $e){
                     exit('Not Sending...');
                     Session::flash('error', $e->getMessage());
-                }
+                }*/
             }
         }//=== End of emailing
 

@@ -41,12 +41,15 @@
                         <div class="image-box">
                             <section id="gallery" class="simplegallery">
                                 <div class="content">
+                                    @if($data['rel_mktg_menu_item_image'])
                                     @for($i=0; $i<sizeof($data['rel_mktg_menu_item_image']); $i++)
                                         <img src="{{ url($data['rel_mktg_menu_item_image'][$i]['image']) }}" class="image_{{$i}}" alt="" />
                                     @endfor
+                                    @endif
                                 </div>
                                 
                                 <div class="thumbnail">
+                                    @if($data['rel_mktg_menu_item_image'])
                                     @for($i=0; $i<sizeof($data['rel_mktg_menu_item_image']); $i++)
                                     <div class="thumb">
                                         <a href="#" rel="1">
@@ -54,6 +57,7 @@
                                         </a>
                                     </div>
                                     @endfor
+                                    @endif
                                     <div class="clearfix"></div>
                                 </div>
                             </section>
@@ -112,11 +116,13 @@
 
                                                 <div class="col-md-6">
                                                     <div class="checkbox">
+                                                        @if(isset($item_opt['rel_mktg_item_value'][0]['id']))
                                                         <label class="green-yellow">
                                                             <input name="option[{!! $item_opt['rel_mktg_item_value'][0]['id'] !!}]" value="{!! $item_opt['rel_mktg_item_value'][0]['price'] !!}" type="hidden">
                                                             <i class="{{ $item_opt['icon'] }}"></i> {{$item_opt['title']}}
                                                             <?php $option += $item_opt['rel_mktg_item_value'][0]['price'] ?>
                                                         </label><br>
+                                                        @endif
                                                     </div>
 
                                                 </div>
@@ -156,26 +162,28 @@
                                                         {!! Form::label('qty', $item_opt['title'], ['class'=>'control-label col-sm-4 green-yellow']) !!}
                                                         <div class="col-sm-8">
                                                             <?php $i=0; ?>
-                                                            @if($prdct_id !== '')
-                                                                {{--============For Vynle Stickers outdoor===========--}}
-                                                                <select name="option[{{ $item_opt['rel_mktg_item_value'][$i]['id'] }}]" class='form-control deeppink size-15' onchange="myFunction(this.value)" <?php echo $prdct_id; ?> >
-                                                                    @if(isset($item_opt['rel_mktg_item_value']))
-                                                                        @foreach($item_opt['rel_mktg_item_value'] as $item_val)
-                                                                            <option value="{{ $item_val['title'] }}">{{ $item_val['title'] }}</option>
-                                                                            <?php $i++;?>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </select>
-                                                            @else
-                                                                {{--============For General Forms===========--}}
-                                                                <select name="option[{{ $item_opt['rel_mktg_item_value'][$i]['id'] }}]" class='form-control deeppink size-15' onchange="myFunction(this.value)" <?php echo $prdct_id; ?> >
-                                                                    @if(isset($item_opt['rel_mktg_item_value']))
-                                                                        @foreach($item_opt['rel_mktg_item_value'] as $item_val)
-                                                                            <option value="{{ $item_val['price'] }}">{{ $item_val['title'] }}</option>
-                                                                            <?php $i++;?>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </select>
+                                                            @if(isset($item_opt['rel_mktg_item_value'][$i]['id']))
+                                                                @if($prdct_id !== '')
+                                                                    {{--============For Vynle Stickers outdoor===========--}}
+                                                                    <select name="option[{{ $item_opt['rel_mktg_item_value'][$i]['id'] }}]" class='form-control deeppink size-15' onchange="myFunction(this.value)" <?php echo $prdct_id; ?> >
+                                                                        @if(isset($item_opt['rel_mktg_item_value']))
+                                                                            @foreach($item_opt['rel_mktg_item_value'] as $item_val)
+                                                                                <option value="{{ $item_val['title'] }}">{{ $item_val['title'] }}</option>
+                                                                                <?php $i++;?>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </select>
+                                                                @else
+                                                                    {{--============For General Forms===========--}}
+                                                                    <select name="option[{{ $item_opt['rel_mktg_item_value'][$i]['id'] }}]" class='form-control deeppink size-15' onchange="myFunction(this.value)" <?php echo $prdct_id; ?> >
+                                                                        @if(isset($item_opt['rel_mktg_item_value']))
+                                                                            @foreach($item_opt['rel_mktg_item_value'] as $item_val)
+                                                                                <option value="{{ $item_val['price'] }}">{{ $item_val['title'] }}</option>
+                                                                                <?php $i++;?>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </select>
+                                                                @endif
                                                             @endif
                                                             <?php ?>
                                                             {{--{!! Form::select('qty'.$i, [$value[$item_val['id']]],Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}--}}
