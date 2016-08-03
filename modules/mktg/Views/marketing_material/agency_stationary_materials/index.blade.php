@@ -21,7 +21,19 @@
 
         <div class="col-md-12">
             @if(isset($data))
+
                 {!! Form::open(['route'=>['add-to-cart',$data['id']],'id'=>'genForm','files'=>true]) !!}
+
+                {{--=========For Congratulatory Pack ===============--}}
+                @if($data['slug']=='congratulatory-pack')
+                    <script>
+                        $(document).ready(function(){
+                            $('.rmv').remove();
+                            $('.eml').show();
+                        });
+                    </script>
+                    <input type="hidden" name="congratulatory_pack" value="{{ $data['slug'] }}">
+                @endif
 
                 <div class="row">
                     {{--Left pan:: For Image gallery--}}
@@ -68,7 +80,21 @@
                                     @foreach($data['rel_mktg_item_option'] as $item_opt)
                                         @if($item_opt['type']=='option')
                                             {{--IF Image is available in menu option(**)--}}
-                                            @if($item_opt['image'])
+                                            @if(empty($item_opt['image']) && empty($item_opt['icon']))
+
+                                                <div class="col-md-4">
+                                                    {{--<div class="image-wrapper">
+                                                        <img src="{{url($item_opt['image'])}}" class="img-responsive image-center">
+                                                    </div>--}}
+                                                    <a role="tab" class="btn btn-green" style="width:100%;">
+                                                        <label class="radio-inline black size-13 text-left" style="width: 100%;" >
+                                                            <input type="radio" name="img_option" value="{!! $item_opt['rel_mktg_item_value'][0]['id'] !!}" <?php if($i++ =='1'){echo 'checked="checked"'; } ?> >
+                                                            {{$item_opt['title']}}
+                                                        </label>
+                                                    </a>
+                                                </div>
+
+                                            @elseif(!empty($item_opt['image']) && empty($item_opt['icon']))
 
                                                 <div class="col-md-4">
                                                     <div class="image-wrapper">
@@ -83,6 +109,7 @@
                                                 </div>
 
                                             @else
+
                                                 <div class="col-md-6">
                                                     <div class="checkbox">
                                                         <label class="green-yellow">
@@ -103,21 +130,53 @@
                                 @if(isset($data['rel_mktg_item_option']))
                                     @foreach($data['rel_mktg_item_option'] as $item_opt)
                                         @if($item_opt['type']=='value')
-                                            <div class="col-sm-12" style="height: 30px;"></div>
-                                            <div class="col-sm-6">
+                                            <?php
+                                                //===== For Vynle Stickers
+                                                $hide = '';
+                                                $prdct_id = '';
+                                                if($item_opt['title']=='SOLD/LEASE')
+                                                {
+                                                    $hide = 'id="generic"';
+                                                }
+                                                if($item_opt['title']=='Custom shape')
+                                                {
+                                                    $hide = 'id="custom"';
+                                                }
+                                                if($item_opt['title']=='Product' && $pageTitle == 'Vynle stickers outdoor (SOLD)')
+                                                {
+                                                    $prdct_id = 'id="product"';
+                                                }
+                                            ?>
+
+                                            <div class="col-sm-12" style="height:10px;"></div>
+
+                                            <div class="col-sm-6 rmv" <?php echo $hide; ?> >
                                                 <div style="border-left: 3px dashed #404040;">
                                                     <div class="form-group">
                                                         {!! Form::label('qty', $item_opt['title'], ['class'=>'control-label col-sm-4 green-yellow']) !!}
                                                         <div class="col-sm-8">
                                                             <?php $i=0; ?>
-                                                            <select name="option[{{ $item_opt['rel_mktg_item_value'][$i]['id'] }}]" class='form-control deeppink size-15' onchange="myFunction(this.value)">
-                                                                @if(isset($item_opt['rel_mktg_item_value']))
-                                                                    @foreach($item_opt['rel_mktg_item_value'] as $item_val)
-                                                                        <option value="{{ $item_val['price'] }}" >{{ $item_val['title'] }}</option>
-                                                                        <?php $i++;?>
-                                                                    @endforeach
-                                                                @endif
-                                                            </select>
+                                                            @if($prdct_id !== '')
+                                                                {{--============For Vynle Stickers outdoor===========--}}
+                                                                <select name="option[{{ $item_opt['rel_mktg_item_value'][$i]['id'] }}]" class='form-control deeppink size-15' onchange="myFunction(this.value)" <?php echo $prdct_id; ?> >
+                                                                    @if(isset($item_opt['rel_mktg_item_value']))
+                                                                        @foreach($item_opt['rel_mktg_item_value'] as $item_val)
+                                                                            <option value="{{ $item_val['title'] }}">{{ $item_val['title'] }}</option>
+                                                                            <?php $i++;?>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </select>
+                                                            @else
+                                                                {{--============For General Forms===========--}}
+                                                                <select name="option[{{ $item_opt['rel_mktg_item_value'][$i]['id'] }}]" class='form-control deeppink size-15' onchange="myFunction(this.value)" <?php echo $prdct_id; ?> >
+                                                                    @if(isset($item_opt['rel_mktg_item_value']))
+                                                                        @foreach($item_opt['rel_mktg_item_value'] as $item_val)
+                                                                            <option value="{{ $item_val['price'] }}">{{ $item_val['title'] }}</option>
+                                                                            <?php $i++;?>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </select>
+                                                            @endif
                                                             <?php ?>
                                                             {{--{!! Form::select('qty'.$i, [$value[$item_val['id']]],Input::old('qty'),['class' => 'form-control deeppink size-15','id'=>'', 'onchange'=>'myFunction()','required']) !!}--}}
                                                         </div>
@@ -128,8 +187,66 @@
                                         @endif
                                     @endforeach
                                 @endif
+                                <script>
+                                    //===== Script for Vynle Stickers outdoor
+                                    $(document).ready(function(){
+                                        $("#generic").hide();
+                                        $("#custom").hide();
+
+                                        $("#product").change(function(){
+                                            var selectData = ($("#product").val());
+                                            if(selectData=='Generic'){
+                                            //if(selectData=='1'){
+                                                $("#generic").slideDown();
+                                                $("#custom").hide();
+                                            }
+                                            if(selectData=='Custom'){
+                                            //if(selectData=='2'){
+                                                $("#custom").slideDown();
+                                                $("#generic").hide();
+                                            }
+                                            if(selectData!=='Generic' && selectData!=='Custom')
+                                            //if(selectData!=='2' && selectData!=='1')
+                                            {
+                                                $("#generic").hide();
+                                                $("#custom").hide();
+                                            }
+                                        })
+                                    });
+                                </script>
 
                                 <div class="col-sm-12" style="height: 30px;"></div>
+
+
+                                {{--=============For Congratulatory Pack Email form==============--}}
+                                <div class="col-md-12 eml" style="display: none;">
+                                    <div style="border: 1px dashed #909000; padding: 15px;">
+                                        <div class="form-group">
+                                            {!! Form::label('send_to', 'SEND TO :', ['class'=>'control-label green-yellow']) !!}
+                                            <div class="">
+                                                {{--{!! Form::select('send_to', array('0'=>'Select Size','vendor'=>'Vendor','purchaser'=>'Purchaser'),Input::old('send_to'),['class' => 'form-control deeppink size-15','id'=>'','required']) !!}--}}
+                                                <select class="form-control deeppink size-15" name="send_to">
+                                                    @if(isset($vendor_data))
+                                                        @foreach($vendor_data as $v_data)
+                                                            <option>{{ $v_data->vendor_email }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {{--<div class="col-md-12"></div>--}}
+                                        <div class="form-group">
+                                            {!! Form::label('delivery_to', 'DELIVERY TO :', ['class'=>'control-label green-yellow']) !!}
+                                            <div class="">
+                                                {!! Form::textarea('delivery_to',Input::old('delivery_to'),['class' => 'form-control deeppink size-15','id'=>'']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>{{--End of Emil Form --}}
+
+                                <div class="col-sm-12" style="height: 30px;"></div>
+
 
                                 <div class="col-md-12">
                                     Do you need Artwork ?

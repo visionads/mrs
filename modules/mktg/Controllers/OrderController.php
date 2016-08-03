@@ -25,15 +25,45 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Mockery\CountValidator\Exception;
+use Mail;
+//use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
     public function add_to_cart(Request $reques, $product_id)
     {
-//        exit('Welcome to Index');
-        $request=$reques->all();
 
-        //print_r('Add To Cart');exit();
+        $request=$reques->all();
+        //===== For Congratulatory pack emailing
+        if(isset($request['congratulatory_pack']))
+        {
+            if($request['congratulatory_pack']=='congratulatory-pack')
+            {
+                //return($request['congratulatory_pack']);exit();
+                $email = $request['send_to'];
+                $sms = $request['delivery_to'];
+                $token = csrf_token();
+                //print_r($token);exit();
+                try{
+                    Mail::send('mktg::marketing_material.property_marketing.mail_body_text', array('link'=>$token,'user'=>$email),
+                        function($message) use ($email)
+                        {
+                            //print_r($email); exit();
+                            $message->from('engr.rampaul@gmail.com', 'User Password Set Notification');
+                            $message->to($email);
+                            $message->replyTo('engr.rampaul@gmail.com','forgot password Request');
+                            $message->subject('Forgot Password Reset Mail');
+                        });
+
+                    #print_r($user);exit;
+                    Session::flash('message', 'Successfully sent email to reset password. Please check your email!');
+                }catch (\Exception $e){
+                    exit('Not Sending...');
+                    Session::flash('error', $e->getMessage());
+                }
+            }
+        }//=== End of emailing
+
         DB::beginTransaction();
         try{
             $total_amount=0;

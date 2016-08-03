@@ -21,6 +21,7 @@ use App\MktgMenuItem;
 use App\MktgItemOption;
 use App\MktgMenuItemImage;
 use App\MktgItemValue;
+use App\PropertyDetail;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,8 @@ class AgencyMarketingController extends Controller
 
         $artwork = MktgArtwork::orderBy('slug','ASC')->get();
 
+        $vendor_data = PropertyDetail::orderBy('vendor_email','ASC')->get();
+
         #print_r($artwork);exit;
         /*return view('mktg::marketing_material.agency_stationary_materials.index',$data,$value);*/
 
@@ -49,6 +52,7 @@ class AgencyMarketingController extends Controller
             'value'=>$value,
             'artwork'=>$artwork,
             'slug' => $title,
+            'vendor_data'=>$vendor_data,
         ));
 
     }

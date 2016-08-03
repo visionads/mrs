@@ -32,7 +32,7 @@
 
 
         @if(isset($data))
-        @foreach($data as $row)
+            @foreach($data as $row)
 
                 <div id="{{ $row->id }}" class="modal fade" role="dialog" style="background: black !important;">
                     <div class="modal-dialog" style="background: black !important;">
@@ -57,18 +57,19 @@
 
                                         @if(isset($row->relMktgMenuItem))
                                             @foreach($row->relMktgMenuItem as $row_data)
+
                                                 <div class="col-sm-4">
-                                                    <div>
-                                                        {{--<img src="{{ URL::to('/assets/img/letter-head.jpg') }}" class="img-responsive image-center">--}}
-                                                        <img src="{{ url($row_data->relMktgMenuItemImage[0]['image']) }}" class="img-responsive image-center" width="100%" style="height:130px; margin:20px 0 5px 0">
-                                                    </div>
-                                                    <div class="green-yellow-bg-btn">
-                                                        {{--<a href="{{ route('letterhead') }}" class="below">--}}
-                                                        <a href="{{ route('agency-stationary-material', $row_data->slug ) }}" class="below">
-                                                            {{$row_data->title}}
-                                                        </a>
-                                                    </div>
+                                                    <a href="{{ route('agency-stationary-material', $row_data->slug ) }}" class="below">
+                                                        <div>
+                                                            {{--<img src="{{ URL::to('/assets/img/letter-head.jpg') }}" class="img-responsive image-center">--}}
+                                                            <img src="{{ url($row_data->relMktgMenuItemImage[0]['image']) }}" class="img-responsive image-center" width="100%" style="height:130px; margin:20px 0 5px 0">
+                                                        </div>
+                                                        <div class="green-yellow-bg-btn">
+                                                                {{$row_data->title}}
+                                                        </div>
+                                                    </a>
                                                 </div>
+
                                             @endforeach
                                         @endif
                                     </div>
@@ -85,7 +86,7 @@
                     </div>
                 </div>
 
-        @endforeach
+            @endforeach
         @endif
 
 
