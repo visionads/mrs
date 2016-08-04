@@ -100,7 +100,7 @@ class QuoteController extends Controller
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         $data['digital_medias']= DigitalMedia::get();
-        $data['packages'] = Package::with('relPackageOption')->get();
+        $data['packages'] = Package::with('relPackageOption')->where('status','open')->get();
         //print_r($data['packages']);exit();
 //        dd($data['signboard_packages']);
         return view('main::quote.create',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
