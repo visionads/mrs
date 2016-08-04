@@ -82,123 +82,62 @@
                                 </div>
                             </fieldset>
 
-                            {{--===================Package Start--}}
+                            {{--===== Package Start =====================================================================--}}
                             <fieldset><hr>
                                 <div class="form-bottom">
-                                    <h3 class="instruction">Packages<span class="required"> [Under Cnstruction !]</span></h3>
+                                    <h3 class="instruction">Packages</h3>
                                     <br>
                                     <div class="row text-center">
-                                        Choose a Package :
-                                        <label><input type="radio" name="choose" class="choose0" value="0">No</label>
-                                        <label><input type="radio" name="choose" class="choose1" value="1">Yes</label>
+                                        Would you like to choose a Complete Package ?<br>
+                                        <label><input type="radio" name="package" class="choose0" value="0" checked>No</label>
+                                        <label><input type="radio" name="package" class="choose1" value="1">Yes</label>
                                     </div>
+
                                     <div class="row pack-choise">
-                                        <div class="col-sm-4 size-13">
-                                            <label class="size-20" id="pack1">
-                                                <input type="radio" name="package" value="pack1"> Package - 01
-                                            </label>
-                                            <div class="form-group pack-1">
-                                                <h4 for="owner_name">Package details </h4>
-                                                <table class="table black-bg dark-border">
-                                                    <thead><tr><th>Items</th><th>Price</th></tr></thead>
-                                                    <tbody>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td align="right">Total =</td><td><strong style="border-bottom: 3px double #fff;">2300.00</strong></td></tr>
-                                                    </tbody>
-                                                </table>
+                                        @if(isset($data['packages']))
+                                            <?php $i=0; ?>
+                                            @foreach($data['packages'] as $package)
+                                            <div class="col-sm-4 size-13">
+                                                <div class="form-group pack-1">
+                                                    <table class="table black-bg package">
+                                                        <thead>
+                                                            <tr>
+                                                                <td colspan="3">
+                                                                    <label class="size-20" id="pack1" style="display: block; cursor: pointer; color:#f59e00; font-weight: normal">
+                                                                        <input type="radio" name="package" value="{{ $package->id }}">
+                                                                        {{ $package->title }}
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                        </thead>
+                                                        <thead>
+                                                            <tr class="size-15">
+                                                                <th>Items</th>
+                                                                <th class="text-right">Price(USD)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if(isset($package['relPackageOption']))
+                                                                @foreach($package['relPackageOption'] as $package_option)
+                                                                    <tr>
+                                                                        <td>{{ $package_option->title }}</td>
+                                                                        <td align="right">{{ number_format($package_option->price,2) }}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endif
+                                                            <tr><td align="right">Total = </td><td align="right" class="size-20"><strong style="border-bottom: 3px double #f59e00; color: #f59e00">{{number_format($package->price,2)}}</strong></td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-4 size-13">
-                                            <label class="size-20" id="pack2">
-                                                <input type="radio" name="package" value="pack2"> Package - 02
-                                            </label>
-                                            <div class="form-group pack-2">
-                                                <h4 for="owner_name">Package details </h4>
-                                                <table class="table black-bg dark-border">
-                                                    <thead><tr><th>Items</th><th>Price</th></tr></thead>
-                                                    <tbody>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td align="right">Total =</td><td><strong style="border-bottom: 3px double #fff;">2300.00</strong></td></tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 size-13">
-                                            <label class="size-20" id="pack3">
-                                                <input type="radio" name="package" value="pack3"> Package - 03
-                                            </label>
-                                            <div class="form-group pack-3">
-                                                <h4 for="owner_name">Package details </h4>
-                                                <table class="table black-bg dark-border">
-                                                    <thead><tr><th>Items</th><th>Price</th></tr></thead>
-                                                    <tbody>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td>List of items</td><td>100</td></tr>
-                                                        <tr><td align="right">Total =</td><td><strong style="border-bottom: 3px double #fff;">2300.00</strong></td></tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                            @endforeach
+                                        @endif
                                     </div>
-                                    {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button id="propertyDetailsNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
                                 </div>
-                                <script>
-                                    $(document).ready(function(){
-                                        //=== For Parent (Yes/No)
-                                        $(".pack-choise").hide();
-                                        $(".choose0").click(function(){
-                                            $(".pack-choise").hide();
-                                        })
-                                        $(".choose1").click(function(){
-                                            $(".pack-choise").slideDown();
-                                        })
-
-                                        //=== For Childrens
-                                        $(".pack-1,.pack-2,.pack-3").hide();
-                                        $("#pack1").click(function(){
-                                            $(".pack-1").slideDown();
-                                            $(".pack-2").slideUp();
-                                            $(".pack-3").slideUp();
-                                        });
-                                        $("#pack2").click(function(){
-                                            $(".pack-1").slideUp();
-                                            $(".pack-2").slideDown();
-                                            $(".pack-3").slideUp();
-                                        });
-                                        $("#pack3").click(function(){
-                                            $(".pack-1").slideUp();
-                                            $(".pack-2").slideUp();
-                                            $(".pack-3").slideDown();
-                                        });
-                                    });
-                                </script>
                             </fieldset>
-                            {{--==============================Package End--}}
+                            {{--========================================= Package End =============================================--}}
 
-                            <fieldset><hr>
+                            <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Photography</h3>
                                     <br>
@@ -247,7 +186,7 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset><hr>
+                            <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">SIGNBOARD</h3>
 
@@ -302,7 +241,7 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset><hr>
+                            <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">PRINT MATERIAL</h3>                                            <div class="validationErrorPrintMaterial"></div>
 
@@ -360,7 +299,7 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset><hr>
+                            <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
                                     <div class="validationErrorDistributionPrintMaterial"></div>
@@ -408,7 +347,7 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset><hr>
+                            <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Digital media</h3>
                                     <div class="validationErrorDigitalMedia"></div>
@@ -452,7 +391,7 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset><hr>
+                            <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Local newsprint media advertising</h3>
                                     <div class="validationErrorLocalMedia"></div>
@@ -511,15 +450,16 @@
                                             {!! Form::input('button','quote','Quote',['class'=>'btn btn-bg btn-info ']) !!}
                                         </div>
                                     </div>--}}
-                                    <div class="row">
-                                        <div class="col-sm-12 center">
-                                            <input value="Save" name="save" type="submit" class="btn new_button proceedBtn">
-                                            <input name="quote" value="Continue" type="submit" class="btn new_button proceedBtn">
-                                        </div>
-                                    </div>
+
 
                                 </div>
                             </fieldset>
+                            <div class="row">
+                                <div class="col-sm-12 center">
+                                    <input value="Save" name="save" type="submit" class="btn new_button proceedBtn">
+                                    <input name="quote" value="Continue" type="submit" class="btn new_button proceedBtn">
+                                </div>
+                            </div>
                         </div>
 
                     </form>

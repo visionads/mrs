@@ -940,6 +940,8 @@ a.green-yellow-bg-btn-1:hover { display: block; color: black; padding:1% 1%;}
 
 .radio-btn-green { background:#c4d82e; color:#000; border-radius:5px; padding: 5px 10px 5px 5px; line-height:15px; word-break: break-all; margin-bottom: 10px;}
 
+table.package { border-radius: 5px!important; box-shadow: 0px 0px 5px #fff;}
+
 /*
 ====================For Mktg================================*/
 .mktg_quote-list { border:0px; !important; background: black; color: #909090;}

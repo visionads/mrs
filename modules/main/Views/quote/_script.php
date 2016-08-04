@@ -1,4 +1,17 @@
 <script>
+    //=== For Packages (Yes/No)
+    $(document).ready(function(){
+        $(".pack-choise").hide();
+        $(".choose0").click(function(){
+            $(".pack-choise").slideUp();
+            $(".dflt_packs").slideDown();
+        })
+        $(".choose1").click(function(){
+            $(".pack-choise").slideDown();
+            $(".dflt_packs").slideUp();
+        })
+    });
+
     $(function(){
         $('.yesBtn').click(function(){
             $(this).parent().parent().parent().parent().find('.optionalContentDiv').removeClass('optional-content-div');

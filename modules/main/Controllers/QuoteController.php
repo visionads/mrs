@@ -23,6 +23,8 @@ use App\SignboardPackage;
 use App\SignboardPackageSize;
 use App\SolutionType;
 use App\UserImage;
+use App\Package;
+use App\PackageOption;
 use Auth;
 use DB;
 use App\User;
@@ -93,10 +95,13 @@ class QuoteController extends Controller
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         $data['solution_types']= SolutionType::get();
         $data['photography_packages']= PhotographyPackage::with('relPhotographyPackage')->get();
+        //print_r($data['photography_packages']);exit();
         $data['signboard_packages']= SignboardPackage::with('relSignboardPackage')->get();
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         $data['digital_medias']= DigitalMedia::get();
+        $data['packages'] = Package::with('relPackageOption')->get();
+        //print_r($data['packages']);exit();
 //        dd($data['signboard_packages']);
         return view('main::quote.create',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
