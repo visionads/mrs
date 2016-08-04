@@ -125,6 +125,56 @@ Route::group(array('prefix'=>'admin','modules'=>'Admin', 'namespace' => 'Modules
         'uses' => 'PrintMaterialController@print_material_search'
     ]);
 
+    /*-----Package and options-------*/
+
+    Route::any('package', [
+        //'middleware' => 'acl_access:admin/package',
+        'as' => 'package',
+        'uses' => 'PackageController@index'
+    ]);
+
+    Route::any('store-package', [
+        //'middleware' => 'acl_access:admin/store-package',
+        'as' => 'store-package',
+        'uses' => 'PackageController@store'
+    ]);
+
+    Route::any('view-package/{id}', [
+        //'middleware' => 'acl_access:admin/view-package',
+        'as' => 'view-package',
+        'uses' => 'PackageController@show'
+    ]);
+
+    Route::any('package-image-show/{id}', [
+        //'middleware' => 'acl_access:admin/print-image-show',
+        'as' => 'package-image-show',
+        'uses' => 'PackageController@image_show'
+    ]);
+
+    Route::any('edit-package/{id}', [
+        //'middleware' => 'acl_access:admin/edit-package',
+        'as' => 'edit-package',
+        'uses' => 'PackageController@edit'
+    ]);
+
+    Route::any('update-package/{id}', [
+        //'middleware' => 'acl_access:admin/update-package',
+        'as' => 'update-package',
+        'uses' => 'PackageController@update'
+    ]);
+
+    Route::any('delete-package/{id}', [
+        //'middleware' => 'acl_access:admin/delete-package',
+        'as' => 'delete-package',
+        'uses' => 'PackageController@destroy'
+    ]);
+
+    Route::get('package-search', [
+        //'middleware' => 'acl_access:admin/package-search',
+        'as' => 'package-search',
+        'uses' => 'PackageController@package_search'
+    ]);
+
 
     /*-----Signboard Package and SignboardPackage Size-------*/
 

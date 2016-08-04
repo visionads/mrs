@@ -124,6 +124,44 @@ class CreateAdmin extends Migration
             }
         });
 
+        //===== package
+        Schema::create('package', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 128)->nullable();
+            $table->string('slug', 128)->unique();
+            $table->float('price')->nullable();
+            $table->string('image_path', 128)->nullable();
+            $table->string('image_thumb', 128)->nullable();
+            $table->enum('status',array('open','close'))->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+
+        //===== package_option
+        Schema::create('package_option', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('package_id')->nullable();
+            $table->string('title', 128)->nullable();
+            $table->string('slug', 128)->nullable();
+            $table->unique(array('package_id', 'slug'));
+            $table->float('price')->nullable();
+
+            $table->integer('created_by', false, 11);
+            $table->integer('updated_by', false, 11);
+            $table->timestamps();
+            $table->engine = 'InnoDB';
+        });
+        Schema::table('package_option', function($table) {
+            /*if 'package' table  exists */
+            if(Schema::hasTable('package'))
+            {
+                $table->foreign('package_id')->references('id')->on('package');
+            }
+        });
+
 
         //signboard_package
         Schema::create('print_material_distribution', function (Blueprint $table) {
@@ -469,6 +507,8 @@ class CreateAdmin extends Migration
         Schema::drop('photography_options');
         Schema::drop('print_material');
         Schema::drop('print_material_size');
+        Schema::drop('package');
+        Schema::drop('package_option');
         Schema::drop('print_material_distribution');
         Schema::drop('signboard_package');
         Schema::drop('signboard_package_size');

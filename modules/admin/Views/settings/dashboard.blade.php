@@ -94,6 +94,14 @@
                                     <strong>Transaction Number</strong>
                                 </a>
                             </div>
+
+                            <br>
+
+                            <div class="form-group">
+                                <a class="btn" href="{{ route('package') }}">
+                                    <strong>Package and Options</strong>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
