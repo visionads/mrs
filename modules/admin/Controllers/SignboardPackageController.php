@@ -86,11 +86,17 @@ class SignboardPackageController extends Controller
         //print_r($input);exit;
 
         // input data for head
-        $input_head =[
-            'title'=>$input['title'],
-            'image_path'=>$input['image_path'],
-            'image_thumb'=>$input['image_thumb']
-        ];
+        if(count($image)>0) {
+            $input_head = [
+                'title' => $input['title'],
+                'image_path' => $input['image_path'],
+                'image_thumb' => $input['image_thumb']
+            ];
+        }else{
+            $input_head = [
+                'title' => $input['title']
+            ];
+        }
 
         // input data for detail
         for($i=0; $i<count($input['title_size']); $i++){
