@@ -19,14 +19,9 @@
             <small class="required">(Required)</small>
             {!! Form::input('number','price', @$data[0]['price'], ['id'=>'price', 'class' => 'form-control','title'=>'enter price','required']) !!}
         </div>
-        {{--<div>
-            {!! Form::label('is_distribution', 'Is Distribution:', []) !!}
-            <small class="required">(Required)</small>
-            {!! Form::select('is_distribution', array('1'=>'Yes','0'=>'No'),@$data[0]['is_distribution'],['class' => 'form-control','required','title'=>'select is_distribution']) !!}
-        </div>--}}
         <div>
             {!! Form::label('status', 'Status:', ['class'=>'control-label']) !!}
-            <div class="form-group">
+            <div class="">
                 @if(isset($data[0]['status']))
                     @if($data[0]['status']=='open')
                         <label class="radio radio-inline"><input type="radio" name="status" value="{{ @$data[0]['status'] }}" checked ><span style="left:15px!important; top:3px; position:inherit;">Open</span></label>
