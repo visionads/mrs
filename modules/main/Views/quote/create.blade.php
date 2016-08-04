@@ -99,11 +99,18 @@
                                             @foreach($data['packages'] as $package)
                                             <div class="col-sm-4 size-13">
                                                 <div class="form-group pack-1">
-                                                    <table class="table black-bg package">
+                                                    <table class="table package">
                                                         <thead>
                                                             <tr>
                                                                 <td colspan="3">
-                                                                    <label class="size-20" id="pack1" style="display: block; cursor: pointer; color:#f59e00; font-weight: normal">
+                                                                    @if(isset($package->image_path))
+                                                                        <img src="{{ url($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="Image is no image found in the image directory">
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3" style="/*background:#f36f21;*//*background:#122334;*/ background:black">
+                                                                    <label class="size-20" id="pack1" style="display: block; cursor: pointer; color:#f59e00; font-weight: normal;">
                                                                         <input type="radio" name="package" value="{{ $package->id }}">
                                                                         {{ $package->title }}
                                                                     </label>

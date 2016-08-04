@@ -86,14 +86,23 @@ class PackageController extends Controller
         //print_r($input);exit;
 
         // input data for head
-        $input_head =[
-            'title'=>$input['title'],
-            'slug'=>str_slug($input['title']),
-            'price'=>$input['price'],
-            'status'=>$input['status'],
-            'image_path'=>$input['image_path'],
-            'image_thumb'=>$input['image_thumb']
-        ];
+        if(count($image)>0) {
+            $input_head = [
+                'title' => $input['title'],
+                'slug' => str_slug($input['title']),
+                'price' => $input['price'],
+                'status' => $input['status'],
+                'image_path' => $input['image_path'],
+                'image_thumb' => $input['image_thumb']
+            ];
+        }else{
+            $input_head = [
+                'title' => $input['title'],
+                'slug' => str_slug($input['title']),
+                'price' => $input['price'],
+                'status' => $input['status']
+            ];
+        }
         //print_r($input_head);exit();
 
         // input data for detail
