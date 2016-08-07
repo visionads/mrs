@@ -899,7 +899,13 @@ div.upload-path-css:before { content: "Signature"; position:absolute; font-size:
 /**==================| For Marketing Material |==========================**/
 .green-yellow { color:#c4d82e !important;}
 .green-yellow-bg { background:#c4d82e !important;}
-.green-yellow-bg-btn { background:#c4d82e !important; border-radius:10px; text-align: center; }
+.green-yellow-bg-btn {
+    background:#c4d82e !important;
+    border-radius:10px;
+    text-align: center;
+    color: black;
+    padding: 5px;
+}
 .green-yellow-bg-btn span { font-size: 70px !important;}
 .green-yellow-bg-btn a { display: block; color: black; padding:8% 4%;}
 .green-yellow-bg-btn a.below { display: block; color: black; padding:1% 1%;}
