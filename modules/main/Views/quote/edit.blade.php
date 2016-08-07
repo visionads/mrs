@@ -81,7 +81,104 @@
                         <button id="propertyDetailsNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
                     </div>
                 </fieldset>
+
+                {{--===== Package Start =====================================================================--}}
                 <fieldset><hr>
+                    <div class="form-bottom">
+                        <h3 class="instruction">Packages</h3>
+                        <br>
+                        <div class="row text-center">
+                            Would you like to choose a Complete Package ?<br>
+                            @if(isset($data['packages']))
+                                @foreach($data['packages'] as $package)
+                                    @if(isset($data['quote']->relQuotePackage['price']))
+                                        @if($data['quote']->relQuotePackage['price'] == $package->price)
+                                            <label><input type="radio" name="package" class="choose0" value="0">No</label>
+                                            <label><input type="radio" name="package" class="choose1" value="1" checked >Yes</label>
+                                            <script>
+
+                                            </script>
+                                        @endif
+                                    @else
+                                        <label><input type="radio" name="package" class="choose0" value="0" checked>No</label>
+                                        <label><input type="radio" name="package" class="choose1" value="1">Yes</label>
+                                    @endif
+                                @endforeach
+                            @endif
+
+                        </div>
+
+                        <div class="row pack-choise">
+                            @if(isset($data['packages']))
+                                <?php $i=0; ?>
+                                @foreach($data['packages'] as $package)
+                                    <div class="col-sm-4 size-13">
+                                        <div class="form-group pack-1">
+                                            <table class="table package">
+                                                <thead>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        @if(isset($package->image_path))
+                                                            <img src="{{ url($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="Image is no image found in the image directory">
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="/*background:#f36f21;*//*background:#122334;*/ background:black">
+                                                        <label class="size-20" id="pack1" style="display: block; cursor: pointer; color:#f59e00; font-weight: normal;">
+                                                            <?php /*$i += 1; if($i=='1') {$checked='checked';}else{$checked='';} */
+                                                                if($data['quote']->relQuotePackage['price'] == $package->price){$checked='checked';}else{$checked='';}
+                                                            ?>
+
+                                                            <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
+                                                            {{ $package->title }}
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                                </thead>
+                                                <thead>
+                                                <tr class="size-15">
+                                                    <th>Items</th>
+                                                    <th class="text-right">Price(USD)</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @if(isset($package['relPackageOption']))
+                                                    @foreach($package['relPackageOption'] as $package_option)
+                                                        <tr>
+                                                            <td>{{ $package_option->title }}</td>
+                                                            <td align="right">{{ number_format($package_option->price,2) }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                                <tr><td align="right">Total = </td><td align="right" class="size-20"><strong style="border-bottom: 3px double #f59e00; color: #f59e00">{{number_format($package->price,2)}}</strong></td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </fieldset>
+                {{--<script>
+                    //=== For Packages (Yes/No)
+                    $(document).ready(function(){
+                        $(".pack-choise").hide();
+                        $(".choose0").click(function(){
+                            $(".pack-choise").slideUp();
+                            $(".dflt_packs").slideDown();
+                        })
+                        $(".choose1").click(function(){
+                            $(".pack-choise").slideDown();
+                            $(".dflt_packs").slideUp();
+                        })
+                    });
+                </script>--}}
+                {{--========================================= Package End =============================================--}}
+
+
+                <fieldset class="dflt_packs"><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Photography</h3>
                         <br>
@@ -137,7 +234,7 @@
 
                     </div>
                 </fieldset>
-                <fieldset><hr>
+                <fieldset class="dflt_packs"><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">SIGNBOARD</h3>
 
@@ -207,7 +304,7 @@
 
                     </div>
                 </fieldset>
-                <fieldset><hr>
+                <fieldset class="dflt_packs"><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">PRINT MATERIAL</h3>
                         <div class="validationErrorPrintMaterial"></div>
@@ -284,7 +381,7 @@
 
                     </div>
                 </fieldset>
-                <fieldset><hr>
+                <fieldset class="dflt_packs"><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
                         <div class="validationErrorDistributionPrintMaterial"></div>
@@ -331,7 +428,7 @@
 
                     </div>
                 </fieldset>
-                <fieldset><hr>
+                <fieldset class="dflt_packs"><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Digital media</h3>
                         <div class="validationErrorDigitalMedia"></div>
@@ -383,7 +480,7 @@
 
                     </div>
                 </fieldset>
-                <fieldset><hr>
+                <fieldset class="dflt_packs"><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Local newsprint media advertising</h3>
                         <div class="row">
@@ -453,14 +550,15 @@
                                 {!! Form::input('button','quote','Quote',['class'=>'btn btn-bg btn-info ']) !!}
                             </div>
                         </div>--}}
-                        <div class="row">
-                            <div class="col-sm-12 center">
-                                <input name="quote" value="Update" type="submit" class="btn new_button proceedBtn">
-                            </div>
-                        </div>
+
 
                     </div>
                 </fieldset>
+                <div class="row">
+                    <div class="col-sm-12 center">
+                        <input name="quote" value="Update" type="submit" class="btn new_button proceedBtn">
+                    </div>
+                </div>
             </div>
 
             </form>

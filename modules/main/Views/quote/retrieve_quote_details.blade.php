@@ -27,7 +27,7 @@ sdfsdgsd
                     <div class="col-sm-12">
                         <h1 class="size-25">Quote summary</h1>
 
-                        <p class="size-13">
+                        <p class="size-18">
                             @if(isset($quote))
                                     <strong>Quote No. : {{ $quote->quote_number }}</strong><br>
                                     {{--+ Photography Package Comments : {{ $quote->photography_package_comments }}<br>
@@ -43,15 +43,27 @@ sdfsdgsd
                             @endif
                         </p>
 
-                        <table class="size-13" style="background:none !important; color:#d0d0d0;">
-                            <tr><td width="auto" >+ Photography {!! ($photography_package_str!=='')?'[<span class="items"> '.$photography_package_str.' </span>]':'' !!}</td><td width="20">:</td><td>$ {{ number_format($photography_price,2) }}</td></tr>
-                            <tr><td>+ Signboard Package {!! ($signboard_package_str!=='')?'[<span class="items"> '.$signboard_package_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($signboard_price,2) }}</td></tr>
-                            <tr><td>+ Print Material {!! ($print_material_str!=='')?'[<span class="items"> '.$print_material_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
-                            <tr><td>+ Distribution of Print Material</td><td>:</td><td>$ 0.00 {{--{{ number_format($print_material_price,2) }}--}}</td></tr>
-                            <tr><td>+ Digital Media</td><td>:</td><td>$ 0.00{{--{{ number_format($print_material_price,2) }}--}}</td></tr>
-                            <tr style="border-bottom: 3px double #909090;"><td>+ Local Media {!! ($local_media_str!=='')?'[<span class="items"> '.$local_media_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($local_media_price,2) }}</td></tr>
-                            <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>:</td><td>$ {{ number_format($total,2) }}</td></tr>
-                        </table>
+                        @if(isset($package_price))
+                            <table class="size-18" style="background:none !important; color:#d0d0d0;">
+                                {{--<tr><td width="auto" >+ Photography {!! ($photography_package_str!=='')?'[<span class="items"> '.$photography_package_str.' </span>]':'' !!}</td><td width="20">:</td><td>$ {{ number_format($photography_price,2) }}</td></tr>--}}
+                                {{--<tr><td>+ Signboard Package {!! ($signboard_package_str!=='')?'[<span class="items"> '.$signboard_package_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($signboard_price,2) }}</td></tr>
+                                <tr><td>+ Print Material {!! ($print_material_str!=='')?'[<span class="items"> '.$print_material_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
+                                <tr><td>+ Distribution of Print Material</td><td>:</td><td>$ 0.00 --}}{{--{{ number_format($print_material_price,2) }}--}}{{--</td></tr>--}}
+                                {{--<tr><td>+ Digital Media</td><td>:</td><td>$ 0.00--}}{{--{{ number_format($print_material_price,2) }}--}}{{--</td></tr>--}}
+                                <tr style="border-bottom: 3px double #909090;"><td>+ Package Name : {!! ($package_str!=='')?' <span class="items"> '.$package_str.' </span>' : '' !!}</td><td>&nbsp; : &nbsp;</td><td>$ {{ number_format($package_price,2) }}</td></tr>
+                                <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>&nbsp; : &nbsp;</td><td>$ {{ number_format($total,2) }}</td></tr>
+                            </table>
+                        @else
+                            <table class="size-13" style="background:none !important; color:#d0d0d0;">
+                                <tr><td width="auto" >+ Photography {!! ($photography_package_str!=='')?'[<span class="items"> '.$photography_package_str.' </span>]':'' !!}</td><td width="20">:</td><td>$ {{ number_format($photography_price,2) }}</td></tr>
+                                <tr><td>+ Signboard Package {!! ($signboard_package_str!=='')?'[<span class="items"> '.$signboard_package_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($signboard_price,2) }}</td></tr>
+                                <tr><td>+ Print Material {!! ($print_material_str!=='')?'[<span class="items"> '.$print_material_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
+                                <tr><td>+ Distribution of Print Material</td><td>:</td><td>$ 0.00 {{--{{ number_format($print_material_price,2) }}--}}</td></tr>
+                                <tr><td>+ Digital Media</td><td>:</td><td>$ 0.00{{--{{ number_format($print_material_price,2) }}--}}</td></tr>
+                                <tr style="border-bottom: 3px double #909090;"><td>+ Local Media {!! ($local_media_str!=='')?'[<span class="items"> '.$local_media_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($local_media_price,2) }}</td></tr>
+                                <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>:</td><td>$ {{ number_format($total,2) }}</td></tr>
+                            </table>
+                        @endif
                     </div>
 
             </div>

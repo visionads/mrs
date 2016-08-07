@@ -19,6 +19,7 @@ class Quote extends Model
     protected $fillable = [
         'solution_type_id',
         'property_detail_id',
+        'package_head_id',
         'photography_package_id',
         'photography_package_comments',
         'signboard_package_id',
@@ -53,6 +54,10 @@ class Quote extends Model
 
     public function relPropertyDetail(){
         return $this->hasOne('App\PropertyDetail','id','property_detail_id');
+    }
+
+    public function relQuotePackage(){
+        return $this->hasOne('App\Package','id','package_head_id');
     }
 
     public function relPrintMaterialDistribution(){

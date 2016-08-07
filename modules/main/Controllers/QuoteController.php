@@ -134,6 +134,7 @@ class QuoteController extends Controller
 
         $data['solution_types']= SolutionType::get();
         $photography_packages_qr= PhotographyPackage::with('relPhotographyPackage')->get();
+        //print_r($package_qr);exit();
         $signboard_packages_qr= SignboardPackage::with('relSignboardPackage')->get();
         $print_materials_qr= PrintMaterial::with('relPrintMaterial')->get();
         $local_medias_qr= LocalMedia::with('relLocalMedia')->get();
@@ -145,8 +146,22 @@ class QuoteController extends Controller
             'relQuoteLocalMedia',
             'relQuotePhotography',
             'relQuoteSignboard',
-            'relQuotePrintMaterial'
+            'relQuotePrintMaterial',
+            'relQuotePackage'
             )->where('id', $quote_id)->first();
+
+        // ---------- For Complete Package===============================
+        $package_str = '';
+        $package_price = 0;
+        if(isset($quote->package_head_id)){
+            $package_qr= Package::with('relPackageOption')->findOrFail($quote->package_head_id);
+            $package_price = $package_qr->price;
+            $package_str = $package_qr->title;
+        }
+        //print_r($package_price);
+        //exit();
+        //print_r($package_price); exit();
+
 
         // ---------- For photography Package===============================
         $photography_package_str = '';
@@ -262,7 +277,7 @@ class QuoteController extends Controller
         }*/
 
         // For Total Selling Price --------------------------------------
-        $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price;
+        $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price + $package_price;
 
         // For Goods Service Tax ----------------------------------------
         $gst = $selling_price * 0.1;
@@ -288,7 +303,9 @@ class QuoteController extends Controller
             'signboard_price'=>$signboard_price,
             'signboard_package_str'=>rtrim($signboard_package_str,','),
             'print_material_price'=>$print_material_price,
-            'print_material_str'=>rtrim($print_material_str,',')
+            'print_material_str'=>rtrim($print_material_str,','),
+            'package_price'=>$package_price,
+            'package_str'=>$package_str,
         ]);
     }
     public function quote_summary($quote_id, $quote_number)
@@ -348,13 +365,18 @@ class QuoteController extends Controller
                 #print_r($data);exit;
 
     //            dd($data);
+                //print_r($data);exit();
                 $quote=Quote::create($data);
+                //print_r($quote);exit();
                 GenerateNumber::update_row($quote_number['setting_id'],$quote_number['number']);
 //            dd($quote->id);
 //            $quote=Quote::findOrFail(30);
 
             //===== Checking for the Complete package option [ here 0 means not selected] ========================
             if(isset($received['package']) && $received['package']=='0') {
+
+                //$quote=Quote::create($data);
+
                 /*
                  * getting photography info
                  * */
@@ -506,7 +528,11 @@ class QuoteController extends Controller
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         $data['digital_medias']= DigitalMedia::get();
-        $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia')->first();
+        $data['packages'] = Package::with('relPackageOption')->where('status','open')->get();
+        $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia','relQuotePackage')->first();
+
+        //print_r($data['quote']->relQuotePackage['price']);exit();
+
 //        dd($data['quote']);
         return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
