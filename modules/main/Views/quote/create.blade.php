@@ -111,7 +111,8 @@
                                                             <tr>
                                                                 <td colspan="3" style="/*background:#f36f21;*//*background:#122334;*/ background:black">
                                                                     <label class="size-20" id="pack1" style="display: block; cursor: pointer; color:#f59e00; font-weight: normal;">
-                                                                        <input type="radio" name="package" value="{{ $package->id }}">
+                                                                        <?php $i += 1; if($i=='1') {$checked='checked';}else{$checked='';} ?>
+                                                                        <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
                                                                         {{ $package->title }}
                                                                     </label>
                                                                 </td>
