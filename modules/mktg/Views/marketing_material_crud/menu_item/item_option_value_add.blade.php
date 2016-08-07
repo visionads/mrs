@@ -131,7 +131,7 @@
                             {!! Form::text('price[]', null, ['placeholder'=>'Enter Price', 'class' => 'form-control','autofocus'=>'autofocus']) !!}
                         </td>
                         <td>
-                            {!! Form::select('status[]',array(''=>'Select','open'=>'Open','close'=>'Close'), Input::old('status'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}
+                            {!! Form::select('status[]',array('open'=>'Open','close'=>'Close'), Input::old('status'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}
                         </td>
                     </tr>
 

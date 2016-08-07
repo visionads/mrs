@@ -10,6 +10,15 @@
         <strong>Back To Settings</strong>
     </a>
 </div>--}}
+<div class="row">
+    <div class="col-sm-12">
+        <div style="color: aliceblue; font-size: 14px; ">
+            <span style="color: orangered">Note </span>
+            In this screen you can add item and their options and can change the status. Also you can update / edit the item-options. You can add values / prices for each option by clicking the button "View Details"
+
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-sm-12">
@@ -22,7 +31,6 @@
                     <strong><span class="glyphicon glyphicon-plus"></span> Add Menu Item</strong>
                 </a>
             </div>
-
 
             <div class="panel-body">
                 {{-------------- Filter :Starts -------------------------------------------}}
@@ -53,6 +61,9 @@
                             <th> Parent </th>
                             <th> Description</th>
                             <th width="60"> Action &nbsp;&nbsp;<span style="color: #A54A7B;" class="user-guideline" data-placement="top" data-content="view : click for details informations<br>update : click for update informations<br>delete : click for delete informations"></span></th>
+                            <th>
+                                Status
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -70,13 +81,17 @@
                                     <td>{{ @($values->slug) }}</td>
                                     <td>{{ ($values->relMktgMaterial['title']) }}</td>
                                     {{--<td>{{ @($values->description) }}</td>--}}
-                                    <td>{{ substr($values->description, 0, 120) }} ...</td>
+                                    <td>{{ substr($values->description, 0, 80) }} ...</td>
+                                    <td>
+                                        {{$values->status}}
+                                    </td>
                                     <td>
                                         <a href="{{ route('mktg-menu-item-view', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="Quick view"><i class="glyphicon glyphicon-eye-open"></i></a>
                                         <a href="{{ route('mktg-menu-item-edit', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="glyphicon glyphicon-edit"></i></a>
                                         <a href="{{ route('mktg-menu-item-delete', $values->id) }}" class="btn btn-danger btn-xs" data-placement="top" onclick="return confirm('Are you sure to Delete?')" data-content="delete"><i class="glyphicon glyphicon-trash"></i></a>
-                                        <a href="{{ route('mktg-menu-item-details', $values->id) }}" class="btn btn-success btn-xs" data-placement="top" data-content="View Details" style="margin-top:5px;">View Details</a>
+                                        <a href="{{ route('mktg-menu-item-details', $values->id) }}" class="btn btn-success btn-xs" data-placement="top" data-content="View Details" style="margin-top:5px;">Views Values </a>
                                     </td>
+
                                 </tr>
                             @endforeach
                         @endif

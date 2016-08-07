@@ -15,7 +15,7 @@
     <div class="col-sm-12">
         <div class="panel">
 
-            <div class="panel-heading gray-bg">
+            <div class="panel-heading gray-bg" >
                 <span class="panel-title">{{ $pageTitle }}</span>
 
                 <a class="btn btn-default btn-sm pull-right pop" data-toggle="modal" href="{{ route('mktg-menu-item') }}" data-placement="left" data-content="click to add new Solution">
@@ -26,7 +26,7 @@
 
             <div class="panel-body">
                 <div style="padding: 10px;">
-                    <table id="" class="table table-hover table-striped">
+                    <table id="" class="table table-hover table-striped" style="font-size: 13px;">
                         <h4 class="text-center">Marketing Menu Item</h4>
 
                         <tr>
@@ -61,14 +61,7 @@
                                     <tr>
                                         {{--<th class="col-lg-6">Image : </th>--}}
                                         <td class="col-lg-6" colspan="3" style="background: #fff !important;">
-                                            <div>
-                                                {{--<a href="{{ route('print-image-show', $data[0]['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView"><img src="{{ URL::to($data[0]['image_thumb']) }}" alt="{{$data[0]['image_path']}}" /></a>--}}
-                                                @if(isset($data->relMktgMenuItemImage[0]['image']))
-                                                    <img src="{{ URL::to($data->relMktgMenuItemImage[0]['image']) }}" class="img-rounded" style="width: auto; max-width: 100%">
-                                                @else
-                                                    <h1>No Image Available</h1>
-                                                @endif
-                                            </div>
+
 
                                             @if(isset($data->relMktgMenuItemImage))
                                                 <div class="row" style="margin-top: 10px;">
@@ -92,10 +85,10 @@
 
                     @if(count($data->relMktgItemOption)>0)
 
-                        <h4 class="text-left-header">Marketing Menu Options</h4>
+                        <h4 class="text-left-header">Marketing options for the Item ::  <b>{{ isset($data->title) ? $data->title:'' }}</b></h4>
 
                         <div class="table-primary">
-                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example">
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example" style="font-size: 15px;">
                                 <thead>
                                 <tr>
                                     <th>Title</th>

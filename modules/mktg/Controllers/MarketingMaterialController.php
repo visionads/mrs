@@ -179,7 +179,7 @@ class MarketingMaterialController extends Controller
     {
         $data['pageTitle'] = 'Marketing Menu Item';
         $data['material'] = MktgMaterial::orderBy('id','ASC')->get();
-        $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage')->where('status','open')->orderBy('id','DESC')->paginate(10);
+        $data['data'] = MktgMenuItem::with('relMktgMaterial','relMktgMenuItemImage')->where('status','open')->orderBy('id','DESC')->paginate(30);
         //print_r($data['data']);exit();
         return view('mktg::marketing_material_crud.menu_item.index',$data);
     }
@@ -601,7 +601,7 @@ class MarketingMaterialController extends Controller
     public function mktg_item_option_add_value($id)
     {
         //exit('OK');
-        $data['pageTitle'] = 'Add / Edit Marketing Menu Item Option Value';
+        $data['pageTitle'] = 'Add / Edit Marketing Item  Value for an option';
         //$data['material'] = MktgMaterial::orderBy('id','ASC')->get();
         $data['data'] = MktgItemOption::where('id',$id)->first();
         $data['options'] = MktgItemValue::where('mktg_item_option_id',$id)->first();
