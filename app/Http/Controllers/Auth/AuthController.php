@@ -120,7 +120,7 @@ class AuthController extends Controller
 
     public function getLogin()
     {
-        if(Session::has('email')) {
+        if(Auth::check()) {
             return view('admin::layouts.dashboard');
         }
         else{
@@ -141,7 +141,7 @@ class AuthController extends Controller
 
 
         if(Auth::check()){
-            Session::put('email', isset(Auth::user()->get()->id));
+            #Session::put('email', isset(Auth::user()->get()->id));
             Session::flash('message', "You Have Already Logged In.");
             return redirect()->route('dashboard');
         }else{

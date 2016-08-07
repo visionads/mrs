@@ -202,6 +202,7 @@ class UserController extends Controller
 
             Auth::logout();
             Session::flush(); //delete the session
+
             DB::commit();
             Session::flash('message', 'You Are Now Logged Out.');
         }catch(\Exception $e){
