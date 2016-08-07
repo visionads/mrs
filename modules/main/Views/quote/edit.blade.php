@@ -96,7 +96,10 @@
                                             <label><input type="radio" name="package" class="choose0" value="0">No</label>
                                             <label><input type="radio" name="package" class="choose1" value="1" checked >Yes</label>
                                             <script>
-
+                                                $(document).ready(function(){
+                                                    //$('.pack-choise').remove();
+                                                    removeClass(".pack-choise");
+                                                })
                                             </script>
                                         @endif
                                     @else
