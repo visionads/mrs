@@ -57,7 +57,6 @@
                         <tr class="bg-primary">
                             <th> Image </th>
                             <th> Title </th>
-                            <th> Slug </th>
                             <th> Parent </th>
                             <th> Description</th>
                             <th width="60"> Action &nbsp;&nbsp;<span style="color: #A54A7B;" class="user-guideline" data-placement="top" data-content="view : click for details informations<br>update : click for update informations<br>delete : click for delete informations"></span></th>
@@ -78,10 +77,9 @@
                                         @endif
                                     </td>
                                     <td>{{ ucfirst($values->title) }}</td>
-                                    <td>{{ @($values->slug) }}</td>
                                     <td>{{ ($values->relMktgMaterial['title']) }}</td>
                                     {{--<td>{{ @($values->description) }}</td>--}}
-                                    <td>{{ substr($values->description, 0, 80) }} ...</td>
+                                    <td>{{ substr($values->description, 0, 50) }} ...</td>
                                     <td>
                                         {{$values->status}}
                                     </td>
