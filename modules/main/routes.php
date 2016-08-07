@@ -197,35 +197,43 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
 
     /*=================Shamim's Routes=================*/
     Route::post('new-quote-store', [
+        'middleware' => 'acl_access:main/new-quote-store',
         'as' => 'new-quote-store',
         'uses' => 'QuoteController@store'
     ]);
 
     Route::get('edit_quote/{id}', [
+        'middleware' => 'acl_access:main/edit_quote/{id}',
         'as' => 'edit_quote',
         'uses' => 'QuoteController@edit'
     ]);
     Route::patch('new_quote_store/{id}', [
+        'middleware' => 'acl_access:main/new_quote_store/{id}',
         'as' => 'new_quote_store',
         'uses' => 'QuoteController@update'
     ]);
     Route::get('payment-success/{id}/{amount}', [
+        'middleware' => 'acl_access:main/payment-success/{id}/{amount}',
         'as' => 'payment-success',
         'uses' => 'PaymentController@store'
     ]);
     Route::get('quotes', [
+        'middleware' => 'acl_access:main/quotes',
         'as' => 'quotes',
         'uses' => 'QuoteController@view_quote'
     ]);
     Route::get('quote-detail/{id}', [
+        'middleware' => 'acl_access:main/quote-detail/{id}',
         'as' => 'quote-detail',
         'uses' => 'QuoteController@quote_details'
     ]);
     Route::get('payment-list', [
+        'middleware' => 'acl_access:main/payment-list',
         'as' => 'payment-list',
         'uses' => 'PaymentController@index'
     ]);
     Route::get('view-payment-detail/{id}', [
+        'middleware' => 'acl_access:main/view-payment-detail/{id}',
         'as' => 'view-payment-detail',
         'uses' => 'PaymentController@show'
     ]);

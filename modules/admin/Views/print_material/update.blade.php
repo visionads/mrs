@@ -1,10 +1,10 @@
-<<<<<<< HEAD
+{{--<<<<<<< HEAD
 
-=======
+=======--}}
 {{--<script type="text/javascript" src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-ui.min.js') }}"></script>--}}
->>>>>>> bad91047f4ab92384bfe91967d4d1b26ea294d20
+{{-->>>>>>> bad91047f4ab92384bfe91967d4d1b26ea294d20--}}
 
 
 {!! Form::model($data, ['method' => 'PATCH', 'route'=> ['update-print-material', $data[0]['id']], 'files'=>true]) !!}
