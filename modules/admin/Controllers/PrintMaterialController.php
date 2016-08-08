@@ -290,11 +290,15 @@ class PrintMaterialController extends Controller
         DB::beginTransaction();
         try {
             $model_package = PrintMaterialSize::where('print_material_id',$id)->get();
-            foreach($model_package as $value) {
-                $case = PrintMaterialSize::find($value['id']);
-                $case->delete();
-                DB::commit();
+            if(count($model_package)>0){
+                foreach($model_package as $value) {
+                    $case = PrintMaterialSize::find($value['id']);
+                    $case->delete();
+                }
             }
+
+            DB::commit();
+            Session::flash('message', 'Successfully deleted! ');
 
         } catch(\Exception $e) {
             DB::rollback();
@@ -304,14 +308,21 @@ class PrintMaterialController extends Controller
         $model_package = PrintMaterial::where('id',$id)->first();
 
         DB::beginTransaction();
-        try {
-            if ($model_package->delete()) {
-                unlink(public_path()."/".$model_package->image_path);
-                unlink(public_path()."/".$model_package->image_thumb);
-                DB::commit();
-                Session::flash('message', 'Successfully deleted!');
+        try
+        {
+            if ($model_package->delete())
+            {
+                if(file_exists($model_package->image_path) || file_exists($model_package->image_thumb)){
+                    unlink(public_path()."/".$model_package->image_path);
+                    unlink(public_path()."/".$model_package->image_thumb);
+                }
             }
-        } catch(\Exception $e) {
+            DB::commit();
+            Session::flash('message', 'Successfully deleted!');
+
+        }
+        catch(\Exception $e)
+        {
             DB::rollback();
             Session::flash('flash_message_error', 'Invalid Delete Process !');
         }
