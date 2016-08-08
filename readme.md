@@ -13,7 +13,9 @@ Admin Module
     php artisan migrate --path="modules/admin/database/migrations/"
 
 
-2nd Part:(Marketing) Module
+#2nd Part:
+
+Marketing Module
 
 
     php artisan migrate --path="modules/mktg/database/migrations/"
