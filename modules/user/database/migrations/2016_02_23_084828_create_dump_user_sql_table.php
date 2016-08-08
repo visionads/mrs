@@ -12,6 +12,7 @@ class CreateDumpUserSqlTable extends Migration
      */
     public function up()
     {
+        DB::unprepared(file_get_contents("modules/user/database/sql_dump/business.sql"));
         DB::unprepared(file_get_contents("modules/user/database/sql_dump/role.sql"));
         DB::unprepared(file_get_contents("modules/user/database/sql_dump/country.sql"));
         DB::unprepared(file_get_contents("modules/user/database/sql_dump/user.sql"));
@@ -19,6 +20,7 @@ class CreateDumpUserSqlTable extends Migration
         DB::unprepared(file_get_contents("modules/user/database/sql_dump/permission_role.sql"));
         DB::unprepared(file_get_contents("modules/user/database/sql_dump/role_user.sql"));
         DB::unprepared(file_get_contents("modules/user/database/sql_dump/settings.sql"));
+
     }
 
     /**
