@@ -13,6 +13,8 @@ class CreateDumpMktgSettingsSqlTable extends Migration
     public function up()
     {
         DB::unprepared(file_get_contents("modules/mktg/database/sql_dump/mktg_settings.sql"));
+        DB::unprepared(file_get_contents("modules/mktg/database/sql_dump/mktg_material.sql"));
+        DB::unprepared(file_get_contents("modules/mktg/database/sql_dump/mktg_artwork.sql"));
     }
 
     /**

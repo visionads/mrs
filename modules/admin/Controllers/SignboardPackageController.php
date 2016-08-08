@@ -35,7 +35,7 @@ class SignboardPackageController extends Controller
     public function index()
     {
         $pageTitle = "Signboard Package Informations";
-        $data = SignboardPackage::paginate(7);
+        $data = SignboardPackage::paginate(20);
         return view('admin::signboard_package.index',['data'=>$data, 'pageTitle'=>$pageTitle]);
     }
 
@@ -44,9 +44,13 @@ class SignboardPackageController extends Controller
 
         $pageTitle = 'Signboard Package Informations';
         $title = Input::get('title');
-        $data = SignboardPackage::where('title', 'LIKE', '%'.$title.'%')->paginate(7);
+        $data = SignboardPackage::where('title', 'LIKE', '%'.$title.'%')->paginate(20);
 
-        return view('admin::signboard_package.index',['data' => $data,'pageTitle'=>$pageTitle]);
+        return view('admin::signboard_package.index',[
+            'data' => $data,
+            'pageTitle'=>$pageTitle
+        ]);
+
     }
 
 
@@ -289,11 +293,14 @@ class SignboardPackageController extends Controller
         DB::beginTransaction();
         try {
             $model_package = SignboardPackageSize::where('signboard_package_id',$id)->get();
-            foreach($model_package as $value) {
-                $case = SignboardPackageSize::find($value['id']);
-                $case->delete();
-                DB::commit();
+            if(count($model_package)>0){
+                foreach($model_package as $value) {
+                    $case = SignboardPackageSize::find($value['id']);
+                    $case->delete();
+                }
             }
+
+            DB::commit();
 
         } catch(\Exception $e) {
             DB::rollback();
@@ -305,8 +312,12 @@ class SignboardPackageController extends Controller
         DB::beginTransaction();
         try {
             if ($model_package->delete()) {
-                unlink(public_path()."/".$model_package->image_path);
-                unlink(public_path()."/".$model_package->image_thumb);
+                if(file_exists($model_package->image_path) || file_exists($model_package->image_thumb))
+                {
+                    unlink(public_path()."/".$model_package->image_path);
+                    unlink(public_path()."/".$model_package->image_thumb);
+                }
+
                 DB::commit();
                 Session::flash('message', 'Successfully deleted!');
             }
