@@ -95,12 +95,11 @@
         <div class="row">
             <div class="col-sm-6">
                 {!! Form::label('expire_date', 'Expire Date:', ['class' => 'control-label']) !!}
-                <small class="required">(Required)</small>
                 <div class="input-group date">
                     @if(isset($data->expire_date))
-                        {!! Form::text('expire_date', Input::old('expire_date'), ['class' => 'form-control bs-datepicker-component','required','title'=>'select expire date']) !!}
+                        {!! Form::text('expire_date', '2020-12-12 12:12:12', ['class' => 'form-control bs-datepicker-component','title'=>'select expire date', 'disabled']) !!}
                     @else
-                        {!! Form::text('expire_date', $days, ['class' => 'form-control bs-datepicker-component','required','title'=>'select expire date']) !!}
+                        {!! Form::text('expire_date', '2020-12-12 12:12:12', ['class' => 'form-control bs-datepicker-component','title'=>'select expire date', 'disabled']) !!}
                     @endif
 
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>

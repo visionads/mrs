@@ -317,7 +317,7 @@ class UserController extends Controller
                 'password'=>Hash::make($input['password']),
                 'csrf_token'=> str_random(30),
                 'ip_address'=> getHostByName(getHostName()),
-                'expire_date'=> $input['expire_date'],
+                'expire_date'=> '2020-12-12 12:12:12', //$input['expire_date'],
                 'status'=> $input['status'],
                 'business_id'=> isset($business_id)?$business_id: null
             ];
@@ -403,7 +403,7 @@ class UserController extends Controller
             'password'=>$password,
             'csrf_token'=> str_random(30),
             'ip_address'=> getHostByName(getHostName()),
-            'expire_date'=> $input['expire_date'],
+            'expire_date'=> '2020-12-12 12:12:12', //$input['expire_date'],
             'status'=> $input['status'],
         ];
         DB::beginTransaction();
