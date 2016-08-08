@@ -37,7 +37,7 @@ class PhotographyPackageController extends Controller
     {
         $photography_title = Input::get('title');
         $pageTitle = "Photography Informations";
-        $data = PhotographyPackage::paginate(7);
+        $data = PhotographyPackage::paginate(20);
         return view('admin::photography_package.index',['data'=>$data, 'pageTitle'=>$pageTitle]);
     }
 

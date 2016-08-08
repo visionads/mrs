@@ -25,7 +25,7 @@ Route::group(array('prefix' => 'user','modules'=>'User', 'namespace' => 'Modules
         }
     });*/
 Route::any('user-list', [
-    //'middleware' => 'acl_access:user/user-list',
+    'middleware' => 'acl_access:user/user-list',
     'as' => 'user-list',
     'uses' => 'UserController@index'
 ]);
