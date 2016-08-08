@@ -117,6 +117,7 @@
              @endforeach
         @endforeach
     @endif
+
     {{--For Total Price--}}
 
 
@@ -151,38 +152,52 @@
 
 
                 </style>
-                <table class="table table-responsive white size-13">
-                    <tr>
-                        <th>Photography {{ ($photography_package_str!=='')? '[ '.rtrim($photography_package_str,',').' ]':'' }}</th>
-                        <td>{{ ($photography_price!=0)?'$ '.number_format($photography_price,2):'$ 0.00' }}</td>
-                    </tr>
-                    <tr>
+                {{--Checking for Complete Package--}}
+                @if(isset($data['quote']->relQuotePackage))
+                    <table class="table table-responsive white size-18">
+                        <tr>
+                            <th>Package name : <span style="color: gold;">{{ $data['quote']->relQuotePackage['title'] }}</span> </th>
+                            <td>{{ '$ '.number_format($data['quote']->relQuotePackage['price'],2) }}</td>
+                        </tr>
+                        <tr style="color: orange">
+                            <th>Total</th>
+                            <td><b>${{ number_format($data['quote']->relQuotePackage['price'],2) }}</b></td>
+                        </tr>
+                    </table>
+                @else
+                    <table class="table table-responsive white size-13">
+                        <tr>
+                            <th>Photography {{ ($photography_package_str!=='')? '[ '.rtrim($photography_package_str,',').' ]':'' }}</th>
+                            <td>{{ ($photography_price!=0)?'$ '.number_format($photography_price,2):'$ 0.00' }}</td>
+                        </tr>
+                        <tr>
 
-                        <th>Signboard {{ ($signboard_package_str!=='')? '[ '.rtrim($signboard_package_str,',').' ]':'' }}</th>
-                        <td>{{ ($signboard_price!=0)?'$ '.number_format($signboard_price,2):'$ 0.00' }}</td>
-                    </tr>
-                    <tr>
+                            <th>Signboard {{ ($signboard_package_str!=='')? '[ '.rtrim($signboard_package_str,',').' ]':'' }}</th>
+                            <td>{{ ($signboard_price!=0)?'$ '.number_format($signboard_price,2):'$ 0.00' }}</td>
+                        </tr>
+                        <tr>
 
-                        <th>Print Material {{ ($print_material_str!=='')? '[ '.rtrim($print_material_str,',').' ]':'' }}</th>
-                        <td>{{ ($print_material_price!=0)?'$ '.number_format($print_material_price,2):'$ 0.00' }}</td>
-                    </tr>
-                    <tr>
-                        <th>Distribution of print material</th>
-                        <td>$ 0.00</td>
-                    </tr>
-                    <tr>
-                        <th>Digital Media</th>
-                        <td>$ 0.00</td>
-                    </tr>
-                    <tr>
-                        <th>Local newsprint media advertising {{ ($local_media_str!=='')? '[ '.rtrim($local_media_str,',').' ]':'' }}</th>
-                        <td>{{ ($local_media_price!=0)?'$ '.number_format($local_media_price,2):'$ 0.00' }}</td>
-                    </tr>
-                    <tr style="color: orange">
-                        <th>Total</th>
-                        <td><b>${{ number_format($local_media_price+$print_material_price+$signboard_price+$photography_price,2) }}</b></td>
-                    </tr>
-                </table>
+                            <th>Print Material {{ ($print_material_str!=='')? '[ '.rtrim($print_material_str,',').' ]':'' }}</th>
+                            <td>{{ ($print_material_price!=0)?'$ '.number_format($print_material_price,2):'$ 0.00' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Distribution of print material</th>
+                            <td>$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <th>Digital Media</th>
+                            <td>$ 0.00</td>
+                        </tr>
+                        <tr>
+                            <th>Local newsprint media advertising {{ ($local_media_str!=='')? '[ '.rtrim($local_media_str,',').' ]':'' }}</th>
+                            <td>{{ ($local_media_price!=0)?'$ '.number_format($local_media_price,2):'$ 0.00' }}</td>
+                        </tr>
+                        <tr style="color: orange">
+                            <th>Total</th>
+                            <td><b>${{ number_format($local_media_price+$print_material_price+$signboard_price+$photography_price,2) }}</b></td>
+                        </tr>
+                    </table>
+                @endif
             </div>
             <div class="quote-form">
                 <fieldset><hr>

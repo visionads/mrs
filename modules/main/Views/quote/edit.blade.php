@@ -99,7 +99,8 @@
                                             <script>
                                                 $(document).ready(function(){
                                                     //$('.pack-choise').remove();
-                                                    removeClass(".pack-choise");
+                                                    $("div").removeClass("pack-choise");
+                                                    //removeClass(".pack-choise");
                                                 })
                                             </script>
                                         @endif

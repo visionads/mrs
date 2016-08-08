@@ -80,8 +80,19 @@ class QuoteController extends Controller
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         //$data['print_material_dist']=PrintMaterialDistribution::with('relPrintMaterialDistribution')->get();
         $data['digital_medias']= DigitalMedia::get();
-        $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia')->first();
-//        dd($data['quote']);
+        $data['quote']= Quote::where('id',$id)->with(
+            'relPropertyDetail',
+            'relPrintMaterialDistribution',
+            'relQuotePhotography',
+            'relQuoteSignboard',
+            'relQuotePrintMaterial',
+            'relQuoteDigitalMedia',
+            'relQuoteLocalMedia',
+            'relQuotePackage'
+        )->first();
+        //print_r($data['quote']->relQuotePackage);exit();
+        //$data['package_price'] = $data['quote']->relQuotePackage['price'];
+        //print_r($data['package_price']);exit();
         return view('main::quote.details',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
     /**
