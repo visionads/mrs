@@ -124,10 +124,14 @@ class RoleUserController extends Controller
      */
     public function show($id)
     {
+
         $pageTitle = 'View Role User Informations';
         $data = RoleUser::where('id',$id)->first();
 
-        return view('user::role_user.view', ['data' => $data, 'pageTitle'=> $pageTitle]);
+        return view('user::role_user.view', [
+            'data' => $data,
+            'pageTitle'=> $pageTitle
+        ]);
     }
 
     /**
