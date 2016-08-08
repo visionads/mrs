@@ -33,13 +33,6 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
 
     /*------------New Order---------------*/
 
-    /*Route::get('new-order', [
-        //'middleware' => 'acl_access:role',
-        'middleware' => 'acl_access:main/new-order',
-        'as' => 'new-order',
-        'uses' => 'NewOrderController@index'
-    ]);*/
-
     Route::get('store-property-detail', [
         //'middleware' => 'acl_access:role',
         'middleware' => 'acl_access:main/store-property-detail',
@@ -49,7 +42,6 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
 
 
 
-    /*==================Ram's Routes=====================*/
     /*------------Invoice---------------*/
 
     /*Route::get('invoice/{transaction_id}', [
@@ -128,12 +120,7 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
         'uses'  => 'OrderController@new_order'
     ]);
 
-    //page for place order
-    /*Route::any('page-place-order/{quote_id}/{quote_no}/{total}/{gst}/{total_with_gst}',[
-        'middleware' => 'acl_access:main/page-place-order',
-        'as'    =>  'page-place-order',
-        'uses'  =>  'OrderController@page_place_order'
-    ]);*/
+
     Route::any('page-place-order/{quote_id}/{quote_no}',[
         'middleware' => 'acl_access:main/page-place-order',
         'as'    =>  'page-place-order',
@@ -142,7 +129,7 @@ Route::group(array('prefix' => 'main','modules'=>'Main', 'namespace' => 'Modules
 
 
     Route::any('page-place-order-edit/{quote_id}/{quote_no}',[
-        #'middleware' => 'acl_access:main/page-place-order-edit',
+        'middleware' => 'acl_access:main/page-place-order-edit/{quote_id}/{quote_no}',
         'as'    =>  'page-place-order-edit',
         'uses'  =>  'OrderController@page_place_order_edit'
     ]);
