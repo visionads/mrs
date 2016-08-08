@@ -61,6 +61,22 @@
             </div>
         </div>
     </div>
+
+    <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+        <div class="row">
+            <div class="col-sm-6">
+                {!! Form::label('role_id', 'User Role:', ['class' => 'control-label']) !!}
+                <small class="required">(Required)</small>
+                {!! Form::Select('role_id',$role, $user_role? $user_role->role_id : Input::old('role_id'),['style'=>'text-transform:capitalize','class' => 'form-control','required','title'=>'select role name']) !!}
+            </div>
+
+            <div class="col-sm-6">
+                {!! Form::label('business_title', 'Company Name:', ['class' => 'control-label']) !!}
+                {!! Form::text('business_title', null ,['class' => 'form-control','title'=>'select branch name']) !!}
+
+            </div>
+        </div>
+    </div>
     {{--<div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
         <div class="row">
             <div class="col-sm-12">
@@ -79,12 +95,11 @@
         <div class="row">
             <div class="col-sm-6">
                 {!! Form::label('expire_date', 'Expire Date:', ['class' => 'control-label']) !!}
-                <small class="required">(Required)</small>
                 <div class="input-group date">
                     @if(isset($data->expire_date))
-                        {!! Form::text('expire_date', Input::old('expire_date'), ['class' => 'form-control bs-datepicker-component','required','title'=>'select expire date']) !!}
+                        {!! Form::text('expire_date', '2020-12-12 12:12:12', ['class' => 'form-control bs-datepicker-component','title'=>'select expire date', 'disabled']) !!}
                     @else
-                        {!! Form::text('expire_date', $days, ['class' => 'form-control bs-datepicker-component','required','title'=>'select expire date']) !!}
+                        {!! Form::text('expire_date', '2020-12-12 12:12:12', ['class' => 'form-control bs-datepicker-component','title'=>'select expire date', 'disabled']) !!}
                     @endif
 
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>

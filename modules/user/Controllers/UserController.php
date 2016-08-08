@@ -317,7 +317,7 @@ class UserController extends Controller
                 'password'=>Hash::make($input['password']),
                 'csrf_token'=> str_random(30),
                 'ip_address'=> getHostByName(getHostName()),
-                'expire_date'=> $input['expire_date'],
+                'expire_date'=> '2020-12-12 12:12:12', //$input['expire_date'],
                 'status'=> $input['status'],
                 'business_id'=> isset($business_id)?$business_id: null
             ];
@@ -367,6 +367,7 @@ class UserController extends Controller
         $pageTitle = 'Edit User Information';
 
         $data = User::findOrFail($id);
+        $user_role = RoleUser::where('user_id', $id)->first();
 
         #$branch_data =  Branch::lists('title','id');
         $role =  Role::lists('title','id');
@@ -374,8 +375,9 @@ class UserController extends Controller
         return view('user::user.update', [
             'pageTitle'=>$pageTitle,
             'data' => $data,
-            #'branch_data'=>$branch_data,
-            'role'=>$role]);
+            'user_role'=>$user_role,
+            'role'=>$role
+        ]);
     }
 
     /**
@@ -401,13 +403,16 @@ class UserController extends Controller
             'password'=>$password,
             'csrf_token'=> str_random(30),
             'ip_address'=> getHostByName(getHostName()),
-//            'branch_id'=> $input['branch_id'],
-            'expire_date'=> $input['expire_date'],
+            'expire_date'=> '2020-12-12 12:12:12', //$input['expire_date'],
             'status'=> $input['status'],
         ];
         DB::beginTransaction();
         try{
             $model1->update($input_data);
+
+            DB::table('role_user')
+                ->where('user_id', $model1->id)
+                ->update(['role_id' => $input['role_id']]);
 
             DB::commit();
             Session::flash('message', "Successfully Updated");

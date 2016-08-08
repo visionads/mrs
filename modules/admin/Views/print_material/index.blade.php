@@ -58,7 +58,9 @@
                             @foreach($data as $values)
                                 <tr class="gradeX">
                                     <td>{{ucfirst($values->title)}}</td>
-                                    <td>{{ucfirst($values->image_path)}}</td>
+                                    <td>
+                                        <img src="{{asset($values->image_path)}}" style="width:35px;height:35px;">
+                                    </td>
                                     <td>{{ @($values->is_distribution)== 1 ? 'Yes' : 'NO' }}</td>
                                     <td>
                                         <a href="{{ route('view-print-material', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><i class="glyphicon glyphicon-eye-open"></i></a>
