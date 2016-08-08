@@ -24,6 +24,7 @@ class CreateDumpAdminSettingsSqlTable extends Migration
         DB::unprepared(file_get_contents("modules/admin/database/sql_dump/signboard_package.sql"));
         DB::unprepared(file_get_contents("modules/admin/database/sql_dump/signboard_package_size.sql"));
         DB::unprepared(file_get_contents("modules/admin/database/sql_dump/digital_media.sql"));
+        DB::unprepared(file_get_contents("modules/admin/database/sql_dump/settings.sql"));
 
     }
 

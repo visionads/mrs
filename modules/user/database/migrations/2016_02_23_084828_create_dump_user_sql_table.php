@@ -19,7 +19,7 @@ class CreateDumpUserSqlTable extends Migration
         DB::unprepared(file_get_contents("modules/user/database/sql_dump/permissions.sql"));
         DB::unprepared(file_get_contents("modules/user/database/sql_dump/permission_role.sql"));
         DB::unprepared(file_get_contents("modules/user/database/sql_dump/role_user.sql"));
-        DB::unprepared(file_get_contents("modules/user/database/sql_dump/settings.sql"));
+
 
     }
 
