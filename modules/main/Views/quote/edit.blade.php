@@ -89,6 +89,7 @@
                         <br>
                         <div class="row text-center">
                             Would you like to choose a Complete Package ?<br>
+                            <?php $i = 0; ?>
                             @if(isset($data['packages']))
                                 @foreach($data['packages'] as $package)
                                     @if(isset($data['quote']->relQuotePackage['price']))
@@ -103,8 +104,10 @@
                                             </script>
                                         @endif
                                     @else
-                                        <label><input type="radio" name="package" class="choose0" value="0" checked>No</label>
-                                        <label><input type="radio" name="package" class="choose1" value="1">Yes</label>
+                                        @if($i++ == '0')
+                                            <label><input type="radio" name="package" class="choose0" value="0" checked>No</label>
+                                            <label><input type="radio" name="package" class="choose1" value="1">Yes</label>
+                                        @endif
                                     @endif
                                 @endforeach
                             @endif

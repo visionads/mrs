@@ -161,6 +161,8 @@ class QuoteController extends Controller
         //print_r($package_price);
         //exit();
         //print_r($package_price); exit();
+        $package_id = null;
+        $package_id = $quote->package_head_id;
 
 
         // ---------- For photography Package===============================
@@ -306,6 +308,7 @@ class QuoteController extends Controller
             'print_material_str'=>rtrim($print_material_str,','),
             'package_price'=>$package_price,
             'package_str'=>$package_str,
+            'exist_package'=>$package_id,
         ]);
     }
     public function quote_summary($quote_id, $quote_number)
@@ -562,6 +565,18 @@ class QuoteController extends Controller
             $property['vendor_phone'] = $received['vendor_phone'];
             $property_id = PropertyDetail::find($quote->property_detail_id);
             $property_id->update($property);
+
+            //===== For Complete Package Update ***===============================
+            if(isset($received['package']) && $received['package']=='1') {
+                if (isset($received['package_head_id'])) {
+                    $data['package_head_id'] = $received['package_head_id'];
+                }
+            }else{
+                $data['package_head_id'] = null;
+            }
+            //print_r($data['package_head_id']);exit();
+
+
             /*
              * getting photography info
              * */
@@ -583,8 +598,16 @@ class QuoteController extends Controller
                         $qp->save();
                     }
                 }
-                $data['photography_package_id'] = 1;
-                $data['photography_package_comments'] = $received['photography_package_comments'];
+                //==== Checking Complete package
+                if(isset($received['package']) && $received['package']=='1') {
+                    if (isset($received['package_head_id'])) {
+                        $data['photography_package_id'] = null;
+                        $data['photography_package_comments'] = null;
+                    }
+                }else{
+                    $data['photography_package_id'] = 1;
+                    $data['photography_package_comments'] = $received['photography_package_comments'];
+                }
             }else{
                 //QuotePhotography::where('quote_id',$quote->id)->delete();
                 $quote_photography = QuotePhotography::where('quote_id',$quote->id)->get();
@@ -618,8 +641,16 @@ class QuoteController extends Controller
                         $sp->save();
                     }
                 }
-                $data['signboard_package_id'] = 1;
-                $data['signboard_package_comments'] = $received['signboard_package_comments'];
+                //==== Checking Complete package
+                if(isset($received['package']) && $received['package']=='1') {
+                    if (isset($received['package_head_id'])) {
+                        $data['signboard_package_id'] = null;
+                        $data['signboard_package_comments'] = null;
+                    }
+                }else {
+                    $data['signboard_package_id'] = 1;
+                    $data['signboard_package_comments'] = $received['signboard_package_comments'];
+                }
             }else{
                 //QuoteSignboard::where('quote_id',$quote->id)->delete();
                 $quote_signboard = QuoteSignboard::where('quote_id',$quote->id)->get();
@@ -664,8 +695,16 @@ class QuoteController extends Controller
                         $pm->save();
                     }
                 }
-                $data['print_material_id'] = 1;
-                $data['print_material_comments'] = $received['print_material_comments'];
+                //==== Checking Complete package
+                if(isset($received['package']) && $received['package']=='1') {
+                    if (isset($received['package_head_id'])) {
+                        $data['print_material_id'] = null;
+                        $data['print_material_comments'] = null;
+                    }
+                }else {
+                    $data['print_material_id'] = 1;
+                    $data['print_material_comments'] = $received['print_material_comments'];
+                }
             }else{
                 //QuotePrintMaterial::where('quote_id',$quote->id)->delete();
                 $quote_print_material = QuotePrintMaterial::where('quote_id',$quote->id)->get();
@@ -698,8 +737,15 @@ class QuoteController extends Controller
                 $data['print_material_distribution_id']=null;
             }
 
+            //==== Checking Complete package
+            if(isset($received['package']) && $received['package']=='1') {
+                if (isset($received['package_head_id'])) {
+                    $data['print_material_distribution_id']=null;
+                }
+            }
+
             /*
-             * getting distributed print material info
+             * getting Digital Media info
              * */
             if (isset($received['digitalMediaChooseBtn']) && !empty($received['digitalMediaChooseBtn']) && $received['digitalMediaChooseBtn'] == 1) {
                 if(isset($received['digital_media_id']))
@@ -715,8 +761,16 @@ class QuoteController extends Controller
                         $dm->save();
                     }
                 }
-                $data['digital_media_id'] = 1;
-                $data['digital_media_note'] = $received['digital_media_note'];
+                //==== Checking Complete package
+                if(isset($received['package']) && $received['package']=='1') {
+                    if (isset($received['package_head_id'])) {
+                        $data['digital_media_id'] = null;
+                        $data['digital_media_note'] = null;
+                    }
+                }else {
+                    $data['digital_media_id'] = 1;
+                    $data['digital_media_note'] = $received['digital_media_note'];
+                }
             }else{
                 //QuoteDigitalMedia::where('quote_id',$quote->id)->delete();
                 $quote_digital_media = QuoteDigitalMedia::where('quote_id',$quote->id)->get();
@@ -754,8 +808,16 @@ class QuoteController extends Controller
                         $lm->save();
                     }
                 }
-                $data['local_media_id'] = 1;
-                $data['local_media_note'] = $received['local_media_note'];
+                //==== Checking Complete package
+                if(isset($received['package']) && $received['package']=='1') {
+                    if (isset($received['package_head_id'])) {
+                        $data['local_media_id'] = null;
+                        $data['local_media_note'] = null;
+                    }
+                }else {
+                    $data['local_media_id'] = 1;
+                    $data['local_media_note'] = $received['local_media_note'];
+                }
             }else{
                 //QuoteLocalMedia::where('quote_id',$quote->id)->delete();
 
@@ -768,6 +830,8 @@ class QuoteController extends Controller
                 $data['local_media_id'] = null;
                 $data['local_media_note'] = '';
             }
+
+
 
 //            dd($data);
             $quote->update($data);

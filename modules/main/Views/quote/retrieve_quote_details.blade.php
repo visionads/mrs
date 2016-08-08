@@ -15,7 +15,6 @@
         .commtable tr td { background:#303030; color:#d0d0d0; border-bottom: 1px solid #404040 !important;}
         .items { color:orange;}
     </style>
-sdfsdgsd
     <div class="container pages font-droid">
         <div class="row">
         <div class="col-md-12">
@@ -43,13 +42,8 @@ sdfsdgsd
                             @endif
                         </p>
 
-                        @if(isset($package_price))
+                        @if(isset($exist_package))
                             <table class="size-18" style="background:none !important; color:#d0d0d0;">
-                                {{--<tr><td width="auto" >+ Photography {!! ($photography_package_str!=='')?'[<span class="items"> '.$photography_package_str.' </span>]':'' !!}</td><td width="20">:</td><td>$ {{ number_format($photography_price,2) }}</td></tr>--}}
-                                {{--<tr><td>+ Signboard Package {!! ($signboard_package_str!=='')?'[<span class="items"> '.$signboard_package_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($signboard_price,2) }}</td></tr>
-                                <tr><td>+ Print Material {!! ($print_material_str!=='')?'[<span class="items"> '.$print_material_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
-                                <tr><td>+ Distribution of Print Material</td><td>:</td><td>$ 0.00 --}}{{--{{ number_format($print_material_price,2) }}--}}{{--</td></tr>--}}
-                                {{--<tr><td>+ Digital Media</td><td>:</td><td>$ 0.00--}}{{--{{ number_format($print_material_price,2) }}--}}{{--</td></tr>--}}
                                 <tr style="border-bottom: 3px double #909090;"><td>+ Package Name : {!! ($package_str!=='')?' <span class="items"> '.$package_str.' </span>' : '' !!}</td><td>&nbsp; : &nbsp;</td><td>$ {{ number_format($package_price,2) }}</td></tr>
                                 <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>&nbsp; : &nbsp;</td><td>$ {{ number_format($total,2) }}</td></tr>
                             </table>
