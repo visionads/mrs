@@ -36,8 +36,11 @@ class PrintMaterialController extends Controller
     public function index()
     {
         $pageTitle = "Print Material Informations";
-        $data = PrintMaterial::paginate(7);
-        return view('admin::print_material.index',['data'=>$data, 'pageTitle'=>$pageTitle]);
+        $data = PrintMaterial::paginate(20);
+        return view('admin::print_material.index',[
+            'data'=>$data, 'pageTitle'=>$pageTitle
+        ]);
+
     }
 
 
