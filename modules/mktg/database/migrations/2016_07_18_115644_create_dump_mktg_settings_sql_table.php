@@ -15,6 +15,10 @@ class CreateDumpMktgSettingsSqlTable extends Migration
         DB::unprepared(file_get_contents("modules/mktg/database/sql_dump/mktg_settings.sql"));
         DB::unprepared(file_get_contents("modules/mktg/database/sql_dump/mktg_material.sql"));
         DB::unprepared(file_get_contents("modules/mktg/database/sql_dump/mktg_artwork.sql"));
+        DB::unprepared(file_get_contents("modules/mktg/database/sql_dump/mktg_menu_item.sql"));
+        DB::unprepared(file_get_contents("modules/mktg/database/sql_dump/mktg_menu_item_img.sql"));
+        DB::unprepared(file_get_contents("modules/mktg/database/sql_dump/mktg_item_option.sql"));
+        DB::unprepared(file_get_contents("modules/mktg/database/sql_dump/mktg_item_value.sql"));
     }
 
     /**
