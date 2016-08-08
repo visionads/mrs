@@ -335,10 +335,10 @@
                         </p>
                         <div class="pull-left">
                             <a href="{{ route('marketing-material-printing') }}" class="btn btn-green " id="">Continue Shopping </a>
-                            {{--<a href="#" class="btn btn-green " id="">Checkout </a>--}}
+                            <a href="#" class="btn btn-green " id="">Checkout <span class="glyphicon glyphicon-check"></span></a>
                         </div>
                         <div class="pull-right">
-                            <a href=" #place" class="btn btn-green " id="proceed">Proceed <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;
+                            {{--<a href=" #place" class="btn btn-green " id="proceed">Proceed <span class="glyphicon glyphicon-chevron-down"></span></a> &nbsp; &nbsp;--}}
                             <button type="submit" class="btn btn-green " name="addtocart" value="addtocart" id="">Add To Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
 
                         </div>

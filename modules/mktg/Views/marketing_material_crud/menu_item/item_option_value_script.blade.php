@@ -43,7 +43,7 @@
                     {!! Form::text('price[]', null, ['title'=>'enter Price', 'class' => 'form-control']) !!}\
                 </td>\
                 <td>\
-                    <div>{!! Form::select('status[]',array(''=>'Select','open'=>'Open','close'=>'Close'), Input::old('status'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}</div>\
+                    <div>{!! Form::select('status[]',array('open'=>'Open','close'=>'Close'), Input::old('status'), ['title'=>'Enter Status', 'class' => 'form-control']) !!}</div>\
                 </td>\
             </tr>';
             table.append(element);

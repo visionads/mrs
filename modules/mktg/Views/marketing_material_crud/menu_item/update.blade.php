@@ -105,11 +105,11 @@
                     <td>
                         @if($options->type == 'option')
                             <div>
-                                {!! Form::select('type_option[]',array($options->type=>$options->type,'value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control']) !!}
+                                {!! Form::select('type_option[]',array($options->type=>$options->type,'option'=>'Option','value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control']) !!}
                             </div>
                         @else
                             <div>
-                                {!! Form::select('type_option[]',array($options->type=>$options->type,'option'=>'Option'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control']) !!}
+                                {!! Form::select('type_option[]',array($options->type=>$options->type,'option'=>'Option','value'=>'Value'), Input::old('type_option'), ['title'=>'enter type', 'class' => 'form-control']) !!}
                             </div>
                         @endif
                     </td>
