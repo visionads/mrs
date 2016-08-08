@@ -255,9 +255,9 @@ Route::group(array('modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers')
     ]);
 
     //==== Invoice
-    Route::get('marketing/invoice-list',[
-        'middleware' => 'acl_access:marketing/invoice-list',
-        'as' => 'invoice-list',
+    Route::get('marketing/mktg-invoice-list',[
+        'middleware' => 'acl_access:marketing/mktg-invoice-list',
+        'as' => 'mktg-invoice-list',
         'uses' => 'MktgInvoiceController@index'
     ]);
     Route::get('marketing/make-invoice/{order_id}',[

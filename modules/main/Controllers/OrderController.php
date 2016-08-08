@@ -253,13 +253,22 @@ class OrderController extends Controller
             'relQuoteLocalMedia',
             'relQuotePhotography',
             'relQuoteSignboard',
-            'relQuotePrintMaterial'
+            'relQuotePrintMaterial',
+            'relQuotePackage'
             )->where('id', $quote_id)->first();
 
 
         /**
          * --------------Starts
          */
+
+        //----------- For a Complete Package ==============================
+
+        //print_r($quote->relQuotePackage);exit();
+        $complete_package_price = 0;
+        if(isset($quote->relQuotePackage)){
+          $complete_package_price = $quote->relQuotePackage['price'];
+        }
 
         // ---------- For photography Package===============================
         $photography_package_str = '';
@@ -375,11 +384,14 @@ class OrderController extends Controller
         }*/
 
         // For Total Selling Price --------------------------------------
-        $total = $local_media_price + $photography_price + $signboard_price + $print_material_price;
-
+        $total = $local_media_price + $photography_price + $signboard_price + $print_material_price + $complete_package_price;
         // For Goods Service Tax ----------------------------------------
         $gst = $total * 0.1;
         $total_with_gst = $total + $gst;
+        //print_r($total_with_gst);exit();
+
+
+
 
         //exit($selling_price.'/'.$gst.'/'.$total_with_gst);
 
@@ -461,7 +473,8 @@ class OrderController extends Controller
             'relQuoteLocalMedia',
             'relQuotePhotography',
             'relQuoteSignboard',
-            'relQuotePrintMaterial'
+            'relQuotePrintMaterial',
+            'relQuotePackage'
         )->where('id', $quote_id)->first();
 
 
@@ -499,6 +512,7 @@ class OrderController extends Controller
         /**
          * --------------Starts
          */
+
 
         // ---------- For photography Package===============================
         $photography_package_str = '';
@@ -688,6 +702,7 @@ class OrderController extends Controller
         $gst = $input['gst'];
         $total_with_gst = $input['total_with_gst'];
 
+        //print_r($total);exit();
 
         $images=Input::file('image');
 
