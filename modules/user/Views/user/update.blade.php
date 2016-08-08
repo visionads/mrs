@@ -61,6 +61,22 @@
             </div>
         </div>
     </div>
+
+    <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+        <div class="row">
+            <div class="col-sm-6">
+                {!! Form::label('role_id', 'User Role:', ['class' => 'control-label']) !!}
+                <small class="required">(Required)</small>
+                {!! Form::Select('role_id',$role, $user_role? $user_role->role_id : Input::old('role_id'),['style'=>'text-transform:capitalize','class' => 'form-control','required','title'=>'select role name']) !!}
+            </div>
+
+            <div class="col-sm-6">
+                {!! Form::label('business_title', 'Company Name:', ['class' => 'control-label']) !!}
+                {!! Form::text('business_title', null ,['class' => 'form-control','title'=>'select branch name']) !!}
+
+            </div>
+        </div>
+    </div>
     {{--<div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
         <div class="row">
             <div class="col-sm-12">

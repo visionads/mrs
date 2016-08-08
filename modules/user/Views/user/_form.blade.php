@@ -80,14 +80,17 @@
 
     function validation() {
         $('#re-password').on('keyup', function () {
-            if ($(this).val() == $('#user-password').val()) {
-
+            if ($(this).val() == $('#user-password').val())
+            {
                 $('#show-message').html('');
                 document.getElementById("btn-disabled").disabled = false;
                 return false;
             }
-            else $('#show-message').html('confirm password do not match with new password,please check.').css('color', 'red');
-            document.getElementById("btn-disabled").disabled = true;
+            else
+            {
+                $('#show-message').html('confirm password do not match with new password,please check.').css('color', 'red');
+                document.getElementById("btn-disabled").disabled = true;
+            }
         });
     }
 
