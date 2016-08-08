@@ -165,6 +165,7 @@
                         </tr>
                     </table>
                 @else
+                {{--If complete package is not choosen by the agent--}}
                     <table class="table table-responsive white size-13">
                         <tr>
                             <th>Photography {{ ($photography_package_str!=='')? '[ '.rtrim($photography_package_str,',').' ]':'' }}</th>
