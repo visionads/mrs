@@ -212,11 +212,17 @@ class LocalMediaController extends Controller
         DB::beginTransaction();
         try {
             $model_package = LocalMediaOptions::where('local_media_id',$id)->get();
-            foreach($model_package as $value) {
-                $case = LocalMediaOptions::find($value['id']);
-                $case->delete();
-                DB::commit();
+            if(count($model_package)>0)
+            {
+                foreach($model_package as $value)
+                {
+                    $case = LocalMediaOptions::find($value['id']);
+                    $case->delete();
+
+                }
             }
+
+            DB::commit();
 
         } catch(\Exception $e) {
             DB::rollback();
@@ -226,12 +232,15 @@ class LocalMediaController extends Controller
         $model_package = LocalMedia::where('id',$id)->first();
 
         DB::beginTransaction();
-        try {
-            if ($model_package->delete()) {
-                DB::commit();
-                Session::flash('message', 'Successfully deleted!');
-            }
-        } catch(\Exception $e) {
+        try
+        {
+            $model_package->delete();
+            DB::commit();
+            Session::flash('message', 'Successfully deleted!');
+
+        }
+        catch(\Exception $e)
+        {
             DB::rollback();
             Session::flash('flash_message_error', 'Invalid Delete Process !');
         }
