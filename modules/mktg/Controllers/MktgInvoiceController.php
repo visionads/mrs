@@ -89,7 +89,7 @@ class MktgInvoiceController extends Controller
             Session::flash('danger', $e->getMessage());
         }
 
-        return redirect()->route('invoice-list');
+        return redirect()->route('mktg-invoice-list');
         //return view('mktg::invoice.invoice_list',$data);
     }
 

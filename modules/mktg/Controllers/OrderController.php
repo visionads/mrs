@@ -79,7 +79,7 @@ class OrderController extends Controller
                 $order->user_id = Auth::id();
                 $order->status = 'open';
                 $order->save();
-                GenerateNumber::update_row($order_no['setting_id'],$order_no['number']);
+                GenerateOrderNumber::update_row($order_no['setting_id'],$order_no['number']);
             }
             if(isset($request['option']))
             {

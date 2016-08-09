@@ -19,7 +19,7 @@ class GenerateOrderNumber
      * $type :: Account Type(Like :: 'account-payable','account-receivable','account-adjustment','journal-voucher','receipt-voucher','reverse-entry')
      */
     public static function generate_number($type) {
-        $settings = MktgSetting::where('status','=','1')->where('type',$type)->first();
+        $settings = MktgSetting::where('status','=','open')->where('type',$type)->first();
         if($settings){
             $number = $settings['last_number']+$settings['increment'];
             $settings_code = $settings['code'];
