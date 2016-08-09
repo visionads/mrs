@@ -9,8 +9,7 @@
 
 namespace App;
 
-use App\Setting;
-
+use App\MktgSetting;
 
 class GenerateInvoiceNumber
 {
@@ -18,7 +17,7 @@ class GenerateInvoiceNumber
      * $type :: Account Type(Like :: 'account-payable','account-receivable','account-adjustment','journal-voucher','receipt-voucher','reverse-entry')
      */
     public static function generate_invoice_number($type) {
-        $settings = Setting::where('status','=','1')->where('type',$type)->first();
+        $settings = MktgSetting::where('status','=','open')->where('type',$type)->first();
         if($settings){
             $number = $settings['last_number']+$settings['increment'];
             $settings_code = $settings['code'];
@@ -35,7 +34,7 @@ class GenerateInvoiceNumber
         $row_id= $setting_id from generate_invoice_number
         $value= $number from generate_invoice_number
          */
-        $settings = Setting::findOrFail($row_id);
+        $settings = MktgSetting::findOrFail($row_id);
         if($settings){
             $settings->last_number=$value;
             $settings->save();

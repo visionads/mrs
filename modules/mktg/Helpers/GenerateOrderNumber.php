@@ -10,7 +10,7 @@
 namespace App;
 
 
-use App\Setting;
+use App\MktgSetting;
 
 
 class GenerateOrderNumber
@@ -18,8 +18,8 @@ class GenerateOrderNumber
     /*
      * $type :: Account Type(Like :: 'account-payable','account-receivable','account-adjustment','journal-voucher','receipt-voucher','reverse-entry')
      */
-    public static function generate_order_number($type) {
-        $settings = Setting::where('status','=','1')->where('type',$type)->first();
+    public static function generate_number($type) {
+        $settings = MktgSetting::where('status','=','1')->where('type',$type)->first();
         if($settings){
             $number = $settings['last_number']+$settings['increment'];
             $settings_code = $settings['code'];
@@ -32,7 +32,7 @@ class GenerateOrderNumber
         }
     }
     public static function update_row($row_id,$value) {
-        $settings = Setting::findOrFail($row_id);
+        $settings = MktgSetting::findOrFail($row_id);
         if($settings){
             $settings->last_number=$value;
             $settings->save();

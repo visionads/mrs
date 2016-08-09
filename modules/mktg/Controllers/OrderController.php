@@ -9,6 +9,8 @@
 namespace Modules\Mktg\Controllers;
 
 
+use App\GenerateInvoiceNumber;
+use App\GenerateOrderNumber;
 use App\GenerateNumber;
 use App\Http\Controllers\Controller;
 use App\MktgArtwork;
@@ -19,7 +21,6 @@ use App\MktgOrder;
 use App\MktgOrderDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\GenerateOrderNumber;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -70,7 +71,8 @@ class OrderController extends Controller
             $order= MktgOrder::where('date',date('Y-m-d'))->where('user_id',Auth::id())->where('status','open')->first();
             if(!$order)
             {
-                $order_no = GenerateNumber::generate_number('order-number');
+                $order_no = GenerateOrderNumber::generate_number('order-number');
+                //print_r($order_no);exit('ok');
                 $order = new MktgOrder();
                 $order->order_no = $order_no['generated_number'];
                 $order->date = date('Y-m-d');
