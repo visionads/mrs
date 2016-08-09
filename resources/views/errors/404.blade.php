@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>503</title>
+        <title>404</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -40,7 +40,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">SERVICE UNAVAILABLE</div>
+                <div class="title">NOT FOUND.</div>
             </div>
         </div>
     </body>
