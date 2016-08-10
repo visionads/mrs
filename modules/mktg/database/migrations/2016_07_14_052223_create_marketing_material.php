@@ -166,7 +166,7 @@ class CreateMarketingMaterial extends Migration
             $table->unsignedInteger('mktg_item_value_id')->nullable();
             $table->float('amount')->nullable();
             $table->text('comment')->nullable();
-            $table->float('total_amount')->nullable();
+            //$table->float('total_amount')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
