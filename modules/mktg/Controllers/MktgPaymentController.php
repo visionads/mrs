@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
-class PaymentController extends Controller
+class MktgPaymentController extends Controller
 {
     public function index()
     {
