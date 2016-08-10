@@ -38,10 +38,9 @@ class MktgOrderController extends Controller
      * @param $product_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function add_to_cart(Request $reques, $product_id)
+    public function add_to_cart(Request $request, $product_id)
     {
 
-        $request=$reques->all();
 
         //print_r($request['mktg_menu_item_id']);exit();
         //===== For Congratulatory pack emailing
@@ -214,18 +213,17 @@ class MktgOrderController extends Controller
     {
         $data['pageTitle']= 'Order Details';
 
-        $data['order_data'] = MktgMenuItem::with(['relMktgOrderDetail' => function($query){
-            $query->join('mktg_item_option', 'users.id', '=', 'contacts.user_id');
-        }])->whereExists(function ($query) {
-            $query->select(DB::raw(1))
-                ->from('mktg_order_detail')
-                ->whereRaw('mktg_order_detail.mktg_menu_item_id = mktg_menu_item.id');
-        })
+        $data['order_data'] = MktgMenuItem::with('relMktgOrderDetail', 'relMktgOrderDetail.relMktgItemOption')
+            ->whereExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('mktg_order_detail')
+                    ->whereRaw('mktg_order_detail.mktg_menu_item_id = mktg_menu_item.id');
+            })
             ->get()->toArray();
 
-        print_r($data['order_data']);
-        exit();
 
+        #print_r($data['order_data'][0]['rel_mktg_order_detail'][0]['rel_mktg_item_option']['title']);
+        #exit();
 
         $data['order_details']= DB::select(DB::raw("SELECT
                 od.id,od.type,od.parent_id,od.amount,od.mktg_menu_item_id,

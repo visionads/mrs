@@ -5,16 +5,13 @@
 
     @if( isset($order_data) )
         @foreach($order_data as $value)
-            {{$value['title']}}
+            {{$value['title']}}<br>
             @foreach($value['rel_mktg_order_detail'] as $ord_dt)
-                @foreach($value['relMktgItemOption'] as $ord_dt)
-                    <table>
-                        <tr>
-                            <td> {{$ord_dt['type']}} </td>
-                            <td> {{$ord_dt['amount']}} </td>
-                        </tr>
-                    </table>
-                @endforeach
+                {{$ord_dt['type']}}
+                ({{number_format($ord_dt['amount'], 2) }})
+                <br>
+                {{$ord_dt['rel_mktg_item_option']['title']}}
+                <br><br>
             @endforeach
         @endforeach
     @endif

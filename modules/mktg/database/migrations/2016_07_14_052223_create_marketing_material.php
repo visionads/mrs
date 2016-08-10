@@ -180,15 +180,7 @@ class CreateMarketingMaterial extends Migration
             if(Schema::hasTable('mktg_menu_item')){
                 $table->foreign('mktg_menu_item_id')->references('id')->on('mktg_menu_item');
             }
-            if(Schema::hasTable('mktg_item_option')){
-                $table->foreign('parent_id')->references('id')->on('mktg_item_option');
-            }
-            /*if(Schema::hasTable('mktg_item_value')){
-                $table->foreign('mktg_item_value_id')->references('id')->on('mktg_item_value');
-            }
-            if(Schema::hasTable('mktg_artwork')){
-                $table->foreign('mktg_artwork_id')->references('id')->on('mktg_artwork');
-            }*/
+
         });
 
         // mktg_artwork_image
