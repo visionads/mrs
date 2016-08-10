@@ -112,6 +112,7 @@ class MktgOrderController extends Controller
                     $orderDetails->type = 'item';
                     $orderDetails->mktg_order_id = $order->id;
                     $orderDetails->parent_id = $it->id;
+                    $orderDetails->mktg_menu_item_id = $request['mktg_menu_item_id'];
                     $orderDetails->amount = $it->price;
                     $orderDetails->save();
                     $total_amount += $it->price;
@@ -123,6 +124,7 @@ class MktgOrderController extends Controller
                 $orderDetails= new MktgOrderDetail();
                 $orderDetails->type='art';
                 $orderDetails->mktg_order_id= $order->id;
+                $orderDetails->mktg_menu_item_id = $request['mktg_menu_item_id'];
                 $orderDetails->parent_id= $artWork->id;
                 $orderDetails->amount= $artWork->price;
                 $orderDetails->comment= $request['description'];

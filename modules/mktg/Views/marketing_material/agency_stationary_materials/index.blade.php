@@ -24,7 +24,7 @@
 
                 {!! Form::open(['route'=>['add-to-cart',$data['id']],'id'=>'genForm','files'=>true]) !!}
 
-                <input type="text" name="mktg_menu_item_id" value="{{ $menu_item_id }}">
+                <input type="hidden" name="mktg_menu_item_id" value="{{ $menu_item_id }}">
 
                 {{--=========For Congratulatory Pack ===============--}}
                 @if($data['slug']=='congratulatory-pack')
