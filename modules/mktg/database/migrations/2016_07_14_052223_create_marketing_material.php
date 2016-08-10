@@ -163,6 +163,7 @@ class CreateMarketingMaterial extends Migration
             $table->enum('type',['item','art']);
             $table->unsignedInteger('parent_id')->nullable();
             $table->unsignedInteger('mktg_menu_item_id')->nullable();
+            $table->unsignedInteger('mktg_item_value_id')->nullable();
             $table->float('amount')->nullable();
             $table->text('comment')->nullable();
             $table->float('total_amount')->nullable();
