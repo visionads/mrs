@@ -7,16 +7,9 @@
  */
 
 
+Route::group(array('modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers'), function()
+{
 
-//Route::group(array('prefix' => 'marketing','modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers'), function() {
-Route::group(array('modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers'), function() {
-
-
-    @include('routes_sh.php');
-    //@include('routes_order.php');
-//===========================================================//
-//-------------------- From Shamimul --------------------------//
-//===========================================================//
     Route::post('marketing/add-to-cart/{product_id}',[
         'middleware' => 'acl_access:marketing/add-to-cart/{product_id}',
         'as'    =>  'add-to-cart',
@@ -37,12 +30,14 @@ Route::group(array('modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers')
         'as'    =>  'delete-order',
         'uses'  =>  'OrderController@delete_order'
     ]);
-// payment route
-    Route::get('marketing/payment-success/{id}/{amount}', [
-        'middleware' => 'acl_access:marketing/payment-success/{id}/{amount}',
+
+    //Payment Section
+    Route::any('marketing/payment-success/{id}/{amount}', [
+        #'middleware' => 'acl_access:marketing/payment-success/{id}/{amount}',
         'as' => 'payment-success',
         'uses' => 'PaymentController@store'
     ]);
+
     Route::get('marketing/payments', [
         'middleware' => 'acl_access:marketing/payments',
         'as' => 'payments',
@@ -54,9 +49,7 @@ Route::group(array('modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers')
         'uses' => 'PaymentController@change_status'
     ]);
 
-//===============================================================//
-//----------------------- From Shajjad --------------------------//
-//===============================================================//
+
 
     Route::any('marketing/agency-stationary-material/{slug}',[
         'middleware' => 'acl_access:marketing/agency-stationary-material/{slug}',
@@ -64,11 +57,8 @@ Route::group(array('modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers')
         'uses'  =>  'AgencyMarketingController@agency_stationary_material'
     ]);
 
-//===============================================================//
-//----------------------- From Ram ------------------------------//
-//===============================================================//
 
-/*--------------------Marketing Material (Printing)-----*/
+    /*--------------------Marketing Material (Printing)-----*/
 
     Route::get('marketing/marketing-material-printing',[
         'middleware' => 'acl_access:marketing/marketing-material-printing',

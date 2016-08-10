@@ -24,7 +24,7 @@ class MktgOrder extends Model
     }
 
     public function relMktgInvoice(){
-        return $this->hasOne('App\MktgInvoice');
+        return $this->hasMany('App\MktgInvoice');
     }
 
 

@@ -9,11 +9,13 @@
 namespace Modules\Mktg\Controllers;
 
 
+use App\GenerateOrderNumber;
 use App\Http\Controllers\Controller;
 use App\MktgInvoice;
 use App\MktgOrder;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
@@ -26,7 +28,6 @@ class PaymentController extends Controller
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
             $data['invoices']=MktgInvoice::with('relUser')->where('invoice_type', 'MR')->paginate(30);
-//            dd($data);
             $data['role']='admin';
         }else {
             $data['invoices'] = MktgInvoice::where('invoice_type', 'MR')->paginate(30);
@@ -35,8 +36,14 @@ class PaymentController extends Controller
         return view('mktg::invoice.invoice_list',$data);
     }
 
+    /**
+     * @param $id
+     * @param $total_amount
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store($id,$total_amount)
     {
+
         $invoiceDetail= MktgInvoice::findOrFail($id);
         $data['mktg_order_id']=$invoiceDetail->mktg_order_id;
         $data['user_id']=$invoiceDetail->user_id;
@@ -44,21 +51,20 @@ class PaymentController extends Controller
         $data['amount']=$total_amount;
         $data['status']='paid';
 
-        $mr_number=GenerateNumber::generate_number('money-receipt-number');
+        $mr_number=GenerateOrderNumber::generate_number('money-receipt');
         $data['invoice_no']=$mr_number['generated_number'];
-
-        //print_r($data['money_receipt_no']); exit();
 
         $payment= MktgInvoice::create($data);
 
-        GenerateNumber::update_row($mr_number['setting_id'],$mr_number['number']);
+        GenerateOrderNumber::update_row($mr_number['setting_id'],$mr_number['number']);
 
-        $user['admin'] = \DB::table('user')->where('username', '=', 'super-admin')->first();
-        $user['agent'] = User::findOrFail(\Auth::id());
-//        dd($user['admin']->email);
-//        return view('main::payment.mail',$payment);
-//        dd($payment);
+        DB::beginTransaction();
         try{
+            $user['admin'] = \DB::table('user')->where('username', '=', 'super-admin')->first();
+            $user['agent'] = User::findOrFail(\Auth::id());
+
+            DB::commit();
+
             \Mail::send('mktg::payment.mail', array('payment_details'=>$payment),
                 function($message) use ($user,$payment)
                 {
@@ -69,11 +75,19 @@ class PaymentController extends Controller
 
             Session::flash('message','Payment placed successfully.');
         }catch (\Exception $e){
-            dd($e->getMessage());
+            DB::rollback();
             Session::flash('error', $e->getMessage());
+            return redirect()->back();
         }
         return redirect('order-details/'.$id);
     }
+
+
+    /**
+     * @param $id
+     * @param $status
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function change_status($id,$status)
     {
         $invoice= MktgInvoice::findOrFail($id);
