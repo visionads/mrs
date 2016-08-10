@@ -23,6 +23,9 @@ class MktgInvoice extends Model
     public function relMktgOrder(){
         return $this->belongsTo('App\MktgOrder','mktg_order_id','id');
     }
+    /*public function relMktgInvoiceOrder(){
+        return $this->hasone('App\MktgOrder');
+    }*/
 
     public function relUser(){
         return $this->belongsTo('App\User','user_id','id');

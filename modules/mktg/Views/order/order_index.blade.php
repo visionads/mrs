@@ -6,8 +6,15 @@
     <div id="container" class="container pages new_order font-droid">
 
         <div class="col-sm-12">
-            <a href="{{ route('mktg-invoice-list') }}" class="btn btn-info pull-right">Invoice List</a>
+
             <table class="table table-striped table-responsive size-13 mktg_quote-list" cellspacing="0" cellpadding="0" border="0">
+                <thead class="head-top">
+                    <tr style="background: #303030;">
+                        <td colspan="7">
+                        <a href="{{ route('mktg-invoice-list') }}" class="btn btn-warning pull-right">Back To Invoice List</a>
+                        </td>
+                    </tr>
+                </thead>
                 <thead class="head-top">
                 <tr>
                     <td colspan="7">

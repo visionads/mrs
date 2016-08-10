@@ -6,18 +6,24 @@
     <div id="container" class="container pages new_order font-droid">
 
         <div class="col-sm-12">
-            @if($order->status!='invoiced')
-                <a href="{{ route('make-invoice',$order->id) }}" class="btn btn-primary pull-right" onclick="return confirm('Are your sure ?')">Confirm Order</a>
-                <a href="{{ route('marketing-material-printing') }}" class="btn btn-warning pull-right">Continue Shopping</a>
-            @endif
-            @if(session('user-role')!='admin' && session('user-role')!='super-admin')
-                    <a href="{{ route('mktg-order') }}" class="btn btn-danger pull-right">Back</a>
-             @else
-                <a href="{{ route('payments') }}" class="btn btn-danger pull-right">Back</a>
-
-            @endif
 
             <table class="table table-striped table-responsive size-13 mktg_quote-list" cellspacing="0" cellpadding="0" border="0">
+                <thead class="head-top">
+                    <tr  style="background: #303030;">
+                        <td colspan="7">
+                            @if($order->status!='invoiced')
+                                <a href="{{ route('make-invoice',$order->id) }}" class="btn btn-primary pull-right" onclick="return confirm('Are your sure ?')">Confirm Order</a>
+                                <a href="{{ route('marketing-material-printing') }}" class="btn btn-warning pull-right">Continue Shopping</a>
+                            @endif
+                            @if(session('user-role')!='admin' && session('user-role')!='super-admin')
+                                <a href="{{ route('mktg-invoice-list') }}" class="btn btn-warning pull-right">Back To Invoice List</a>&nbsp;
+                                <a href="{{ route('mktg-order') }}" class="btn btn-warning pull-right">View Order List</a>
+                            @else
+                                <a href="{{ route('payments') }}" class="btn btn-danger pull-right">Back</a>
+                            @endif
+                        </td>
+                    </tr>
+                </thead>
                 <thead class="head-top">
                 <tr>
                     <td colspan="7">
@@ -75,6 +81,7 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="col-md-6 col-md-offset-5">
                 @if(session('user-role')!='admin' && session('user-role')!='super-admin')
                     @if($order->status!='invoiced')
                         <a href="{{ route('make-invoice',$order->id) }}" class="btn btn-primary pull-right" onclick="return confirm('Are your sure ?')">Confirm Order</a>
@@ -111,10 +118,11 @@
                                         data-phone=''
                                 data-allowedit="true"
                                 data-resulturl={{route('payment-success', ['transaction_id'=>$order->id,'paid_amount'=>$order->total_amount])}}
-                                >
+                        >
                         </script>
                     @endif
                 @endif
+            </div>
 
 
         </div>
