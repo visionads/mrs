@@ -32,6 +32,12 @@ use Mail;
 
 class MktgOrderController extends Controller
 {
+
+    /**
+     * @param Request $reques
+     * @param $product_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function add_to_cart(Request $reques, $product_id)
     {
 
@@ -157,7 +163,13 @@ class MktgOrderController extends Controller
         return redirect()->to('marketing/order-details/'.$order->id);
 
     }
-    public function get_price(){
+
+
+    /**
+     * @return array
+     */
+    public function get_price()
+    {
         $request=$_POST;
         $total_amount=0;
         if(isset($request['option']))
@@ -189,26 +201,52 @@ class MktgOrderController extends Controller
         );
         return $price_arr;
     }
+
+
+
+    /**
+     * @param $order_id
+     * @return View
+     */
     public function order_details($order_id)
     {
         $data['pageTitle']= 'Order Details';
-        $data['order_details']= DB::select(DB::raw("SELECT
-od.id,od.type,od.parent_id,od.amount,od.mktg_menu_item_id,
-IF(od.type='item',iv.title,aw.title) title,
-IF(od.type='item',iv.price,aw.price) price,
-IF(io.id = NULL, '', io.title) io_title
 
-FROM mktg_order_detail AS od
-LEFT JOIN mktg_item_value as iv ON (od.parent_id=iv.id)
- left join mktg_item_option as io on io.id = iv.mktg_item_option_id
-LEFT JOIN mktg_artwork as aw ON (od.parent_id=aw.id)
-WHERE `mktg_order_id`=$order_id"));
-//        dd($data['order_details']);
+        $data['order_data'] = MktgMenuItem::with(['relMktgOrderDetail' => function($query){
+            $query->join('mktg_item_option', 'users.id', '=', 'contacts.user_id');
+        }])->whereExists(function ($query) {
+            $query->select(DB::raw(1))
+                ->from('mktg_order_detail')
+                ->whereRaw('mktg_order_detail.mktg_menu_item_id = mktg_menu_item.id');
+        })
+            ->get()->toArray();
+
+        print_r($data['order_data']);
+        exit();
+
+
+        $data['order_details']= DB::select(DB::raw("SELECT
+                od.id,od.type,od.parent_id,od.amount,od.mktg_menu_item_id,
+                IF(od.type='item',iv.title,aw.title) title,
+                IF(od.type='item',iv.price,aw.price) price,
+                IF(io.id = NULL, '', io.title) io_title
+                FROM mktg_order_detail AS od
+                LEFT JOIN mktg_item_value as iv ON (od.parent_id=iv.id)
+                 left join mktg_item_option as io on io.id = iv.mktg_item_option_id
+                LEFT JOIN mktg_artwork as aw ON (od.parent_id=aw.id)
+                WHERE `mktg_order_id`=$order_id"));
+
         $data['order']=MktgOrder::findOrFail($order_id);
-        //$data['menu_item'] = MktgMenuItem::with('relMktgMenuItemOrderdetails')->orderBy('id','ASC')->get();
         $data['menu_item'] = MktgMenuItem::orderBy('id','ASC')->get();
+
         return view('mktg::order.details',$data);
     }
+
+
+    /**
+     * @param $order_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete_order($order_id)
     {
         DB::beginTransaction();

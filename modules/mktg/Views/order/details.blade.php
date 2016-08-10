@@ -3,6 +3,24 @@
 @section('content')
 
 
+    @if( isset($order_data) )
+        @foreach($order_data as $value)
+            {{$value['title']}}
+            @foreach($value['rel_mktg_order_detail'] as $ord_dt)
+                @foreach($value['relMktgItemOption'] as $ord_dt)
+                    <table>
+                        <tr>
+                            <td> {{$ord_dt['type']}} </td>
+                            <td> {{$ord_dt['amount']}} </td>
+                        </tr>
+                    </table>
+                @endforeach
+            @endforeach
+        @endforeach
+    @endif
+
+
+
     <div id="container" class="container pages new_order font-droid">
 
         <div class="col-sm-12">
@@ -44,18 +62,20 @@
                     @endif
                 </tr>
                 </thead>
+
                 <tbody>
                 @if(isset($order_details))
                     {{--@foreach($menu_item as $item_header)--}}
                         {{--<tr><td colspan="6" style="color: #f59e00">{{ $item_header->title }}</td></tr>--}}
                     <?php /*$i = 0; */?>
+
                         @foreach($order_details as $od)
                             <?php $i = 1; ?>
-                            @foreach($menu_item as $item_header)
+                            {{--@foreach($menu_item as $item_header)
                                 @if($item_header->id == $od->mktg_menu_item_id)
                                     <tr><td colspan="6" style="color: #f59e00;" class="size-18">{{ $item_header->title }}</td></tr>
                                 @endif
-                            @endforeach
+                            @endforeach--}}
                             @foreach($menu_item as $item_header)
                                 @if($item_header->id == $od->mktg_menu_item_id)
                                     <tr>

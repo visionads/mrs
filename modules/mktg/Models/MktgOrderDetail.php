@@ -11,6 +11,7 @@ class MktgOrderDetail extends Model
 
     protected $fillable = [
         'mktg_order_id',
+        'type',
         'mktg_menu_item_id',
         'mktg_item_value_id',
         'amount',
@@ -34,6 +35,14 @@ class MktgOrderDetail extends Model
 
     public function relMktgArtwork(){
         return $this->belongsTo('App\MktgArtwork','parent_id','id');
+    }
+
+    public function relMktgItemOption(){
+        return $this->belongsTo('App\MktgItemOption','parent_id','id');
+    }
+
+    public function relMktgMenuItem(){
+        return $this->belongsTo('App\MktgMenuItem','mktg_menu_item_id','id');
     }
 
 
