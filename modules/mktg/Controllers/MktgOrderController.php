@@ -17,6 +17,7 @@ use App\MktgArtwork;
 use App\MktgArtworkImage;
 use App\MktgItemOption;
 use App\MktgItemValue;
+use App\MktgMenuItem;
 use App\MktgOrder;
 use App\MktgOrderDetail;
 use Carbon\Carbon;
@@ -35,6 +36,8 @@ class MktgOrderController extends Controller
     {
 
         $request=$reques->all();
+
+        //print_r($request['mktg_menu_item_id']);exit();
         //===== For Congratulatory pack emailing
         if(isset($request['congratulatory_pack']))
         {
@@ -89,6 +92,7 @@ class MktgOrderController extends Controller
                     $orderDetails->mktg_order_id= $order->id;
                     $orderDetails->parent_id= $option_id;
                     $orderDetails->amount= $option_price;
+                    $orderDetails->mktg_menu_item_id = $request['mktg_menu_item_id'];
                     $orderDetails->save();
                     $total_amount +=$option_price;
                 }
@@ -189,7 +193,7 @@ class MktgOrderController extends Controller
     {
         $data['pageTitle']= 'Order Details';
         $data['order_details']= DB::select(DB::raw("SELECT
-od.id,od.type,od.parent_id,od.amount,
+od.id,od.type,od.parent_id,od.amount,od.mktg_menu_item_id,
 IF(od.type='item',iv.title,aw.title) title,
 IF(od.type='item',iv.price,aw.price) price,
 IF(io.id = NULL, '', io.title) io_title
@@ -201,6 +205,8 @@ LEFT JOIN mktg_artwork as aw ON (od.parent_id=aw.id)
 WHERE `mktg_order_id`=$order_id"));
 //        dd($data['order_details']);
         $data['order']=MktgOrder::findOrFail($order_id);
+        //$data['menu_item'] = MktgMenuItem::with('relMktgMenuItemOrderdetails')->orderBy('id','ASC')->get();
+        $data['menu_item'] = MktgMenuItem::orderBy('id','ASC')->get();
         return view('mktg::order.details',$data);
     }
     public function delete_order($order_id)

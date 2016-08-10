@@ -52,11 +52,9 @@
                         @foreach($order_details as $od)
                             <?php $i = 1; ?>
                             @foreach($menu_item as $item_header)
-                                
                                 @if($item_header->id == $od->mktg_menu_item_id)
-                                    <tr><td colspan="6" style="color: #f59e00;" class="size-18">{{ $item_header->title.$i }}</td></tr>
+                                    <tr><td colspan="6" style="color: #f59e00;" class="size-18">{{ $item_header->title }}</td></tr>
                                 @endif
-
                             @endforeach
                             @foreach($menu_item as $item_header)
                                 @if($item_header->id == $od->mktg_menu_item_id)
@@ -77,21 +75,21 @@
                     {{--@endforeach--}}
                 @endif
                 <tr>
-                    <th colspan="2" class="text-right">Total</th>
+                    <th colspan="3" class="text-right">Total</th>
                     <th>{{ $order->amount }}</th>
                     @if($order->status != 'invoiced')
                     <th></th>
                     @endif
                 </tr>
                 <tr>
-                    <th colspan="2" class="text-right">GST 10%</th>
+                    <th colspan="3" class="text-right">GST 10%</th>
                     <th>{{ $order->gst }}</th>
                     @if($order->status != 'invoiced')
                     <th></th>
                     @endif
                 </tr>
                 <tr>
-                    <th colspan="2" class="text-right">Total</th>
+                    <th colspan="3" class="text-right">Total</th>
                     <th>{{ $order->total_amount }}</th>
                     @if($order->status != 'invoiced')
                     <th></th>

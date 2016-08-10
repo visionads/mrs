@@ -30,6 +30,10 @@ class MktgMenuItem extends Model
         return $this->hasMany('App\MktgItemOption')->orderBy('type','ASC');
     }
 
+    public function relMktgMenuItemOrderdetails(){
+        return $this->hasMany('App\MktgOrderDetail');
+    }
+
     /*public function relMktgItemValue(){
         return $this->hasMany('App\MktgItemValue');
     }*/
