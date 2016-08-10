@@ -13,40 +13,40 @@ Route::group(array('modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers')
     Route::post('marketing/add-to-cart/{product_id}',[
         'middleware' => 'acl_access:marketing/add-to-cart/{product_id}',
         'as'    =>  'add-to-cart',
-        'uses'  =>  'OrderController@add_to_cart'
+        'uses'  =>  'MktgOrderController@add_to_cart'
     ]);
     Route::get('marketing/order-details/{order_id}',[
         'middleware' => 'acl_access:marketing/order-details/{order_id}',
         'as'    =>  'order-details',
-        'uses'  =>  'OrderController@order_details'
+        'uses'  =>  'MktgOrderController@order_details'
     ]);
     Route::get('marketing/delete-order-details/{order_id}',[
         'middleware' => 'acl_access:marketing/delete-order-details/{order_id}',
         'as'    =>  'delete-order-details',
-        'uses'  =>  'OrderController@delete_order_details'
+        'uses'  =>  'MktgOrderController@delete_order_details'
     ]);
     Route::get('marketing/delete-order/{order_id}',[
         'middleware' => 'acl_access:marketing/delete-order/{order_id}',
         'as'    =>  'delete-order',
-        'uses'  =>  'OrderController@delete_order'
+        'uses'  =>  'MktgOrderController@delete_order'
     ]);
 
     //Payment Section
     Route::any('marketing/payment-success/{id}/{amount}', [
-        #'middleware' => 'acl_access:marketing/payment-success/{id}/{amount}',
+        'middleware' => 'acl_access:marketing/payment-success/{id}/{amount}',
         'as' => 'payment-success',
-        'uses' => 'PaymentController@store'
+        'uses' => 'MktgPaymentController@store'
     ]);
 
     Route::get('marketing/payments', [
         'middleware' => 'acl_access:marketing/payments',
         'as' => 'payments',
-        'uses' => 'PaymentController@index'
+        'uses' => 'MktgPaymentController@index'
     ]);
     Route::get('marketing/change_status/{id}/{status}', [
         'middleware' => 'acl_access:marketing/change_status/{id}/{status}',
         'as' => 'change_payment_status_for_mtkg_payment',
-        'uses' => 'PaymentController@change_status'
+        'uses' => 'MktgPaymentController@change_status'
     ]);
 
 
@@ -257,7 +257,7 @@ Route::group(array('modules'=>'Mktg', 'namespace' => 'Modules\Mktg\Controllers')
     ]);
     Route::post('get-price',[
         'as' => 'get-price',
-        'uses'=>'OrderController@get_price'
+        'uses'=>'MktgOrderController@get_price'
     ]);
 
 });

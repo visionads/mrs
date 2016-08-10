@@ -29,7 +29,7 @@ use Mockery\CountValidator\Exception;
 use Mail;
 //use Illuminate\Support\Facades\Mail;
 
-class OrderController extends Controller
+class MktgOrderController extends Controller
 {
     public function add_to_cart(Request $reques, $product_id)
     {
