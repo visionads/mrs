@@ -9,17 +9,11 @@
 
             <table class="table table-striped table-responsive size-13 mktg_quote-list" cellspacing="0" cellpadding="0" border="0">
                 <thead class="head-top">
-                    <tr style="background: #303030;">
-                        <td colspan="7">
-                        <a href="{{ route('mktg-invoice-list') }}" class="btn btn-warning pull-right">Back To Invoice List</a>
-                        </td>
-                    </tr>
-                </thead>
-                <thead class="head-top">
                 <tr>
                     <td colspan="7">
                         <h3>
                             <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }}
+                            <a href="{{ route('mktg-invoice-list') }}" class="btn green-yellow-bg black pull-right"><i class="fa fa-arrow-circle-left">&nbsp;</i> Back To Invoice List</a>
                         </h3>
                     </td>
                 </tr>
@@ -43,11 +37,11 @@
                             <td>{{ number_format($row->amount,2) }}</td>
                             <td>{{ isset($row->total_amount)?$row->total_amount:'0.00' }}</td>
                             <td>{{ $row->status }}</td>
-                            <td>
-                                <a href="{{ route('order-details',$row->id) }}" class="btn btn-info">Details</a>
+                            <td style="width: 220px;">
+                                <a href="{{ route('order-details',$row->id) }}" class="btn btn-primary btn-xs" style="display:inline !important;">Details</a>
                                 @if($row->status != 'invoiced')
-                                    <a href="{{ route('make-invoice',$row->id) }}" class="btn btn-primary" onclick="return confirm('Are your sure ?')">Confirm Order</a>
-                                    <a href="{{ route('delete-order',$row->id) }}" class="btn btn-danger" onclick="return confirm('Are you confirm to delete ?')">Delete</a>
+                                    <a href="{{ route('make-invoice',$row->id) }}" class="btn btn-warning btn-xs" style="display:inline !important;" onclick="return confirm('Are your sure ?')">Confirm Order</a>
+                                    <a href="{{ route('delete-order',$row->id) }}" class="btn btn-danger btn-xs" style="display:inline !important;" onclick="return confirm('Are you confirm to delete ?')">Delete</a>
                                 @endif
                             </td>
                         </tr>

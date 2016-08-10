@@ -34,6 +34,7 @@
                     <td colspan="10">
                         <h3>
                             <span class="glyphicon glyphicon-list">&nbsp;</span>{{ $pageTitle }}
+                            <a href="{{ route('marketing-material-printing') }}" class="btn green-yellow-bg black pull-right"><i class="fa fa-arrow-circle-left">&nbsp;</i>Back To Marketing Material</a>
                         </h3>
                     </td>
                 </tr>
