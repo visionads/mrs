@@ -5,6 +5,11 @@
 
     <div id="container" class="container pages new_order font-droid">
         <div class="col-md-12">
+            <a href="{{ route('mktg-order') }}" class="btn green-yellow-bg black pull-right">Marketing Order List</a>
+            <a href="{{ route('mktg-invoice-list') }}" class="btn green-yellow-bg black pull-right" style="margin-right: 5px;">Marketing Invoice List</a>
+        </div>
+
+        <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label green-yellow">{{ $pageTitle }}</span></div>
         </div>
         <div class="col-md-12" style="border: 1px solid #303030;">

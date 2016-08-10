@@ -35,6 +35,7 @@ class AgencyMarketingController extends Controller
     {
         $title = MktgMenuItem::where('slug',$slug)->first();
         $pageTitle = $title['title'];
+        $menu_item_id = $title['id'];
         $data = MktgMenuItem::with('relMktgMenuItemImage','relMktgItemOption','relMktgItemOption.relMktgItemValue')->where('slug',$slug)->first()->toArray();
 
         $value = DB::table('mktg_item_value')->lists('title', 'id');
@@ -53,6 +54,7 @@ class AgencyMarketingController extends Controller
             'artwork'=>$artwork,
             'slug' => $title,
             'vendor_data'=>$vendor_data,
+            'menu_item_id'=>$menu_item_id
         ));
 
     }

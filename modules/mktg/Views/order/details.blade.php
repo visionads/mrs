@@ -16,8 +16,8 @@
                                 <a href="{{ route('marketing-material-printing') }}" class="btn btn-warning pull-right">Continue Shopping</a>
                             @endif
                             @if(session('user-role')!='admin' && session('user-role')!='super-admin')
-                                <a href="{{ route('mktg-invoice-list') }}" class="btn btn-warning pull-right">Back To Invoice List</a>&nbsp;
-                                <a href="{{ route('mktg-order') }}" class="btn btn-warning pull-right">View Order List</a>
+                                <a href="{{ route('mktg-order') }}" class="btn btn-primary pull-right">View Order List</a>
+                                <a href="{{ route('mktg-invoice-list') }}" class="btn btn-primary pull-right" style="margin-right: 5px;">Back To Invoice List</a>
                             @else
                                 <a href="{{ route('payments') }}" class="btn btn-danger pull-right">Back</a>
                             @endif
@@ -37,6 +37,7 @@
                 <tr>
                     <th>Title</th>
                     <th>Type</th>
+                    <th>Menu Item Id</th>
                     <th>Amount</th>
                     @if($order->status != 'invoiced')
                     <th>Action</th>
@@ -45,18 +46,35 @@
                 </thead>
                 <tbody>
                 @if(isset($order_details))
-                    @foreach($order_details as $od)
-                        <tr>
-                            <td>@if($od->io_title==null){{ $od->title }} @else {{ $od->io_title }} @endif</td>
-                            <td>{{ $od->type }}</td>
-                            <td>{{ $od->price }}</td>
-                            @if($order->status != 'invoiced')
-                            <td>
-                                    <a href="{{ route('delete-order-details',$od->id) }}" class="btn btn-danger" onclick="return confirm('Are you confirm to delete it ?')"><i class="fa fa-trash"></i></a>
-                            </td>
-                            @endif
-                        </tr>
-                    @endforeach
+                    {{--@foreach($menu_item as $item_header)--}}
+                        {{--<tr><td colspan="6" style="color: #f59e00">{{ $item_header->title }}</td></tr>--}}
+                    <?php /*$i = 0; */?>
+                        @foreach($order_details as $od)
+                            <?php $i = 1; ?>
+                            @foreach($menu_item as $item_header)
+                                
+                                @if($item_header->id == $od->mktg_menu_item_id)
+                                    <tr><td colspan="6" style="color: #f59e00;" class="size-18">{{ $item_header->title.$i }}</td></tr>
+                                @endif
+
+                            @endforeach
+                            @foreach($menu_item as $item_header)
+                                @if($item_header->id == $od->mktg_menu_item_id)
+                                    <tr>
+                                        <td>@if($od->io_title==null){{ $od->title }} @else {{ $od->io_title }} @endif</td>
+                                        <td>{{ $od->type }}</td>
+                                        <td>{{ $od->mktg_menu_item_id }}</td>
+                                        <td>{{ $od->price }}</td>
+                                        @if($order->status != 'invoiced')
+                                        <td>
+                                                <a href="{{ route('delete-order-details',$od->id) }}" class="btn btn-danger" onclick="return confirm('Are you confirm to delete it ?')"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                        @endif
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @endforeach
+                    {{--@endforeach--}}
                 @endif
                 <tr>
                     <th colspan="2" class="text-right">Total</th>

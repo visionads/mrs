@@ -24,6 +24,8 @@
 
                 {!! Form::open(['route'=>['add-to-cart',$data['id']],'id'=>'genForm','files'=>true]) !!}
 
+                <input type="text" name="mktg_menu_item_id" value="{{ $menu_item_id }}">
+
                 {{--=========For Congratulatory Pack ===============--}}
                 @if($data['slug']=='congratulatory-pack')
                     <script>
@@ -66,7 +68,7 @@
 
                     {{--Right pan::for form and other items--}}
                     <div class="col-md-8 green-yellow">
-                        <h3 class="green-yellow">{{ $pageTitle }}</h3>
+                        <h3 class="green-yellow">{{ $pageTitle }}{{---{{ $menu_item_id }}--}}</h3>
                         {{--{!! Form::open(['method'=>'GET','route'=>'solution-type-search','class'=>'form-inline']) !!}
                         {!! Form::open(['method'=>'GET','class'=>'form-horizontal']) !!}
                         @include('mktg::marketing_material.agency_stationary_materials.letterhead_form')

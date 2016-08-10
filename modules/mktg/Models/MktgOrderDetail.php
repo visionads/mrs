@@ -11,6 +11,7 @@ class MktgOrderDetail extends Model
 
     protected $fillable = [
         'mktg_order_id',
+        'mktg_menu_item_id',
         'mktg_item_value_id',
         'amount',
         'mktg_artwork_id',
