@@ -359,7 +359,7 @@ INSERT INTO `permissions` (`id`, `title`, `route_url`, `description`, `created_b
 (349, 'marketing/mktg-item-option-add-value-store/{id}', 'marketing/mktg-item-option-add-value-store/{id}', NULL, 1, 0, '2016-08-07 23:17:28', '2016-08-07 23:17:28'),
 (350, 'marketing/mktg-item-option-add-value-update/{id}', 'marketing/mktg-item-option-add-value-update/{id}', NULL, 1, 0, '2016-08-07 23:17:28', '2016-08-07 23:17:28'),
 (351, 'marketing/mktg-order', 'marketing/mktg-order', NULL, 1, 0, '2016-08-07 23:17:28', '2016-08-07 23:17:28'),
-(352, 'marketing/invoice-list', 'marketing/invoice-list', NULL, 1, 0, '2016-08-07 23:17:28', '2016-08-07 23:17:28'),
+(352, 'marketing/mktg-invoice-list', 'marketing/mktg-invoice-list', NULL, 1, 0, '2016-08-07 23:17:28', '2016-08-07 23:17:28'),
 (353, 'marketing/make-invoice/{order_id}', 'marketing/make-invoice/{order_id}', NULL, 1, 0, '2016-08-07 23:17:28', '2016-08-07 23:17:28'),
 (354, 'get-price', 'get-price', NULL, 1, 0, '2016-08-07 23:17:28', '2016-08-07 23:17:28');
 
