@@ -35,27 +35,27 @@
 
     <div id="container" class="container pages new_order font-droid">
 
+
         <div class="col-sm-12">
 
+            <h3 style="color: white">
+                <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }} of {{ $order->order_no }}
+            </h3>
             <table class="table table-striped table-responsive size-13 mktg_quote-list" cellspacing="0" cellpadding="0" border="0">
                 <thead class="head-top">
                 <tr>
                     <td colspan="7">
-                        <h3>
-                            <span class="glyphicon glyphicon-list">&nbsp;</span> {{ $pageTitle }} of {{ $order->order_no }}
-
-                            @if($order->status!='invoiced')
-                                <a href="{{ route('mktg-order') }}" class="btn green-yellow-bg black pull-right" style="margin-right: 5px;"><i class="fa fa-eye">&nbsp;</i>View Order List</a>
+                        <div class="pull-left">
+                            <a href="{{ route('marketing-material-printing') }}" class="btn green-yellow-bg black pull-right" style="margin-right: 5px;"><i class="fa fa-shopping-cart">&nbsp;</i>Continue Shopping</a>
+                            <a href="{{ route('mktg-invoice-list') }}" class="btn green-yellow-bg black pull-right" style="margin-right: 5px;"><i class="fa fa-arrow-circle-left">&nbsp;</i>Back To Invoice List</a>
+                        </div>
+                        <div>
                                 <a href="{{ route('make-invoice',$order->id) }}" class="btn green-yellow-bg black pull-right" style="margin-right: 5px;" onclick="return confirm('Are your sure ?')"><i class="fa fa-check-square">&nbsp;</i> Confirm Order</a>
-                                <a href="{{ route('marketing-material-printing') }}" class="btn green-yellow-bg black pull-right" style="margin-right: 5px;"><i class="fa fa-shopping-cart">&nbsp;</i>Continue Shopping</a>
-                            @endif
-                            @if(session('user-role')!='admin' && session('user-role')!='super-admin')
+
                                 <a href="{{ route('mktg-order') }}" class="btn green-yellow-bg black pull-right" style="margin-right: 5px;"><i class="fa fa-eye">&nbsp;</i>View Order List</a>
-                                <a href="{{ route('mktg-invoice-list') }}" class="btn green-yellow-bg black pull-right" style="margin-right: 5px;"><i class="fa fa-arrow-circle-left">&nbsp;</i>Back To Invoice List</a>
-                            @else
+
                                 <a href="{{ route('payments') }}" class="btn green-yellow-bg black pull-right" style="margin-right: 5px;"><i class="fa fa-eye">&nbsp;</i> View Payment</a>
-                            @endif
-                        </h3>
+                        </div>
                     </td>
                 </tr>
                 </thead>
