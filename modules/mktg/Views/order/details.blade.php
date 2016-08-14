@@ -2,19 +2,34 @@
 
 @section('content')
 
+    {{--<table class="table table-striped table-responsive size-13 mktg_quote-list" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Menu Item Id</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if( isset($order_data) )
 
-    @if( isset($order_data) )
-        @foreach($order_data as $value)
-            {{$value['title']}}<br>
-            @foreach($value['rel_mktg_order_detail'] as $ord_dt)
-                {{$ord_dt['type']}}
-                ({{number_format($ord_dt['amount'], 2) }})
-                <br>
-                {{$ord_dt['rel_mktg_item_option']['title']}}
-                <br><br>
+            @foreach($order_data as $value)
+                --}}{{--{{count($value['rel_mktg_order_detail'])}}
+                @foreach($value['rel_mktg_order_detail'] as $ord_dt)
+
+                    <tr>
+                        <td>{{$value['title']}}</td>
+                        <td>{{$ord_dt['type']}}</td>
+                        <td>{{$ord_dt['rel_mktg_item_option']['title']}}</td>
+                        <td>{{number_format($ord_dt['amount'], 2) }}</td>
+                    </tr>
+                @endforeach--}}{{--
             @endforeach
-        @endforeach
-    @endif
+        @endif
+        </tbody>
+    </table>--}}
+
 
 
 
@@ -74,7 +89,7 @@
                                     <tr>
                                         <td>@if($od->io_title==null){{ $od->title }} @else {{ $od->io_title }} @endif</td>
                                         <td>{{ $od->type }}</td>
-                                        <td>{{ $od->mktg_menu_item_id }}</td>
+                                        <td>{{ App\MktgMenuItem::findOrFail($od->mktg_menu_item_id)->title }}</td>
                                         <td>{{ $od->price }}</td>
                                         @if($order->status != 'invoiced')
                                         <td>

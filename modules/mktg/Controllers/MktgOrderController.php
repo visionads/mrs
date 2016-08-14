@@ -213,17 +213,15 @@ class MktgOrderController extends Controller
     {
         $data['pageTitle']= 'Order Details';
 
-        $data['order_data'] = MktgMenuItem::with('relMktgOrderDetail', 'relMktgOrderDetail.relMktgItemOption')
+        /*$data['order_data'] = MktgMenuItem::with('relMktgOrderDetail', 'relMktgOrderDetail.relMktgItemOption')
             ->whereExists(function ($query) {
                 $query->select(DB::raw(1))
                     ->from('mktg_order_detail')
                     ->whereRaw('mktg_order_detail.mktg_menu_item_id = mktg_menu_item.id');
             })
-            ->get()->toArray();
+            ->get()->toArray();*/
 
-
-        #print_r($data['order_data'][0]['rel_mktg_order_detail'][0]['rel_mktg_item_option']['title']);
-        #exit();
+        #print_r($data['order_data'][0]['rel_mktg_order_detail']);exit();
 
         $data['order_details']= DB::select(DB::raw("SELECT
                 od.id,od.type,od.parent_id,od.amount,od.mktg_menu_item_id,
