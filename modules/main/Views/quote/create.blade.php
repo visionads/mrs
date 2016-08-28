@@ -194,6 +194,7 @@
 
                                 </div>
                             </fieldset>
+                            {{--===== For Sign Board Package ========================================================================--}}
                             <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">SIGNBOARD</h3>
@@ -214,24 +215,39 @@
                                     </div>
                                     <div class="row">
                                         <div class="optionalContentDiv optional-content-div">
-                                            <h3 class="center size-16">FOR SPECS & FEATURES PLEASE CLICK ON THE LINK BELOW</h3>
+                                            {{--<h3 class="left size-16 orange">FOR SPECS & FEATURES PLEASE CLICK ON THE LINK BELOW</h3>--}}
+                                            <div><h3 class="left size-32" style="color: #f36f21">Price Include Installation and Removal</h3></div>
                                             @foreach($data['signboard_packages'] as $signboard_package)
-                                            <div class="col-sm-4">
-                                                <label class="">
-                                                    <span class="text-center-label">
-                                                    <input type="checkbox" class="signboard_package_id" name="signboard_package_id[]" value="{{ $signboard_package->id }}">
-{{ $signboard_package->title }}</span>
-                                                    <img width="100%" height="100" src="{{ asset($signboard_package->image_path) }}">
-                                                </label>
-                                                <div class="panel-body">
-                                                    <div class="form-group">
-
-                                                        <select name="signboard_package_size_id[{{ $signboard_package->id }}]" class="form-control">
-                                                            @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
-                                                                <option value="{{ $relSignboardPackage->id }}">{{ $relSignboardPackage->title.' ( $'.$relSignboardPackage->price.')' }}</option>
-                                                            @endforeach
-                                                        </select>
+                                            <div class="col-sm-3 ">
+                                                <div class="sign-box" style="height: 800px;">
+                                                    <label class="">
+                                                        <span class="text-left-label text-color">
+                                                            <input type="checkbox" class="signboard_package_id" name="signboard_package_id[]" value="{{ $signboard_package->id }}">
+                                                            {{--<input type="radio" class="signboard_package_id" name="signboard_package_id[]" value="{{ $signboard_package->id }}">--}}
+                                                            {{ $signboard_package->title }}
+                                                        </span>
+                                                    </label>
+                                                    <div>
+                                                        @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
+                                                            {{ $relSignboardPackage->title }}
+                                                            <p>{{ $relSignboardPackage->description }}</p>
+                                                            <h2 class="size-40 text-color text-normal">$ {{ $relSignboardPackage->price }}</h2>
+                                                        @endforeach
                                                     </div>
+                                                    <div class="pkg-img">
+                                                        <img width="100%" src="{{ asset($signboard_package->image_path) }}">
+                                                    </div>
+
+                                                    {{--<div class="panel-body">
+                                                        <div class="form-group">
+
+                                                            <select name="signboard_package_size_id[{{ $signboard_package->id }}]" class="form-control">
+                                                                @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
+                                                                    <option value="{{ $relSignboardPackage->id }}">{{ $relSignboardPackage->title.' ( $'.$relSignboardPackage->price.')' }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>--}}
                                                 </div>
                                             </div>
                                             @endforeach
@@ -249,9 +265,11 @@
 
                                 </div>
                             </fieldset>
+                            {{--===== End Sign Board Package || Print Material Starts =========================================================================================--}}
                             <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
-                                    <h3 class="instruction">PRINT MATERIAL</h3>                                            <div class="validationErrorPrintMaterial"></div>
+                                    <h3 class="instruction">PRINT MATERIAL</h3>
+                                    <div class="validationErrorPrintMaterial"></div>
 
                                     <div class="row">
                                         <div class="col-sm-12 size-16">
@@ -269,29 +287,47 @@
                                     </div>
                                     <div class="row">
                                         <div class="optionalContentDiv optional-content-div">
-                                            <p class="white size-13">All printed material will be 2side print and the orientation (landscape or portriat) of the material will depend on the artowk set up for your agency, please
-                                                ensure that check it is the required orientation, For specific requirement for orientation, stock or other requirements please state in the “note” section.
-                                            </p>
-                                            <p class="white size-13">Also if you wish to have more then 1 printed material and wish to have dit distributed, please sepcify which print material will be used for distribution by
-                                                selecting the distribution.</p>
+                                            <div class="col-md-12" style="padding-top:10px; padding-bottom: 10px;">
+                                                <p class="white size-13">All printed material will be 2side print and the orientation (landscape or portriat) of the material will depend on the artowk set up for your agency, please
+                                                    ensure that check it is the required orientation, For specific requirement for orientation, stock or other requirements please state in the “note” section.
+                                                </p>
+                                                <p class="white size-13">Also if you wish to have more then 1 printed material and wish to have dit distributed, please sepcify which print material will be used for distribution by
+                                                    selecting the distribution.
+                                                </p>
+                                            </div>
                                             @foreach($data['print_materials'] as $print_material)
-                                            <div class="col-sm-4">
-                                                <label>
-                                                    <input type="checkbox" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
-                                                    {{ $print_material->title }}
-                                                <label style="margin-left: 10%">
-                                                    <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
-                                                    USE FOR DISTRIBUTION
-                                                </label>
-                                                    <img width="100%" height="150" src="{{ asset($print_material->image_path) }}">
-                                                    <div class="panel-body">
-                                                    <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
+                                            <div class="col-sm-2">
+                                                <div class="sign-box" style="height: 550px;">
+                                                    <label class="size-15 text-color">
+                                                        <input type="checkbox" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
+                                                        {{ $print_material->title }}
+                                                    </label>
+                                                    <p class="white size-13">
                                                         @foreach($print_material->relPrintMaterial as $relPrintMaterial)
-                                                        <option value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title.'( $'.$relPrintMaterial->price.')' }}</option>
+                                                            {{ $relPrintMaterial->description }}
                                                         @endforeach
-                                                    </select>
+                                                    </p>
+                                                    <label class="green size-15">
+                                                        <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
+                                                        USE FOR DISTRIBUTION
+                                                    </label>
+                                                    <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>
+                                                    <div class="panel-body select">
+                                                        <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
+                                                            @foreach($print_material->relPrintMaterial as $relPrintMaterial)
+                                                            <option value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title.'( $'.$relPrintMaterial->price.')' }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="text-color size-32">
+                                                        @foreach($print_material->relPrintMaterial as $relPrintMaterial)
+                                                           $ {{ $relPrintMaterial->price }}
+                                                        @endforeach
+                                                    </div>
+
+
+
                                                 </div>
-                                                </label>
                                             </div>
                                             @endforeach
                                             <div class="col-sm-4">
@@ -307,6 +343,7 @@
 
                                 </div>
                             </fieldset>
+                            {{--===== Distribution of print material starts from here =============================================================================--}}
                             <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
@@ -329,24 +366,56 @@
 
                                         <div class="optionalContentDiv optional-content-div">
                                             <div class="col-sm-6">
-                                            <div class="form-group">
-                                                {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location
-(Remainder will be sent to you the agency)','class="size-13"') !!}
+                                                <div class="form-group">
+                                                    {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location (Remainder will be sent to you the agency)','class="controll-label size-13"') !!}
 
-                                                <select class="quantity" name="quantity"  style="color: black">
-                                                    <option value="select">Please Select</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select>
+                                                    <select class="quantity form-control" name="quantity"  style="color: black">
+                                                        <option value="select">Please Select</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required">New Field</span></label><br>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <label>
+                                                                <input class="" type="radio" name="locationDistributionProperties" value="0" checked="checked">
+                                                                No
+                                                            </label>
+                                                            <label>
+                                                                <input class="" type="radio" name="locationDistributionProperties" value="1">
+                                                                Yes
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>NOTE</label>
+                                                    <textarea type="text" name="note" placeholder="Note" class="form-control" id="note"></textarea>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>NOTE</label>
-                                                <textarea type="text" name="note" placeholder="Note" class="form-control" id="note"></textarea>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div style="width: 100%; height: 15px"></div>
+                                                    <label class="control-label size-13">Quantity<small class="required"> [New field]</small></label>
+                                                    <input type="number" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label size-13">Distribution Area [Post Code ]<small class="required"> [New field]</small></label>
+                                                    <input type="number" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label size-13">Choose a Date of Distribution <small class="required"> [New field]</small></label>
+                                                    <input type="number" class="form-control">
+                                                </div>
                                             </div>
-                                        </div>
                                         </div>
                                     </div>
                                     {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
@@ -355,7 +424,9 @@
 
                                 </div>
                             </fieldset>
-                            <fieldset class="dflt_packs"><hr>
+                            {{--===== Distribution of Print material end || Digital Media starts=======================================================--}}
+
+                            {{--<fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Digital media</h3>
                                     <div class="validationErrorDigitalMedia"></div>
@@ -393,13 +464,13 @@
                                         </div>
                                         </div>
                                     </div>
-                                    {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button id="digitalMediaNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
+                                    --}}{{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
+                                    <button id="digitalMediaNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}{{--
 
 
                                 </div>
-                            </fieldset>
-                            <fieldset class="dflt_packs"><hr>
+                            </fieldset>--}}
+                            {{--<fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Local newsprint media advertising</h3>
                                     <div class="validationErrorLocalMedia"></div>
@@ -430,7 +501,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         @foreach($local_media->relLocalMedia as $relLocalMedia)
-                                                            {{--<input type="radio">--}}
+                                                            --}}{{--<input type="radio">--}}{{--
                                                             <label class="size-13">
                                                                 <input class="local_media_option_id" type="radio" value="{{ $relLocalMedia->id }}" name="local_media_option_id[{{  $local_media->id }}]">
                                                                 {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}
@@ -448,20 +519,20 @@
                                         </div>
                                         </div>
                                     </div>
-                                    {{--<div class="row">
+                                    --}}{{--<div class="row">
                                         <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    </div>--}}
-                                    {{--<div class="row">
+                                    </div>--}}{{--
+                                    --}}{{--<div class="row">
                                         <div class="col-sm-5 col-sm-offset-7">
 
                                             {!! Form::input('button','save','Save',['class'=>'btn btn-primary btn-bg']) !!}
                                             {!! Form::input('button','quote','Quote',['class'=>'btn btn-bg btn-info ']) !!}
                                         </div>
-                                    </div>--}}
+                                    </div>--}}{{--
 
 
                                 </div>
-                            </fieldset>
+                            </fieldset>--}}
                             <div class="row">
                                 <div class="col-sm-12 center">
                                     <input value="Save" name="save" type="submit" class="btn new_button proceedBtn">

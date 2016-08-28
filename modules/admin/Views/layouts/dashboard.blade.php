@@ -61,13 +61,13 @@
                             <a href="{{ url('main/quotes') }}" class="quote">Order List</a>
                         </div>
                         <div class="form-group" id="new_quote">
-                            <a href="{{ url('marketing/mktg-order') }}" class="quote">Order List Marketing</a>
+                            <a href="{{ url('marketing/mktg-order') }}" class="quote">Order List Marketing{{--<span class="size-15 black">(Marketing)</span>--}}</a>
                         </div>
                         <div class="form-group" id="new_quote">
                             <a href="{{route('payment-list')}}" class="quote">Payment History</a>
                         </div>
                         <div class="form-group" id="new_quote">
-                            <a href="{{route('payments')}}" class="quote">Payment History Marketing</a>
+                            <a href="{{route('payments')}}" class="quote">Payment History Marketing {{--<span class="size-15 black">(Marketing)</span>--}}</a>
                         </div>
                     </div>
                 @else
