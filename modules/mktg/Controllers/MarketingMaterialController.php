@@ -518,8 +518,12 @@ class MarketingMaterialController extends Controller
                     //print_r($getimgpath['image']);exit();
                     $deleted = MktgMenuItemImage::where('id',$dltimg)->delete();
                     if($deleted){
-                        unlink(public_path()."/".$getimgpath['image']);
-                        unlink(public_path()."/".$getimgpath['image_thumb']);
+                        if (file_exists($getimgpath['image'])) {
+                            unlink(public_path()."/".$getimgpath['image']);
+                        }
+                        if (file_exists($getimgpath['image_thumb'])) {
+                            unlink(public_path()."/".$getimgpath['image_thumb']);
+                        }
                     }
                 }
 

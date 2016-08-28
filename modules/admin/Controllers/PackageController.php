@@ -212,8 +212,13 @@ class PackageController extends Controller
             $file_name = $this->image_upload($image, $file_type_required, $destinationPath);
 
             if ($file_name != '') {
-                unlink(public_path()."/".$model->image_path);
-                unlink(public_path()."/".$model->image_thumb);
+                if (file_exists($model->image_path)) {
+                    unlink(public_path()."/".$model->image_path);
+                }
+                if (file_exists($model->image_thumb)) {
+                    unlink(public_path()."/".$model->image_thumb);
+                }
+
                 $input['image_path'] = $file_name[0];
                 $input['image_thumb'] = $file_name[1];
             } else {
@@ -316,8 +321,12 @@ class PackageController extends Controller
         DB::beginTransaction();
         try {
             if ($model_package->delete()) {
-                unlink(public_path()."/".$model_package->image_path);
-                unlink(public_path()."/".$model_package->image_thumb);
+                if (file_exists($model_package->image_path)) {
+                    unlink(public_path()."/".$model_package->image_path);
+                }
+                if (file_exists($model_package->image_path)) {
+                    unlink(public_path()."/".$model_package->image_thumb);
+                }
                 DB::commit();
                 Session::flash('message', 'Successfully deleted!');
             }
