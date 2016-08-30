@@ -168,12 +168,14 @@ class CreateAdmin extends Migration
         });
 
 
-        //signboard_package
+        //print_material_distribution
         Schema::create('print_material_distribution', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('quantity')->nullable();
+            $table->boolean('quantity_next')->nullable();
             $table->boolean('is_surrounded')->nullable();
             $table->text('other_address')->nullable();
+            $table->text('distribution_area')->nullable();
             $table->dateTime('date_of_distribution')->nullable();
             $table->string('note', 128)->nullable();
             $table->unsignedInteger('business_id')->nullable();

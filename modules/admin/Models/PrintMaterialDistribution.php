@@ -14,6 +14,8 @@ class PrintMaterialDistribution extends Model
 
     protected $fillable = [
         'quantity',
+        'quantity_next',
+        'distribution_area',
         'is_surrounded',
         'other_address',
         'date_of_distribution',

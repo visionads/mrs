@@ -458,6 +458,12 @@ class QuoteController extends Controller
                 if (isset($received['distributedPrintMaterialChooseBtn']) && !empty($received['distributedPrintMaterialChooseBtn']) && $received['distributedPrintMaterialChooseBtn'] == 1) {
                     $distribution['quantity'] = $received['quantity'];
                     $distribution['note'] = $received['note'];
+
+                    $distribution['quantity_next'] = $received['quantity_next'];
+                    $distribution['distribution_area'] = $received['distribution_area'];
+                    $distribution['date_of_distribution'] = $received['date_of_distribution'];
+                    $distribution['is_surrounded'] = $received['is_surrounded'];
+
                     $distribution_id = PrintMaterialDistribution::create($distribution);
                     $data['print_material_distribution_id'] = $distribution_id->id;
                 }

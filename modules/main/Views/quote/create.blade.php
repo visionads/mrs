@@ -441,11 +441,11 @@
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <label>
-                                                                <input class="" type="radio" name="locationDistributionProperties" value="0" checked="checked">
+                                                                <input class="" type="radio" name="is_surrounded" value="0" checked="checked">
                                                                 No
                                                             </label>
                                                             <label>
-                                                                <input class="" type="radio" name="locationDistributionProperties" value="1">
+                                                                <input class="" type="radio" name="is_surrounded" value="1">
                                                                 Yes
                                                             </label>
                                                         </div>
@@ -460,16 +460,16 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <div style="width: 100%; height: 15px"></div>
-                                                    <label class="control-label size-13">Quantity<small class="required"> [New field]</small></label>
-                                                    <input type="number" class="form-control">
+                                                    <label class="control-label size-13">Quantity<small class="required"> [ Just type Quantity ]</small></label>
+                                                    <input type="number" name="quantity_next" class="form-control">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label size-13">Distribution Area [Post Code ]<small class="required"> [New field]</small></label>
-                                                    <input type="number" class="form-control">
+                                                    <label class="control-label size-13">Distribution Area [Post Code ]<small class="required"> [ New field ]</small></label>
+                                                    <input type="number" name="distribution_area" class="form-control">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label size-13">Choose a Date of Distribution <small class="required"> [New field]</small></label>
-                                                    <input type="number" class="form-control">
+                                                    <label class="control-label size-13">Choose a Date of Distribution <small class="required"> [ New field ]</small></label>
+                                                    <input type="date" id="date_id" name="date_of_distribution" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
