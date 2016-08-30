@@ -40,7 +40,13 @@
             <div>{!! Form::text('title_option[]', Input::old('title_option'), ['title'=>'enter title','placeholder'=>'Package option title', 'class' => 'form-control']) !!}</div>\
             </td>\
             \<td>\
-            <div>{!! Form::input('number','price_option[]', Input::old('price_option'), ['title'=>'enter price','placeholder'=>'Price', 'class' => 'form-control']) !!}</div>\
+            <div>{!! Form::input('number','price_option[]', 0, ['title'=>'enter price','placeholder'=>'Price', 'class' => 'form-control','readonly']) !!}</div>\
+            </td>\
+            <td>\
+                <div>{!! Form::file('image_option[]', Input::old('image_option'), ['title'=>'enter Image', 'class' => 'form-control']) !!}</div>\
+            </td>\
+            <td>\
+            <div>{!! Form::text('description[]', Input::old('description'), ['title'=>'enter description', 'class' => 'form-control']) !!}</div>\
             </td>\
             </tr>';
             table.append(element);

@@ -82,6 +82,8 @@
         <tr>
             <th>Title:</th>
             <th>Price:</th>
+            <th>Image:</th>
+            <th>Description:</th>
         </tr>
         </thead>
         <tbody>
@@ -97,7 +99,23 @@
                     </td>
                     <td>
                         <div>
-                            {!! Form::input('number','price_option[]', @$value_dt['price'], ['title'=>'enter price', 'class' => 'form-control']) !!}
+                            {!! Form::input('number','price_option[]', @$value_dt['price'], ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            @if(isset($value_dt->image_thumb))
+                                <img src="{{ URL::to($value_dt->image_thumb) }}">
+                                {!! Form::hidden('del_option_img_thumb[]',$value_dt->image_thumb,[]) !!}
+                                {!! Form::hidden('del_option_img[]',$value_dt->image,[]) !!}
+                            @endif
+                            {{--{!! Form::file('image_option_edit[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}--}}
+                            {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {!! Form::text('description[]', @$value_dt['description'], ['title'=>'enter description', 'class' => 'form-control']) !!}
                         </div>
                     </td>
                 </tr>
@@ -112,7 +130,17 @@
             </td>
             <td>
                 <div>
-                    {!! Form::input('number','price_option[]', null, ['title'=>'enter price','placeholder'=>'Price', 'class' => 'form-control']) !!}
+                    {!! Form::input('number','price_option[]', 0, ['title'=>'enter price','placeholder'=>'Price', 'class' => 'form-control','readonly']) !!}
+                </div>
+            </td>
+            <td>
+                <div>
+                    {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
+                </div>
+            </td>
+            <td>
+                <div>
+                    {!! Form::text('description[]', null, ['title'=>'enter description', 'class' => 'form-control']) !!}
                 </div>
             </td>
         </tr>
