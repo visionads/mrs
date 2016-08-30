@@ -49,7 +49,7 @@
                         <tr class="bg-primary">
                             <th> Title </th>
                             <th> Price</th>
-                            <th> Image Path</th>
+                            <th> Image</th>
                             <th> Action &nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-placement="top" data-content="view : click for details informations<br>update : click for update informations<br>delete : click for delete informations"></span></th>
                         </tr>
                         </thead>
