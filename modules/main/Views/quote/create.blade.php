@@ -98,57 +98,70 @@
                                         @if(isset($data['packages']))
                                             <?php $i=0; ?>
                                             @foreach($data['packages'] as $package)
+                                                <div class="col-md-12 text-color center size-25">{{ $package->type }}</div>
                                                 <div class="col-sm-12 package1">
-                                                <table class="" border="0" style="width: 100%; height: auto; color: #fff; text-align: center; background:#000;">
-                                                    <tr>
-                                                        <td align="left" width="30%">
-                                                            <div class="">
-                                                                @if(isset($package->image_path))
-                                                                    <img src="{{ url($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="No image found in the image directory">
-                                                                @endif
-
-                                                                <?php $i += 1; if($i=='1') {$checked='checked';}else{$checked='';} ?>
-                                                                <div class="right-dashed">
-                                                                    <label class="text-color">
-                                                                        <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
-                                                                        {{ $package->title }}
-                                                                    </label>
-
-                                                                    @if(isset($package['relPackageOption']))
-                                                                        <ul class="size-14 ">
-                                                                            @foreach($package['relPackageOption'] as $package_option)
-                                                                                <li>{{ $package_option->title }}</li>
-                                                                                {{--<li align="right">{{ number_format($package_option->price,2) }}</li>--}}
-                                                                            @endforeach
-                                                                        </ul>
+                                                    <table class="" border="0" style="width: 100%; height: auto; color: #fff; text-align: center; background:#000;">
+                                                        <tr>
+                                                            <?php $i += 1; if($i=='1') {$checked='checked';}else{$checked='';} ?>
+                                                            <label class="text-color">
+                                                                <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
+                                                                {{ $package->title }}
+                                                            </label>
+                                                        </tr>
+                                                        <tr>
+                                                            {{--=== First part from left ===--}}
+                                                            <td align="left" width="30%">
+                                                                <div class="">
+                                                                    @if(isset($package->image_path))
+                                                                        <img src="{{ url($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="No image found in the image directory">
                                                                     @endif
+
+                                                                    <div class="">
+                                                                        @if(isset($package['relPackageOption']))
+                                                                            <ul class="size-14 right-dashed" style=" margin-bottom: 30px;">
+                                                                                @foreach($package['relPackageOption'] as $package_option)
+                                                                                    <li>{{ $package_option->title }}</li>
+                                                                                    {{--<li align="right">{{ number_format($package_option->price,2) }}</li>--}}
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        @if(isset($package['relPackageOption']))
-                                                            @foreach($package['relPackageOption'] as $package_option)
-                                                                <td>{{ $package_option->title }}<br> {{  $package_option->desctiption }}</td>
-                                                                <td> + </td>
-                                                                {{--<td align="right">{{ number_format($package_option->price,2) }}</td>--}}
-                                                            @endforeach
-                                                        @endif
+                                                            </td>
 
-                                                        <td> = </td>
-
-                                                        <td>
-                                                            <strong style="border-bottom: 3px double #f59e00; color: #f59e00">{{number_format($package->price,2)}}</strong>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                    </div>
+                                                            {{--=== Loop ===--}}
+                                                            @if(isset($package['relPackageOption']))
+                                                                @foreach($package['relPackageOption'] as $package_option)
+                                                                    <td>
+                                                                        <span class="text-color">{{ $package_option->title }}</span><br>
+                                                                        <span class="size-15 italic">{{ isset($package_option->description)?$package_option->description:'No Description'  }}</span><br>
+                                                                        @if(isset($package_option->image))
+                                                                            <img src="{{ $package_option->image }}" width="100">
+                                                                        @else
+                                                                            <span class="glyphicon glyphicon-picture" style="font-size: 64px;" title="No Image Available"></span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td> <span class="glyphicon glyphicon-plus text-color size-18"></span> </td>
+                                                                    {{--<td align="right">{{ number_format($package_option->price,2) }}</td>--}}
+                                                                @endforeach
+                                                            @endif
+                                                            {{--=== end loop ===--}}
+                                                            <td class="size-25 text-color"> = </td>
+                                                            <td align="right" width="13%">
+                                                                <strong style="color: #f59e00; font-size: 40px;">$ {{number_format($package->price,2)}}</strong>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
                                             @endforeach
+                                            <div><a role="tab" class="btn btn-warning" id="addphotography"> + ADD Photography Package</a></div>
                                         @endif
                                     </div>
                                 </div>
                             </fieldset>
                             {{--========================================= Package End =============================================--}}
 
-                            <fieldset class="dflt_packs"><hr>
+                            <fieldset class="dflt_packs photography"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Photography</h3>
                                     <br>
