@@ -19,7 +19,9 @@ class PackageOption extends Model
         'package_id',
         'title',
         'slug',
-        'price'
+        'price',
+        'image',
+        'image_thumb'
     ];
 
 

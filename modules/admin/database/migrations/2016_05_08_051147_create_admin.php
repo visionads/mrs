@@ -109,7 +109,7 @@ class CreateAdmin extends Migration
             $table->float('price')->nullable();
             $table->string('description',128)->nullable();
             $table->unsignedInteger('business_id')->nullable();
-            $table->string('image_path', 128)->nullable();
+            $table->string('image', 128)->nullable();
             $table->string('image_thumb', 128)->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
@@ -152,7 +152,7 @@ class CreateAdmin extends Migration
             $table->string('slug', 128)->nullable();
             $table->unique(array('package_id', 'slug'));
             $table->float('price')->nullable();
-            $table->string('image_path', 128)->nullable();
+            $table->string('image', 128)->nullable();
             $table->string('image_thumb', 128)->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
@@ -222,7 +222,7 @@ class CreateAdmin extends Migration
             $table->float('price')->nullable();
             $table->string('description',128)->nullable();
             $table->unsignedInteger('business_id')->nullable();
-            $table->string('image_path', 128)->nullable();
+            $table->string('image', 128)->nullable();
             $table->string('image_thumb', 128)->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
