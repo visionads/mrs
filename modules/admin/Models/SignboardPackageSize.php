@@ -17,7 +17,7 @@ class SignboardPackageSize extends Model
     protected $table = 'signboard_package_size';
 
     protected $fillable = [
-        'signboard_package_id','title','price','description','business_id'
+        'signboard_package_id','title','price','description','business_id','image_path','image_thumb'
     ];
 
 
