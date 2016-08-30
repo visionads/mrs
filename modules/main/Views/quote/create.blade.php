@@ -96,9 +96,27 @@
 
                                     <div class="row pack-choise">
                                         @if(isset($data['packages']))
-                                            <?php $i=0; ?>
+                                            <?php
+                                                $i=0;
+                                                $j = 0;
+                                                $pack_type_unique = array();
+                                            ?>
+                                            {{--=== 1st Loop ===--}}
                                             @foreach($data['packages'] as $package)
-                                                <div class="col-md-12 text-color center size-25">{{ $package->type }}</div>
+
+                                                <?php
+                                                    $pack_type_unique[$j] = $package->type;
+                                                    if($j > 0){
+                                                        if ($pack_type_unique[$j] != $pack_type_unique[$j-1]){
+                                                            echo '<div class="col-md-12 text-color center size-25">'.$pack_type_unique[$j].'</div>';
+                                                        }
+                                                    } else {
+                                                        echo '<div class="col-md-12 text-color center size-25">'.$pack_type_unique[$j].'</div>';
+                                                    }
+                                                    $j++;
+                                                ?>
+
+                                                {{--<div class="col-md-12 text-color center size-25">{{ $package->type }}</div>--}}
                                                 <div class="col-sm-12 package1">
                                                     <table class="" border="0" style="width: 100%; height: auto; color: #fff; text-align: center; background:#000;">
                                                         <tr>
@@ -129,12 +147,12 @@
                                                                 </div>
                                                             </td>
 
-                                                            {{--=== Loop ===--}}
+                                                            {{--=== 2nd Loop ===--}}
                                                             @if(isset($package['relPackageOption']))
                                                                 @foreach($package['relPackageOption'] as $package_option)
                                                                     <td>
                                                                         <span class="text-color">{{ $package_option->title }}</span><br>
-                                                                        <span class="size-15 italic">{{ isset($package_option->description)?$package_option->description:'No Description'  }}</span><br>
+                                                                        <span class="size-15 italic">{{ isset($package_option->description)?$package_option->description:''  }}</span><br>
                                                                         @if(isset($package_option->image))
                                                                             <img src="{{ $package_option->image }}" width="100">
                                                                         @else
