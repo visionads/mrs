@@ -166,7 +166,7 @@
                                                             {{--=== end loop ===--}}
                                                             <td class="size-25 text-color"> = </td>
                                                             <td align="right" width="13%">
-                                                                <strong style="color: #f59e00; font-size: 40px;">$ {{number_format($package->price,2)}}</strong>
+                                                                <strong style="color: #f59e00; font-size: 30px;">$ {{number_format($package->price,2)}}</strong>
                                                             </td>
                                                         </tr>
                                                     </table>
