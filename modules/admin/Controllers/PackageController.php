@@ -107,15 +107,55 @@ class PackageController extends Controller
         }
         //print_r($input_head);exit();
 
+
+
         // input data for detail
-        for($i=0; $i<count($input['title_option']); $i++){
-            $i_detail[] = array(
-                'title'=>$input['title_option'][$i],
-                'price'=>$input['price_option'][$i]
-                //'description'=>$input['description'][$i]
-            );
+        $i_detail = array();
+        for($i=0; $i<count($input['title_option']); $i++)
+        {
+            $image_option = $_FILES['image_option']['name'][$i];
+            $image_data = Input::file('image_option')[$i];
+
+            $option_image = array();
+            if(count($image_option)>0)
+            {
+                $file_type_required = 'png,jpeg,jpg';
+                $destinationPath = 'uploads/mktg_menu_item_options_image/';
+
+                $uploadfolder = 'uploads/';
+
+                if ( !file_exists($uploadfolder) ) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir ($uploadfolder, 0777);
+                }
+                if ( !file_exists($destinationPath) ) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir ($destinationPath, 0777);
+                }
+
+                $file_name = $this->image_upload_options($image_option,$image_data, $file_type_required,$destinationPath);
+
+                if($file_name != '') {
+                    $option_image [] = array(
+                        'image'=>$file_name[0],
+                        'image_thumb'=>$file_name[1],
+
+                    );
+                }
+
+            }
+            // index checking if not null
+            if($input['title_option'][$i] != null){
+                $i_detail[] = array(
+                    'title'=>$input['title_option'][$i],
+                    'price'=>$input['price_option'][$i],
+                    'description'=>$input['description'][$i],
+                    'image' => isset($option_image[0]['image'])?$option_image[0]['image']:null,
+                    'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
+                );
+            }
+
         }
-        //print_r($i_detail);exit();
 
         /* Transaction Start Here */
         DB::beginTransaction();
@@ -132,7 +172,10 @@ class PackageController extends Controller
                     $data = [
                         'package_id' => $vh['id'],
                         'title' => $value['title'],
-                        'price' => $value['price']
+                        'price' => $value['price'],
+                        'description' => $value['description'],
+                        'image' => $value['image'],
+                        'image_thumb' => $value['image_thumb'],
                     ];
                     PackageOption::create($data);
                 }
@@ -236,7 +279,7 @@ class PackageController extends Controller
                 'title'=>@$input['title'],
                 'price'=>@$input['price'],
                 'status'=>@$input['status'],
-                'type' => $input['type'],
+                'type'=>@$input['type'],
                 'image_path'=>@$input['image_path'],
                 'image_thumb'=>@$input['image_thumb']
             ];
@@ -245,20 +288,63 @@ class PackageController extends Controller
                 'id'=>@$id,
                 'title'=>@$input['title'],
                 'price'=>@$input['price'],
-                'type' => $input['type'],
+                'type'=>@$input['type'],
                 'status'=>@$input['status']
             ];
         }
 
-
         // input data for detail
-        for($i=0; $i<count($input['title_option']); $i++){
-            $i_detail[] = array(
-                'dt_id'=>@$input['dt_id'][$i],
-                'title_option'=>@$input['title_option'][$i],
-                'price_option'=>@$input['price_option'][$i]
-            );
+        $i_detail = array();
+        for($i=0; $i<count($input['title_option']); $i++) {
+
+            $image_option = $_FILES['image_option']['name'][$i];
+            $image_data = Input::file('image_option')[$i];
+            //$del_option_img = $input['del_option_img'][$i];
+            //$del_option_img_thumb = $input['del_option_img_thumb'][$i];
+
+            //$image_option_edit = $_FILES['image_option_edit']['name'][$i];
+            $option_image = array();
+
+            if (count($image_option) > 0) //if($image_option !== null)
+            {
+                $file_type_required = 'png,jpeg,jpg';
+                $destinationPath = 'uploads/mktg_menu_item_options_image/';
+                $uploadfolder = 'uploads/';
+
+                if (!file_exists($uploadfolder)) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir($uploadfolder, 0777);
+                }
+                if (!file_exists($destinationPath)) {
+                    $oldmask = umask(0);  // helpful when used in linux server
+                    mkdir($destinationPath, 0777);
+                }
+                $file_name = $this->image_upload_options($image_option, $image_data, $file_type_required, $destinationPath);
+                if ($file_name != '') {
+                    //unlink(public_path()."/".$model->image);
+                    //unlink(public_path()."/".$model->image_thumb);
+
+                    $option_image [] = array(
+                        'image' => $file_name[0],
+                        'image_thumb' => $file_name[1],
+                    );
+                }
+            }
+
+            if ($input['title_option'][$i] != null) {
+
+                $i_detail[] = array(
+                    'dt_id' => @$input['dt_id'][$i],
+                    'title_option' => @$input['title_option'][$i],
+                    'price_option' => @$input['price_option'][$i],
+                    'description' => @$input['description'][$i],
+                    'image' => isset($option_image[0]['image'])?$option_image[0]['image']:@$input['del_option_img'][$i],
+                    'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:@$input['del_option_img_thumb'][$i],
+                );
+            }
         }
+
+
 
         /* Transaction Start Here */
         DB::beginTransaction();
@@ -277,6 +363,9 @@ class PackageController extends Controller
                         'package_id' => $id,
                         'title' => $value['title_option'],
                         'price' => $value['price_option'],
+                        'description' => $value['description'],
+                        'image' => $value['image'],
+                        'image_thumb' => $value['image_thumb'],
                     ];
 
                     // insert data into voucher detail table
@@ -353,6 +442,57 @@ class PackageController extends Controller
             $thumb_name = 'thumb_400x400_'.$random_number.'_'.$img_name;
 
             $newWidth=100;
+            $targetFile=$destinationPath.$thumb_name;
+            $originalFile=$image;
+
+            $resizedImages 	= ImageResize::resize($newWidth, $targetFile,$originalFile);
+
+            $thumb_image_destination=$destinationPath;
+            $thumb_image_name=$thumb_name;
+
+            //$rules = array('image' => 'required|mimes:png,jpeg,jpg');
+            $rules = array('image' => 'required|mimes:'.$file_type_required);
+            $validator = Validator::make(array('image' => $image), $rules);
+            if ($validator->passes()) {
+                // Files destination
+                //$destinationPath = 'uploads/slider_image/';
+                // Create folders if they don't exist
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0777, true);
+                }
+                $image_original_name = $image->getClientOriginalName();
+                $image_name = rand(111, 999) . $image_original_name;
+                $upload_success = $image->move($destinationPath, $image_name);
+
+                $file=array($destinationPath . $image_name, $thumb_image_destination.$thumb_image_name);
+
+                if ($upload_success) {
+                    return $file_name = $file;
+                }
+                else{
+                    return $file_name = '';
+                }
+            }
+            else{
+                return $file_name = '';
+            }
+        }
+    }
+
+    public function image_upload_options($image,$image_data, $file_type_required,$destinationPath)
+    {
+        if ($image != '')
+        {
+
+            $img_name = $image;
+            $image = $image_data;
+
+
+            $random_number = rand(111, 999);
+
+            $thumb_name = 'thumb_400x400_'.$random_number.'_'.$img_name;
+
+            $newWidth=80;
             $targetFile=$destinationPath.$thumb_name;
             $originalFile=$image;
 

@@ -20,6 +20,7 @@ class PackageOption extends Model
         'title',
         'slug',
         'price',
+        'description',
         'image',
         'image_thumb'
     ];

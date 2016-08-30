@@ -152,6 +152,7 @@ class CreateAdmin extends Migration
             $table->string('slug', 128)->nullable();
             $table->unique(array('package_id', 'slug'));
             $table->float('price')->nullable();
+            $table->string('description',128)->nullable();
             $table->string('image', 128)->nullable();
             $table->string('image_thumb', 128)->nullable();
             $table->integer('created_by', false, 11);
