@@ -20,6 +20,12 @@
                 <th class="col-lg-2">Price</th>
                 <td class="col-lg-4">{{ isset($data[0]['price'])?$data[0]['price']:''}}</td>
             </tr>
+            <tr>
+                <th class="col-lg-2">Type</th>
+                <td class="col-lg-4">{{ isset($data[0]['type'])?$data[0]['type']:''}}</td>
+
+                
+            </tr>
         </table>
 
         @if(count($data[0]['relPhotographyPackage'])>0)

@@ -47,6 +47,7 @@
                         <tr class="bg-primary">
                             <th> Title </th>
                             <th> Price</th>
+                            <th> Type</th>
                             <th> Action &nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-placement="top" data-content="view : click for details informations<br>update : click for update informations<br>delete : click for delete informations"></span></th>
                         </tr>
                         </thead>
@@ -56,6 +57,7 @@
                                 <tr class="gradeX">
                                     <td>{{ucfirst($values->title)}}</td>
                                     <td>{{ucfirst($values->price)}}</td>
+                                    <td>{{ucfirst($values->type)}}</td>
                                     <td>
                                         <a href="{{ route('view-photography-package', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><i class="glyphicon glyphicon-eye-open"></i></a>
                                         <a href="{{ route('edit-photography-package', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="glyphicon glyphicon-edit"></i></a>

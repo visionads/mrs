@@ -17,7 +17,7 @@ class SignboardPackage extends Model
     protected $table = 'signboard_package';
 
     protected $fillable = [
-        'title','image_path','image_thumb','business_id'
+        'title','image_path','image_thumb','business_id','price','description'
     ];
 
     //TODO : Model Relationship

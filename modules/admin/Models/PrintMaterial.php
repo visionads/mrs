@@ -18,7 +18,7 @@ class PrintMaterial extends Model
     protected $table = 'print_material';
 
     protected $fillable = [
-        'title','image_path','image_thumb','is_distribution', 'business_id'
+        'title','image_path','image_thumb','is_distribution', 'business_id','price','quantity_limit','description'
     ];
 
     //TODO : Model Relationship

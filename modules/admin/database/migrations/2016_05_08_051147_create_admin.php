@@ -36,6 +36,7 @@ class CreateAdmin extends Migration
             $table->string('title', 64)->nullable();
             $table->float('price')->nullable();
             $table->unsignedInteger('business_id')->nullable();
+            $table->enum('type',array('houses','apartment'))->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
@@ -84,7 +85,9 @@ class CreateAdmin extends Migration
             $table->string('image_thumb', 128)->nullable();
             $table->boolean('is_distribution')->nullable();
             $table->unsignedInteger('business_id')->nullable();
-
+            $table->float('price')->nullable();
+            $table->string('description',128)->nullable();
+            $table->unsignedInteger('quantity_limit')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
@@ -148,7 +151,7 @@ class CreateAdmin extends Migration
             $table->string('slug', 128)->nullable();
             $table->unique(array('package_id', 'slug'));
             $table->float('price')->nullable();
-
+            $table->enum('type',array('medium-packages','large-range-packages','super-exposure-pack'))->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();
@@ -194,6 +197,8 @@ class CreateAdmin extends Migration
             $table->string('image_path', 128)->nullable();
             $table->string('image_thumb', 128)->nullable();
             $table->unsignedInteger('business_id')->nullable();
+            $table->float('price')->nullable();
+            $table->string('description',128)->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();

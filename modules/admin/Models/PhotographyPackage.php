@@ -12,7 +12,7 @@ class PhotographyPackage extends Model
     protected $table = 'photography_package';
 
     protected $fillable = [
-        'title','price','business_id'
+        'title','price','business_id','type'
     ];
 
     //TODO : Model Relationship

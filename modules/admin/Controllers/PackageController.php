@@ -92,6 +92,7 @@ class PackageController extends Controller
                 'slug' => str_slug($input['title']),
                 'price' => $input['price'],
                 'status' => $input['status'],
+                'type' => $input['type'],
                 'image_path' => $input['image_path'],
                 'image_thumb' => $input['image_thumb']
             ];
@@ -100,6 +101,7 @@ class PackageController extends Controller
                 'title' => $input['title'],
                 'slug' => str_slug($input['title']),
                 'price' => $input['price'],
+                'type' => $input['type'],
                 'status' => $input['status']
             ];
         }
@@ -234,6 +236,7 @@ class PackageController extends Controller
                 'title'=>@$input['title'],
                 'price'=>@$input['price'],
                 'status'=>@$input['status'],
+                'type' => $input['type'],
                 'image_path'=>@$input['image_path'],
                 'image_thumb'=>@$input['image_thumb']
             ];
@@ -242,6 +245,7 @@ class PackageController extends Controller
                 'id'=>@$id,
                 'title'=>@$input['title'],
                 'price'=>@$input['price'],
+                'type' => $input['type'],
                 'status'=>@$input['status']
             ];
         }

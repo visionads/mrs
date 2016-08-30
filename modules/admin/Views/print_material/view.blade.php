@@ -14,11 +14,24 @@
         <table id="" class="table table-bordered table-hover table-striped">
             <h4 class="text-center">Print Material</h4>
             <tr>
-                <th class="col-lg-2">Title</th>
-                <td class="col-lg-4">{{ isset($data[0]['title'])?$data[0]['title']:''}}</td>
-
-                <th class="col-lg-2">Is Distribution</th>
-                <td class="col-lg-4">{{ @$data[0]['is_distribution']==1?'Yes':'No'}}</td>
+                <th class="col-lg-4">Title</th>
+                <td class="col-lg-8">{{ isset($data[0]['title'])?$data[0]['title']:''}}</td>
+            </tr>
+            <tr>
+                <th class="col-lg-3">Is Distribution</th>
+                <td class="col-lg-8">{{ @$data[0]['is_distribution']==1?'Yes':'No'}}</td>
+            </tr>
+            <tr>
+                <th class="col-lg-4">Price</th>
+                <td class="col-lg-8">{{ isset($data[0]['price'])?$data[0]['price']:''}}</td>
+            </tr>
+            <tr>
+                <th class="col-lg-4">Quantity Limit</th>
+                <td class="col-lg-8">{{ isset($data[0]['quantity_limit'])?$data[0]['quantity_limit']:''}}</td>
+            </tr>
+            <tr>
+                <th class="col-lg-4">Description</th>
+                <td class="col-lg-8">{{ isset($data[0]['description'])?$data[0]['description']:''}}</td>
             </tr>
             <tr>
                 <th class="col-lg-4">Image</th>

@@ -94,6 +94,8 @@ class SignboardPackageController extends Controller
             $input_head = [
                 'title' => $input['title'],
                 'image_path' => $input['image_path'],
+                'price'=>$input['price_hd'],
+                'description'=>$input['description_hd'],
                 'image_thumb' => $input['image_thumb']
             ];
         }else{
@@ -227,12 +229,16 @@ class SignboardPackageController extends Controller
                 'id'=>@$id,
                 'title'=>@$input['title'],
                 'image_path'=>@$input['image_path'],
+                'price'=>$input['price_hd'],
+                'description'=>$input['description_hd'],
                 'image_thumb'=>@$input['image_thumb']
             ];
         }else{
             $input_head =[
                 'id'=>@$id,
-                'title'=>@$input['title']
+                'title'=>@$input['title'],
+                'price'=>$input['price_hd'],
+                'description'=>$input['description_hd']
             ];
         }
 

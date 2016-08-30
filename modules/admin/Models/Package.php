@@ -23,6 +23,7 @@ class Package extends Model
         'price',
         'image_path',
         'image_thumb',
+        'type',
         'status'
     ];
 

@@ -34,6 +34,7 @@
 @endif
 
 {!! Form::open(['route' => 'post-user-login','id'=>'login-data-validation']) !!}
+{!! csrf_field() !!}
 
 <div class="col-sm-4 col-sm-offset-4 login_div" id="login_signin2" >
     <div class="form-group" id="sign1">

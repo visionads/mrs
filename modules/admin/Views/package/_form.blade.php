@@ -22,6 +22,11 @@
             <label class="radio radio-inline"><input type="radio" name="status" value="close" class="corm-control" ><span style="left:15px!important; top:3px; position:inherit;">Close</span></label>
         </div>
     </div>
+    <div>
+        {!! Form::label('type', 'Type:', ['class' => 'control-label']) !!}
+        <small class="required">(Required)</small>
+        {!! Form::Select('type',array('0'=>'--select--','medium-packages'=>'Medium Packages','large-range-packages'=>'Large Range Packages','super-exposure-pack'=>'Super Exposure Pack'),Input::old('type'),['class'=>'form-control ','required']) !!}
+    </div>
 </div>
 
 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-5">
