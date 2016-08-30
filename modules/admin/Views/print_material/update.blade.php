@@ -16,6 +16,8 @@
 
 <div class="modal-body">
 
+    <div class="col-sm-12">
+
     <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-7">
         <div>
             {!! Form::label('title', 'Title:', []) !!}
@@ -72,6 +74,8 @@
                                              System will allow these types of image(png,jpeg,jpg Format)
                                              </span>
         </div>
+    </div>
+
     </div>
 
 

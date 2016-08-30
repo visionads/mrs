@@ -16,7 +16,7 @@ class PrintMaterialSize extends Model
     protected $table = 'print_material_size';
 
     protected $fillable = [
-        'print_material_id','title','price','description','business_id'
+        'print_material_id','title','price','description','business_id','image','image_thumb'
     ];
 
 

@@ -67,6 +67,7 @@
     <tr>
         <th>Title:</th>
         <th>Price:</th>
+        <th>Image:</th>
         <th>Description:</th>
     </tr>
     </thead>
@@ -81,7 +82,12 @@
 
         <td>
             <div>
-                {!! Form::input('number','price[]', Input::old('price'), ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
+                {!! Form::input('number','price[]', 00, ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
+            </div>
+        </td>
+        <td>
+            <div>
+                {!! Form::file('image_option[]', null, ['title'=>'enter Image', 'class' => 'form-control']) !!}
             </div>
         </td>
         <td>
