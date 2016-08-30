@@ -105,13 +105,13 @@ class QuoteController extends Controller
         $pageTitle = 'MRS - Quote';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         $data['solution_types']= SolutionType::get();
-        $data['photography_packages']= PhotographyPackage::with('relPhotographyPackage')->get();
+        $data['photography_packages']= PhotographyPackage::with('relPhotographyPackage')->orderBy('type','ASC')->get();
         //print_r($data['photography_packages']);exit();
         $data['signboard_packages']= SignboardPackage::with('relSignboardPackage')->get();
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         $data['digital_medias']= DigitalMedia::get();
-        $data['packages'] = Package::with('relPackageOption')->where('status','open')->get();
+        $data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
         //print_r($data['packages']);exit();
 //        dd($data['signboard_packages']);
         return view('main::quote.create',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);

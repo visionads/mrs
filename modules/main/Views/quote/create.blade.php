@@ -96,17 +96,36 @@
 
                                     <div class="row pack-choise">
                                         @if(isset($data['packages']))
-                                            <?php $i=0; ?>
+                                            <?php
+                                                $i=0;
+                                                $j = 0;
+                                                $pack_type_unique = array();
+                                            ?>
+                                            {{--=== 1st Loop ===--}}
                                             @foreach($data['packages'] as $package)
-                                                <div class="col-md-12 text-color center size-25">{{ $package->type }}</div>
+
+                                                <?php
+                                                    $pack_type_unique[$j] = $package->type;
+                                                    if($j > 0){
+                                                        if ($pack_type_unique[$j] != $pack_type_unique[$j-1]){
+                                                            echo '<div class="col-md-12 text-color center size-25 uppercase"><span class="glyphicon glyphicon-minus"></span>'.str_replace('-',' ',$pack_type_unique[$j]).'</div>';
+                                                        }
+                                                    } else {
+                                                        echo '<div class="col-md-12 text-color center size-25 uppercase"><span class="glyphicon glyphicon-minus"></span>'.str_replace('-',' ',$pack_type_unique[$j]).'</div>';
+                                                    }
+                                                    $j++;
+                                                ?>
+
+                                                {{--<div class="col-md-12 text-color center size-25">{{ $package->type }}</div>--}}
                                                 <div class="col-sm-12 package1">
+                                                    <label style="width: 100%;">
                                                     <table class="" border="0" style="width: 100%; height: auto; color: #fff; text-align: center; background:#000;">
                                                         <tr>
                                                             <?php $i += 1; if($i=='1') {$checked='checked';}else{$checked='';} ?>
-                                                            <label class="text-color">
+                                                            {{--<label class="text-color">--}}
                                                                 <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
                                                                 {{ $package->title }}
-                                                            </label>
+                                                            {{--</label>--}}
                                                         </tr>
                                                         <tr>
                                                             {{--=== First part from left ===--}}
@@ -129,12 +148,12 @@
                                                                 </div>
                                                             </td>
 
-                                                            {{--=== Loop ===--}}
+                                                            {{--=== 2nd Loop ===--}}
                                                             @if(isset($package['relPackageOption']))
                                                                 @foreach($package['relPackageOption'] as $package_option)
                                                                     <td>
-                                                                        <span class="text-color">{{ $package_option->title }}</span><br>
-                                                                        <span class="size-15 italic">{{ isset($package_option->description)?$package_option->description:'No Description'  }}</span><br>
+                                                                        <span class="size-17 text-color">{{ $package_option->title }}</span><br>
+                                                                        <span class="size-15 italic">{{ isset($package_option->description)?$package_option->description:''  }}</span><br>
                                                                         @if(isset($package_option->image))
                                                                             <img src="{{ $package_option->image }}" width="100">
                                                                         @else
@@ -148,13 +167,14 @@
                                                             {{--=== end loop ===--}}
                                                             <td class="size-25 text-color"> = </td>
                                                             <td align="right" width="13%">
-                                                                <strong style="color: #f59e00; font-size: 40px;">$ {{number_format($package->price,2)}}</strong>
+                                                                <strong style="color: #f59e00; font-size: 30px;">$ {{number_format($package->price,2)}}</strong>
                                                             </td>
                                                         </tr>
                                                     </table>
+                                                    </label>
                                                 </div>
                                             @endforeach
-                                            <div><a role="tab" class="btn btn-warning" id="addphotography"> + ADD Photography Package</a></div>
+                                            <div class="center"><a role="tab" class="btn btn-warning" id="addphotography"> + ADD Photography Package</a></div>
                                         @endif
                                     </div>
                                 </div>
@@ -181,24 +201,41 @@
                                     </div>
                                     <div class="row size-15">
                                         <div class="optionalContentDiv optional-content-div">
+                                            <?php $k = 0; $photo_type_unique = array();  ?>
                                             @foreach($data['photography_packages'] as $photography_package)
-                                                <div class="col-sm-2">
-                                                    <div  class="common-box1">
-                                                    <label class="text-left-label">
-                                                        <input class="photography_package_id" type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}">
-                                                        <span class="text-color size-18">{{  $photography_package->title }}</span><br>
-                                                        <span class="text-color size-18">$ {{ $photography_package->price }}</span>
-                                                    </label>
+                                                <?php
+                                                    $photo_type_unique[$k] = $photography_package->type;
+                                                    if($k > 0){
+                                                        if ($photo_type_unique[$k] != $photo_type_unique[$k-1]){
+                                                            echo '<div class="col-md-12 text-color left size-25 uppercase"><span class="glyphicon glyphicon-minus"></span> '.$photo_type_unique[$k].'</div>';
+                                                        }
+                                                    } else {
+                                                        echo '<div class="col-md-12 text-color left size-25 uppercase"><span class="glyphicon glyphicon-minus"></span> '.$photo_type_unique[$k].'</div>';
+                                                    }
+                                                    $k++;
+                                                ?>
 
-                                                    <ul class="options">
-                                                        @foreach($photography_package->relPhotographyPackage as $relPhotographyPackage)
-                                                            <li>{{ $relPhotographyPackage->items }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                    </div>
+                                                <div class="col-sm-2">
+                                                    <label style="width: 100%">
+                                                        <div  class="common-box1">
+                                                        {{--<label class="text-left-label">--}}
+                                                            <input class="photography_package_id" type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}">
+                                                            <span class="text-color size-18">{{  $photography_package->title }}</span><br>
+                                                            <span class="text-color size-18">$ {{ $photography_package->price }}</span>
+                                                        {{--</label>--}}
+
+                                                        <ul class="options" style="list-style: inside">
+                                                            @foreach($photography_package->relPhotographyPackage as $relPhotographyPackage)
+                                                                <li>{{ $relPhotographyPackage->items }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                        </div>
+                                                    </label>
                                                 </div>
+
                                             @endforeach
-                                            <div class="col-sm-4">
+                                            <div class="col-md-12">&nbsp;</div>
+                                            <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label>NOTE</label>
                                                     <textarea type="text" name="photography_package_comments" placeholder="Note" class="form-control" id="photography_package_comments"></textarea>
