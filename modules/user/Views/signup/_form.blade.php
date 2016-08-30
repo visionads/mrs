@@ -5,6 +5,7 @@
 <div class="signup-form">
 
     {!! Form::open(['route' => 'signup','id'=>'signup-data-validation']) !!}
+    {!! csrf_field() !!}
 
         <div class="signup-text">
             <span>Create an account</span>
