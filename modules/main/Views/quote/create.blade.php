@@ -22,7 +22,7 @@
         {{--</div>--}}
 @include('main::quote._style')
 
-        <div class="col-sm-12 font-droid" id="quote-div">
+<div class="col-sm-12 font-droid" id="quote-div" xmlns="http://www.w3.org/1999/html">
 
            {{-- <div class="row">--}}
                 <div class="col-sm-12">
@@ -93,51 +93,54 @@
                                         <label><input type="radio" name="package" class="choose1" value="1">Yes</label>
                                     </div>
 
+
                                     <div class="row pack-choise">
                                         @if(isset($data['packages']))
                                             <?php $i=0; ?>
                                             @foreach($data['packages'] as $package)
-                                            <div class="col-sm-4 size-13">
-                                                <div class="form-group pack-1">
-                                                    <table class="table package">
-                                                        <thead>
-                                                            <tr>
-                                                                <td colspan="3">
-                                                                    @if(isset($package->image_path))
-                                                                        <img src="{{ url($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="Image is no image found in the image directory">
-                                                                    @endif
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="3" style="/*background:#f36f21;*//*background:#122334;*/ background:black">
-                                                                    <label class="size-20" id="pack1" style="display: block; cursor: pointer; color:#f59e00; font-weight: normal;">
-                                                                        <?php $i += 1; if($i=='1') {$checked='checked';}else{$checked='';} ?>
+                                                <div class="col-sm-12 package1">
+                                                <table class="" border="0" style="width: 100%; height: auto; color: #fff; text-align: center; background:#000;">
+                                                    <tr>
+                                                        <td align="left" width="30%">
+                                                            <div class="">
+                                                                @if(isset($package->image_path))
+                                                                    <img src="{{ url($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="No image found in the image directory">
+                                                                @endif
+
+                                                                <?php $i += 1; if($i=='1') {$checked='checked';}else{$checked='';} ?>
+                                                                <div class="right-dashed">
+                                                                    <label class="text-color">
                                                                         <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
                                                                         {{ $package->title }}
                                                                     </label>
-                                                                </td>
-                                                            </tr>
-                                                        </thead>
-                                                        <thead>
-                                                            <tr class="size-15">
-                                                                <th>Items</th>
-                                                                <th class="text-right">Price(USD)</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @if(isset($package['relPackageOption']))
-                                                                @foreach($package['relPackageOption'] as $package_option)
-                                                                    <tr>
-                                                                        <td>{{ $package_option->title }}</td>
-                                                                        <td align="right">{{ number_format($package_option->price,2) }}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @endif
-                                                            <tr><td align="right">Total = </td><td align="right" class="size-20"><strong style="border-bottom: 3px double #f59e00; color: #f59e00">{{number_format($package->price,2)}}</strong></td></tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+
+                                                                    @if(isset($package['relPackageOption']))
+                                                                        <ul class="size-14 ">
+                                                                            @foreach($package['relPackageOption'] as $package_option)
+                                                                                <li>{{ $package_option->title }}</li>
+                                                                                {{--<li align="right">{{ number_format($package_option->price,2) }}</li>--}}
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        @if(isset($package['relPackageOption']))
+                                                            @foreach($package['relPackageOption'] as $package_option)
+                                                                <td>{{ $package_option->title }}<br> {{  $package_option->desctiption }}</td>
+                                                                <td> + </td>
+                                                                {{--<td align="right">{{ number_format($package_option->price,2) }}</td>--}}
+                                                            @endforeach
+                                                        @endif
+
+                                                        <td> = </td>
+
+                                                        <td>
+                                                            <strong style="border-bottom: 3px double #f59e00; color: #f59e00">{{number_format($package->price,2)}}</strong>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                    </div>
                                             @endforeach
                                         @endif
                                     </div>
@@ -166,17 +169,20 @@
                                     <div class="row size-15">
                                         <div class="optionalContentDiv optional-content-div">
                                             @foreach($data['photography_packages'] as $photography_package)
-                                                <div class="col-sm-4">
-                                                    <label class="text-center-label">
+                                                <div class="col-sm-2">
+                                                    <div  class="common-box1">
+                                                    <label class="text-left-label">
                                                         <input class="photography_package_id" type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}">
-                                                        {!! $photography_package->title.' <b style="color: orange">$'.$photography_package->price.'</b>' !!}
+                                                        <span class="text-color size-18">{{  $photography_package->title }}</span><br>
+                                                        <span class="text-color size-18">$ {{ $photography_package->price }}</span>
                                                     </label>
 
-                                                    <ul>
+                                                    <ul class="options">
                                                         @foreach($photography_package->relPhotographyPackage as $relPhotographyPackage)
                                                             <li>{{ $relPhotographyPackage->items }}</li>
                                                         @endforeach
                                                     </ul>
+                                                    </div>
                                                 </div>
                                             @endforeach
                                             <div class="col-sm-4">
