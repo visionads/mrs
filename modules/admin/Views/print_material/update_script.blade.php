@@ -40,7 +40,10 @@
             <div>{!! Form::text('title_size[]', Input::old('title_size'), ['title'=>'enter title', 'class' => 'form-control']) !!}</div>\
             </td>\
             \<td>\
-            <div>{!! Form::input('number','price[]', Input::old('price'), ['title'=>'enter price', 'class' => 'form-control']) !!}</div>\
+            <div>{!! Form::input('number','price[]', 0, ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}</div>\
+            </td>\
+            <td>\
+                <div>{!! Form::file('image_option[]', '', ['title'=>'enter Image', 'class' => 'form-control']) !!}</div>\
             </td>\
             <td>\
             <div>{!! Form::text('description[]', Input::old('description'), ['title'=>'enter description', 'class' => 'form-control']) !!}</div>\
