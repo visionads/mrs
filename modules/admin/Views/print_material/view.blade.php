@@ -54,6 +54,7 @@
                     <tr>
                         <th>Title:</th>
                         <th>Price:</th>
+                        <th width="100">Image</th>
                         <th>Description:</th>
                     </tr>
                     </thead>
@@ -63,6 +64,13 @@
                             <tr class="gradeX">
                                 <td>{{$values['title']}}</td>
                                 <td>{{$values['price']}}</td>
+                                <td>
+                                    @if(isset($values->image))
+                                        <img src="{{ URL::to($values->image) }}" width="80" height="60">
+                                    @else
+                                        <h5>No Image</h5>
+                                    @endif
+                                </td>
                                 <td>{{$values['description']}}</td>
                             </tr>
                         @endforeach
