@@ -50,6 +50,8 @@
                             <th> Title </th>
                             <th> Image Path</th>
                             <th> Distribution</th>
+                            <th> Price</th>
+                            <th> Quantity Limit</th>
                             <th> Action &nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-placement="top" data-content="view : click for details informations<br>update : click for update informations<br>delete : click for delete informations"></span></th>
                         </tr>
                         </thead>
@@ -62,6 +64,8 @@
                                         <img src="{{asset($values->image_path)}}" style="width:35px;height:35px;">
                                     </td>
                                     <td>{{ @($values->is_distribution)== 1 ? 'Yes' : 'NO' }}</td>
+                                    <td>{{$values->price}}</td>
+                                    <td>{{$values->quantity_limit}}</td>
                                     <td>
                                         <a href="{{ route('view-print-material', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><i class="glyphicon glyphicon-eye-open"></i></a>
                                         <a href="{{ route('edit-print-material', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="glyphicon glyphicon-edit"></i></a>

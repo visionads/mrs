@@ -16,6 +16,13 @@
         {!! Form::text('price', Input::old('price'), ['id'=>'price', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
     </div>
 </div>
+<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+    <div class="col-sm-12">
+        {!! Form::label('type', 'Type:', ['class' => 'control-label']) !!}
+        <small class="required">(Required)</small>
+        {!! Form::Select('type',array('0'=>'--select--','houses'=>'Houses','apartment'=>'Apartment'),Input::old('type'),['class'=>'form-control ','required']) !!}
+    </div>
+</div>
 
 
 <div>

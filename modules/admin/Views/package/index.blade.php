@@ -51,6 +51,7 @@
                             <th> Title </th>
                             <th> Price(USD) </th>
                             <th> Status</th>
+                            <th> Type</th>
                             <th> Action &nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-placement="top" data-content="view : click for details informations<br>update : click for update informations<br>delete : click for delete informations"></span></th>
                         </tr>
                         </thead>
@@ -62,6 +63,7 @@
                                     <td>{{ucfirst($values->title)}}</td>
                                     <td>{{number_format($values->price,2)}}</td>
                                     <td>{{ $values->status }}</td>
+                                    <td>{{ $values->type }}</td>
                                     <td>
                                         <a href="{{ route('view-package', $values->id) }}" class="btn btn-info btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="view"><i class="glyphicon glyphicon-eye-open"></i></a>
                                         <a href="{{ route('edit-package', $values->id) }}" class="btn btn-primary btn-xs" data-placement="top" data-toggle="modal" data-target="#etsbModal" data-content="update"><i class="glyphicon glyphicon-edit"></i></a>

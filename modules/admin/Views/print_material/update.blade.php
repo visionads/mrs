@@ -27,6 +27,22 @@
             <small class="required">(Required)</small>
             {!! Form::select('is_distribution', array('1'=>'Yes','0'=>'No'),@$data[0]['is_distribution'],['class' => 'form-control','required','title'=>'select is_distribution']) !!}
         </div>
+
+        <div>
+            {!! Form::label('price', 'Price:', []) !!}
+            <small class="required">(Required)</small>
+            {!! Form::input('number','price_hd', @$data[0]['price'], ['title'=>'enter price', 'class' => 'form-control','required']) !!}
+        </div>
+        <div>
+            {!! Form::label('description', 'Description:', []) !!}
+            <small class="required">(Required)</small>
+            {!! Form::textarea('description_hd', @$data[0]['description'], ['title'=>'enter description','rows'=>'2', 'class' => 'form-control','required']) !!}
+        </div>
+        <div>
+            {!! Form::label('quantity_limit', 'Quantity Limit:', []) !!}
+            <small class="required">(Required)</small>
+            {!! Form::input('number','quantity_limit', @$data[0]['quantity_limit'], ['title'=>'enter quantity', 'class' => 'form-control','required']) !!}
+        </div>
     </div>
 
     <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-5">
@@ -87,7 +103,7 @@
                     </td>
                     <td>
                         <div>
-                            {!! Form::input('number','price[]', @$value_dt['price'], ['title'=>'enter price', 'class' => 'form-control']) !!}
+                            {!! Form::input('number','price[]', @$value_dt['price'], ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
                         </div>
                     </td>
                     <td>
@@ -107,7 +123,7 @@
             </td>
             <td>
                 <div>
-                    {!! Form::input('number','price[]', null, ['title'=>'enter price', 'class' => 'form-control']) !!}
+                    {!! Form::input('number','price[]', null, ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
                 </div>
             </td>
 

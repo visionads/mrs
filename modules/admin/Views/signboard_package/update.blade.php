@@ -12,24 +12,38 @@
 
 <div class="modal-body">
 
-    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-        <div class="col-sm-12">
+    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-7">
+        <div>
             {!! Form::label('title', 'Title:', []) !!}
             <small class="required">(Required)</small>
             {!! Form::text('title', @$data[0]['title'], ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
         </div>
+        <div>
+            {!! Form::label('price', 'Price:', []) !!}
+            <small class="required">(Required)</small>
+            {!! Form::input('number','price_hd', @$data[0]['price'], ['title'=>'enter price', 'class' => 'form-control','required']) !!}
+        </div>
+        <div>
+            {!! Form::label('description', 'Description:', []) !!}
+            <small class="required">(Required)</small>
+            {!! Form::textarea('description_hd', @$data[0]['description'], ['title'=>'enter description','rows'=>'2', 'class' => 'form-control','required']) !!}
+        </div>
     </div>
 
-    <div class="form-group last">
-        <label class="control-label col-md-3 text-center">Image Upload<small class="required">(Required)</small></label>
 
-        <div class="col-md-9">
+
+    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-5">
+
+        {!! Form::label('image_upload', 'Image Upload:', []) !!}
+        <small class="required">(Required)</small>
+
+        <div class="col-md-9 image-center">
             <div class="fileupload fileupload-new" data-provides="fileupload">
                 <div class="fileupload-new thumbnail" style="width: 120px; height: 120px;">
                     {{--<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />--}}
                     @if($data[0]['image_path'] != '')
                         {{--<img src="{{URL::to($data['image'])}}" alt="" />--}}
-                        <a href="{{ route('signboard-image-show', $data[0]['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView"><img src="{{ URL::to($data[0]['image_path']) }}" height="70px" width="50px" alt="{{$data[0]['image_path']}}" />
+                        <a href="{{ route('print-image-show', $data[0]['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView"><img src="{{ URL::to($data[0]['image_path']) }}" height="70px" width="50px" alt="{{$data[0]['image_path']}}" />
                         </a>
                     @else
                         <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
@@ -76,7 +90,7 @@
                     </td>
                     <td>
                         <div>
-                            {!! Form::input('number','price[]', @$value_dt['price'], ['title'=>'enter price', 'class' => 'form-control']) !!}
+                            {!! Form::input('number','price[]', @$value_dt['price'], ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
                         </div>
                     </td>
                     <td>
@@ -96,7 +110,7 @@
             </td>
             <td>
                 <div>
-                    {!! Form::input('number','price[]', null, ['title'=>'enter price', 'class' => 'form-control']) !!}
+                    {!! Form::input('number','price[]', null, ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
                 </div>
             </td>
 

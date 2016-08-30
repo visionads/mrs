@@ -33,6 +33,11 @@
                 @endif
             </div>
         </div>
+        <div>
+            {!! Form::label('type', 'Type:', ['class' => 'control-label']) !!}
+            <small class="required">(Required)</small>
+            {!! Form::Select('type',array('medium-packages'=>'Medium Packages','large-range-packages'=>'Large Range Packages','super-exposure-pack'=>'Super Exposure Pack'),@$data[0]['type'],['class'=>'form-control ','required']) !!}
+        </div>
     </div>
 
     <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-5">

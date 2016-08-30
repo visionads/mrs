@@ -30,6 +30,10 @@
                 <td class="col-lg-4">{{ isset($data[0]['status'])?$data[0]['status']:''}}</td>
             </tr>
             <tr>
+                <th class="col-lg-2">Type</th>
+                <td class="col-lg-4">{{ isset($data[0]['type'])?$data[0]['type']:''}}</td>
+            </tr>
+            <tr>
                 <th class="col-lg-4">Image</th>
                 <td>
                     <div>

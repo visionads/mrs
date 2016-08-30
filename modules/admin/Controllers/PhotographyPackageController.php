@@ -60,7 +60,8 @@ class PhotographyPackageController extends Controller
         // input data for head
         $input_head =[
             'title'=>$input['title'],
-            'price'=>$input['price']
+            'price'=>$input['price'],
+            'type' => $input['type']
         ];
 
         // input data for detail
@@ -139,7 +140,8 @@ class PhotographyPackageController extends Controller
         $input_head =[
             'id'=>@$id,
             'title'=>@$input['title'],
-            'price'=>$input['price']
+            'price'=>$input['price'],
+            'type' => $input['type']
         ];
 
 

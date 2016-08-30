@@ -18,6 +18,14 @@
                 <td class="col-lg-4">{{ isset($data[0]['title'])?$data[0]['title']:''}}</td>
             </tr>
             <tr>
+                <th class="col-lg-2">Price</th>
+                <td class="col-lg-4">{{ isset($data[0]['price'])?$data[0]['price']:''}}</td>
+            </tr>
+            <tr>
+                <th class="col-lg-2">Description</th>
+                <td class="col-lg-4">{{ isset($data[0]['description'])?$data[0]['description']:''}}</td>
+            </tr>
+            <tr>
                 <th class="col-lg-4">Image</th>
                 <td>
                     <div>

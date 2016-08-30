@@ -58,6 +58,7 @@ class PrintMaterialController extends Controller
     public function store(Requests\PrintMaterialRequest $request)
     {
         $input = $request->all();
+
         $image=Input::file('image');
 
         if(count($image)>0) {
@@ -93,6 +94,9 @@ class PrintMaterialController extends Controller
         $input_head =[
             'title'=>$input['title'],
             'is_distribution'=>$input['is_distribution'],
+            'price'=>$input['price_hd'],
+            'quantity_limit'=>$input['quantity_limit'],
+            'description'=>$input['description_hd'],
             'image_path'=>$input['image_path'],
             'image_thumb'=>$input['image_thumb']
         ];
@@ -105,6 +109,8 @@ class PrintMaterialController extends Controller
                 'description'=>$input['description'][$i]
             );
         }
+
+        #print_r($i_detail);exit;
 
         /* Transaction Start Here */
         DB::beginTransaction();
@@ -223,12 +229,21 @@ class PrintMaterialController extends Controller
                 'title'=>@$input['title'],
                 'image_path'=>@$input['image_path'],
                 'image_thumb'=>@$input['image_thumb'],
+                'price'=>@$input['price_hd'],
+                'quantity_limit'=>@$input['quantity_limit'],
+                'description'=>@$input['description_hd'],
                 'is_distribution'=>@$input['is_distribution']
             ];
+
+
+
         }else{
             $input_head =[
                 'id'=>@$id,
                 'title'=>@$input['title'],
+                'price'=>@$input['price_hd'],
+                'quantity_limit'=>@$input['quantity_limit'],
+                'description'=>@$input['description_hd'],
                 'is_distribution'=>@$input['is_distribution']
             ];
         }
