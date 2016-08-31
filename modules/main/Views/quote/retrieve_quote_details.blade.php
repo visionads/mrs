@@ -44,7 +44,16 @@
 
                         @if(isset($exist_package))
                             <table class="size-18" style="background:none !important; color:#d0d0d0;">
-                                <tr style="border-bottom: 3px double #909090;"><td>+ Package Name : {!! ($package_str!=='')?' <span class="items"> '.$package_str.' </span>' : '' !!}</td><td>&nbsp; : &nbsp;</td><td>$ {{ number_format($package_price,2) }}</td></tr>
+                                <tr>
+                                    <td width="auto" >+ Photography {!! ($photography_package_str!=='')?'[<span class="items size-13"> '.$photography_package_str.' </span>]':'' !!}</td>
+                                    <td>&nbsp; : &nbsp;</td>
+                                    <td>$ {{ number_format($photography_price,2) }}</td>
+                                </tr>
+                                <tr style="border-bottom: 3px double #909090;">
+                                    <td>+ Package Name : {!! ($package_str!=='')?' <span class="items"> '.$package_str.' </span>' : '' !!}</td>
+                                    <td>&nbsp; : &nbsp;</td>
+                                    <td>$ {{ number_format($package_price,2) }}</td>
+                                </tr>
                                 <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>&nbsp; : &nbsp;</td><td>$ {{ number_format($total,2) }}</td></tr>
                             </table>
                         @else

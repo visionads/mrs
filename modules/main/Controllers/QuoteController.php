@@ -386,11 +386,7 @@ class QuoteController extends Controller
 //            dd($quote->id);
 //            $quote=Quote::findOrFail(30);
 
-            //===== Checking for the Complete package option [ here 0 means not selected] ========================
-            if(isset($received['package']) && $received['package']=='0') {
-
-                //$quote=Quote::create($data);
-
+            if(isset($received['package']) && $received['package']=='1') {
                 /*
                  * getting photography info
                  * */
@@ -407,6 +403,29 @@ class QuoteController extends Controller
                     $data['photography_package_id'] = 1;
                     $data['photography_package_comments'] = $received['photography_package_comments'];
                 }
+            }
+
+            //===== Checking for the Complete package option [ here 0 means not selected] ========================
+            if(isset($received['package']) && $received['package']=='0') {
+
+                //$quote=Quote::create($data);
+
+                /*
+                 * getting photography info
+                 * */
+                /*if (isset($received['pro-photographyChooseBtn']) && !empty($received['pro-photographyChooseBtn']) && $received['pro-photographyChooseBtn'] == 1) {
+                    if (isset($received['photography_package_id'])) {
+                        foreach ($received['photography_package_id'] as $ppi) {
+                            $qp = new QuotePhotography;
+                            $qp->quote_id = $quote->id;
+                            $qp->price = PhotographyPackage::findOrFail($ppi)->price;
+                            $qp->photography_package_id = $ppi;
+                            $qp->save();
+                        }
+                    }
+                    $data['photography_package_id'] = 1;
+                    $data['photography_package_comments'] = $received['photography_package_comments'];
+                }*/
                 /*
                  * getting signboard info
                  * */
@@ -618,12 +637,12 @@ class QuoteController extends Controller
                 //==== Checking Complete package
                 if(isset($received['package']) && $received['package']=='1') {
                     if (isset($received['package_head_id'])) {
-                        $data['photography_package_id'] = null;
-                        $data['photography_package_comments'] = null;
+                        $data['photography_package_id'] = 1;
+                        $data['photography_package_comments'] = $received['photography_package_comments'];
                     }
                 }else{
-                    $data['photography_package_id'] = 1;
-                    $data['photography_package_comments'] = $received['photography_package_comments'];
+                    $data['photography_package_id'] = null;
+                    $data['photography_package_comments'] = null;
                 }
             }else{
                 //QuotePhotography::where('quote_id',$quote->id)->delete();
@@ -739,6 +758,12 @@ class QuoteController extends Controller
             if (isset($received['distributedPrintMaterialChooseBtn']) && !empty($received['distributedPrintMaterialChooseBtn']) && $received['distributedPrintMaterialChooseBtn'] == 1) {
                 $distribution['quantity'] = $received['quantity'];
                 $distribution['note'] = $received['note'];
+
+                $distribution['quantity_next'] = $received['quantity_next'];
+                $distribution['distribution_area'] = $received['distribution_area'];
+                $distribution['date_of_distribution'] = $received['date_of_distribution'];
+                $distribution['is_surrounded'] = $received['is_surrounded'];
+
                 if(!empty($quote->print_material_distribution_id)) {
                     $distribution_id = PrintMaterialDistribution::find($quote->print_material_distribution_id);
                     $distribution_id->update($distribution);

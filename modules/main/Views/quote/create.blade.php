@@ -121,11 +121,13 @@
                                                     <label style="width: 100%;">
                                                     <table class="" border="0" style="width: 100%; height: auto; color: #fff; text-align: center; background:#000;">
                                                         <tr>
+                                                            <td align="left">
                                                             <?php $i += 1; if($i=='1') {$checked='checked';}else{$checked='';} ?>
                                                             {{--<label class="text-color">--}}
                                                                 <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
                                                                 {{ $package->title }}
                                                             {{--</label>--}}
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             {{--=== First part from left ===--}}
