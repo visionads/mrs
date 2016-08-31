@@ -156,21 +156,25 @@
                 @if(isset($data['quote']->relQuotePackage))
                     <table class="table table-responsive white size-18">
                         <tr>
+                            <th>Photography {{ ($photography_package_str!=='')? '[ '.rtrim($photography_package_str,',').' ]':'' }}</th>
+                            <td>{{ ($photography_price!=0)?'$ '.number_format($photography_price,2):'$ 0.00' }}</td>
+                        </tr>
+                        <tr>
                             <th>Package name : <span style="color: gold;">{{ $data['quote']->relQuotePackage['title'] }}</span> </th>
                             <td>{{ '$ '.number_format($data['quote']->relQuotePackage['price'],2) }}</td>
                         </tr>
                         <tr style="color: orange">
                             <th>Total</th>
-                            <td><b>${{ number_format($data['quote']->relQuotePackage['price'],2) }}</b></td>
+                            <td><b>${{ number_format($data['quote']->relQuotePackage['price']+$photography_price,2) }}</b></td>
                         </tr>
                     </table>
                 @else
                 {{--If complete package is not choosen by the agent--}}
                     <table class="table table-responsive white size-13">
-                        <tr>
+                        {{--<tr>
                             <th>Photography {{ ($photography_package_str!=='')? '[ '.rtrim($photography_package_str,',').' ]':'' }}</th>
                             <td>{{ ($photography_price!=0)?'$ '.number_format($photography_price,2):'$ 0.00' }}</td>
-                        </tr>
+                        </tr>--}}
                         <tr>
 
                             <th>Signboard {{ ($signboard_package_str!=='')? '[ '.rtrim($signboard_package_str,',').' ]':'' }}</th>

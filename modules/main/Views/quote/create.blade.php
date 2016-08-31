@@ -296,16 +296,16 @@
                                                         <img width="100%" src="{{ asset($signboard_package->image_path) }}">
                                                     </div>
 
-                                                    {{--<div class="panel-body">
+                                                    <div class="panel-body">
                                                         <div class="form-group">
-
-                                                            <select name="signboard_package_size_id[{{ $signboard_package->id }}]" class="form-control">
+                                                            {{--<select name="signboard_package_size_id[{{ $signboard_package->id }}]" class="form-control">--}}
                                                                 @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
-                                                                    <option value="{{ $relSignboardPackage->id }}">{{ $relSignboardPackage->title.' ( $'.$relSignboardPackage->price.')' }}</option>
+                                                                    {{--<option value="{{ $relSignboardPackage->id }}">{{ $relSignboardPackage->title.' ( $'.$relSignboardPackage->price.')' }}</option>--}}
+                                                                    <input type="hidden" name="signboard_package_size_id[{{ $signboard_package->id }}]" value="{{ $relSignboardPackage->id }}">
                                                                 @endforeach
-                                                            </select>
+                                                            {{--</select>--}}
                                                         </div>
-                                                    </div>--}}
+                                                    </div>
                                                 </div>
                                             </div>
                                             @endforeach
@@ -471,7 +471,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label size-13">Choose a Date of Distribution <small class="required"> [ New field ]</small></label>
-                                                    <input type="date" id="date_id" name="date_of_distribution" class="form-control">
+                                                    <input type="text" id="date_id" name="date_of_distribution" class="form-control">
                                                 </div>
                                             </div>
                                         </div>

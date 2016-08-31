@@ -454,9 +454,10 @@ class OrderController extends Controller
         //,$total,$gst,$total_with_gst
 
         $quote_data = Quote::findOrFail($quote_id);
-
+        //print_r($quote_data);exit();
         $property_detail_id = $quote_data->property_detail_id;
         $print_material_id = $quote_data->print_material_distribution_id;
+        //print_r($print_material_id);exit();
 
 
         $data['solution_types']= SolutionType::get();
@@ -477,7 +478,7 @@ class OrderController extends Controller
             'relQuotePackage'
         )->where('id', $quote_id)->first();
 
-
+        //print_r($quote);exit();
         $quote_property_access = QuotePropertyAccess::with(
             'relQuote'
         )->where('quote_id', $quote_id)->first();

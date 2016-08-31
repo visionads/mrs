@@ -346,7 +346,6 @@
                                             </div>--}}{{--
                                         </div>
                                     </div>--}}
-
                                     <div class="col-sm-3 ">
                                         <div class="sign-box" style="height: 800px;">
                                             <label class="">
@@ -370,6 +369,18 @@
                                                     <h2 class="size-40 text-color text-normal">$ {{ $relSignboardPackage->price }}</h2>
                                                 @endforeach
                                             </div>
+                                            {{--<select name="signboard_package_size_id[{{ $signboard_package->id }}]" class="form-control">--}}
+                                                @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
+                                                    <input type="hidden" value="{{ $relSignboardPackage->id }}"
+                                                            @if(isset($data['quote']->relQuoteSignboard))
+                                                            @foreach($data['quote']->relQuoteSignboard as $ppi)
+                                                            @if($ppi->signboard_size_id==$relSignboardPackage->id)
+                                                            selected="selected"
+                                                            @endif
+                                                            @endforeach
+                                                            @endif >
+                                                @endforeach
+                                            {{--</select>--}}
                                             <div class="pkg-img">
                                                 <img width="100%" src="{{ asset($signboard_package->image_path) }}">
                                             </div>
