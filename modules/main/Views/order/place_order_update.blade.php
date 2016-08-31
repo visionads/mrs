@@ -145,16 +145,22 @@
                 <h4 style="color:#f31f21">Will you require distribution of print material </h4>
 
                 <?php
-                if($print_material_distribution_id == '' || $print_material_distribution_id == null){
-                    $value1 = 1; $value2 = 0; }
-                else{ $value1 = 0;  $value2 = 1; }
+                    if($print_material_distribution_id == '' || $print_material_distribution_id == null){
+                        $value1 = 1;
+                        $value2 = 0;
+                    }
+                    else
+                    {
+                        $value1 = 0;
+                        $value2 = 1;
+                    }
 
 
-                if($quote_property_access !=''){
-                    $value3 = 1;
-                }else{
-                    $value3 = 0;
-                }
+                    if($quote_property_access !=''){
+                        $value3 = 1;
+                    }else{
+                        $value3 = 0;
+                    }
                 ?>
 
                 <label>
@@ -284,16 +290,25 @@
                 <div class="col-sm-12">
                     {!! Form::label('property_access_information', 'Property Access Information :', ['class' => 'control-label']) !!}<br>
                     <label>
-                        <input type="radio" name="property_access_options" value="tennant" @if($quote_property_access['property_access_options']=='tennant'){{'checked'}}@endif> &nbsp; Tennant
+                        <input
+                                type="radio" name="property_access_options" value="tennant"
+                                {{isset($quote_property_access['property_access_options']) == 'tennant' ?'checked' : null }}
+                        > &nbsp; Tennant
                     </label>
                     <label>
-                        <input type="radio" name="property_access_options" value="vendor" @if($quote_property_access['property_access_options']=='vendor'){{'checked'}}@endif> &nbsp; Vendor
+                        <input type="radio" name="property_access_options" value="vendor"
+                                {{isset($quote_property_access['property_access_options']) == 'vendor' ?'checked' : null }}
+                        > &nbsp; Vendor
                     </label>
                     <label>
-                        <input type="radio" name="property_access_options" value="agent" @if($quote_property_access['property_access_options']=='agent'){{'checked'}}@endif> &nbsp; Agent/ Agency
+                        <input type="radio" name="property_access_options" value="agent"
+                                {{isset($quote_property_access['property_access_options']) == 'agent' ?'checked' : null }}
+                        > &nbsp; Agent/ Agency
                     </label>
                     <label>
-                        <input type="radio" name="property_access_options" value="other" @if($quote_property_access['property_access_options']=='other'){{'checked'}}@endif> &nbsp; Other, pick up keys from
+                        <input type="radio" name="property_access_options" value="other"
+                                {{isset($quote_property_access['property_access_options']) == 'other' ?'checked' : null }}
+                        > &nbsp; Other, pick up keys from
                     </label>
                 </div>
             </div>
