@@ -74,6 +74,7 @@ class QuoteController extends Controller
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['quote_property']= QuotePropertyAccess::where('quote_id',$id)->get();
         $data['quote_image']= QuotePropertyImage::where('quote_id',$id)->get();
+        //$data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
         //echo $id.'----';
         //print_r(count($data['quote_image']));exit;
 
@@ -90,7 +91,10 @@ class QuoteController extends Controller
             'relQuoteLocalMedia',
             'relQuotePackage'
         )->first();
-        //print_r($data['quote']->relQuotePackage);exit();
+        //print_r($data['quote']->relQuotePackage->id);exit();
+        $package_id = $data['quote']->relQuotePackage->id;
+        //$data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
+        $data['packages'] = Package::with('relPackageOption')->where('id',$package_id)->orderBy('type','ASC')->get();
         //$data['package_price'] = $data['quote']->relQuotePackage['price'];
         //print_r($data['package_price']);exit();
         return view('main::quote.details',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);

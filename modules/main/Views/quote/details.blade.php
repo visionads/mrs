@@ -223,6 +223,7 @@
                         </div>--}}
                     </div>
                 </fieldset>
+                {{--===== For Property Details =======--}}
                 <fieldset><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Property Details</h3>
@@ -258,6 +259,103 @@
 
                     </div>
                 </fieldset>
+
+
+                {{--===== Package Start =====================================================================--}}
+                <fieldset><hr>
+                    <div class="form-bottom">
+                        <h3 class="instruction">Packages</h3>
+                        <div class="row">
+                            @if(isset($data['packages']))
+                                <?php
+                                $i=0;
+                                $j = 0;
+                                $pack_type_unique = array();
+                                ?>
+                                {{--=== 1st Loop ===--}}
+                                @foreach($data['packages'] as $package)
+
+                                    <?php
+                                    $pack_type_unique[$j] = $package->type;
+                                    if($j > 0){
+                                        if ($pack_type_unique[$j] != $pack_type_unique[$j-1]){
+                                            echo '<div class="col-md-12 text-color center size-25 uppercase"><span class="glyphicon glyphicon-minus"></span>'.str_replace('-',' ',$pack_type_unique[$j]).'</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="col-md-12 text-color center size-25 uppercase"><span class="glyphicon glyphicon-minus"></span>'.str_replace('-',' ',$pack_type_unique[$j]).'</div>';
+                                    }
+                                    $j++;
+                                    ?>
+
+                                    <div class="col-sm-12 package1">
+                                        <label style="width: 100%;">
+                                            <style>.pkg td, .pkg tr { background: none !important; text-align: left !important; } </style>
+                                            <table class="pkg" border="0" style="width: 100%; height: auto; color: #fff; text-align: center; background:#000;">
+                                                <tr>
+                                                    <td align="left">
+                                                        <?php $i += 1; if($i=='1') {$checked='checked';}else{$checked='';} ?>
+                                                        {{--<label class="text-color">--}}
+                                                        <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
+                                                        {{ $package->title }}
+                                                        {{--</label>--}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    {{--=== First part from left ===--}}
+                                                    <td align="left" width="30%">
+                                                        <div class="">
+                                                            @if(isset($package->image_path))
+                                                                <img src="{{ url($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="No image found in the image directory">
+                                                            @endif
+
+                                                            <div class="">
+                                                                @if(isset($package['relPackageOption']))
+                                                                    <ul class="size-14 right-dashed" style=" margin-bottom: 30px;">
+                                                                        @foreach($package['relPackageOption'] as $package_option)
+                                                                            <li>{{ $package_option->title }}</li>
+                                                                            {{--<li align="right">{{ number_format($package_option->price,2) }}</li>--}}
+                                                                        @endforeach
+                                                                    </ul>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    {{--=== 2nd Loop ===--}}
+                                                    @if(isset($package['relPackageOption']))
+                                                        @foreach($package['relPackageOption'] as $package_option)
+                                                            <td>
+                                                                <span class="size-17 text-color">{{ $package_option->title }}</span><br>
+                                                                <span class="size-15 italic">{{ isset($package_option->description)?$package_option->description:''  }}</span><br>
+                                                                @if(isset($package_option->image))
+                                                                    <img src="{{ $package_option->image }}" width="100">
+                                                                @else
+                                                                    <span class="glyphicon glyphicon-picture" style="font-size: 64px;" title="No Image Available"></span>
+                                                                @endif
+                                                            </td>
+                                                            <td> <span class="glyphicon glyphicon-plus text-color size-18"></span> </td>
+                                                            {{--<td align="right">{{ number_format($package_option->price,2) }}</td>--}}
+                                                        @endforeach
+                                                    @endif
+                                                    {{--=== end loop ===--}}
+                                                    <td class="size-25 text-color"> = </td>
+                                                    <td align="right" width="13%">
+                                                        <strong style="color: #f59e00; font-size: 30px;">$ {{number_format($package->price,2)}}</strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </label>
+                                    </div>
+                                @endforeach
+                                {{--<div class="center"><a role="tab" class="btn btn-warning" id="addphotography"> + ADD Photography Package</a></div>--}}
+                            @endif
+                        </div>
+                    </div>
+                </fieldset>
+                {{--========================================= Package End =============================================--}}
+
+
+                {{--===== For Photography =============--}}
                 <fieldset><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Photography</h3>
@@ -266,14 +364,26 @@
                         @if(isset($data['quote']->photography_package_id) && $data['quote']->photography_package_id==1)
                             <div class="row size-15">
                                 <?php $photography_package_str = ''; ?>
+                                <?php $k = 0; $photo_type_unique = array();  ?>
                                 @foreach($data['photography_packages'] as $photography_package)
                                     @if(isset($data['quote']->relQuotePhotography))
+                                        <?php
+                                            $photo_type_unique[$k] = $photography_package->type;
+                                            if($k > 0){
+                                                if ($photo_type_unique[$k] != $photo_type_unique[$k-1]){
+                                                    echo '<div class="col-md-12 text-color left size-25 uppercase"><span class="glyphicon glyphicon-minus"></span> '.$photo_type_unique[$k].'</div>';
+                                                }
+                                            } else {
+                                                echo '<div class="col-md-12 text-color left size-25 uppercase"><span class="glyphicon glyphicon-minus"></span> '.$photo_type_unique[$k].'</div>';
+                                            }
+                                            $k++;
+                                        ?>
 
                                         @foreach($data['quote']->relQuotePhotography as $ppi)
 
                                             @if($ppi->photography_package_id==$photography_package->id)
-                                                <div class="col-sm-4">
-                                                    <label class="text-left-label size-15 text-normal">
+                                                <div class="col-sm-3">
+                                                    <!--<label class="text-left-label size-15 text-normal">
                                                         {!! $photography_package->title.' <b style="color: orange">$'.$photography_package->price.'</b>' !!}
 
                                                         <?php
@@ -287,7 +397,22 @@
                                                         @foreach($photography_package->relPhotographyPackage as $relPhotographyPackage)
                                                             <li>{{ $relPhotographyPackage->items }}</li>
                                                         @endforeach
-                                                    </ul>
+                                                    </ul> -->
+                                                    <label style="width: 100%">
+                                                        <div  class="common-box1">
+                                                            {{--<label class="text-left-label">--}}
+                                                            <input class="photography_package_id" type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}">
+                                                            <span class="text-color size-18">{{  $photography_package->title }}</span><br>
+                                                            <span class="text-color size-18">$ {{ $photography_package->price }}</span>
+                                                            {{--</label>--}}
+
+                                                            <ul class="options" style="list-style: inside">
+                                                                @foreach($photography_package->relPhotographyPackage as $relPhotographyPackage)
+                                                                    <li>{{ $relPhotographyPackage->items }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    </label>
                                                 </div>
 
                                             @endif
@@ -319,6 +444,7 @@
 
                     </div>
                 </fieldset>
+                {{--===== For Signboard Package =================--}}
                 <fieldset><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Signboard</h3>
@@ -331,24 +457,33 @@
                                     @if(isset($data['quote']->relQuoteSignboard))
                                         @foreach($data['quote']->relQuoteSignboard as $ppi)
                                             @if($ppi->signboard_package_id==$signboard_package->id)
-                                                <div class="col-sm-4">
-                                                    <label class="text-left-label size-13">
-                                                        <span class="size-17 text-normal">{{ $signboard_package->title }}</span><div class="h-space-10"></div>
-                                                        <?php $signboard_package_str .=$signboard_package->title.','  ?>
-                                                        <img width="100%" height="100" src="{{ asset($signboard_package->image_path) }}">
-                                                    </label>
-                                                    <div class="">
-                                                        <div class="white size-15" style="border:0px solid #909090;">
-                                                            @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
-                                                                @if(isset($data['quote']->relQuoteSignboard))
-                                                                    @foreach($data['quote']->relQuoteSignboard as $ppi)
-                                                                        @if($ppi->signboard_size_id==$relSignboardPackage->id)
-                                                                            {!! $relSignboardPackage->title.' <b style="color: orange"> $'.$relSignboardPackage->price.'</b>' !!}
-                                                                            <?php $signboard_price+=$relSignboardPackage->price; ?>
-                                                                        @endif
-                                                                    @endforeach
-                                                                @endif
-                                                            @endforeach
+                                                <div class="col-sm-3">
+                                                    <div class="sign-box" style="height: 800px;">
+                                                        <label class="text-left-label size-13">
+                                                            <span class="size-18 text-normal text-color">{{ $signboard_package->title }}</span><div class="h-space-10"></div>
+                                                            <?php $signboard_package_str .=$signboard_package->title.','  ?>
+                                                            {{--<img width="100%" height="100" src="{{ asset($signboard_package->image_path) }}">--}}
+                                                        </label>
+
+                                                        <div class="">
+                                                            <div class="white size-15" style="border:0px solid #909090;">
+                                                                @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
+                                                                    @if(isset($data['quote']->relQuoteSignboard))
+                                                                        @foreach($data['quote']->relQuoteSignboard as $ppi)
+                                                                            @if($ppi->signboard_size_id==$relSignboardPackage->id)
+                                                                                {{ $relSignboardPackage->title }}
+                                                                                <p>{{ $relSignboardPackage->description }}</p>
+                                                                                <h2 class="size-40 text-color text-normal">$ {{ $relSignboardPackage->price }}</h2>
+
+                                                                                <?php $signboard_price+=$relSignboardPackage->price; ?>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @endif
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                        <div class="pkg-img">
+                                                            <img width="100%" src="{{ asset($signboard_package->image_path) }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -379,9 +514,11 @@
 
                     </div>
                 </fieldset>
+                {{--===== For Print Material =============--}}
                 <fieldset><hr>
                     <div class="form-bottom">
-                        <h3 class="instruction">Print material</h3>                                            <div class="validationError"></div>
+                        <h3 class="instruction">Print material</h3>
+                        <div class="validationError"></div>
 
                         @if(isset($data['quote']->print_material_id) && $data['quote']->print_material_id==1)
                             <div class="row">
@@ -397,11 +534,12 @@
                                     @if(isset($data['quote']->relQuotePrintMaterial))
                                         @foreach($data['quote']->relQuotePrintMaterial as $ppi)
                                             @if($ppi->print_material_id==$print_material->id)
-                                                <div class="col-sm-4">
-                                                    <label>
+                                                <div class="col-sm-2">
+                                                    <div class="sign-box" style="height: 550px;">
+
                                                         <?php $print_material_str .= $print_material->title.',' ?>
-                                                        <span class="size-17 text-normal">{{ $print_material->title }}</span>
-                                                        <label style="margin-left: 5%;display: block; height: 30px;" class="size-14">
+                                                        <span class="size-17 text-normal text-color">{{ $print_material->title }}</span>
+                                                        <label style="margin-left: 5%;display: block;" class="size-14">
                                                             @if(isset($data['quote']->relQuotePrintMaterial))
                                                                 @foreach($data['quote']->relQuotePrintMaterial as $ppi)
                                                                     @if($ppi->print_material_id==$print_material->id && $ppi->is_distributed==1)
@@ -410,19 +548,23 @@
                                                                 @endforeach
                                                             @endif
                                                         </label>
-                                                        <img width="100%" height="150" src="{{ asset($print_material->image_path) }}">
+
                                                         <div class="size-15 text-normal">
                                                             @foreach($print_material->relPrintMaterial as $relPrintMaterial)@if(isset($data['quote']->relQuotePrintMaterial))
                                                                 @foreach($data['quote']->relQuotePrintMaterial as $ppi)
                                                                     @if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id)
-                                                                        {!! $relPrintMaterial->title.'<b style="color: orange"> $'.$relPrintMaterial->price.'</b>' !!}
+                                                                        <p class="size-13 italic">{{ $relPrintMaterial->description }}</p>
+                                                                        <span class="green">{{ $relPrintMaterial->title }}</span><br>
+                                                                        <span class="size-25 text-color">$ {{ $relPrintMaterial->price }}</span>
                                                                         <?php $print_material_price+=$relPrintMaterial->price; ?>
                                                                     @endif
                                                                 @endforeach
                                                             @endif
                                                             @endforeach
                                                         </div>
-                                                    </label>
+                                                        <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>
+
+                                                    </div>
                                                 </div>
                                             @endif
                                         @endforeach
@@ -448,6 +590,7 @@
                         @endif
                     </div>
                 </fieldset>
+                {{--===== For Distribution of Print Material ===================--}}
                 <fieldset><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Distribution of print material</h3>
@@ -456,12 +599,25 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class=" center">
+                                    <div class=" col-sm-12 size-15 center">
+                                        <table class="table tbl">
+                                            <tr><th>Total distribution of print material (Quantity)</th><td> : </td><td class="tdata">{{ $data['quote']->relPrintMaterialDistribution['quantity'] }}</td></tr>
+                                            <tr><th>Total distribution of print material Added by Agent (Quantity)</th><td> : </td><td class="tdata">{{ $data['quote']->relPrintMaterialDistribution['quantity_next'] }}</td></tr>
+                                            <tr><th>Distribution Area [ Post Code ]</th><td> : </td><td class="tdata">{{ $data['quote']->relPrintMaterialDistribution['distribution_area'] }}</td></tr>
+                                            <tr><th>Date of Distribution</th><td> : </td><td class="tdata">{{ $data['quote']->relPrintMaterialDistribution['date_of_distribution'] }}</td></tr>
+                                            <tr><th>Surrounding Status</th><td> : </td><td class="tdata"><?php if($data['quote']->relPrintMaterialDistribution['is_surrounded']=='1'){echo "Yes";}else{echo "No";} ?></td></tr>
+                                        </table>
+                                    </div>
+                                    {{--<div class="center">
                                         <div class="size-17" style="padding-bottom:20px;">Total distribution of print material (Quantity)</div>
                                         <span class="circle" style="color:orange">
                                             {{ $data['quote']->relPrintMaterialDistribution['quantity'] }}
                                         </span>
-                                    </div >
+                                        <div class="size-17" style="padding-bottom:20px;">Total distribution of print material Added by Agent (Quantity)</div>
+                                        <span class="circle" style="color:orange">
+                                            {{ $data['quote']->relPrintMaterialDistribution['quantity_next'] }}
+                                        </span>
+                                    </div >--}}
                                     <div class=" note">
                                         @if($data['quote']->relPrintMaterialDistribution['note'] !=='')
                                             <label>NOTE</label>
@@ -480,7 +636,7 @@
                         @endif
                     </div>
                 </fieldset>
-                <fieldset><hr>
+                {{--<fieldset><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Digital media</h3>
                         <div class="validationError"></div>
@@ -521,7 +677,8 @@
                             </div>
                         @endif
                     </div>
-                </fieldset>
+                </fieldset>--}}
+                <!--
                 <fieldset><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">Local newsprint media advertising</h3>
@@ -579,7 +736,7 @@
                             </div>
                         @endif
                     </div>
-                </fieldset>
+                </fieldset> -->
 
 
 

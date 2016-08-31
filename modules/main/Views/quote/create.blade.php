@@ -217,7 +217,7 @@
                                                     $k++;
                                                 ?>
 
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-3">
                                                     <label style="width: 100%">
                                                         <div  class="common-box1">
                                                         {{--<label class="text-left-label">--}}
