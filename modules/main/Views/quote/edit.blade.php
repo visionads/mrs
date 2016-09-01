@@ -149,11 +149,11 @@
                                                 <tr>
                                                     <td align="left">
                                                         <?php
-                                                            if($data['quote']->relQuotePackage['price'] == $package->price){$checked='checked';}else{$checked='';}
+                                                            //if($data['quote']->relQuotePackage['price'] == $package->price){$checked='checked';}else{$checked='';}
+                                                            if($data['quote']->package_head_id == $package->id){$checked='checked';}else{$checked='';}
                                                         ?>
-
                                                         <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
-                                                        {{ $package->title }}
+                                                        <span class="text-color">{{ $package->title }}</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -161,7 +161,7 @@
                                                     <td align="left" width="30%">
                                                         <div class="">
                                                             @if(isset($package->image_path))
-                                                                <img src="{{ url($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="No image found in the image directory">
+                                                                <img src="{{ asset($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="No image found in the image directory">
                                                             @endif
 
                                                             <div class="">
@@ -184,7 +184,7 @@
                                                                 <span class="size-17 text-color">{{ $package_option->title }}</span><br>
                                                                 <span class="size-15 italic">{{ isset($package_option->description)?$package_option->description:''  }}</span><br>
                                                                 @if(isset($package_option->image))
-                                                                    <img src="{{ $package_option->image }}" width="100">
+                                                                    <img src="{{ asset($package_option->image) }}" width="100">
                                                                 @else
                                                                     <span class="glyphicon glyphicon-picture" style="font-size: 64px;" title="No Image Available"></span>
                                                                 @endif
@@ -193,6 +193,7 @@
                                                             {{--<td align="right">{{ number_format($package_option->price,2) }}</td>--}}
                                                         @endforeach
                                                     @endif
+
                                                     {{--=== end loop ===--}}
                                                     <td class="size-25 text-color"> = </td>
                                                     <td align="right" width="13%">
@@ -311,7 +312,7 @@
                         </div>
                         <div class="row">
                             <div class="optionalContentDiv @if($data['quote']->signboard_package_id == null) optional-content-div @endif">
-                                <h3 class="center size-16">FOR SPECS & FEATURES PLEASE CLICK ON THE LINK BELOW</h3>
+                                <h3 class="center size-25 text-color">Price Include Installation and Removal</h3>
                                 @foreach($data['signboard_packages'] as $signboard_package)
                                     {{--<div class="col-sm-4">
                                        --}}{{-- <label class="">
@@ -347,28 +348,29 @@
                                         </div>
                                     </div>--}}
                                     <div class="col-sm-3 ">
+                                        <label style="padding: 0; margin: 0; width: 100%;">
                                         <div class="sign-box" style="height: 800px;">
-                                            <label class="">
-                                                        <span class="text-left-label text-color">
-                                                            <input type="checkbox" class="signboard_package_id" name="signboard_package_id[]" value="{{ $signboard_package->id }}"
-                                                                   @if(isset($data['quote']->relQuoteSignboard))
-                                                                   @foreach($data['quote']->relQuoteSignboard as $ppi)
-                                                                   @if($ppi->signboard_package_id==$signboard_package->id)
-                                                                   checked="checked"
-                                                                    @endif
-                                                                    @endforeach
-                                                                    @endif>
 
-                                                            {{ $signboard_package->title }}
-                                                        </span>
-                                            </label>
-                                            <div>
-                                                @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
-                                                    {{ $relSignboardPackage->title }}
-                                                    <p>{{ $relSignboardPackage->description }}</p>
-                                                    <h2 class="size-40 text-color text-normal">$ {{ $relSignboardPackage->price }}</h2>
-                                                @endforeach
-                                            </div>
+                                                <span class="text-left-label text-color">
+                                                    <input type="checkbox" class="signboard_package_id" name="signboard_package_id[]" value="{{ $signboard_package->id }}"
+                                                           @if(isset($data['quote']->relQuoteSignboard))
+                                                           @foreach($data['quote']->relQuoteSignboard as $ppi)
+                                                           @if($ppi->signboard_package_id==$signboard_package->id)
+                                                           checked="checked"
+                                                            @endif
+                                                            @endforeach
+                                                            @endif>
+
+                                                    {{ $signboard_package->title }}
+                                                </span>
+
+                                                <div>
+                                                    @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
+                                                        {{ $relSignboardPackage->title }}
+                                                        <p>{{ $relSignboardPackage->description }}</p>
+                                                        <h2 class="size-40 text-color text-normal">$ {{ $relSignboardPackage->price }}</h2>
+                                                    @endforeach
+                                                </div>
                                             {{--<select name="signboard_package_size_id[{{ $signboard_package->id }}]" class="form-control">--}}
                                                 @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
                                                     <input type="hidden" value="{{ $relSignboardPackage->id }}"
@@ -381,10 +383,12 @@
                                                             @endif >
                                                 @endforeach
                                             {{--</select>--}}
-                                            <div class="pkg-img">
-                                                <img width="100%" src="{{ asset($signboard_package->image_path) }}">
-                                            </div>
+                                                <div class="pkg-img">
+                                                    <img width="100%" src="{{ asset($signboard_package->image_path) }}">
+                                                </div>
+
                                         </div>
+                                        </label>
                                     </div>
                                 @endforeach
                                 <div class="col-sm-4">

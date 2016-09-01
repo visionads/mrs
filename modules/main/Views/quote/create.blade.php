@@ -125,7 +125,7 @@
                                                             <?php $i += 1; if($i=='1') {$checked='checked';}else{$checked='';} ?>
                                                             {{--<label class="text-color">--}}
                                                                 <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
-                                                                {{ $package->title }}
+                                                                <span class="text-color">{{ $package->title }}</span>
                                                             {{--</label>--}}
                                                             </td>
                                                         </tr>
@@ -134,7 +134,7 @@
                                                             <td align="left" width="30%">
                                                                 <div class="">
                                                                     @if(isset($package->image_path))
-                                                                        <img src="{{ url($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="No image found in the image directory">
+                                                                        <img src="{{ asset($package->image_path) }}" class="img-responsive img-rounded" style="max-width:100%;" alt="No image found in the image directory">
                                                                     @endif
 
                                                                     <div class="">
@@ -155,9 +155,9 @@
                                                                 @foreach($package['relPackageOption'] as $package_option)
                                                                     <td>
                                                                         <span class="size-17 text-color">{{ $package_option->title }}</span><br>
-                                                                        <span class="size-15 italic">{{ isset($package_option->description)?$package_option->description:''  }}</span><br>
+                                                                        <span class="size-14 italic">{{ isset($package_option->description)?$package_option->description:''  }}</span><br>
                                                                         @if(isset($package_option->image))
-                                                                            <img src="{{ $package_option->image }}" width="100">
+                                                                            <img src="{{ asset($package_option->image) }}" width="100">
                                                                         @else
                                                                             <span class="glyphicon glyphicon-picture" style="font-size: 64px;" title="No Image Available"></span>
                                                                         @endif
@@ -277,14 +277,15 @@
                                             <div><h3 class="left size-32" style="color: #f36f21">Price Include Installation and Removal</h3></div>
                                             @foreach($data['signboard_packages'] as $signboard_package)
                                             <div class="col-sm-3 ">
+                                                <label style="padding: 0; margin: 0; width: 100%;">
                                                 <div class="sign-box" style="height: 800px;">
-                                                    <label class="">
+
                                                         <span class="text-left-label text-color">
                                                             <input type="checkbox" class="signboard_package_id" name="signboard_package_id[]" value="{{ $signboard_package->id }}">
                                                             {{--<input type="radio" class="signboard_package_id" name="signboard_package_id[]" value="{{ $signboard_package->id }}">--}}
                                                             {{ $signboard_package->title }}
                                                         </span>
-                                                    </label>
+
                                                     <div>
                                                         @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
                                                             {{ $relSignboardPackage->title }}
@@ -307,6 +308,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </label>
                                             </div>
                                             @endforeach
                                             <div class="col-sm-4">
@@ -354,39 +356,36 @@
                                                 </p>
                                             </div>
                                             @foreach($data['print_materials'] as $print_material)
-                                            <div class="col-sm-2">
-                                                <div class="sign-box" style="height: 550px;">
-                                                    <label class="size-15 text-color">
-                                                        <input type="checkbox" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
-                                                        {{ $print_material->title }}
-                                                    </label>
-                                                    <p class="white size-13">
-                                                        @foreach($print_material->relPrintMaterial as $relPrintMaterial)
-                                                            {{ $relPrintMaterial->description }}
-                                                        @endforeach
-                                                    </p>
-                                                    <label class="green size-15">
-                                                        <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
-                                                        USE FOR DISTRIBUTION
-                                                    </label>
-                                                    <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>
-                                                    <div class="panel-body select">
-                                                        <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
+                                                <div class="col-sm-2">
+                                                    <div class="sign-box" style="height: 550px;">
+                                                        <label class="size-15 text-color">
+                                                            <input type="checkbox" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
+                                                            {{ $print_material->title }}
+                                                        </label>
+                                                        <p class="white size-13">
                                                             @foreach($print_material->relPrintMaterial as $relPrintMaterial)
-                                                            <option value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title.'( $'.$relPrintMaterial->price.')' }}</option>
+                                                                {{ $relPrintMaterial->description }}
                                                             @endforeach
-                                                        </select>
+                                                        </p>
+                                                        <label class="green size-15">
+                                                            <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
+                                                            USE FOR DISTRIBUTION
+                                                        </label>
+                                                        <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>
+                                                        <div class="panel-body select">
+                                                            <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
+                                                                @foreach($print_material->relPrintMaterial as $relPrintMaterial)
+                                                                <option value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title.'( $'.$relPrintMaterial->price.')' }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="text-color size-32">
+                                                            @foreach($print_material->relPrintMaterial as $relPrintMaterial)
+                                                               $ {{ $relPrintMaterial->price }}
+                                                            @endforeach
+                                                        </div>
                                                     </div>
-                                                    <div class="text-color size-32">
-                                                        @foreach($print_material->relPrintMaterial as $relPrintMaterial)
-                                                           $ {{ $relPrintMaterial->price }}
-                                                        @endforeach
-                                                    </div>
-
-
-
                                                 </div>
-                                            </div>
                                             @endforeach
                                             <div class="col-sm-4">
                                                 <div class="form-group">

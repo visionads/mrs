@@ -571,7 +571,7 @@ class QuoteController extends Controller
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         $data['digital_medias']= DigitalMedia::get();
-        $data['packages'] = Package::with('relPackageOption')->where('status','open')->get();
+        $data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
         $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia','relQuotePackage')->first();
 
         //print_r($data['quote']->relQuotePackage['price']);exit();
