@@ -99,9 +99,7 @@
                                         @if($data['quote']->relQuotePackage['price'] == $package->price)
                                             @if($package->price > 0)
                                                 <?php $price = $package->price; ?>
-                                                <script>
-                                                    $(document).ready(function(){ $(".pack-choise").removeClass("pack-choise").addClass("pack-close"); });
-                                                </script>
+                                                <script>$(document).ready(function(){ $(".pack-choise").removeClass("pack-choise").addClass("pack-close"); });</script>
                                             @endif
                                         @endif
                                     @endif
@@ -114,6 +112,7 @@
                                 @else
                                     <label><input type="radio" name="package" class="choose0" value="0" checked>No</label>
                                     <label><input type="radio" name="package" class="choose1" value="1">Yes</label>
+
                                 @endif
 
                             @endif
@@ -210,6 +209,16 @@
                         </div>
                     </div>
                 </fieldset>
+                <script>
+                    $(document).ready(function(){
+                        $(".choose0").click(function(){
+                            $(".pack-close").slideUp();
+                        })
+                        $(".choose1").click(function(){
+                            $(".pack-close").slideDown();
+                        })
+                    });
+                </script>
                 {{--========================================= Package(New) End =============================================--}}
 
 
@@ -238,15 +247,15 @@
                                 <?php $k = 0; $photo_type_unique = array();  ?>
                                 @foreach($data['photography_packages'] as $photography_package)
                                     <?php
-                                    $photo_type_unique[$k] = $photography_package->type;
-                                    if($k > 0){
-                                        if ($photo_type_unique[$k] != $photo_type_unique[$k-1]){
+                                        $photo_type_unique[$k] = $photography_package->type;
+                                        if($k > 0){
+                                            if ($photo_type_unique[$k] != $photo_type_unique[$k-1]){
+                                                echo '<div class="col-md-12 text-color left size-25 uppercase"><span class="glyphicon glyphicon-minus"></span> '.$photo_type_unique[$k].'</div>';
+                                            }
+                                        } else {
                                             echo '<div class="col-md-12 text-color left size-25 uppercase"><span class="glyphicon glyphicon-minus"></span> '.$photo_type_unique[$k].'</div>';
                                         }
-                                    } else {
-                                        echo '<div class="col-md-12 text-color left size-25 uppercase"><span class="glyphicon glyphicon-minus"></span> '.$photo_type_unique[$k].'</div>';
-                                    }
-                                    $k++;
+                                        $k++;
                                     ?>
 
                                     <div class="col-sm-2">
@@ -586,7 +595,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required">New Field</span></label><br>
+                                        <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span> : </label><br>
 
                                         <div class="row">
                                             <div class="col-sm-12">
@@ -611,15 +620,15 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div style="width: 100%; height: 15px"></div>
-                                        <label class="control-label size-13">Quantity<small class="required"> [ Just type Quantity ]</small></label>
+                                        <label class="control-label size-13">Quantity<span class="required"> [ Just type Quantity ]</span></label>
                                         <input type="number" name="quantity_next" value="{{ isset($data['quote']->relPrintMaterialDistribution['quantity_next'])?$data['quote']->relPrintMaterialDistribution['quantity_next']:'' }}" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label size-13">Distribution Area [Post Code ]<small class="required"> [ New field ]</small></label>
+                                        <label class="control-label size-13">Distribution Area <span class="required"> [ Post Code ]</span></label>
                                         <input type="number" name="distribution_area" value="{{ isset($data['quote']->relPrintMaterialDistribution['distribution_area'])?$data['quote']->relPrintMaterialDistribution['distribution_area']:'' }}" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label size-13">Choose a Date of Distribution <small class="required"> [ New field ]</small></label>
+                                        <label class="control-label size-13">Choose a Date of Distribution <span class="required">&nbsp;</span></label>
                                         <input type="text" id="date_id" name="date_of_distribution" value="{{ isset($data['quote']->relPrintMaterialDistribution['date_of_distribution'])?$data['quote']->relPrintMaterialDistribution['date_of_distribution']:'' }}" class="form-control">
                                     </div>
                                 </div>

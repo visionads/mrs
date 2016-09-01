@@ -465,7 +465,7 @@
                                                     <input type="number" name="quantity_next" class="form-control">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label size-13">Distribution Area [Post Code ]<small class="required"> [ New field ]</small></label>
+                                                    <label class="control-label size-13">Distribution Area <small class="required"> [ Post Code ]</small></label>
                                                     <input type="number" name="distribution_area" class="form-control">
                                                 </div>
                                                 <div class="form-group">
