@@ -48,7 +48,7 @@
                         <thead>
                         <tr class="bg-primary">
                             <th> Title </th>
-                            <th> Price</th>
+                            {{--<th> Price</th>--}}
                             <th> Image</th>
                             <th> Action &nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-placement="top" data-content="view : click for details informations<br>update : click for update informations<br>delete : click for delete informations"></span></th>
                         </tr>
@@ -58,7 +58,7 @@
                             @foreach($data as $values)
                                 <tr class="gradeX">
                                     <td>{{ucfirst($values->title)}}</td>
-                                    <td>{{$values->price}}</td>
+                                    {{--<td>{{$values->price}}</td>--}}
                                     <td>
                                         <img src="{{asset($values->image_path)}}" style="width:35px;height:35px;">
                                     </td>

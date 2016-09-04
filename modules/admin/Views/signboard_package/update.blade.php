@@ -18,7 +18,7 @@
             <small class="required">(Required)</small>
             {!! Form::text('title', @$data[0]['title'], ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
         </div>
-        <div>
+        {{--<div>
             {!! Form::label('price', 'Price:', []) !!}
             <small class="required">(Required)</small>
             {!! Form::input('number','price_hd', @$data[0]['price'], ['title'=>'enter price', 'class' => 'form-control','required']) !!}
@@ -27,7 +27,7 @@
             {!! Form::label('description', 'Description:', []) !!}
             <small class="required">(Required)</small>
             {!! Form::textarea('description_hd', @$data[0]['description'], ['title'=>'enter description','rows'=>'2', 'class' => 'form-control','required']) !!}
-        </div>
+        </div>--}}
     </div>
 
 
@@ -91,7 +91,7 @@
                     </td>
                     <td>
                         <div>
-                            {!! Form::input('number','price[]', @$value_dt['price'], ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
+                            {!! Form::input('number','price[]', @$value_dt['price'], ['title'=>'enter price', 'class' => 'form-control']) !!}
                         </div>
                     </td>
                     <td>
@@ -114,7 +114,7 @@
             @endforeach
         @endif
 
-        <tr>
+        {{--<tr>
             <td>
                 <div>
                     {!! Form::text('title_size[]', null, ['title'=>'enter title', 'class' => 'form-control']) !!}
@@ -136,7 +136,7 @@
                     {!! Form::text('description[]', null, ['title'=>'enter description', 'class' => 'form-control']) !!}
                 </div>
             </td>
-        </tr>
+        </tr>--}}
         </tbody>
     </table>
 

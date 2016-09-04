@@ -30,7 +30,7 @@
             {!! Form::select('is_distribution', array('1'=>'Yes','0'=>'No'),@$data[0]['is_distribution'],['class' => 'form-control','required','title'=>'select is_distribution']) !!}
         </div>
 
-        <div>
+        {{--<div>
             {!! Form::label('price', 'Price:', []) !!}
             <small class="required">(Required)</small>
             {!! Form::input('number','price_hd', @$data[0]['price'], ['title'=>'enter price', 'class' => 'form-control','required']) !!}
@@ -39,7 +39,7 @@
             {!! Form::label('description', 'Description:', []) !!}
             <small class="required">(Required)</small>
             {!! Form::textarea('description_hd', @$data[0]['description'], ['title'=>'enter description','rows'=>'2', 'class' => 'form-control','required']) !!}
-        </div>
+        </div>--}}
         <div>
             {!! Form::label('quantity_limit', 'Quantity Limit:', []) !!}
             <small class="required">(Required)</small>
@@ -108,7 +108,7 @@
                     </td>
                     <td>
                         <div>
-                            {!! Form::input('number','price[]', @$value_dt['price'], ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
+                            {!! Form::input('number','price[]', @$value_dt['price'], ['title'=>'enter price', 'class' => 'form-control']) !!}
                         </div>
                     </td>
                     <td>
@@ -131,7 +131,7 @@
             @endforeach
         @endif
 
-        <tr>
+        {{--<tr>
             <td>
                 <div>
                     {!! Form::text('title_size[]', null, ['title'=>'enter title', 'class' => 'form-control']) !!}
@@ -139,7 +139,7 @@
             </td>
             <td>
                 <div>
-                    {!! Form::input('number','price[]', 0, ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
+                    {!! Form::input('number','price[]', 0, ['title'=>'enter price', 'class' => 'form-control']) !!}
                 </div>
             </td>
             <td>
@@ -152,7 +152,7 @@
                     {!! Form::text('description[]', null, ['title'=>'enter description', 'class' => 'form-control']) !!}
                 </div>
             </td>
-        </tr>
+        </tr>--}}
         </tbody>
     </table>
 

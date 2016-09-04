@@ -94,9 +94,9 @@ class PrintMaterialController extends Controller
         $input_head =[
             'title'=>$input['title'],
             'is_distribution'=>$input['is_distribution'],
-            'price'=>$input['price_hd'],
+            /*'price'=>$input['price_hd'],*/
             'quantity_limit'=>$input['quantity_limit'],
-            'description'=>$input['description_hd'],
+            /*'description'=>$input['description_hd'],*/
             'image_path'=>$input['image_path'],
             'image_thumb'=>$input['image_thumb']
         ];
@@ -271,9 +271,9 @@ class PrintMaterialController extends Controller
                 'title'=>@$input['title'],
                 'image_path'=>@$input['image_path'],
                 'image_thumb'=>@$input['image_thumb'],
-                'price'=>@$input['price_hd'],
+                /*'price'=>@$input['price_hd'],*/
                 'quantity_limit'=>@$input['quantity_limit'],
-                'description'=>@$input['description_hd'],
+                /*'description'=>@$input['description_hd'],*/
                 'is_distribution'=>@$input['is_distribution']
             ];
 
@@ -283,9 +283,9 @@ class PrintMaterialController extends Controller
             $input_head =[
                 'id'=>@$id,
                 'title'=>@$input['title'],
-                'price'=>@$input['price_hd'],
+                /*'price'=>@$input['price_hd'],*/
                 'quantity_limit'=>@$input['quantity_limit'],
-                'description'=>@$input['description_hd'],
+                /*'description'=>@$input['description_hd'],*/
                 'is_distribution'=>@$input['is_distribution']
             ];
         }

@@ -15,7 +15,7 @@
         <small class="required">(Required)</small>
         {!! Form::select('is_distribution', array('1'=>'Yes','0'=>'No'),Input::old('is_distribution'),['class' => 'form-control','required','title'=>'select status of branch']) !!}
     </div>
-    <div>
+    {{--<div>
         {!! Form::label('price', 'Price:', []) !!}
         <small class="required">(Required)</small>
         {!! Form::input('number','price_hd', Input::old('price'), ['title'=>'enter price', 'class' => 'form-control','required']) !!}
@@ -24,7 +24,7 @@
         {!! Form::label('description', 'Description:', []) !!}
         <small class="required">(Required)</small>
         {!! Form::textarea('description_hd', Input::old('description'), ['title'=>'enter description','rows'=>'2', 'class' => 'form-control','required']) !!}
-    </div>
+    </div>--}}
     <div>
         {!! Form::label('quantity_limit', 'Quantity Limit:', []) !!}
         <small class="required">(Required)</small>
@@ -89,7 +89,7 @@
 
         <td>
             <div>
-                {!! Form::input('number','price[]', 0, ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}
+                {!! Form::input('number','price[]', 0, ['title'=>'enter price', 'class' => 'form-control']) !!}
             </div>
         </td>
         <td>

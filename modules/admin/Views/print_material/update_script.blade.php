@@ -27,7 +27,7 @@
 <script>
 
 
-    $(document).on("focus",'#update-table tr:last-child td:last-child',function(e) {
+    /*$(document).on("focus",'#update-table tr:last-child td:last-child',function(e) {
 
         e.preventDefault();
         var coa_name = $('#update-table tr:last-child td:first-child input').val();
@@ -51,7 +51,7 @@
             </tr>';
             table.append(element);
         }
-    });
+    });*/
 
 
 
