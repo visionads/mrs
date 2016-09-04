@@ -189,14 +189,14 @@
                             <th>Distribution of print material</th>
                             <td>$ 0.00</td>
                         </tr>
-                        <tr>
+                        {{--<tr>
                             <th>Digital Media</th>
                             <td>$ 0.00</td>
                         </tr>
                         <tr>
                             <th>Local newsprint media advertising {{ ($local_media_str!=='')? '[ '.rtrim($local_media_str,',').' ]':'' }}</th>
                             <td>{{ ($local_media_price!=0)?'$ '.number_format($local_media_price,2):'$ 0.00' }}</td>
-                        </tr>
+                        </tr>--}}
                         <tr style="color: orange">
                             <th>Total</th>
                             <td><b>${{ number_format($local_media_price+$print_material_price+$signboard_price+$photography_price,2) }}</b></td>
@@ -328,7 +328,7 @@
                                                                 <span class="size-17 text-color">{{ $package_option->title }}</span><br>
                                                                 <span class="size-15 italic">{{ isset($package_option->description)?$package_option->description:''  }}</span><br>
                                                                 @if(isset($package_option->image))
-                                                                    <img src="{{ $package_option->image }}" width="100">
+                                                                    <img src="{{ asset($package_option->image) }}" width="100">
                                                                 @else
                                                                     <span class="glyphicon glyphicon-picture" style="font-size: 64px;" title="No Image Available"></span>
                                                                 @endif

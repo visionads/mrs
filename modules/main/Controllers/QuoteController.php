@@ -92,9 +92,12 @@ class QuoteController extends Controller
             'relQuotePackage'
         )->first();
         //print_r($data['quote']->relQuotePackage->id);exit();
-        $package_id = $data['quote']->relQuotePackage->id;
-        //$data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
-        $data['packages'] = Package::with('relPackageOption')->where('id',$package_id)->orderBy('type','ASC')->get();
+        if(isset($data['quote']->relQuotePackage->id)) {
+            $package_id = $data['quote']->relQuotePackage->id;
+            //print_r($package_id);exit();
+            //$data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
+            $data['packages'] = Package::with('relPackageOption')->where('id', $package_id)->orderBy('type', 'ASC')->get();
+        }
         //$data['package_price'] = $data['quote']->relQuotePackage['price'];
         //print_r($data['package_price']);exit();
         return view('main::quote.details',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);

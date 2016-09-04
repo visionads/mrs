@@ -355,38 +355,42 @@
                                                     selecting the distribution.
                                                 </p>
                                             </div>
-                                            @foreach($data['print_materials'] as $print_material)
-                                                <div class="col-sm-2">
-                                                    <div class="sign-box" style="height: 550px;">
-                                                        <label class="size-15 text-color">
-                                                            <input type="checkbox" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
-                                                            {{ $print_material->title }}
-                                                        </label>
-                                                        <p class="white size-13">
-                                                            @foreach($print_material->relPrintMaterial as $relPrintMaterial)
-                                                                {{ $relPrintMaterial->description }}
-                                                            @endforeach
-                                                        </p>
-                                                        <label class="green size-15">
-                                                            <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
-                                                            USE FOR DISTRIBUTION
-                                                        </label>
-                                                        <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>
-                                                        <div class="panel-body select">
-                                                            <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
+                                            @if(isset($data['print_materials']))
+                                                @foreach($data['print_materials'] as $print_material)
+                                                    <div class="col-sm-2">
+                                                        <div class="sign-box" style="height: 550px;">
+                                                            <label class="size-15 text-color">
+                                                                <input type="checkbox" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
+                                                                {{ $print_material->title }}
+
+                                                            </label>
+                                                            <p class="white size-13">
+                                                                {{--{{ $print_material->description }}--}}
                                                                 @foreach($print_material->relPrintMaterial as $relPrintMaterial)
-                                                                <option value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title.'( $'.$relPrintMaterial->price.')' }}</option>
+                                                                    {{ $relPrintMaterial->description }}
                                                                 @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="text-color size-32">
-                                                            @foreach($print_material->relPrintMaterial as $relPrintMaterial)
-                                                               $ {{ $relPrintMaterial->price }}
-                                                            @endforeach
+                                                            </p>
+                                                            <label class="green size-15">
+                                                                <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
+                                                                USE FOR DISTRIBUTION
+                                                            </label>
+                                                            <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>
+                                                            <div class="panel-body select">
+                                                                <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
+                                                                    @foreach($print_material->relPrintMaterial as $relPrintMaterial)
+                                                                    <option value="{{ $relPrintMaterial->id }}">{{ $relPrintMaterial->title.'( $'.$relPrintMaterial->price.')' }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div class="text-color size-32">
+                                                                @foreach($print_material->relPrintMaterial as $relPrintMaterial)
+                                                                   $ {{ $relPrintMaterial->price }}
+                                                                @endforeach
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            @endif
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>NOTE</label>
@@ -437,7 +441,7 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required">New Field</span></label><br>
+                                                    <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
 
                                                     <div class="row">
                                                         <div class="col-sm-12">
@@ -468,9 +472,24 @@
                                                     <label class="control-label size-13">Distribution Area <small class="required"> [ Post Code ]</small></label>
                                                     <input type="number" name="distribution_area" class="form-control">
                                                 </div>
+                                                {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+                                                <link rel="stylesheet" href="/resources/demos/style.css">
+                                                <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                                                <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+                                                <script>
+                                                    $( function() {
+                                                        $("#dpicker").datepicker({
+                                                            beforeShowDay: function(date) {
+                                                                return [date.getDay() == 5];
+                                                            }
+                                                        });
+                                                    } );
+                                                </script>--}}
                                                 <div class="form-group">
-                                                    <label class="control-label size-13">Choose a Date of Distribution <small class="required"> [ New field ]</small></label>
+                                                    <label class="control-label size-13 text-normal">Choose a Date of Distribution <span class="required">[ Distribution Commenses on Saturday and will be complete within 5 day window ]</span></label>
                                                     <input type="text" id="date_id" name="date_of_distribution" class="form-control">
+                                                    {{--<input type="text" id="dpicker" name="date_of_distribution">--}}
+                                                    {{--<p>Date: <input type="text" id="datepicker"></p>--}}
                                                 </div>
                                             </div>
                                         </div>
