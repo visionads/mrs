@@ -250,7 +250,7 @@
                                 <table class="table tbl">
                                     <tr><th>Property Owner Name</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['owner_name'] }}</td></tr>
                                     <tr><th>Property Address</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['address'] }} </td></tr>
-                                    <tr><th>Vendor Name</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['vendor_name'] }} </td></tr>
+{{--                                    <tr><th>Vendor Name</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['vendor_name'] }} </td></tr>--}}
                                     <tr><th>Vendor Email</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['vendor_email'] }} </td></tr>
                                     <tr><th>Vendor Phone</th><td> : </td><td class="tdata">{{ $data['quote']->relPropertyDetail['vendor_phone'] }}</td></tr>
                                 </table>

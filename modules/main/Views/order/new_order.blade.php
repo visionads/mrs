@@ -1,9 +1,6 @@
 @extends('admin::layouts.master')
 
 @section('content')
-
-
-
     <div class="container-fluid">
         <div class="no-border">
             <table cellspacing="0" cellpadding="0" border="0" class="table size-13 quote-list">
@@ -33,7 +30,8 @@
                         <td style="font-weight:normal;">{{ $quote->relUser['username'] }}</td>
                         <td style="font-weight:normal;">{{ $quote->relBusiness['title'] }}</td>
                         <td class="text-center">{{ date('d M Y',strtotime($quote->created_at)) }}</td>
-                        <td><a href="{{ URL::to('main/edit_quote/'.$quote->id) }}" class="btn btn-primary" data-placement="left" data-content="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>
+                        {{--<td><a href="{{ URL::to('main/edit_quote/'.$quote->id) }}" class="btn btn-primary" data-placement="left" data-content="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>--}}
+                        <td><a href="{{ route('page-place-order', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="fa fa-eye"></span></a></td>
                     </tr>
                 @endforeach
                 </tbody>

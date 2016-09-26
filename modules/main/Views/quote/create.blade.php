@@ -63,10 +63,10 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6 size-13">
-                                            <div class="form-group">
+                                            {{--<div class="form-group">
                                                 <label for="vendor_name">Vendor Name</label>
                                                 <input type="text" name="vendor_name" placeholder="Vendor Name" class="form-control" id="vendor_name">
-                                            </div>
+                                            </div>--}}
                                             <div class="form-group">
                                                 <label for="vendor_email">Vendor Email  <span class="required">(Required)</span></label>
                                                 <input type="email" name="vendor_email" placeholder="Vendor Email" class="form-control" id="vendor_email" required>
@@ -88,9 +88,15 @@
                                     <h3 class="instruction">Packages</h3>
                                     <br>
                                     <div class="row text-center">
-                                        Would you like to choose a Complete Package ?<br>
-                                        <label><input type="radio" name="package" class="choose0" value="0" checked>No</label>
-                                        <label><input type="radio" name="package" class="choose1" value="1">Yes</label>
+                                        {{--Would you like to choose a Complete Package ?<br>--}}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label><input type="radio" name="package" class="choose0" value="0" checked> Customize your quote</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label><input type="radio" name="package" class="choose1" value="1"> Complete Package</label>
+                                            </div>
+                                        </div>
                                     </div>
 
 
