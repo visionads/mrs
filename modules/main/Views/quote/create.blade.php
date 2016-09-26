@@ -26,7 +26,7 @@
 
            {{-- <div class="row">--}}
                 <div class="col-sm-12">
-                    {!! Form::open(['route'=>'new-quote-store']) !!}
+                    {!! Form::open(['route'=>'new-quote-store', 'files' => true]) !!}
                     {{--<form role="form" method="post" class="">--}}
                         <h2 style="color: #fff;text-align: center;">Add New Quote</h2>
                         <div class="quote-form">
@@ -195,19 +195,35 @@
                                     <br>
                                     <div class="validationErrorPhotographyPackage"></div>
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <h4>Will the property require pro-photography ?</h4>
+                                        <div class="col-sm-6">
                                             <label>
-                                                <input type="radio" name="pro-photographyChooseBtn" value="0" class="noBtn btn-next" checked="checked">
-                                                No
+                                                <input type="radio" name="pro-photographyChooseBtn" value="0" class="noBtnP btn-next" checked="checked">
+                                                Upload your own
                                             </label>
+                                        </div>
+                                        <div class="col-sm-6">
                                             <label>
-                                                <input type="radio" name="pro-photographyChooseBtn" value="1" class="yesBtn">
-                                                Yes
+                                                <input type="radio" name="pro-photographyChooseBtn" value="1" class="yesBtnP">
+                                                Select photography package
                                             </label>
                                         </div>
                                     </div>
                                     <div class="row size-15">
+                                        <div class="optionalContentDiv" id="pImage">
+
+                                            <div class="col-sm-12">
+
+                                                {!! Form::label('Special Request for photography', 'Special Request for photography (Multiple) :', []) !!}
+
+                                                <div class="col-md-12 image-center">
+                                                    <div class="image-center">
+                                                        <input type="file" name="custom_photography_images[]" id="image" class="default" multiple />
+                                                    </div>
+                                                    <span class="label label-danger"><font size="1">NOTE!</font></span>
+                                                    <span style="color: white"><font size="1">System will allow these types of image(png,jpeg,jpg Format)</font></span>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="optionalContentDiv optional-content-div">
                                             <?php $k = 0; $photo_type_unique = array();  ?>
                                             @foreach($data['photography_packages'] as $photography_package)

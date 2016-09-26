@@ -1139,9 +1139,8 @@ class OrderController extends Controller
 
 
 
-    protected function image_upload($image,$file_type_required,$destinationPath)
+    public static function image_upload($image,$file_type_required,$destinationPath)
     {
-
         if ($image != '') {
             $img_name = $image; //($_FILES['image']['name']);
             $random_number = rand(111, 999);
@@ -1154,7 +1153,6 @@ class OrderController extends Controller
             $rules = array('image' => 'required|mimes:' . $file_type_required);
             $validator = Validator::make(array('image' => $image), $rules);
             if ($validator->passes()) {
-
                 // Create folders if they don't exist
                 if (!file_exists($destinationPath)) {
                     mkdir($destinationPath, 0777, true);

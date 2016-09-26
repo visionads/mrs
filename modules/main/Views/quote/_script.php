@@ -25,6 +25,14 @@
         $('.noBtn').click(function(){
             $(this).parent().parent().parent().parent().find('.optionalContentDiv').addClass('optional-content-div');
         });
+        $('.yesBtnP').click(function(){
+            $(this).parent().parent().parent().parent().find('.optionalContentDiv').removeClass('optional-content-div');
+            $(this).parent().parent().parent().parent().find('#pImage').addClass('optional-content-div');
+        });
+        $('.noBtnP').click(function(){
+            $(this).parent().parent().parent().parent().find('.optionalContentDiv').addClass('optional-content-div');
+            $(this).parent().parent().parent().parent().find('#pImage').removeClass('optional-content-div');
+        });
 
         /*$('.local_media_option_id').click(function(){
 //                val value=$(this).parent().addclass('xxx');
@@ -43,7 +51,7 @@
             if (value==1){
                 var photography_package_id=$(".photography_package_id:checked").val();
 
-                console.log(photography_package_id);
+//                console.log(photography_package_id);
                 if(photography_package_id==undefined)
                 {
                     $('.validationErrorPhotographyPackage').append('<div class="alert alert-danger">Please choose any photography package</div>');

@@ -32,6 +32,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Mockery\CountValidator\Exception;
+use Illuminate\Support\Facades\Validator;
 
 class QuoteController extends Controller
 {
@@ -373,7 +374,7 @@ class QuoteController extends Controller
                  * */
                 $property['owner_name'] = $received['owner_name'];
                 $property['address'] = $received['address'];
-                $property['vendor_name'] = $received['vendor_name'];
+//                $property['vendor_name'] = $received['vendor_name'];
                 $property['vendor_email'] = $received['vendor_email'];
                 $property['vendor_phone'] = $received['vendor_phone'];
                 $property_id = PropertyDetail::create($property);
@@ -409,6 +410,45 @@ class QuoteController extends Controller
                     }
                     $data['photography_package_id'] = 1;
                     $data['photography_package_comments'] = $received['photography_package_comments'];
+                }elseif(!empty($received['custom_photography_images']) && count($received['custom_photography_images']) >= 1){
+                    /*
+                     * Upload multiple image for custom photography
+                     * */
+                    $file_type_required = 'png,jpeg,jpg';
+                    $destinationPath = 'uploads/property_access/';
+
+                    $uploadfolder = 'uploads/';
+
+                    if ( !file_exists($uploadfolder) ) {
+                        $oldmask = umask(0);  // helpful when used in linux server
+                        mkdir ($uploadfolder, 0777);
+                    }
+
+                    if ( !file_exists($destinationPath) ) {
+                        $oldmask = umask(0);  // helpful when used in linux server
+                        mkdir ($destinationPath, 0777);
+                    }
+//                    dd($request->files());
+                    foreach($received['custom_photography_images'] as $image){
+                        $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
+                        #print_r($file_name);exit();
+
+                        if($file_name != '') {
+                            $input['image_path'][] = $file_name[0];
+                        }
+                        else{
+                            Session::flash('error', 'Some thing error in image file type! Please Try again');
+                            return redirect()->back();
+                        }
+                    }
+                }
+                if(isset($input['image_path'])){
+                    foreach($input['image_path'] as $ims){
+                        $quotePropertyImage= new QuotePropertyImage();
+                        $quotePropertyImage->quote_id= $quote->id;
+                        $quotePropertyImage->image= $ims;
+                        $quotePropertyImage->save();
+                    }
                 }
             }
 
