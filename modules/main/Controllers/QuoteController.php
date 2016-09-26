@@ -238,6 +238,7 @@ class QuoteController extends Controller
                             if(isset($quote->relQuotePrintMaterial)) {
                                 foreach ($quote->relQuotePrintMaterial as $ppi) {
                                     if ($ppi->print_material_id == $print_material->id && $ppi->is_distributed == 1) {
+
                                     }
                                 }
                             }
@@ -505,13 +506,13 @@ class QuoteController extends Controller
                                 $pm->print_material_size_id = $received['print_material_size_id'][$pmi];
                                 $pm->price = PrintMaterialSize::findOrFail($received['print_material_size_id'][$pmi])->price;
                             }
-                            if (isset($received['is_distributed'])) {
+                            /*if (isset($received['is_distributed'])) {
                                 if (isset($received['is_distributed'][$pmi])) {
                                     $pm->is_distributed = 1;
                                 } else {
                                     $pm->is_distributed = 0;
                                 }
-                            }
+                            }*/
                             $pm->save();
                         }
                     }
@@ -796,7 +797,7 @@ class QuoteController extends Controller
                             $pm->price=PrintMaterialSize::findOrFail($received['print_material_size_id'][$pmi])->price;
                         }
 
-                        if(isset($received['is_distributed']))
+                        /*if(isset($received['is_distributed']))
                         {
                             if(isset($received['is_distributed'][$pmi]))
                             {
@@ -804,7 +805,7 @@ class QuoteController extends Controller
                             }else{
                                 $pm->is_distributed = 0;
                             }
-                        }
+                        }*/
                         $pm->save();
                     }
                 }

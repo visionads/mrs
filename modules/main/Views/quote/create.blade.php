@@ -392,10 +392,10 @@
                                                                     {{ $relPrintMaterial->description }}
                                                                 @endforeach
                                                             </p>
-                                                            <label class="green size-15">
-                                                                <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
-                                                                USE FOR DISTRIBUTION
-                                                            </label>
+                                                            {{--<label class="green size-15">--}}
+                                                                {{--<input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">--}}
+                                                                {{--USE FOR DISTRIBUTION--}}
+                                                            {{--</label>--}}
                                                             <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>
                                                             <div class="panel-body select">
                                                                 <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">

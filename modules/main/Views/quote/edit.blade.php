@@ -488,7 +488,7 @@
                                                     {{ $relPrintMaterial->description }}
                                                 @endforeach
                                             </p>
-                                            <label class="green size-15">
+                                            {{--<label class="green size-15">
                                                 <input @if(isset($data['quote']->relQuotePrintMaterial))
                                                        @foreach($data['quote']->relQuotePrintMaterial as $ppi)
                                                        @if($ppi->print_material_id==$print_material->id && $ppi->is_distributed==1)
@@ -497,7 +497,7 @@
                                                        @endforeach
                                                        @endif  type="checkbox"  name="is_distributed[]" value="{{ $print_material->id }}">
                                                 USE FOR DISTRIBUTION
-                                            </label>
+                                            </label>--}}
                                             <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>
                                             <div class="panel-body select">
                                                 <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
