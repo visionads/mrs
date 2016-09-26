@@ -6,7 +6,6 @@
     {{--        <link href="{{ URL::asset('assets/quote/css/style.css') }}">--}}
 
 
-
     {{--<div class="form-group col-sm-12 page-profile" id="order_image">--}}
     {{--<div class="profile-block" id="order_block">--}}
     {{--<div class="panel profile-photo" id="order_img_resize">--}}
@@ -26,7 +25,7 @@
 
         {{-- <div class="row">--}}
         <div class="col-sm-12">
-            {!! Form::open(['route' => ['new_quote_store', $data['quote']->id], 'method' => 'PATCH' ]) !!}
+            {!! Form::open(['route' => ['new_quote_store', $data['quote']->id], 'method' => 'PATCH','files'=> 'true' ]) !!}
             {{--<form role="form" method="post" class="">--}}
             <h2 style="color: #fff;text-align: center;">Edit Quote</h2>
             <div class="quote-form">
@@ -63,10 +62,10 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 size-13">
-                                <div class="form-group">
-                                    <label for="vendor_name">Vendor Name</label>
-                                    <input type="text" name="vendor_name" placeholder="Vendor Name" class="form-control" id="vendor_name" value="{{ $data['quote']->relPropertyDetail['vendor_name'] }}" >
-                                </div>
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="vendor_name">Vendor Name</label>--}}
+                                    {{--<input type="text" name="vendor_name" placeholder="Vendor Name" class="form-control" id="vendor_name" value="{{ $data['quote']->relPropertyDetail['vendor_name'] }}" >--}}
+                                {{--</div>--}}
                                 <div class="form-group">
                                     <label for="vendor_email">Vendor Email  <span class="required">(Required)</span></label>
                                     <input type="email" name="vendor_email" placeholder="Vendor Email" class="form-control" id="vendor_email" value="{{ $data['quote']->relPropertyDetail['vendor_email'] }}" required>
@@ -93,30 +92,9 @@
                         <div class="row text-center">
                             Would you like to choose a Complete Package ?<br>
                             <?php $i = 0; $price = 0;?>
-                            @if(isset($data['packages']))
-                                @foreach($data['packages'] as $package)
-                                    @if(isset($data['quote']->relQuotePackage['price']))
-                                        @if($data['quote']->relQuotePackage['price'] == $package->price)
-                                            @if($package->price > 0)
-                                                <?php $price = $package->price; ?>
-                                                <script>$(document).ready(function(){ $(".pack-choise").removeClass("pack-choise").addClass("pack-close"); });</script>
-                                            @endif
-                                        @endif
-                                    @endif
-                                @endforeach
 
-                                @if($price > 0)
-                                    <label><input type="radio" name="package" class="choose0" value="0">No</label>
-                                    <label><input type="radio" name="package" class="choose1" value="1" checked >Yes</label>
-                                    <script>//$(document).ready(function(){ $(".choose0").click(function(){ $(".pack-close").hide(); }); $(".choose1").click(function(){ $(".pack-close").removeClass("pack-close").addClass("pack-close"); })});</script>
-                                @else
-                                    <label><input type="radio" name="package" class="choose0" value="0" checked>No</label>
-                                    <label><input type="radio" name="package" class="choose1" value="1">Yes</label>
-
-                                @endif
-
-                            @endif
-
+                            <label><input type="radio" name="package" class="choose0" value="0" @if($data['quote']->package_head_id == null) checked="checked" @endif>No</label>
+                            <label><input type="radio" name="package" class="choose1" value="1" @if($data['quote']->package_head_id != null) checked="checked" @endif>Yes</label>
                         </div>
 
                         <div class="row pack-choise">
@@ -209,40 +187,55 @@
                         </div>
                     </div>
                 </fieldset>
-                <script>
-                    $(document).ready(function(){
-                        $(".choose0").click(function(){
-                            $(".pack-close").slideUp();
-                        })
-                        $(".choose1").click(function(){
-                            $(".pack-close").slideDown();
-                        })
-                    });
-                </script>
                 {{--========================================= Package(New) End =============================================--}}
 
 
-                <fieldset class="dflt_packs"><hr>
+                <fieldset class="pack-choise"><hr>
 
                     <div class="form-bottom">
                         <h3 class="instruction">Photography</h3>
                         <br>
                         <div class="validationErrorPhotographyPackage"></div>
                         <div class="row">
-                            <div class="col-sm-12">
-                                <h4>Will the property require pro-photography ?</h4>
+                            <div class="col-sm-6">
                                 <label>
-                                    <input type="radio" name="pro-photographyChooseBtn" value="0" class="noBtn btn-next" @if($data['quote']->photography_package_id == null) checked="checked" @endif>
-                                    No
+                                    <input type="radio" name="pro-photographyChooseBtn" value="0" class="noBtnP btn-next" @if($data['quote']->photography_package_id == null) checked="checked" @endif>
+                                    Upload your own
                                 </label>
+                            </div>
+                            <div class="col-sm-6">
                                 <label>
-                                    <input type="radio" name="pro-photographyChooseBtn" value="1" class="yesBtn" @if($data['quote']->photography_package_id != null) checked="checked" @endif>
-                                    Yes
+                                    <input type="radio" name="pro-photographyChooseBtn" value="1" class="yesBtnP" @if($data['quote']->photography_package_id != null) checked="checked" @endif>
+                                    Select photography package
                                 </label>
                             </div>
                         </div>
 
                         <div class="row size-15">
+                            <div class="optionalContentDiv @if(count($data['quote']->relQuotePropertyImage) == 0) optional-content-div @endif" id="pImage">
+
+                                <div class="col-sm-12">
+
+                                    {!! Form::label('Special Request for photography', 'Special Request for photography (Multiple) :', []) !!}
+
+                                    <div class="row">
+                                        <div class="col-md-6 image-center">
+                                            <div class="image-center">
+                                                <input type="file" name="custom_photography_images[]" id="image" class="default" multiple />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 image-center">
+                                            @if(count($data['quote']->relQuotePropertyImage) >= 0)
+                                                @foreach($data['quote']->relQuotePropertyImage as $image)
+                                                    <img src="{{ asset($image->image) }}" style="padding: 2px;" width="200px" height="100px">
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                        <span class="label label-danger"><font size="1">NOTE!</font></span>
+                                        <span style="color: white"><font size="1">System will allow these types of image(png,jpeg,jpg Format)</font></span>
+                                </div>
+                            </div>
                             <div class="optionalContentDiv @if($data['quote']->photography_package_id == null)  optional-content-div @endif">
                                 <?php $k = 0; $photo_type_unique = array();  ?>
                                 @foreach($data['photography_packages'] as $photography_package)
@@ -778,5 +771,17 @@
     </div>
     {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/jquery.backstretch.min.js') }}"></script>--}}
     {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/scripts.js') }}"></script>--}}
+
     @include('main::quote._script')
+    @if($data['quote']->package_head_id == null)
+        <script>
+            $(".pack-choise").hide();
+            $(".dflt_packs").show();
+        </script>
+    @elseif($data['quote']->package_head_id != null)
+        <script>
+            $(".pack-choise").show();
+            $(".dflt_packs").hide();
+        </script>
+    @endif
 @stop

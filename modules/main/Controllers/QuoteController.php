@@ -441,13 +441,13 @@ class QuoteController extends Controller
                             return redirect()->back();
                         }
                     }
-                }
-                if(isset($input['image_path'])){
-                    foreach($input['image_path'] as $ims){
-                        $quotePropertyImage= new QuotePropertyImage();
-                        $quotePropertyImage->quote_id= $quote->id;
-                        $quotePropertyImage->image= $ims;
-                        $quotePropertyImage->save();
+                    if(isset($input['image_path'])){
+                        foreach($input['image_path'] as $ims){
+                            $quotePropertyImage= new QuotePropertyImage();
+                            $quotePropertyImage->quote_id= $quote->id;
+                            $quotePropertyImage->image= $ims;
+                            $quotePropertyImage->save();
+                        }
                     }
                 }
             }
@@ -615,8 +615,9 @@ class QuoteController extends Controller
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         $data['digital_medias']= DigitalMedia::get();
         $data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
-        $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia','relQuotePackage')->first();
+        $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia','relQuotePackage','relQuotePropertyImage')->first();
 
+//        dd(count($data['quote']->relQuotePropertyImage));
         //print_r($data['quote']->relQuotePackage['price']);exit();
 
 //        dd($data['quote']);
@@ -643,7 +644,7 @@ class QuoteController extends Controller
              * */
             $property['owner_name'] = $received['owner_name'];
             $property['address'] = $received['address'];
-            $property['vendor_name'] = $received['vendor_name'];
+//            $property['vendor_name'] = $received['vendor_name'];
             $property['vendor_email'] = $received['vendor_email'];
             $property['vendor_phone'] = $received['vendor_phone'];
             $property_id = PropertyDetail::find($quote->property_detail_id);
@@ -691,7 +692,36 @@ class QuoteController extends Controller
                     $data['photography_package_id'] = null;
                     $data['photography_package_comments'] = null;
                 }
-            }else{
+            }elseif(!empty($received['custom_photography_images']) && count($received['custom_photography_images']) >= 1){
+                /*
+                 * Upload multiple image for custom photography
+                 * */
+                $file_type_required = 'png,jpeg,jpg';
+                $destinationPath = 'uploads/property_access/';
+
+                $uploadfolder = 'uploads/';
+//                    dd($request->files());
+                foreach($received['custom_photography_images'] as $image){
+                    $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
+                    #print_r($file_name);exit();
+
+                    if($file_name != '') {
+                        $input['image_path'][] = $file_name[0];
+                    }
+                    else{
+                        Session::flash('error', 'Some thing error in image file type! Please Try again');
+                        return redirect()->back();
+                    }
+                }
+                if(isset($input['image_path'])){
+                    foreach($input['image_path'] as $ims){
+                        $quotePropertyImage= new QuotePropertyImage();
+                        $quotePropertyImage->quote_id= $quote->id;
+                        $quotePropertyImage->image= $ims;
+                        $quotePropertyImage->save();
+                    }
+                }
+
                 //QuotePhotography::where('quote_id',$quote->id)->delete();
                 $quote_photography = QuotePhotography::where('quote_id',$quote->id)->get();
                 if(count($quote_photography)>0)

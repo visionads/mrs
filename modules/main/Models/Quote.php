@@ -83,6 +83,9 @@ class Quote extends Model
     public function relQuoteLocalMedia(){
         return $this->hasMany('App\QuoteLocalMedia','quote_id','id');
     }
+    public function relQuotePropertyImage(){
+        return $this->hasMany('App\QuotePropertyImage','quote_id','id');
+    }
 
 
     // TODO :: boot
