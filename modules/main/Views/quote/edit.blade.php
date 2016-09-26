@@ -90,11 +90,13 @@
                         <br>
                         {{--===== For Yes/No top labaling ***--}}
                         <div class="row text-center">
-                            Would you like to choose a Complete Package ?<br>
-                            <?php $i = 0; $price = 0;?>
-
-                            <label><input type="radio" name="package" class="choose0" value="0" @if($data['quote']->package_head_id == null) checked="checked" @endif>No</label>
-                            <label><input type="radio" name="package" class="choose1" value="1" @if($data['quote']->package_head_id != null) checked="checked" @endif>Yes</label>
+                            {{--Would you like to choose a Complete Package ?<br>--}}
+                            <div class="col-sm-6">
+                                <label><input type="radio" name="package" class="choose0" value="0" @if($data['quote']->package_head_id == null) checked="checked" @endif> Customize your quote</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label><input type="radio" name="package" class="choose1" value="1" @if($data['quote']->package_head_id != null) checked="checked" @endif> Complete Package</label>
+                            </div>
                         </div>
 
                         <div class="row pack-choise">
