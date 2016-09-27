@@ -199,7 +199,36 @@
             }
 
         });
-
+        $('#distributionQuantity').change(function () {
+            var quantity= $(this).val();
+            var minQuantity=7000;
+            if(quantity>7000)
+            {
+                var restQuantity=quantity-7000;
+            }else{
+                var minQuantity= quantity;
+            }
+            $('#minQuantity').val(minQuantity);
+            $('#restQuantity').val(restQuantity);
+        });
+        $('#minQuantity').change(function () {
+            var quantity= $('#distributionQuantity').val();
+            var minQuantity= $(this).val();
+            if(parseInt(minQuantity) < parseInt(quantity))
+            {
+                $('#restQuantity').val(quantity-minQuantity);
+            }else{
+                if(parseInt(quantity) > 7000)
+                {
+                    $('#minQuantity').val(7000);
+                    $('#restQuantity').val(quantity-7000);
+                }else{
+                    $('#minQuantity').val(quantity);
+                    $('#restQuantity').val('');
+                }
+                alert('You can\'t entry bigger value then  mian quantity.');
+            }
+        });
 
 
     });

@@ -427,7 +427,7 @@
                                 </div>
                             </fieldset>
                             {{--===== Distribution of print material starts from here =============================================================================--}}
-                            <fieldset class="dflt_packs"><hr>
+                            <fieldset class=""><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
                                     <div class="validationErrorDistributionPrintMaterial"></div>
@@ -452,15 +452,68 @@
                                                 <div class="form-group">
                                                     {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location (Remainder will be sent to you the agency)','class="controll-label size-13"') !!}
 
-                                                    <select class="quantity form-control" name="quantity"  style="color: black">
+                                                    <select class="quantity form-control" name="quantity" id="distributionQuantity"  style="color: black">
                                                         <option value="select">Please Select</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
+                                                        <option value="1000">1000</option>
+                                                        <option value="2000">2000</option>
+                                                        <option value="3000">3000</option>
+                                                        <option value="4000">4000</option>
+                                                        <option value="5000">5000</option>
+                                                        <option value="6000">6000</option>
+                                                        <option value="7000">7000</option>
+                                                        <option value="8000">8000</option>
+                                                        <option value="9000">9000</option>
+                                                        <option value="10000">10000</option>
+                                                        <option value="11000">11000</option>
+                                                        <option value="12000">12000</option>
+                                                        <option value="13000">13000</option>
+                                                        <option value="14000">14000</option>
+                                                        <option value="15000">15000</option>
+                                                        <option value="16000">16000</option>
+                                                        <option value="18000">18000</option>
+                                                        <option value="19000">19000</option>
+                                                        <option value="20000">20000</option>
                                                     </select>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label size-13">Min Quantity<span class="required"></span></label><br>
+                                                            <input class="form-control" id="minQuantity" name="min_quantity" type="number">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label size-13">Rest Quantity<span class="required"></span></label><br>
+                                                            <input class="form-control" id="restQuantity" name="rest_quantity" type="number" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{--<div class="form-group">
+                                                    {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location (Remainder will be sent to you the agency)','class="controll-label size-13"') !!}
+
+                                                    <select class="quantity form-control" name="quantity" id="distributionQuantity"  style="color: black">
+                                                        <option value="select">Please Select</option>
+                                                        <option value="1000">1000</option>
+                                                        <option value="2000">2000</option>
+                                                        <option value="3000">3000</option>
+                                                        <option value="4000">4000</option>
+                                                        <option value="5000">5000</option>
+                                                        <option value="6000">7000</option>
+                                                        <option value="8000">8000</option>
+                                                        <option value="9000">9000</option>
+                                                        <option value="10000">10000</option>
+                                                        <option value="11000">11000</option>
+                                                        <option value="12000">12000</option>
+                                                        <option value="13000">13000</option>
+                                                        <option value="14000">14000</option>
+                                                        <option value="15000">15000</option>
+                                                        <option value="16000">16000</option>
+                                                        <option value="18000">18000</option>
+                                                        <option value="19000">19000</option>
+                                                        <option value="20000">20000</option>
+                                                    </select>
+                                                </div>--}}
 
                                                 <div class="form-group">
                                                     <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
@@ -485,16 +538,16 @@
                                             </div>
 
                                             <div class="col-sm-6">
-                                                <div class="form-group">
+                                                {{--<div class="form-group">
                                                     <div style="width: 100%; height: 15px"></div>
                                                     <label class="control-label size-13">Quantity<small class="required"> [ Just type Quantity ]</small></label>
                                                     <input type="number" name="quantity_next" class="form-control">
-                                                </div>
+                                                </div>--}}
                                                 <div class="form-group">
                                                     <label class="control-label size-13">Distribution Area <small class="required"> [ Post Code ]</small></label>
                                                     <input type="number" name="distribution_area" class="form-control">
                                                 </div>
-                                                {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+                                                   {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
                                                 <link rel="stylesheet" href="/resources/demos/style.css">
                                                 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
                                                 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
@@ -524,113 +577,6 @@
                             </fieldset>
                             {{--===== Distribution of Print material end || Digital Media starts=======================================================--}}
 
-                            {{--<fieldset class="dflt_packs"><hr>
-                                <div class="form-bottom">
-                                    <h3 class="instruction">Digital media</h3>
-                                    <div class="validationErrorDigitalMedia"></div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h4>Will you require digital media ?</h4>
-                                            <label>
-                                                <input class="noBtn btn-next" type="radio" name="digitalMediaChooseBtn" value="0" checked="checked">
-                                                No
-                                            </label>
-                                            <label>
-                                                <input class="yesBtn" type="radio" name="digitalMediaChooseBtn" value="1">
-                                                Yes
-                                            </label>
-
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="optionalContentDiv optional-content-div">
-                                            <div class="col-sm-6">
-                                            <div class="form-group">
-                                                {!! Form::label('digital_media_id','Most popular websites','class=" size-13"') !!}<br>
-                                                @foreach($data['digital_medias'] as $digital_media)
-                                                    <label class="size-13">
-                                                        <input class="digital_media_id" type="checkbox" name="digital_media_id[]" value="{{ $digital_media->id }}"> {{ $digital_media->title }}
-                                                    </label> <br>
-
-                                                @endforeach
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label>NOTE</label>
-                                                <textarea type="text" name="digital_media_note" placeholder="Digital Media Note" class="form-control" id="digital_media_note"></textarea>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    --}}{{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button id="digitalMediaNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}{{--
-
-
-                                </div>
-                            </fieldset>--}}
-                            {{--<fieldset class="dflt_packs"><hr>
-                                <div class="form-bottom">
-                                    <h3 class="instruction">Local newsprint media advertising</h3>
-                                    <div class="validationErrorLocalMedia"></div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h4>Your choice of local newsprint advertisement ?</h4>
-                                            <label>
-                                                <input class="noBtn btn-next" type="radio" name="localMediaChooseBtn" value="0" checked="checked">
-                                                No
-                                            </label>
-                                            <label>
-                                                <input class="yesBtn" type="radio" name="localMediaChooseBtn" value="1">
-                                                Yes
-                                            </label>
-
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="optionalContentDiv optional-content-div">
-                                            @foreach($data['local_medias'] as $local_media)
-                                            <div class="col-sm-4 localMediaDiv">
-                                                <div class="form-group">
-                                                    <label class="size-15">
-                                                        <input class="local_media_id" type="checkbox" name="local_media_id[]" value="{{ $local_media->id }}">
-                                                        {{ $local_media->title }}
-                                                    </label>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        @foreach($local_media->relLocalMedia as $relLocalMedia)
-                                                            --}}{{--<input type="radio">--}}{{--
-                                                            <label class="size-13">
-                                                                <input class="local_media_option_id" type="radio" value="{{ $relLocalMedia->id }}" name="local_media_option_id[{{  $local_media->id }}]">
-                                                                {!! $relLocalMedia->title.' <b style="color: orange">$'.$relLocalMedia->price.'</b>' !!}
-                                                            </label><br>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endforeach
-                                            <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>NOTE</label>
-                                                <textarea type="text" name="local_media_note" placeholder="Local Media Note" class="form-control" id="local_media_note"></textarea>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    --}}{{--<div class="row">
-                                        <button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    </div>--}}{{--
-                                    --}}{{--<div class="row">
-                                        <div class="col-sm-5 col-sm-offset-7">
-
-                                            {!! Form::input('button','save','Save',['class'=>'btn btn-primary btn-bg']) !!}
-                                            {!! Form::input('button','quote','Quote',['class'=>'btn btn-bg btn-info ']) !!}
-                                        </div>
-                                    </div>--}}{{--
-
-
-                                </div>
-                            </fieldset>--}}
                             <div class="row">
                                 <div class="col-sm-12 center">
                                     <input value="Save" name="save" type="submit" class="btn new_button proceedBtn">
