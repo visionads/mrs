@@ -26,6 +26,7 @@ use App\UserImage;
 use App\Package;
 use App\PackageOption;
 use Auth;
+use Carbon\Carbon;
 use DB;
 use App\User;
 use Illuminate\Http\Request;
@@ -110,6 +111,15 @@ class QuoteController extends Controller
      */
     public function create()
     {
+        $start = strtotime("today"); // your start/end dates here
+        $end = strtotime("today + 1 years");
+        $sat=[];
+        $saturday = strtotime("saturday", $start);
+        while($saturday <= $end) {
+            $sat[]=date("d-m-Y", $saturday);
+            $saturday = strtotime("+1 weeks", $saturday);
+        }
+        $data['saturdays']=$sat;
         $pageTitle = 'MRS - Quote';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         $data['solution_types']= SolutionType::get();

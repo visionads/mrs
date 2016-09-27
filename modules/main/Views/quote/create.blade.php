@@ -562,7 +562,7 @@
                                                 </script>--}}
                                                 <div class="form-group">
                                                     <label class="control-label size-13 text-normal">Choose a Date of Distribution <span class="required">[ Distribution Commenses on Saturday and will be complete within 5 day window ]</span></label>
-                                                    <input type="text" id="date_id" name="date_of_distribution" class="form-control">
+                                                    <input type="text" id="distributionDate" name="date_of_distribution" class="form-control">
                                                     {{--<input type="text" id="dpicker" name="date_of_distribution">--}}
                                                     {{--<p>Date: <input type="text" id="datepicker"></p>--}}
                                                 </div>
