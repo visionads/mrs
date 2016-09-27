@@ -226,7 +226,7 @@
                     $('#minQuantity').val(quantity);
                     $('#restQuantity').val('');
                 }
-                alert('You can\'t entry bigger value then  mian quantity.');
+                alert('You can\'t input bigger value then  main quantity.');
             }
         });
 
