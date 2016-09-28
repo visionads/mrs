@@ -172,8 +172,9 @@ class CreateAdmin extends Migration
         //print_material_distribution
         Schema::create('print_material_distribution', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('quantity')->nullable();
-            $table->boolean('quantity_next')->nullable();
+            $table->unsignedInteger('quantity')->nullable();
+            $table->unsignedInteger('distributed_quantity')->nullable();
+            $table->unsignedInteger('rest_quantity')->nullable();
             $table->boolean('is_surrounded')->nullable();
             $table->text('other_address')->nullable();
             $table->text('distribution_area')->nullable();

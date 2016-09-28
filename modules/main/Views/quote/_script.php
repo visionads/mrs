@@ -230,15 +230,5 @@
             }
         });
 
-
-        var array = ["09/28/2016","09/29/2016","09/30/2016"];
-        $('#distributionDate').datepicker({
-            beforeShowDay: function(date){
-                var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-                console.log(string);
-                return [ array.indexOf(string) == -1 ]
-            }
-        });
-
     });
 </script>

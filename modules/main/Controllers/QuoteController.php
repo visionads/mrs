@@ -111,7 +111,7 @@ class QuoteController extends Controller
      */
     public function create()
     {
-        $start = strtotime("today"); // your start/end dates here
+        $start = strtotime("today + 12 days"); // your start/end dates here
         $end = strtotime("today + 1 years");
         $sat=[];
         $saturday = strtotime("saturday", $start);
@@ -536,11 +536,12 @@ class QuoteController extends Controller
                     $distribution['quantity'] = $received['quantity'];
                     $distribution['note'] = $received['note'];
 
-                    $distribution['quantity_next'] = $received['quantity_next'];
+                    $distribution['distributed_quantity'] = $received['distributed_quantity'];
+                    $distribution['rest_quantity'] = $received['rest_quantity'];
                     $distribution['distribution_area'] = $received['distribution_area'];
                     $distribution['date_of_distribution'] = $received['date_of_distribution'];
                     $distribution['is_surrounded'] = $received['is_surrounded'];
-
+//                    dd($distribution);
                     $distribution_id = PrintMaterialDistribution::create($distribution);
                     $data['print_material_distribution_id'] = $distribution_id->id;
                 }

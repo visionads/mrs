@@ -479,7 +479,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="control-label size-13">Min Quantity<span class="required"></span></label><br>
-                                                            <input class="form-control" id="minQuantity" name="min_quantity" type="number">
+                                                            <input class="form-control" id="minQuantity" name="distributed_quantity" type="number">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -516,6 +516,13 @@
                                                 </div>--}}
 
                                                 <div class="form-group">
+                                                    <label>NOTE</label>
+                                                    <textarea type="text" name="note" placeholder="Note" class="form-control" id="note"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
                                                     <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
 
                                                     <div class="row">
@@ -531,13 +538,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>NOTE</label>
-                                                    <textarea type="text" name="note" placeholder="Note" class="form-control" id="note"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-6">
                                                 {{--<div class="form-group">
                                                     <div style="width: 100%; height: 15px"></div>
                                                     <label class="control-label size-13">Quantity<small class="required"> [ Just type Quantity ]</small></label>
@@ -562,7 +562,12 @@
                                                 </script>--}}
                                                 <div class="form-group">
                                                     <label class="control-label size-13 text-normal">Choose a Date of Distribution <span class="required">[ Distribution Commenses on Saturday and will be complete within 5 day window ]</span></label>
-                                                    <input type="text" id="distributionDate" name="date_of_distribution" class="form-control">
+                                                    <select name="date_of_distribution" class="form-control">
+                                                        @foreach($data['saturdays'] as $saturday)
+                                                            <option value="{{ $saturday }}">{{ date('d M Y D',strtotime($saturday)) }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    {{--<input type="text" id="distributionDate" name="date_of_distribution" class="form-control">--}}
                                                     {{--<input type="text" id="dpicker" name="date_of_distribution">--}}
                                                     {{--<p>Date: <input type="text" id="datepicker"></p>--}}
                                                 </div>
