@@ -20,6 +20,7 @@
                 <tr>
                     <th>Quote No.</th>
                     <th>Agent Name</th>
+                    <th>Property Owner Name</th>
                     <th>Business Name</th>
                     <th>Date</th>
                     <th>Action</th>
@@ -31,9 +32,10 @@
                     <tr>
                         <td class="text-center"><a href="{{ route('payment-procedure', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="underline"> <strong>{{ $quote->quote_number }}</strong> </a></td>
                         <td style="font-weight:normal;">{{ $quote->relUser['username'] }}</td>
+                        <td style="font-weight:normal;">{{ $quote->relPropertyDetail['owner_name'] }}</td>
                         <td style="font-weight:normal;">{{ $quote->relBusiness['title'] }}</td>
                         <td class="text-center">{{ date('d M Y',strtotime($quote->created_at)) }}</td>
-                        <td><a href="{{ URL::to('main/page-place-order-edit/'.$quote->id.'/'.$quote->quote_number) }}" class="btn btn-primary" data-placement="left" data-content="Edit"><span class="glyphicon glyphicon-edit"></span></a></td>
+                        <td><a href="{{ route('payment-procedure', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="btn btn-primary" data-placement="left" data-content="Edit"><span class="fa fa-eye"></span></a></td>
 
 
                     </tr>

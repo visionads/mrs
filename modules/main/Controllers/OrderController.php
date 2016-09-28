@@ -3,6 +3,7 @@
 namespace Modules\Main\Controllers;
 
 use App\GenerateNumber;
+use App\QuotePhotography;
 use App\QuotePropertyAccess;
 use App\QuotePropertyImage;
 use Illuminate\Http\Request;
@@ -88,8 +89,123 @@ class OrderController extends Controller
      */
     public function place_order(Request $request)
     {
-        //exit('000000');
-        $input = $request->all();
+
+        DB::beginTransaction();
+        try {
+            $input = $request->all();
+//            dd($input);
+            $quote = Quote::findOrFail($input['quote_id']);
+            $quote->status = 'placed-order';
+            $quote->save();
+
+
+            $property_details = PropertyDetail::findOrFail($quote->property_detail_id);
+            $property_details->main_selling_line = $input['main_selling_line'];
+            $property_details->property_description = $input['property_description'];
+            $property_details->inspection_date = $input['inspection_date'];
+            $property_details->inspection_features = $input['inspection_features'];
+            $property_details->other_features = $input['other_features'];
+            $property_details->selling_price = $input['selling_price'];
+            $property_details->auction_time = $input['auction_time'];
+            $property_details->offer = $input['offer'];
+            $property_details->note = $input['note'];
+            $property_details->save();
+
+            if ($input['quote_property_access'] == 1) {
+                $quote_property_access = new QuotePropertyAccess();
+                $quote_property_access->quote_id = $input['quote_id'];
+                $quote_property_access->prefered_date = $input['prefered_date'];
+                $quote_property_access->property_access_options = $input['property_access_options'];
+                $quote_property_access->contact_name = $input['contact_name'];
+                $quote_property_access->contact_number = $input['contact_number'];
+                $quote_property_access->contact_alternate_number = $input['contact_alternate_number'];
+                $quote_property_access->contact_email = $input['contact_email'];
+                $quote_property_access->property_note = $input['property_note'];
+                $quote_property_access->save();
+                if ($input['image'][0] != null) {
+                    $file_type_required = 'png,jpeg,jpg';
+                    $destinationPath = 'uploads/property_access/';
+
+                    foreach ($input['image'] as $image) {
+
+                        $file_name = $this->image_upload($image, $file_type_required, $destinationPath);
+                        if ($file_name != '') {
+                            $quote_image = new QuotePropertyImage();
+                            $quote_image->quote_id = $input['quote_id'];
+                            $quote_image->image = $file_name[0];
+                            $quote_image->save();
+                        } else {
+                            Session::flash('error', 'Some thing error in image file type! Please Try again');
+                            return redirect()->back();
+                        }
+                    }
+                }
+            }
+
+
+
+
+            // check if transaction exists for the quote and invoice number
+            $trn_exists = Transaction::where('quote_id',$input['quote_id'] )->exists();
+            if($trn_exists)
+            {
+                $transaction_model = Transaction::where('quote_id',$input['quote_id'] )->first();
+                $transaction_model->amount = $input['total'];  //TODO::check price
+                //$transaction_model->gst = (10/100 * $transaction_model->amount) ;
+                $transaction_model->gst = $input['gst'] ;
+                //$transaction_model->total_amount = $transaction_model->amount + $transaction_model->gst;
+                $transaction_model->total_amount = $input['total_with_gst'];
+                $transaction_model->status = "active";
+                $transaction_model->save();
+            }
+            else
+            {
+                //generate invoice number
+                $invoice_number=GenerateNumber::generate_number('invoice-number');
+
+                //New Entry for Transaction Table
+                $transaction_model = new Transaction();
+                $transaction_model->quote_id = $input['quote_id'];
+                $transaction_model->invoice_no = $invoice_number['generated_number'];
+                $transaction_model->currency = "AUD";
+                $transaction_model->amount = $input['total']; //TODO::check price
+                $transaction_model->gst = $input['gst'] ;
+                $transaction_model->total_amount = $input['total_with_gst'];
+                $transaction_model->status = "active";
+                if($transaction_model->save())
+                {
+                    GenerateNumber::update_row($invoice_number['setting_id'],$invoice_number['number']);
+                }
+            }
+
+
+//            dd($property_details);
+
+            DB::commit();
+        }catch (\Exception $e){
+            DB::rollback();
+            Session::flash('danger', $e->getMessage());
+            return redirect()->back();
+        }
+        return redirect()->route('invoice-list');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         if(isset($input['continue'])){
             $route = $input['continue'];
@@ -160,7 +276,7 @@ class OrderController extends Controller
         }
 
         /*Input array from retrive_quote_details.blade.php page form*/
-        if(!empty($vendor_img_path))
+        /*if(!empty($vendor_img_path))
         {
             $input_confirm = [
                 'vendor_name' => $input['vendor_name'],
@@ -185,7 +301,7 @@ class OrderController extends Controller
                 'vendor_phone' => $input['vendor_phone'],
                 'signature_date' => $input['signature_date']
             ];
-        }
+        }*/
 
         //print_r($input_confirm); exit;
 

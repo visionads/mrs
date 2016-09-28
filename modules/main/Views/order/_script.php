@@ -33,7 +33,13 @@
 
         $(".agreement").hide();
         $(".proceed-to-confirm").click(function(){
-           $(".agreement").fadeIn();
+            var agreeCheckbox=$('#agreeCheckbox').is(":checked");
+            if(agreeCheckbox)
+            {
+               $(".agreement").fadeIn();
+            }else{
+                alert('Please Check the checkbox to proceed.');
+            }
         });
 
 

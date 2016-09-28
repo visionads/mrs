@@ -264,7 +264,7 @@ class InvoiceController extends Controller
         else
         {
             //$data = Transaction::getAllTransactionWithPaymentForAgent();
-            $data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'placed-order'])->orderBy('id','DESC')->paginate(10);
+            $data = Quote::with('relBusiness','relUser','relPropertyDetail')->where(['business_id'=> Auth::user()->business_id,'status'=>'placed-order'])->orderBy('id','DESC')->paginate(10);
         }
         return view("main::main_pages.new_invoice_list",['pageTitle'=>$pageTitle, 'data'=>$data]);
     } // -- Shajjad

@@ -76,7 +76,16 @@
                 <h2 style="color:#f36f21">Total : $ {{ (isset($total))?number_format($total,2):'0.00' }}</h2>
                 <h2 style="color:#f36f21">GST : $ {{ (isset($gst))?number_format($gst,2):'0.00' }} </h2>
                 <h2 style="color:#f36f21">Total COST Inc GST : $ {{ (isset($total_with_gst))?number_format($total_with_gst,2):'0.00' }} </h2>
+            </div>
+            <div class="col-md-12">
+                <p>
 
+                    <label>
+                        {!! Form::checkbox('agree','yes',null,['id'=>'agreeCheckbox']) !!} I Hereby agree to the outlined marketing campaign above
+                    </label>
+                </p>
+            </div>
+            <div class="col-md-6 col-md-offset-6">
                 <a href="{{ route('quote-list') }}" class="btn new_button ">Back To Quote</a>&nbsp;
                 {{--<a href="{{ route('quote-confirm', ['quote_id'=>$quote_id, 'quote_no'=>$quote_no ]) }}" class="btn new_button ">Proceed to Confirm</a>--}}
                 <button class="proceed-to-confirm btn new_button" data-placement="top" data-content="Click here to Proceed Confirm "> Proceed to Confirm </button>
@@ -95,91 +104,256 @@
     {!! Form::hidden('total', (isset($total))?$total:'0.00') !!}
     {!! Form::hidden('gst', (isset($gst))?$gst:'0.00') !!}
     {!! Form::hidden('total_with_gst', (isset($total_with_gst))?$total_with_gst:'0.00') !!}
-    <div class="row">
-        <div class="col-sm-12" id="new_order_title">
-            <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t-">
-                <div class="col-sm-12">
-                    <hr>
-                    <span class="label size-25">Agreement</span><br><br>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12" id="submit_button_div">
-            <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t-">
-                <div class="col-sm-12">
-                    <p style="color:#f36f21;">Vendor Acknowledgment  : I Hereby agree to the outlined marketing campaign above</p>
-                </div>
-            </div>
 
-            <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div class="col-sm-12 new_order">
-                    {!! Form::label('vendor_name', 'Vendor Name :', []) !!}
-                    <small class="required size-13">(Required)</small>
-                    {!! Form::text('vendor_name', $vendor_name, ['id'=>'vendor_name', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
-                </div>
-            </div>
-            <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div class="col-sm-12 new_order">
-                    {!! Form::label('vendor_phone', 'Vendor Phone :', []) !!}
-                    <small class="required size-13">(Required)</small>
-                    {!! Form::text('vendor_phone', $vendor_phone, ['id'=>'vendor_phone', 'class' => 'form-control radius-10','maxlength'=>'64','placeholder'=>'Vendor Name','title'=>'Enter Vendor Name','required']) !!}
-                </div>
-            </div>
+        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+{{--            @include('main::order.place_order')--}}
 
-            <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div>
-                    @if(isset($vendor_signature_path))
-                        <img src="{{ URL::to($vendor_signature_path) }}" height="100" style="margin:10px 0px 0px 15px;" class="radius-10">
-                    @else
-                        <div style="margin-left:15px; color:#f0ad4e;">Vendor signature is not available</div>
-                    @endif
-                </div>
-                <div class="col-sm-12 new_order file-type">
 
-                    {!! Form::label('vendor_signature', 'Vendor Signature :', ['class' => 'control-label']) !!}
-                    <div class="upload-path-css">{!! Form::file('vendor_signature') !!}</div>
-                </div>
-            </div>
 
-            <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div class="col-sm-12 new_order">
-                    {!! Form::label('date', 'Date :', []) !!}
-                    <small class="required size-13">(Required)</small>
-                    <div class="input-group date">
-                        {!! Form::text('signature_date',$agent_signature_date /*@$generate_voucher_number? date('Y/m/d') : @$data[0]['signature_date']*/, ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date','required']) !!}
-                        {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            <div id="step-one" class="container pages new_order font-droid step-one">
+                <div class="col-md-12">
+                    <div class="col-sm-12" id="new_order_title"><span class="label size-25">Property Details</span><br><br></div>
+                </div>
+                <div class="row">
+                    {{--Left pan--}}
+                    <div class="col-sm-6 no-padding">
+                        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                            <div class="col-sm-12">
+                                <p class="size-13">Details will be used to for all marketing marterial unless specified.
+                                    If you wish to have details other then stated here please specify in the “note”
+                                    space provided. (please ensure to check all details are correct)</p>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                            <div class="col-sm-12">
+                                {!! Form::label('main_selling_line', 'Main selling line:', ['class' => 'control-label']) !!}
+                                <small class="required size-13">(Required)</small>
+                                {!! Form::text('main_selling_line', isset($main_selling_line)?$main_selling_line:null, ['id'=>'main_selling_line', 'placeholder'=>'Main selling line', 'class' => 'form-control','maxlength'=>'64','title'=>'enter main selling line','required']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                            <div class="col-sm-12">
+                                {!! Form::label('property_description', 'Property description :', ['class' => 'control-label']) !!}
+                                <small class="required size-13">(Required)</small>
+                                {!! Form::textarea('property_description', isset($property_description)?$property_description:null,['size' => '6x9','title'=>'Type property description','id'=>'property_description','placeholder'=>'property description here..','spellcheck'=>'true','class' => 'form-control text-left','required']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                            <div class="col-sm-12">
+                                {!! Form::label('inspection_date', 'Inspection dates and times :', ['class' => 'control-label']) !!}
+                                <div class="input-group date">
+                                    {!! Form::text('inspection_date',isset($inspection_date)?$inspection_date:null /*@$generate_voucher_number? date('Y/m/d') : @$data[0]['inspection_date']*/, ['id'=>'date_id','placeholder'=>'Click here to choose Inspection Date','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                                    {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                            <div class="col-sm-12">
+                                {!! Form::label('inspection_features', 'General features, Number Bedrooms, bathrooms, Garage ECT :', ['class' => 'control-label']) !!}
+                                {!! Form::textarea('inspection_features', isset($inspection_features)?$inspection_features:null,['size' => '6x5','title'=>'Type inspection features','id'=>'inspection_features','placeholder'=>'inspection features here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {{--Right Pan--}}
+                    <div class="col-sm-6 no-padding" id="submit_button_div">
+                        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                            <div class="col-sm-12">
+                                {!! Form::label('other_features', 'Other Features:', ['class' => 'control-label']) !!}
+                                {!! Form::text('other_features', isset($other_features)?$other_features:null, ['id'=>'other_features', 'class' => 'form-control','placeholder'=>'Other Features','title'=>'enter other features']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                            <div class="col-sm-12">
+                                {!! Form::label('selling_price', 'Selling Price:', ['class' => 'control-label']) !!}
+                                <small class="required size-13">(Required)</small>
+                                {!! Form::input('number','selling_price', isset($selling_price)?$selling_price:null, ['id'=>'selling_price', 'class' => 'form-control','placeholder'=>'Numeric Value only e.g.- 1100','title'=>'enter selling price','required']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                            <div class="col-sm-12">
+                                {!! Form::label('auction_time', 'Auction Times :', ['class' => 'control-label']) !!}
+
+                                <div class="input-group date" style="position:relative;">
+                                    {!! Form::text('auction_time',isset($auction_time)?$auction_time:null /*@$generate_voucher_number? date('Y/m/d') : @$data[0]['auction_time']*/, ['id'=>'date_id','placeholder'=>'Click here to choose Auction Date','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                                    {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                            <div class="col-sm-12">
+                                {!! Form::label('offer', 'Offer:', ['class' => 'control-label']) !!}
+                                {!! Form::text('offer', null, ['id'=>'offer', 'class' => 'form-control', 'placeholder'=>'Offer','maxlength'=>'64','title'=>'enter offer']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                            <div class="col-sm-12">
+                                {!! Form::label('note', 'Note :', ['class' => 'control-label']) !!}
+                                {!! Form::textarea('note', null,['size' => '6x13','title'=>'Type note','id'=>'note','placeholder'=>'Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group text-right">
+                            {{--<div class="col-sm-12" id="submit_button">
+                                {!! Form::submit('Place Order', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click place order button']) !!}&nbsp;
+                            </div>--}}
+                            {{--<div class="col-sm-12 text-right">
+                                <button class="btn new_button" id="next_step" type="button"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+                            </div>--}}
+
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div>
-                    @if(isset($agent_signature_path))
-                        <img src="{{ URL::to($agent_signature_path) }}" height="100" style="margin:10px 0px 0px 15px;" class="radius-10">
-                    @else
-                        <div style="margin-left:15px; color:#f0ad4e;">Agent signature is not available</div>
-                    @endif
-                </div>
-                <div class="col-sm-12 new_order file-type">
-                    {!! Form::label('agent_signature', 'Agent Signature :', ['class' => 'control-label']) !!}
-                    <div class="upload-path-css">{!! Form::file('agent_signature') !!}</div>
+
+
+
+
+
+            <div class="container pages new_order font-droid">
+                <hr class="common-hr">
+                <div class="row form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                    <div class="col-md-12">
+                        <div class="col-sm-12" id="new_order_title"><span class="label size-25">Photography</span><br><br></div>
+                    </div>
+                    <div class="col-sm-12">
+                        <h4 style="color:#f31f21">Will you take photography by yourself ?</h4>
+
+                        <label>
+                            <input type="radio" name="quote_property_access" value="0" class="" id="property_access_close" checked> &nbsp; No
+                        </label>
+                        <label>
+                            <input type="radio" name="quote_property_access" value="1" class="btn-next" id="property_access_open"> &nbsp; Yes
+                        </label>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div class="col-sm-12 text-right">
-                    {{--{!! Form::submit('Confirmed Quote', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;--}}
-                    {!! Form::button('Confirm',['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','data-toggle'=>'modal','data-target'=>'#confirmModal']) !!}
 
+            <div class="container pages new_order font-droid step-four" style="display: none">
+
+                <div class="col-sm-12">
+
+                    <div class="col-sm-12">
+                        {!! Form::label('date', 'Prefered Date and Time :', []) !!}
+                        <div class="input-group date">
+                            {!! Form::text('prefered_date', null, ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                            {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+
+                        {!! Form::label('Special Request for photography', 'Special Request for photography :', []) !!}
+
+                        <div class="col-md-12 image-center">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="fileupload-new thumbnail" style="width: 120px; height: 120px;   ">
+                                    {{--@if($data['image'] != '')
+                                        <a href="{{ route('gal_image.image.show', $data['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView"><img src="{{ URL::to($data['image']) }}" height="50px" width="50px" alt="{{$data['image']}}" />
+                                        </a>
+                                    @else--}}
+                                    <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                                    {{--{!! Form::file('images[]', array('multiple'=>true)) !!}--}}
+                                    {{--@endif--}}
+                                </div>
+                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                <div class="image-center">
+                                    <input type="file" name="image[]" id="image" class="default" multiple />
+                                </div>
+                            </div>
+                            <span class="label label-danger"><font size="1">NOTE!</font></span>
+                            <span style="color: white"><font size="1">System will allow these types of image(png,jpeg,jpg Format)</font></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                        <div class="col-sm-12">
+                            {!! Form::label('property_access_information', 'Property Access Information :', ['class' => 'control-label']) !!}<br>
+                            <label>
+                                <input type="radio" name="property_access_options" value="tennant" checked> &nbsp; Tennant
+                            </label>
+                            <label>
+                                <input type="radio" name="property_access_options" value="vendor" > &nbsp; Vendor
+                            </label>
+                            <label>
+                                <input type="radio" name="property_access_options" value="agent" > &nbsp; Agent/ Agency
+                            </label>
+                            <label>
+                                <input type="radio" name="property_access_options" value="other" > &nbsp; Other, pick up keys from
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                        <div class="col-sm-12">
+                            {!! Form::label('contact_name', 'Contact Name : ', []) !!}
+                            {!! Form::text('contact_name', null, ['id'=>'contact_name', 'class' => 'form-control','title'=>'contact name']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                        <div class="col-sm-12">
+                            {!! Form::label('contact_number', 'Contact Number : ', []) !!}
+                            {!! Form::text('contact_number', null, ['id'=>'contact_number', 'class' => 'form-control','title'=>'contact number']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                        <div class="col-sm-12">
+                            {!! Form::label('contact_alternate_number', 'Contact Alternate Number : ', []) !!}
+                            {!! Form::text('contact_alternate_number', null, ['id'=>'contact_alternate_number', 'class' => 'form-control','title'=>'contact alternate number']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                        <div class="col-sm-12">
+                            {!! Form::label('contact_email', 'Contact Email : ', []) !!}
+                            {!! Form::text('contact_email', null, ['id'=>'contact_email', 'class' => 'form-control','title'=>'contact email']) !!}
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                        <div class="col-sm-12">
+                            {!! Form::label('property_note', 'Note :', ['class' => 'control-label']) !!}
+                            {!! Form::textarea('property_note', null,['size' => '6x2','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                        </div>
+                    </div>
                 </div>
-                {{--<div class="col-sm-12" id="submit_button">
-                    <a href="{{ route('payment') }}" class="btn new_button" onclick="return confirm('Are You Sure ! ')"> Confirm </a>
-                </div>--}}
             </div>
+
+
+
+
+            <div class="col-sm-12 text-right">
+                {{--{!! Form::submit('Confirmed Quote', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;--}}
+{{--                {!! Form::submit('Confirm',['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','data-toggle'=>'modal','data-target'=>'#confirmModal']) !!}--}}
+                {!! Form::submit('Confirm',['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement']) !!}
+
+            </div>
+            {{--<div class="col-sm-12" id="submit_button">
+                <a href="{{ route('payment') }}" class="btn new_button" onclick="return confirm('Are You Sure ! ')"> Confirm </a>
+            </div>--}}
         </div>
-    </div>
-
         <!-- Modal -->
         <div id="confirmModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
