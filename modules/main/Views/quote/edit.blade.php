@@ -557,37 +557,38 @@
                         <div class="row">
 
                             <div class="optionalContentDiv @if($data['quote']->print_material_distribution_id == null) optional-content-div @endif">
-                                {{--<div class="col-sm-6">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location
 (Remainder will be sent to you the agency)','class="size-13"') !!}
-                                        <select class="quantity" name="quantity" style="color: black">
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 0) selected="selected" @endif value="select">Please Select</option>
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 1) selected="selected" @endif value="1">1</option>
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 2) selected="selected" @endif value="2">2</option>
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 3) selected="selected" @endif value="3">3</option>
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 4) selected="selected" @endif value="4">4</option>
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 5) selected="selected" @endif value="5">5</option>
+                                        <select class="quantity form-control" name="quantity" id="distributionQuantity"  style="color: black">
+                                            <option value="select">Please Select</option>
+                                            @for($i=1000;$i<=20000;$i+=1000)
+                                                <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == $i) selected="selected" @endif  value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
                                         </select>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label size-13">Min Quantity<span class="required"></span></label><br>
+                                                    <input value="{{ $data['quote']->relPrintMaterialDistribution['distributed_quantity'] }}" class="form-control" id="minQuantity" name="distributed_quantity" type="number">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label size-13">Rest Quantity<span class="required"></span></label><br>
+                                                    <input value="{{ $data['quote']->relPrintMaterialDistribution['rest_quantity'] }}" class="form-control" id="restQuantity" name="rest_quantity" type="number" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label>NOTE</label>
                                         <textarea type="text" name="note" placeholder="Note" class="form-control" id="note">{{ $data['quote']->relPrintMaterialDistribution['note'] }}</textarea>
                                     </div>
-                                </div>--}}
+                                </div>
+
                                 <div class="col-sm-6">
-                                    <div class="form-group">
-                                        {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location
-(Remainder will be sent to you the agency)','class="size-13"') !!}
-                                        <select class="quantity" name="quantity" style="color: black">
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 0) selected="selected" @endif value="select">Please Select</option>
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 1) selected="selected" @endif value="1">1</option>
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 2) selected="selected" @endif value="2">2</option>
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 3) selected="selected" @endif value="3">3</option>
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 4) selected="selected" @endif value="4">4</option>
-                                            <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == 5) selected="selected" @endif value="5">5</option>
-                                        </select>
-                                    </div>
 
                                     <div class="form-group">
                                         <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span> : </label><br>
@@ -607,24 +608,17 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>NOTE</label>
-                                        <textarea type="text" name="note" placeholder="Note" class="form-control" id="note">{{ $data['quote']->relPrintMaterialDistribution['note'] }}</textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div style="width: 100%; height: 15px"></div>
-                                        <label class="control-label size-13">Quantity<span class="required"> [ Just type Quantity ]</span></label>
-                                        <input type="number" name="quantity_next" value="{{ isset($data['quote']->relPrintMaterialDistribution['quantity_next'])?$data['quote']->relPrintMaterialDistribution['quantity_next']:'' }}" class="form-control">
-                                    </div>
-                                    <div class="form-group">
                                         <label class="control-label size-13">Distribution Area <span class="required"> [ Post Code ]</span></label>
                                         <input type="number" name="distribution_area" value="{{ isset($data['quote']->relPrintMaterialDistribution['distribution_area'])?$data['quote']->relPrintMaterialDistribution['distribution_area']:'' }}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label size-13">Choose a Date of Distribution <span class="required">&nbsp;</span></label>
-                                        <input type="text" id="date_id" name="date_of_distribution" value="{{ isset($data['quote']->relPrintMaterialDistribution['date_of_distribution'])?$data['quote']->relPrintMaterialDistribution['date_of_distribution']:'' }}" class="form-control">
+                                        <select name="date_of_distribution" class="form-control">
+                                            @foreach($data['saturdays'] as $saturday)
+                                                <option @if(date('Y-m-d',strtotime($data['quote']->relPrintMaterialDistribution['date_of_distribution']))==$saturday) selected @endif value="{{ $saturday }}">{{ date('d M Y D',strtotime($saturday)) }}</option>
+                                            @endforeach
+                                        </select>
+{{--                                        <input type="text" id="date_id" name="date_of_distribution" value="{{ isset($data['quote']->relPrintMaterialDistribution['date_of_distribution'])?$data['quote']->relPrintMaterialDistribution['date_of_distribution']:'' }}" class="form-control">--}}
                                     </div>
                                 </div>
                             </div>

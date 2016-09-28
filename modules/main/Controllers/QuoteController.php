@@ -42,6 +42,7 @@ class QuoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $getSaturdays;
     public function index()
     {
         //
@@ -109,17 +110,22 @@ class QuoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    private function getSaturdays()
     {
+
         $start = strtotime("today + 12 days"); // your start/end dates here
         $end = strtotime("today + 1 years");
         $sat=[];
         $saturday = strtotime("saturday", $start);
         while($saturday <= $end) {
-            $sat[]=date("d-m-Y", $saturday);
+            $sat[]=date("Y-m-d", $saturday);
             $saturday = strtotime("+1 weeks", $saturday);
         }
-        $data['saturdays']=$sat;
+        return $sat;
+    }
+    public function create()
+    {
+        $data['saturdays']=$this->getSaturdays();
         $pageTitle = 'MRS - Quote';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         $data['solution_types']= SolutionType::get();
@@ -541,7 +547,6 @@ class QuoteController extends Controller
                     $distribution['distribution_area'] = $received['distribution_area'];
                     $distribution['date_of_distribution'] = $received['date_of_distribution'];
                     $distribution['is_surrounded'] = $received['is_surrounded'];
-//                    dd($distribution);
                     $distribution_id = PrintMaterialDistribution::create($distribution);
                     $data['print_material_distribution_id'] = $distribution_id->id;
                 }
@@ -620,6 +625,7 @@ class QuoteController extends Controller
     {
         $pageTitle = 'MRS - Edit Quote';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
+        $data['saturdays']=$this->getSaturdays();
         $data['solution_types']= SolutionType::get();
         $data['photography_packages']= PhotographyPackage::with('relPhotographyPackage')->get();
         $data['signboard_packages']= SignboardPackage::with('relSignboardPackage')->get();
@@ -628,7 +634,7 @@ class QuoteController extends Controller
         $data['digital_medias']= DigitalMedia::get();
         $data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
         $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia','relQuotePackage','relQuotePropertyImage')->first();
-
+//        dd($data['quote']);
 //        dd(count($data['quote']->relQuotePropertyImage));
         //print_r($data['quote']->relQuotePackage['price']);exit();
 
@@ -704,7 +710,7 @@ class QuoteController extends Controller
                     $data['photography_package_id'] = null;
                     $data['photography_package_comments'] = null;
                 }
-            }elseif(!empty($received['custom_photography_images']) && count($received['custom_photography_images']) >= 1){
+            }elseif(!empty($received['custom_photography_images']) && $received['custom_photography_images'][0] != null && count($received['custom_photography_images']) >= 1){
                 /*
                  * Upload multiple image for custom photography
                  * */
@@ -846,9 +852,10 @@ class QuoteController extends Controller
              * */
             if (isset($received['distributedPrintMaterialChooseBtn']) && !empty($received['distributedPrintMaterialChooseBtn']) && $received['distributedPrintMaterialChooseBtn'] == 1) {
                 $distribution['quantity'] = $received['quantity'];
+                $distribution['distributed_quantity'] = $received['distributed_quantity'];
+                $distribution['rest_quantity'] = $received['rest_quantity'];
                 $distribution['note'] = $received['note'];
 
-                $distribution['quantity_next'] = $received['quantity_next'];
                 $distribution['distribution_area'] = $received['distribution_area'];
                 $distribution['date_of_distribution'] = $received['date_of_distribution'];
                 $distribution['is_surrounded'] = $received['is_surrounded'];
