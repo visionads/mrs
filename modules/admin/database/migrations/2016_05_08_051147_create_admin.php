@@ -181,7 +181,7 @@ class CreateAdmin extends Migration
             $table->dateTime('date_of_distribution')->nullable();
             $table->string('note', 128)->nullable();
             $table->unsignedInteger('business_id')->nullable();
-
+            $table->float('price')->nullable();
             $table->integer('created_by', false, 11);
             $table->integer('updated_by', false, 11);
             $table->timestamps();

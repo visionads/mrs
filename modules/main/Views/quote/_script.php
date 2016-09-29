@@ -210,13 +210,16 @@
             }
             $('#minQuantity').val(minQuantity);
             $('#restQuantity').val(restQuantity);
+            distributionPrice();
+
         });
         $('#minQuantity').change(function () {
             var quantity= $('#distributionQuantity').val();
             var minQuantity= $(this).val();
-            if(parseInt(minQuantity) < parseInt(quantity))
+            if(parseInt(minQuantity) <= parseInt(quantity))
             {
                 $('#restQuantity').val(quantity-minQuantity);
+                distributionPrice();
             }else{
                 if(parseInt(quantity) > 7000)
                 {
@@ -229,6 +232,11 @@
                 alert('You can\'t input bigger value then  main quantity.');
             }
         });
+        function distributionPrice() {
+            var quantity= $('#minQuantity').val();
+            console.log(quantity);
+            $('#distributionPrice').val((quantity*65)/1000);
+        }
 
     });
 </script>

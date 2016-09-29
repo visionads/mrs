@@ -177,7 +177,7 @@ class QuoteController extends Controller
 
         $quote = Quote::with(
             'relPropertyDetail',
-            'relPrintMaterialDistribution' ,
+            'relPrintMaterialDistribution',
             'relQuoteLocalMedia',
             'relQuotePhotography',
             'relQuoteSignboard',
@@ -547,6 +547,7 @@ class QuoteController extends Controller
                     $distribution['distribution_area'] = $received['distribution_area'];
                     $distribution['date_of_distribution'] = $received['date_of_distribution'];
                     $distribution['is_surrounded'] = $received['is_surrounded'];
+                    $distribution['price'] = $received['distribution_price'];
                     $distribution_id = PrintMaterialDistribution::create($distribution);
                     $data['print_material_distribution_id'] = $distribution_id->id;
                 }
@@ -859,6 +860,7 @@ class QuoteController extends Controller
                 $distribution['distribution_area'] = $received['distribution_area'];
                 $distribution['date_of_distribution'] = $received['date_of_distribution'];
                 $distribution['is_surrounded'] = $received['is_surrounded'];
+                $distribution['price'] = $received['distribution_price'];
 
                 if(!empty($quote->print_material_distribution_id)) {
                     $distribution_id = PrintMaterialDistribution::find($quote->print_material_distribution_id);

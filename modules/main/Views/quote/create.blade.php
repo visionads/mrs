@@ -182,14 +182,14 @@
                                                     </label>
                                                 </div>
                                             @endforeach
-                                            <div class="center"><a role="tab" class="btn btn-warning" id="addphotography"> + ADD Photography Package</a></div>
+                                            {{--<div class="center"><a role="tab" class="btn btn-warning" id="addphotography"> + ADD Photography Package</a></div>--}}
                                         @endif
                                     </div>
                                 </div>
                             </fieldset>
                             {{--========================================= Package End =============================================--}}
 
-                            <fieldset class="dflt_packs photography"><hr>
+                            <fieldset class="><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Photography</h3>
                                     <br>
@@ -473,32 +473,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{--<div class="form-group">
-                                                    {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location (Remainder will be sent to you the agency)','class="controll-label size-13"') !!}
 
-                                                    <select class="quantity form-control" name="quantity" id="distributionQuantity"  style="color: black">
-                                                        <option value="select">Please Select</option>
-                                                        <option value="1000">1000</option>
-                                                        <option value="2000">2000</option>
-                                                        <option value="3000">3000</option>
-                                                        <option value="4000">4000</option>
-                                                        <option value="5000">5000</option>
-                                                        <option value="6000">7000</option>
-                                                        <option value="8000">8000</option>
-                                                        <option value="9000">9000</option>
-                                                        <option value="10000">10000</option>
-                                                        <option value="11000">11000</option>
-                                                        <option value="12000">12000</option>
-                                                        <option value="13000">13000</option>
-                                                        <option value="14000">14000</option>
-                                                        <option value="15000">15000</option>
-                                                        <option value="16000">16000</option>
-                                                        <option value="18000">18000</option>
-                                                        <option value="19000">19000</option>
-                                                        <option value="20000">20000</option>
-                                                    </select>
-                                                </div>--}}
-
+                                                <div class="form-group">
+                                                    <label>Price ($65 per 1000)</label>
+                                                    <input type="number" name="distribution_price" placeholder="Distribution Price" class="form-control" id="distributionPrice" readonly>
+                                                </div>
                                                 <div class="form-group">
                                                     <label>NOTE</label>
                                                     <textarea type="text" name="note" placeholder="Note" class="form-control" id="note"></textarea>
@@ -529,7 +508,7 @@
                                                 </div>--}}
                                                 <div class="form-group">
                                                     <label class="control-label size-13">Distribution Area <small class="required"> [ Post Code ]</small></label>
-                                                    <input type="number" name="distribution_area" class="form-control">
+                                                    <input type="text" name="distribution_area" class="form-control">
                                                 </div>
                                                    {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
                                                 <link rel="stylesheet" href="/resources/demos/style.css">

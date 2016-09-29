@@ -21,6 +21,7 @@ class PrintMaterialDistribution extends Model
         'other_address',
         'date_of_distribution',
         'note',
+        'price',
         'business_id',
         'created_by',
         'updated_by'
