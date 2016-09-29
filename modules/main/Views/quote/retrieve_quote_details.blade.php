@@ -185,7 +185,7 @@
                             <div class="col-sm-12">
                                 {!! Form::label('selling_price', 'Selling Price:', ['class' => 'control-label']) !!}
                                 <small class="required size-13">(Required)</small>
-                                {!! Form::input('number','selling_price', isset($selling_price)?$selling_price:null, ['id'=>'selling_price', 'class' => 'form-control','placeholder'=>'Numeric Value only e.g.- 1100','title'=>'enter selling price','required']) !!}
+                                {!! Form::input('text','selling_price', isset($selling_price)?$selling_price:null, ['id'=>'selling_price', 'class' => 'form-control','placeholder'=>'Numeric Value only e.g.- 1100','title'=>'enter selling price','required']) !!}
                             </div>
                         </div>
 
