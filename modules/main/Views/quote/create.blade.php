@@ -189,7 +189,7 @@
                             </fieldset>
                             {{--========================================= Package End =============================================--}}
 
-                            <fieldset class="><hr>
+                            <fieldset><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Photography</h3>
                                     <br>
@@ -209,7 +209,7 @@
                                         </div>
                                     </div>
                                     <div class="row size-15">
-                                        <div class="optionalContentDiv" id="pImage">
+                                        {{--<div class="optionalContentDiv" id="pImage">
 
                                             <div class="col-sm-12">
 
@@ -223,7 +223,7 @@
                                                     <span style="color: white"><font size="1">System will allow these types of image(png,jpeg,jpg Format)</font></span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--}}
                                         <div class="optionalContentDiv optional-content-div">
                                             <?php $k = 0; $photo_type_unique = array();  ?>
                                             @foreach($data['photography_packages'] as $photography_package)
@@ -309,11 +309,14 @@
                                                         </span>
 
                                                     <div>
-                                                        @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
+                                                        {{--{{ $signboard_package->title }}--}}
+                                                        <p>{{ $signboard_package->description }}</p>
+                                                        <h2 class="size-40 text-color text-normal">$ {{ $signboard_package->price }}</h2>
+                                                        {{--@foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
                                                             {{ $relSignboardPackage->title }}
                                                             <p>{{ $relSignboardPackage->description }}</p>
                                                             <h2 class="size-40 text-color text-normal">$ {{ $relSignboardPackage->price }}</h2>
-                                                        @endforeach
+                                                        @endforeach--}}
                                                     </div>
                                                     <div class="pkg-img">
                                                         <img width="100%" src="{{ asset($signboard_package->image_path) }}">
@@ -462,7 +465,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="control-label size-13">Min Quantity<span class="required"></span></label><br>
+                                                            <label class="control-label size-13">Min Quantity<span class="required"> (Price $65 per 1000)</span></label><br>
                                                             <input class="form-control" id="minQuantity" name="distributed_quantity" type="number">
                                                         </div>
                                                     </div>
@@ -473,11 +476,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <p style="color: red">Total Price : <price></price></p>
 
-                                                <div class="form-group">
-                                                    <label>Price ($65 per 1000)</label>
-                                                    <input type="number" name="distribution_price" placeholder="Distribution Price" class="form-control" id="distributionPrice" readonly>
-                                                </div>
+                                                <input type="hidden" name="distribution_price" placeholder="Distribution Price" class="form-control" id="distributionPrice" readonly>
                                                 <div class="form-group">
                                                     <label>NOTE</label>
                                                     <textarea type="text" name="note" placeholder="Note" class="form-control" id="note"></textarea>

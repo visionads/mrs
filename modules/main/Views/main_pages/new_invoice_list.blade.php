@@ -35,7 +35,7 @@
                         <td style="font-weight:normal;">{{ $quote->relPropertyDetail['owner_name'] }}</td>
                         <td style="font-weight:normal;">{{ $quote->relBusiness['title'] }}</td>
                         <td class="text-center">{{ date('d M Y',strtotime($quote->created_at)) }}</td>
-                        <td><a href="{{ route('payment-procedure', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="btn btn-primary" data-placement="left" data-content="Edit"><span class="fa fa-eye"></span></a></td>
+                        <td><a href="{{ route('payment-procedure', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="fa fa-eye"></span></a></td>
 
 
                     </tr>

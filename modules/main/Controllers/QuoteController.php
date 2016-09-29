@@ -196,9 +196,8 @@ class QuoteController extends Controller
         //print_r($package_price);
         //exit();
         //print_r($package_price); exit();
-        $package_id = null;
+//        $package_id = null;
         $package_id = $quote->package_head_id;
-
 
         // ---------- For photography Package===============================
         $photography_package_str = '';
@@ -226,21 +225,22 @@ class QuoteController extends Controller
                     foreach($quote->relQuoteSignboard as $ppi){
                         if($ppi->signboard_package_id==$signboard_package->id){
                             $signboard_package_str .=$signboard_package->title.',';
-                            foreach($signboard_package->relSignboardPackage as $relSignboardPackage){
+                            $signboard_price+=$signboard_package->price;
+                            /*foreach($signboard_package->relSignboardPackage as $relSignboardPackage){
                                 if(isset($quote->relQuoteSignboard)){
-                                    foreach($quote->relQuoteSignboard as $ppi){
-                                        if($ppi->signboard_size_id==$relSignboardPackage->id){
+                                    foreach($quote->relQuoteSignboard as $ppt){
+                                        if($ppt->signboard_size_id==$relSignboardPackage->id){
                                             $signboard_price+=$relSignboardPackage->price;
                                         }
                                     }
                                 }
-                            }
+                            }*/
                         }
                     }
                 }
             }
         }
-        //print_r($signboard_price); exit();
+//        print_r($signboard_price); exit();
 
         // ----------------- For Print Material====================================
         $print_material_str = '';
@@ -314,7 +314,12 @@ class QuoteController extends Controller
             $local_media_price += $local_media_p->price;
         }*/
 
+        if(isset($quote['relPrintMaterialDistribution']->price))
+        {
         $distributed_print_material_price= $quote['relPrintMaterialDistribution']->price;
+        }else{
+        $distributed_print_material_price= 0;
+        }
         // For Total Selling Price --------------------------------------
         $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price + $package_price + $distributed_print_material_price;
 
@@ -413,64 +418,39 @@ class QuoteController extends Controller
 //            dd($quote->id);
 //            $quote=Quote::findOrFail(30);
 
-            if(isset($received['package']) && $received['package']=='1') {
-                /*
-                 * getting photography info
-                 * */
-                if (isset($received['pro-photographyChooseBtn']) && !empty($received['pro-photographyChooseBtn']) && $received['pro-photographyChooseBtn'] == 1) {
-                    if (isset($received['photography_package_id'])) {
-                        foreach ($received['photography_package_id'] as $ppi) {
-                            $qp = new QuotePhotography;
-                            $qp->quote_id = $quote->id;
-                            $qp->price = PhotographyPackage::findOrFail($ppi)->price;
-                            $qp->photography_package_id = $ppi;
-                            $qp->save();
-                        }
-                    }
-                    $data['photography_package_id'] = 1;
-                    $data['photography_package_comments'] = $received['photography_package_comments'];
-                }elseif(!empty($received['custom_photography_images']) && count($received['custom_photography_images']) >= 1){
-                    /*
-                     * Upload multiple image for custom photography
-                     * */
-                    $file_type_required = 'png,jpeg,jpg';
-                    $destinationPath = 'uploads/property_access/';
-
-                    $uploadfolder = 'uploads/';
-
-                    if ( !file_exists($uploadfolder) ) {
-                        $oldmask = umask(0);  // helpful when used in linux server
-                        mkdir ($uploadfolder, 0777);
-                    }
-
-                    if ( !file_exists($destinationPath) ) {
-                        $oldmask = umask(0);  // helpful when used in linux server
-                        mkdir ($destinationPath, 0777);
-                    }
-//                    dd($request->files());
-                    foreach($received['custom_photography_images'] as $image){
-                        $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
-                        #print_r($file_name);exit();
-
-                        if($file_name != '') {
-                            $input['image_path'][] = $file_name[0];
-                        }
-                        else{
-                            Session::flash('error', 'Some thing error in image file type! Please Try again');
-                            return redirect()->back();
-                        }
-                    }
-                    if(isset($input['image_path'])){
-                        foreach($input['image_path'] as $ims){
-                            $quotePropertyImage= new QuotePropertyImage();
-                            $quotePropertyImage->quote_id= $quote->id;
-                            $quotePropertyImage->image= $ims;
-                            $quotePropertyImage->save();
-                        }
+            /*
+             * getting photography info
+             * */
+            if(isset($received['pro-photographyChooseBtn']) && !empty($received['pro-photographyChooseBtn']) && $received['pro-photographyChooseBtn'] == 1) {
+                if (isset($received['photography_package_id'])) {
+                    foreach ($received['photography_package_id'] as $ppi) {
+                        $qp = new QuotePhotography;
+                        $qp->quote_id = $quote->id;
+                        $qp->price = PhotographyPackage::findOrFail($ppi)->price;
+                        $qp->photography_package_id = $ppi;
+                        $qp->save();
                     }
                 }
+                $data['photography_package_id'] = 1;
+                $data['photography_package_comments'] = $received['photography_package_comments'];
             }
 
+            /*
+             * getting distributed print material info
+             * */
+            if (isset($received['distributedPrintMaterialChooseBtn']) && !empty($received['distributedPrintMaterialChooseBtn']) && $received['distributedPrintMaterialChooseBtn'] == 1) {
+                $distribution['quantity'] = $received['quantity'];
+                $distribution['note'] = $received['note'];
+
+                $distribution['distributed_quantity'] = $received['distributed_quantity'];
+                $distribution['rest_quantity'] = $received['rest_quantity'];
+                $distribution['distribution_area'] = $received['distribution_area'];
+                $distribution['date_of_distribution'] = $received['date_of_distribution'];
+                $distribution['is_surrounded'] = $received['is_surrounded'];
+                $distribution['price'] = $received['distribution_price'];
+                $distribution_id = PrintMaterialDistribution::create($distribution);
+                $data['print_material_distribution_id'] = $distribution_id->id;
+            }
             //===== Checking for the Complete package option [ here 0 means not selected] ========================
             if(isset($received['package']) && $received['package']=='0') {
 
@@ -538,37 +518,6 @@ class QuoteController extends Controller
                     $data['print_material_comments'] = $received['print_material_comments'];
                 }
                 /*
-                 * getting distributed print material info
-                 * */
-                if (isset($received['distributedPrintMaterialChooseBtn']) && !empty($received['distributedPrintMaterialChooseBtn']) && $received['distributedPrintMaterialChooseBtn'] == 1) {
-                    $distribution['quantity'] = $received['quantity'];
-                    $distribution['note'] = $received['note'];
-
-                    $distribution['distributed_quantity'] = $received['distributed_quantity'];
-                    $distribution['rest_quantity'] = $received['rest_quantity'];
-                    $distribution['distribution_area'] = $received['distribution_area'];
-                    $distribution['date_of_distribution'] = $received['date_of_distribution'];
-                    $distribution['is_surrounded'] = $received['is_surrounded'];
-                    $distribution['price'] = $received['distribution_price'];
-                    $distribution_id = PrintMaterialDistribution::create($distribution);
-                    $data['print_material_distribution_id'] = $distribution_id->id;
-                }
-                /*
-                 * getting distributed print material info
-                 * */
-                if (isset($received['digitalMediaChooseBtn']) && !empty($received['digitalMediaChooseBtn']) && $received['digitalMediaChooseBtn'] == 1) {
-                    if (isset($received['digital_media_id'])) {
-                        foreach ($received['digital_media_id'] as $dmi) {
-                            $dm = new QuoteDigitalMedia;
-                            $dm->quote_id = $quote->id;
-                            $dm->digital_media_id = $dmi;
-                            $dm->save();
-                        }
-                    }
-                    $data['digital_media_id'] = 1;
-                    $data['digital_media_note'] = $received['digital_media_note'];
-                }
-                /*
                  * getting local media info
                  * */
                 if (isset($received['localMediaChooseBtn']) && !empty($received['localMediaChooseBtn']) && $received['localMediaChooseBtn'] == 1) {
@@ -590,6 +539,21 @@ class QuoteController extends Controller
                 }
                 #print_r($data);exit;
 //            dd($received);
+            }
+            /*
+             * getting distributed print material info
+             * */
+            if (isset($received['digitalMediaChooseBtn']) && !empty($received['digitalMediaChooseBtn']) && $received['digitalMediaChooseBtn'] == 1) {
+                if (isset($received['digital_media_id'])) {
+                    foreach ($received['digital_media_id'] as $dmi) {
+                        $dm = new QuoteDigitalMedia;
+                        $dm->quote_id = $quote->id;
+                        $dm->digital_media_id = $dmi;
+                        $dm->save();
+                    }
+                }
+                $data['digital_media_id'] = 1;
+                $data['digital_media_note'] = $received['digital_media_note'];
             }
                 $quote->update($data);
                 \DB::commit();
@@ -704,54 +668,53 @@ class QuoteController extends Controller
                     }
                 }
                 //==== Checking Complete package
-                if(isset($received['package']) && $received['package']=='1') {
-                    if (isset($received['package_head_id'])) {
-                        $data['photography_package_id'] = 1;
-                        $data['photography_package_comments'] = $received['photography_package_comments'];
-                    }
-                }else{
-                    $data['photography_package_id'] = null;
-                    $data['photography_package_comments'] = null;
-                }
-            }elseif(!empty($received['custom_photography_images']) && $received['custom_photography_images'][0] != null && count($received['custom_photography_images']) >= 1){
-                /*
-                 * Upload multiple image for custom photography
-                 * */
-                $file_type_required = 'png,jpeg,jpg';
-                $destinationPath = 'uploads/property_access/';
-
-                $uploadfolder = 'uploads/';
-//                    dd($request->files());
-                foreach($received['custom_photography_images'] as $image){
-                    $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
-                    #print_r($file_name);exit();
-
-                    if($file_name != '') {
-                        $input['image_path'][] = $file_name[0];
-                    }
-                    else{
-                        Session::flash('error', 'Some thing error in image file type! Please Try again');
-                        return redirect()->back();
-                    }
-                }
-                if(isset($input['image_path'])){
-                    foreach($input['image_path'] as $ims){
-                        $quotePropertyImage= new QuotePropertyImage();
-                        $quotePropertyImage->quote_id= $quote->id;
-                        $quotePropertyImage->image= $ims;
-                        $quotePropertyImage->save();
-                    }
-                }
-
-                //QuotePhotography::where('quote_id',$quote->id)->delete();
-                $quote_photography = QuotePhotography::where('quote_id',$quote->id)->get();
-                if(count($quote_photography)>0)
-                {
-                    QuotePhotography::where('quote_id',$quote->id)->delete();
-                }
+                $data['photography_package_id'] = 1;
+                $data['photography_package_comments'] = $received['photography_package_comments'];
+            }else
+            {
+                QuotePhotography::where('quote_id',$quote->id)->delete();
                 $data['photography_package_id'] = null;
-                $data['photography_package_comments'] = '';
+                $data['photography_package_comments'] = null;
             }
+//            elseif(!empty($received['custom_photography_images']) && $received['custom_photography_images'][0] != null && count($received['custom_photography_images']) >= 1){
+//                /*
+//                 * Upload multiple image for custom photography
+//                 * */
+//                $file_type_required = 'png,jpeg,jpg';
+//                $destinationPath = 'uploads/property_access/';
+//
+//                $uploadfolder = 'uploads/';
+////                    dd($request->files());
+//                foreach($received['custom_photography_images'] as $image){
+//                    $file_name = OrderController::image_upload($image,$file_type_required,$destinationPath);
+//                    #print_r($file_name);exit();
+//
+//                    if($file_name != '') {
+//                        $input['image_path'][] = $file_name[0];
+//                    }
+//                    else{
+//                        Session::flash('error', 'Some thing error in image file type! Please Try again');
+//                        return redirect()->back();
+//                    }
+//                }
+//                if(isset($input['image_path'])){
+//                    foreach($input['image_path'] as $ims){
+//                        $quotePropertyImage= new QuotePropertyImage();
+//                        $quotePropertyImage->quote_id= $quote->id;
+//                        $quotePropertyImage->image= $ims;
+//                        $quotePropertyImage->save();
+//                    }
+//                }
+//
+//                //QuotePhotography::where('quote_id',$quote->id)->delete();
+//                $quote_photography = QuotePhotography::where('quote_id',$quote->id)->get();
+//                if(count($quote_photography)>0)
+//                {
+//                    QuotePhotography::where('quote_id',$quote->id)->delete();
+//                }
+//                $data['photography_package_id'] = null;
+//                $data['photography_package_comments'] = '';
+//            }
 
             /*
              * getting signboard info
@@ -786,12 +749,7 @@ class QuoteController extends Controller
                     $data['signboard_package_comments'] = $received['signboard_package_comments'];
                 }
             }else{
-                //QuoteSignboard::where('quote_id',$quote->id)->delete();
-                $quote_signboard = QuoteSignboard::where('quote_id',$quote->id)->get();
-                if(count($quote_signboard)>0)
-                {
-                    QuoteSignboard::where('quote_id',$quote->id)->delete();
-                }
+                QuoteSignboard::where('quote_id',$quote->id)->delete();
                 $data['signboard_package_id'] = null;
                 $data['signboard_package_comments'] = '';
             }
@@ -840,12 +798,7 @@ class QuoteController extends Controller
                     $data['print_material_comments'] = $received['print_material_comments'];
                 }
             }else{
-                //QuotePrintMaterial::where('quote_id',$quote->id)->delete();
-                $quote_print_material = QuotePrintMaterial::where('quote_id',$quote->id)->get();
-                if(count($quote_print_material)>0)
-                {
-                    QuotePrintMaterial::where('quote_id',$quote->id)->delete();
-                }
+                QuotePrintMaterial::where('quote_id',$quote->id)->delete();
                 $data['print_material_id'] = null;
                 $data['print_material_comments'] = '';
             }
@@ -867,8 +820,10 @@ class QuoteController extends Controller
                 if(!empty($quote->print_material_distribution_id)) {
                     $distribution_id = PrintMaterialDistribution::find($quote->print_material_distribution_id);
                     $distribution_id->update($distribution);
+                }else{
+                    $dis= PrintMaterialDistribution::create($distribution);
+                    $data['print_material_distribution_id']=$dis->id;
                 }
-                //exit('kjkdjfk');
             }else{
                 $distribution_id=PrintMaterialDistribution::find($quote->print_material_distribution_id);
 
@@ -880,11 +835,11 @@ class QuoteController extends Controller
             }
 
             //==== Checking Complete package
-            if(isset($received['package']) && $received['package']=='1') {
+            /*if(isset($received['package']) && $received['package']=='1') {
                 if (isset($received['package_head_id'])) {
                     $data['print_material_distribution_id']=null;
                 }
-            }
+            }*/
 
             /*
              * getting Digital Media info

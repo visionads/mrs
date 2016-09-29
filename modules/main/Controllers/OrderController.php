@@ -98,20 +98,21 @@ class OrderController extends Controller
             $quote->status = 'placed-order';
             $quote->save();
 
+                $property_details = PropertyDetail::findOrFail($quote->property_detail_id);
+                $property_details->main_selling_line = $input['main_selling_line'];
+                $property_details->property_description = $input['property_description'];
+                $property_details->inspection_date = $input['inspection_date'];
+                $property_details->inspection_features = $input['inspection_features'];
+                $property_details->other_features = $input['other_features'];
+                $property_details->selling_price = $input['selling_price'];
+                $property_details->auction_time = $input['auction_time'];
+                $property_details->offer = $input['offer'];
+                $property_details->note = $input['note'];
+                $property_details->save();
 
-            $property_details = PropertyDetail::findOrFail($quote->property_detail_id);
-            $property_details->main_selling_line = $input['main_selling_line'];
-            $property_details->property_description = $input['property_description'];
-            $property_details->inspection_date = $input['inspection_date'];
-            $property_details->inspection_features = $input['inspection_features'];
-            $property_details->other_features = $input['other_features'];
-            $property_details->selling_price = $input['selling_price'];
-            $property_details->auction_time = $input['auction_time'];
-            $property_details->offer = $input['offer'];
-            $property_details->note = $input['note'];
-            $property_details->save();
+            if($quote->photography_package_id==null) {
 
-            if ($input['quote_property_access'] == 1) {
+//            if ($input['quote_property_access'] == 1) {
                 $quote_property_access = new QuotePropertyAccess();
                 $quote_property_access->quote_id = $input['quote_id'];
                 $quote_property_access->prefered_date = $input['prefered_date'];
@@ -140,9 +141,10 @@ class OrderController extends Controller
                         }
                     }
                 }
+//            }
+
+
             }
-
-
 
 
             // check if transaction exists for the quote and invoice number
@@ -182,6 +184,7 @@ class OrderController extends Controller
 //            dd($property_details);
 
             DB::commit();
+            Session::flash('message', 'Invoice has been created successfully.');
         }catch (\Exception $e){
             DB::rollback();
             Session::flash('danger', $e->getMessage());

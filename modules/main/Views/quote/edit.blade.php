@@ -99,7 +99,7 @@
                             </div>
                         </div>
 
-                        <div class="row pack-choise">
+                        <div class="row pack-choise" @if($data['quote']->package_head_id == null) style="display: block !important" @endif >
                             @if(isset($data['packages']))
                                 <?php
                                 $i=0;
@@ -214,7 +214,7 @@
                         </div>
 
                         <div class="row size-15">
-                            <div class="optionalContentDiv @if(count($data['quote']->relQuotePropertyImage) == 0) optional-content-div @endif" id="pImage">
+                            {{--<div class="optionalContentDiv @if(count($data['quote']->relQuotePropertyImage) == 0) optional-content-div @endif" id="pImage">
 
                                 <div class="col-sm-12">
 
@@ -237,7 +237,7 @@
                                     <span class="label label-danger"><font size="1">NOTE!</font></span>
                                     <span style="color: white"><font size="1">System will allow these types of image(png,jpeg,jpg Format)</font></span>
                                 </div>
-                            </div>
+                            </div>--}}
                             <div class="optionalContentDiv @if($data['quote']->photography_package_id == null)  optional-content-div @endif">
                                 <?php $k = 0; $photo_type_unique = array();  ?>
                                 @foreach($data['photography_packages'] as $photography_package)
@@ -333,11 +333,9 @@
                                                 </span>
 
                                                 <div>
-                                                    @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
-                                                        {{ $relSignboardPackage->title }}
-                                                        <p>{{ $relSignboardPackage->description }}</p>
-                                                        <h2 class="size-40 text-color text-normal">$ {{ $relSignboardPackage->price }}</h2>
-                                                    @endforeach
+
+                                                    <p>{{ $signboard_package->description }}</p>
+                                                    <h2 class="size-40 text-color text-normal">$ {{ $signboard_package->price }}</h2>
                                                 </div>
                                                 @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
                                                     <input type="hidden" value="{{ $relSignboardPackage->id }}"
@@ -488,7 +486,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label size-13">Min Quantity<span class="required"></span></label><br>
+                                                <label class="control-label size-13">Min Quantity<span class="required"> (Price $65 per 1000)</span></label><br>
                                                 <input value="{{ $data['quote']->relPrintMaterialDistribution['distributed_quantity'] }}" class="form-control" id="minQuantity" name="distributed_quantity" type="number">
                                             </div>
                                         </div>
@@ -500,10 +498,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label>Price ($65 per 1000)</label>
-                                        <input value="{{ $data['quote']->relPrintMaterialDistribution['price'] }}" type="number" name="distribution_price" placeholder="Distribution Price" class="form-control" id="distributionPrice" readonly>
-                                    </div>
+                                    <p style="color: red"> Total Price : <price><b id="disPrice">$ {{ $data['quote']->relPrintMaterialDistribution['price'] }}</b></price></p>
+                                    <input value="{{ $data['quote']->relPrintMaterialDistribution['price'] }}" type="hidden" name="distribution_price" placeholder="Distribution Price" class="form-control" id="distributionPrice" readonly>
                                     <div class="form-group">
                                         <label>NOTE</label>
                                         <textarea type="text" name="note" placeholder="Note" class="form-control" id="note">{{ $data['quote']->relPrintMaterialDistribution['note'] }}</textarea>
@@ -517,15 +513,8 @@
 
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                @if(isset($data['quote']->relPrintMaterialDistribution['is_surrounded']))
-                                                    @if($data['quote']->relPrintMaterialDistribution['is_surrounded'] == '0')
-                                                        <label><input class="" type="radio" name="is_surrounded" value="0" checked="checked">No</label>
-                                                        <label><input class="" type="radio" name="is_surrounded" value="1">Yes</label>
-                                                    @else
-                                                        <label><input class="" type="radio" name="is_surrounded" value="0">No</label>
-                                                        <label><input class="" type="radio" name="is_surrounded" value="1" checked="checked">Yes</label>
-                                                    @endif
-                                                @endif
+                                                <label><input class="" type="radio" name="is_surrounded" value="0" @if($data['quote']->relPrintMaterialDistribution['is_surrounded'] == '0' || $data['quote']->relPrintMaterialDistribution['is_surrounded'] == null) checked="checked" @endif>No</label>
+                                                <label><input class="" type="radio" name="is_surrounded" value="1" @if($data['quote']->relPrintMaterialDistribution['is_surrounded'] == '1') checked="checked" @endif>Yes</label>
                                             </div>
                                         </div>
                                     </div>

@@ -7,14 +7,11 @@
             $(".pack-choise").slideUp();
             $(".dflt_packs").slideDown();
             $(".photography").slideUp();
-        })
+        });
         $(".choose1").click(function(){
             $(".pack-choise").slideDown();
             $(".dflt_packs").slideUp();
             //$(".photography").slideUp();
-        })
-        $("#addphotography").click(function(){
-           $(".photography").slideDown();
         });
     });
 
@@ -233,9 +230,11 @@
             }
         });
         function distributionPrice() {
+            $('#disPrice').remove();
             var quantity= $('#minQuantity').val();
-            console.log(quantity);
-            $('#distributionPrice').val((quantity*65)/1000);
+            var total= (quantity*65)/1000;
+            $('price').append('<b id="disPrice">$ '+total+'</b>');
+            $('#distributionPrice').val(total);
         }
 
     });
