@@ -314,8 +314,9 @@ class QuoteController extends Controller
             $local_media_price += $local_media_p->price;
         }*/
 
+        $distributed_print_material_price= $quote['relPrintMaterialDistribution']->price;
         // For Total Selling Price --------------------------------------
-        $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price + $package_price;
+        $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price + $package_price + $distributed_print_material_price;
 
         // For Goods Service Tax ----------------------------------------
         $gst = $selling_price * 0.1;
@@ -343,6 +344,7 @@ class QuoteController extends Controller
             'print_material_price'=>$print_material_price,
             'print_material_str'=>rtrim($print_material_str,','),
             'package_price'=>$package_price,
+            'distributed_print_material_price'=>$distributed_print_material_price,
             'package_str'=>$package_str,
             'exist_package'=>$package_id,
         ]);
