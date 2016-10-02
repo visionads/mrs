@@ -8,18 +8,18 @@
     <div>
         {!! Form::label('title', 'Title:', []) !!}
         <small class="required">(Required)</small>
-        {!! Form::text('title', Input::old('title'), ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
+        {!! Form::text('title', null, ['id'=>'title', 'class' => 'form-control','maxlength'=>'64','title'=>'enter title']) !!}
     </div>
-    {{--<div>
+    <div>
         {!! Form::label('price', 'Price:', []) !!}
         <small class="required">(Required)</small>
-        {!! Form::input('number','price_hd', Input::old('price'), ['title'=>'enter price', 'class' => 'form-control','required']) !!}
+        {!! Form::input('number','price', null , ['title'=>'enter price', 'class' => 'form-control','required']) !!}
     </div>
     <div>
         {!! Form::label('description', 'Description:', []) !!}
         <small class="required">(Required)</small>
-        {!! Form::textarea('description_hd', Input::old('description'), ['title'=>'enter description','rows'=>'2', 'class' => 'form-control','required']) !!}
-    </div>--}}
+        {!! Form::textarea('description', null , ['title'=>'enter description','rows'=>'5', 'class' => 'form-control','required']) !!}
+    </div>
 </div>
 
 <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t col-sm-5">
@@ -57,12 +57,7 @@
 
 
 
-<div>
-    <h4 class="text-center-header">Sizes</h4>
-</div>
-
-
-<table width="100%" id="table" class="table" cellpadding="0" cellspacing="0">
+{{--<table width="100%" id="table" class="table" cellpadding="0" cellspacing="0">
     <thead  style="background-color: whitesmoke;">
     <tr>
         <th>Title:</th>
@@ -97,7 +92,7 @@
         </td>
     </tr>
     </tbody>
-</table>
+</table>--}}
 
 
 <div class="modal-footer">

@@ -27,6 +27,7 @@ class SignboardPackageController extends Controller
     {
         return Input::server("REQUEST_METHOD") == "GET";
     }
+
     protected function isPostRequest()
     {
         return Input::server("REQUEST_METHOD") == "POST";
@@ -36,52 +37,51 @@ class SignboardPackageController extends Controller
     {
         $pageTitle = "Signboard Package Informations";
         $data = SignboardPackage::paginate(20);
-        return view('admin::signboard_package.index',['data'=>$data, 'pageTitle'=>$pageTitle]);
+        return view('admin::signboard_package.index', ['data' => $data, 'pageTitle' => $pageTitle]);
     }
 
 
-    public function signboard_package_search(){
+    public function signboard_package_search()
+    {
 
         $pageTitle = 'Signboard Package Informations';
         $title = Input::get('title');
-        $data = SignboardPackage::where('title', 'LIKE', '%'.$title.'%')->paginate(20);
+        $data = SignboardPackage::where('title', 'LIKE', '%' . $title . '%')->paginate(20);
 
-        return view('admin::signboard_package.index',[
+        return view('admin::signboard_package.index', [
             'data' => $data,
-            'pageTitle'=>$pageTitle
+            'pageTitle' => $pageTitle
         ]);
 
     }
 
 
-
     public function store(Requests\SignboardPackageRequest $request)
     {
         $input = $request->all();
-        $image=Input::file('image');
+        $image = Input::file('image');
 
-        if(count($image)>0) {
+        if (count($image) > 0) {
             $file_type_required = 'png,jpeg,jpg';
             $destinationPath = 'uploads/signboard_package/';
 
             $uploadfolder = 'uploads/';
 
-            if ( !file_exists($uploadfolder) ) {
+            if (!file_exists($uploadfolder)) {
                 $oldmask = umask(0);  // helpful when used in linux server
-                mkdir ($uploadfolder, 0777);
+                mkdir($uploadfolder, 0777);
             }
 
-            if ( !file_exists($destinationPath) ) {
+            if (!file_exists($destinationPath)) {
                 $oldmask = umask(0);  // helpful when used in linux server
-                mkdir ($destinationPath, 0777);
+                mkdir($destinationPath, 0777);
             }
 
-            $file_name = SignboardPackageController::image_upload($image,$file_type_required,$destinationPath);
-            if($file_name != '') {
+            $file_name = SignboardPackageController::image_upload($image, $file_type_required, $destinationPath);
+            if ($file_name != '') {
                 $input['image_path'] = $file_name[0];
                 $input['image_thumb'] = $file_name[1];
-            }
-            else{
+            } else {
                 Session::flash('flash_message_error', 'Some thing error in image file type! Please Try again');
                 return redirect()->back();
             }
@@ -90,93 +90,93 @@ class SignboardPackageController extends Controller
         //print_r($input);exit;
 
         // input data for head
-        if(count($image)>0) {
+        if (count($image) > 0) {
             $input_head = [
                 'title' => $input['title'],
                 'image_path' => $input['image_path'],
-                /*'price'=>$input['price_hd'],
-                'description'=>$input['description_hd'],*/
+                'price'=>$input['price'],
+                'description'=>$input['description'],
                 'image_thumb' => $input['image_thumb']
             ];
-        }else{
+        } else {
             $input_head = [
-                'title' => $input['title']
+                'title' => $input['title'],
+                'price'=>$input['price'],
+                'description'=>$input['description'],
             ];
         }
 
         // input data for detail
-        $i_detail = array();
-        for($i=0; $i<count($input['title_size']); $i++)
-        {
-            $image_option = $_FILES['image_option']['name'][$i];
-            $image_data = Input::file('image_option')[$i];
-
-            $option_image = array();
-            if(count($image_option)>0)
-            {
-                $file_type_required = 'png,jpeg,jpg';
-                $destinationPath = 'uploads/mktg_menu_item_options_image/';
-
-                $uploadfolder = 'uploads/';
-
-                if ( !file_exists($uploadfolder) ) {
-                    $oldmask = umask(0);  // helpful when used in linux server
-                    mkdir ($uploadfolder, 0777);
-                }
-                if ( !file_exists($destinationPath) ) {
-                    $oldmask = umask(0);  // helpful when used in linux server
-                    mkdir ($destinationPath, 0777);
-                }
-
-                $file_name = $this->image_upload_options($image_option,$image_data, $file_type_required,$destinationPath);
-
-                if($file_name != '') {
-                    $option_image [] = array(
-                        'image'=>$file_name[0],
-                        'image_thumb'=>$file_name[1],
-
-                    );
-                }
-
-            }
-            // index checking if not null
-            if($input['title_size'][$i] != null){
-                $i_detail[] = array(
-                    'title_size'=>$input['title_size'][$i],
-                    'price'=>$input['price'][$i],
-                    'description'=>$input['description'][$i],
-                    'image' => isset($option_image[0]['image'])?$option_image[0]['image']:null,
-                    'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:null,
-                );
-            }
-
-        }
+//        $i_detail = array();
+//        for ($i = 0; $i < count($input['title_size']); $i++) {
+//            $image_option = $_FILES['image_option']['name'][$i];
+//            $image_data = Input::file('image_option')[$i];
+//
+//            $option_image = array();
+//            if (count($image_option) > 0) {
+//                $file_type_required = 'png,jpeg,jpg';
+//                $destinationPath = 'uploads/mktg_menu_item_options_image/';
+//
+//                $uploadfolder = 'uploads/';
+//
+//                if (!file_exists($uploadfolder)) {
+//                    $oldmask = umask(0);  // helpful when used in linux server
+//                    mkdir($uploadfolder, 0777);
+//                }
+//                if (!file_exists($destinationPath)) {
+//                    $oldmask = umask(0);  // helpful when used in linux server
+//                    mkdir($destinationPath, 0777);
+//                }
+//
+//                $file_name = $this->image_upload_options($image_option, $image_data, $file_type_required, $destinationPath);
+//
+//                if ($file_name != '') {
+//                    $option_image [] = array(
+//                        'image' => $file_name[0],
+//                        'image_thumb' => $file_name[1],
+//
+//                    );
+//                }
+//
+//            }
+//            // index checking if not null
+//            if ($input['title_size'][$i] != null) {
+//                $i_detail[] = array(
+//                    'title_size' => $input['title_size'][$i],
+//                    'price' => $input['price'][$i],
+//                    'description' => $input['description'][$i],
+//                    'image' => isset($option_image[0]['image']) ? $option_image[0]['image'] : null,
+//                    'image_thumb' => isset($option_image[0]['image_thumb']) ? $option_image[0]['image_thumb'] : null,
+//                );
+//            }
+//
+//        }
 
         /* Transaction Start Here */
         DB::beginTransaction();
         try {
             //insert into head table
-            $vh = SignboardPackage::create($input_head);
+             SignboardPackage::create($input_head);
 
             // Store data into voucher detail
-            foreach($i_detail as $value){
-
-                if($value['title_size'] != null) {
-
-                    //detail data
-                    $data = [
-                        'signboard_package_id' => $vh['id'],
-                        'title' => $value['title_size'],
-                        'price' => $value['price'],
-                        'description' => $value['description'],
-                        'image' => $value['image'],
-                        'image_thumb' => $value['image_thumb'],
-                    ];
-                    // insert data into voucher detail table
-                    SignboardPackageSize::create($data);
-                }
-
-            }
+//            foreach ($i_detail as $value) {
+//
+//                if ($value['title_size'] != null) {
+//
+//                    //detail data
+//                    $data = [
+//                        'signboard_package_id' => $vh['id'],
+//                        'title' => $value['title_size'],
+//                        'price' => $value['price'],
+//                        'description' => $value['description'],
+//                        'image' => $value['image'],
+//                        'image_thumb' => $value['image_thumb'],
+//                    ];
+//                    // insert data into voucher detail table
+//                    SignboardPackageSize::create($data);
+//                }
+//
+//            }
 
             //Commit the transaction
             DB::commit();
@@ -197,63 +197,65 @@ class SignboardPackageController extends Controller
     {
         $pageTitle = 'Signboard Package Informations';
         $pageTitleOptions = 'Sizes';
-        $data = SignboardPackage::with('relSignboardPackage')->where('id',$id)->get();
+        $data = SignboardPackage::where('id', $id)->first();
 
+//        dd($data);
         //print_r($data);exit;
 
-        return view('admin::signboard_package.view', ['data' => $data, 'pageTitle'=> $pageTitle, 'pageTitleOptions'=> $pageTitleOptions]);
+        return view('admin::signboard_package.view', ['data' => $data, 'pageTitle' => $pageTitle, 'pageTitleOptions' => $pageTitleOptions]);
     }
 
     public function edit($id)
     {
         $pageTitle = "Update Signboard Package Informations";
-        $data = SignboardPackage::with('relSignboardPackage')->where('id',$id)->get();
-
+        $data = SignboardPackage::where('id', $id)->first();
+//        dd($data);
         //print_r($data);exit;
 
-        return view('admin::signboard_package.update', ['data' => $data,'pageTitle'=> $pageTitle]);
+        return view('admin::signboard_package.update', ['data' => $data, 'pageTitle' => $pageTitle]);
     }
 
-    public function image_show($id){
+    public function image_show($id)
+    {
         $pageTitle = 'Image';
-        $image = SignboardPackage::where('id','=',$id)->get();
+        $image = SignboardPackage::where('id', '=', $id)->get();
         return view('admin::signboard_package.view_image', [
-            'pageTitle'=> $pageTitle, 'image'=>$image
+            'pageTitle' => $pageTitle, 'image' => $image
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        $model = SignboardPackage::where('id',$id)->first();
+        $model = SignboardPackage::where('id', $id)->first();
 
         $input = $request->all();
 
-        $image=Input::file('image');
+        $image = Input::file('image');
 
-        if(count($image)>0) {
+        if (count($image) > 0) {
             $file_type_required = 'png,jpeg,jpg';
             $destinationPath = 'uploads/signboard_package/';
 
             $uploadfolder = 'uploads/';
 
-            if ( !file_exists($uploadfolder) ) {
+            if (!file_exists($uploadfolder)) {
                 $oldmask = umask(0);  // helpful when used in linux server
-                mkdir ($uploadfolder, 0777);
+                mkdir($uploadfolder, 0777);
             }
 
-            if ( !file_exists($destinationPath) ) {
+            if (!file_exists($destinationPath)) {
                 $oldmask = umask(0);  // helpful when used in linux server
-                mkdir ($destinationPath, 0777);
+                mkdir($destinationPath, 0777);
             }
 
             $file_name = SignboardPackageController::image_upload($image, $file_type_required, $destinationPath);
 
             if ($file_name != '') {
-                if(file_exists($model->image_path)){
-                    unlink(public_path()."/".$model->image_path);
+                if (file_exists($model->image_path)) {
+                    unlink(public_path() . "/" . $model->image_path);
                 }
-                if(file_exists($model->image_path)){
-                    unlink(public_path()."/".$model->image_thumb);
+                if (file_exists($model->image_path)) {
+                    unlink(public_path() . "/" . $model->image_thumb);
                 }
 
                 $input['image_path'] = $file_name[0];
@@ -265,107 +267,106 @@ class SignboardPackageController extends Controller
 
         // input data for head
 
-        if(count($image)>0) {
-            $input_head =[
-                'id'=>@$id,
-                'title'=>@$input['title'],
-                'image_path'=>@$input['image_path'],
-                /*'price'=>$input['price_hd'],
-                'description'=>$input['description_hd'],*/
-                'image_thumb'=>@$input['image_thumb']
+        if (count($image) > 0) {
+            $input_head = [
+                'id' => @$id,
+                'title' => @$input['title'],
+                'image_path' => @$input['image_path'],
+                'price'=>$input['price'],
+                'description'=>$input['description'],
+                'image_thumb' => @$input['image_thumb']
             ];
-        }else{
-            $input_head =[
-                'id'=>@$id,
-                'title'=>@$input['title']
-                /*'price'=>$input['price_hd'],
-                'description'=>$input['description_hd']*/
+        } else {
+            $input_head = [
+                'title' => @$input['title'],
+                'price'=>$input['price'],
+                'description'=>$input['description']
             ];
         }
 
 
         // input data for detail
-        $i_detail = array();
-        for($i=0; $i<count($input['title_size']); $i++) {
-
-            $image_option = $_FILES['image_option']['name'][$i];
-            $image_data = Input::file('image_option')[$i];
-            //$del_option_img = $input['del_option_img'][$i];
-            //$del_option_img_thumb = $input['del_option_img_thumb'][$i];
-
-            //$image_option_edit = $_FILES['image_option_edit']['name'][$i];
-            $option_image = array();
-
-            if (count($image_option) > 0) //if($image_option !== null)
-            {
-                $file_type_required = 'png,jpeg,jpg';
-                $destinationPath = 'uploads/mktg_menu_item_options_image/';
-                $uploadfolder = 'uploads/';
-
-                if (!file_exists($uploadfolder)) {
-                    $oldmask = umask(0);  // helpful when used in linux server
-                    mkdir($uploadfolder, 0777);
-                }
-                if (!file_exists($destinationPath)) {
-                    $oldmask = umask(0);  // helpful when used in linux server
-                    mkdir($destinationPath, 0777);
-                }
-                $file_name = $this->image_upload_options($image_option, $image_data, $file_type_required, $destinationPath);
-                if ($file_name != '') {
-                    //unlink(public_path()."/".$model->image);
-                    //unlink(public_path()."/".$model->image_thumb);
-
-                    $option_image [] = array(
-                        'image' => $file_name[0],
-                        'image_thumb' => $file_name[1],
-                    );
-                }
-            }
-
-            if ($input['title_size'][$i] != null) {
-
-                    $i_detail[] = array(
-                        'dt_id' => @$input['dt_id'][$i],
-                        'title_size' => @$input['title_size'][$i],
-                        'price' => @$input['price'][$i],
-                        'description' => @$input['description'][$i],
-                        'image' => isset($option_image[0]['image'])?$option_image[0]['image']:@$input['del_option_img'][$i],
-                        'image_thumb' => isset($option_image[0]['image_thumb'])?$option_image[0]['image_thumb']:@$input['del_option_img_thumb'][$i],
-                    );
-                }
-            }
+//        $i_detail = array();
+//        for ($i = 0; $i < count($input['title_size']); $i++) {
+//
+//            $image_option = $_FILES['image_option']['name'][$i];
+//            $image_data = Input::file('image_option')[$i];
+//            //$del_option_img = $input['del_option_img'][$i];
+//            //$del_option_img_thumb = $input['del_option_img_thumb'][$i];
+//
+//            //$image_option_edit = $_FILES['image_option_edit']['name'][$i];
+//            $option_image = array();
+//
+//            if (count($image_option) > 0) //if($image_option !== null)
+//            {
+//                $file_type_required = 'png,jpeg,jpg';
+//                $destinationPath = 'uploads/mktg_menu_item_options_image/';
+//                $uploadfolder = 'uploads/';
+//
+//                if (!file_exists($uploadfolder)) {
+//                    $oldmask = umask(0);  // helpful when used in linux server
+//                    mkdir($uploadfolder, 0777);
+//                }
+//                if (!file_exists($destinationPath)) {
+//                    $oldmask = umask(0);  // helpful when used in linux server
+//                    mkdir($destinationPath, 0777);
+//                }
+//                $file_name = $this->image_upload_options($image_option, $image_data, $file_type_required, $destinationPath);
+//                if ($file_name != '') {
+//                    //unlink(public_path()."/".$model->image);
+//                    //unlink(public_path()."/".$model->image_thumb);
+//
+//                    $option_image [] = array(
+//                        'image' => $file_name[0],
+//                        'image_thumb' => $file_name[1],
+//                    );
+//                }
+//            }
+//
+//            if ($input['title_size'][$i] != null) {
+//
+//                $i_detail[] = array(
+//                    'dt_id' => @$input['dt_id'][$i],
+//                    'title_size' => @$input['title_size'][$i],
+//                    'price' => @$input['price'][$i],
+//                    'description' => @$input['description'][$i],
+//                    'image' => isset($option_image[0]['image']) ? $option_image[0]['image'] : @$input['del_option_img'][$i],
+//                    'image_thumb' => isset($option_image[0]['image_thumb']) ? $option_image[0]['image_thumb'] : @$input['del_option_img_thumb'][$i],
+//                );
+//            }
+//        }
 
         /* Transaction Start Here */
         DB::beginTransaction();
         try {
             //insert into voucher head table
-            //$vh_model = PhotographyPackage::findOrNew($id);
-            $vh = $model->update($input_head);
-            //print_r($vh_model);exit;
+
+            $model->update($input_head);
+
             // Store data into voucher detail
-            foreach($i_detail as $value){
-                $dt_model = $value['dt_id'] ? SignboardPackageSize::findOrNew($value['dt_id']) : new SignboardPackageSize();
-
-                if($value['title_size'] !=null ){
-
-                    //detail data
-                    $data = [
-                        'signboard_package_id' => $id,
-                        'title' => $value['title_size'],
-                        'price' => $value['price'],
-                        'description' => $value['description'],
-                        'image' => $value['image'],
-                        'image_thumb' => $value['image_thumb'],
-                    ];
-
-                    // insert data into voucher detail table
-                    if($value['dt_id']){
-                        $dt_model->update($data);
-                    }else{
-                        $dt_model->create($data);
-                    }
-                }
-            }
+//            foreach ($i_detail as $value) {
+//                $dt_model = $value['dt_id'] ? SignboardPackageSize::findOrNew($value['dt_id']) : new SignboardPackageSize();
+//
+//                if ($value['title_size'] != null) {
+//
+//                    //detail data
+//                    $data = [
+//                        'signboard_package_id' => $id,
+//                        'title' => $value['title_size'],
+//                        'price' => $value['price'],
+//                        'description' => $value['description'],
+//                        'image' => $value['image'],
+//                        'image_thumb' => $value['image_thumb'],
+//                    ];
+//
+//                    // insert data into voucher detail table
+//                    if ($value['dt_id']) {
+//                        $dt_model->update($data);
+//                    } else {
+//                        $dt_model->create($data);
+//                    }
+//                }
+//            }
 
             //Commit the transaction
             DB::commit();
@@ -382,14 +383,13 @@ class SignboardPackageController extends Controller
     }
 
 
-
     public function destroy($id)
     {
         DB::beginTransaction();
         try {
-            $model_package = SignboardPackageSize::where('signboard_package_id',$id)->get();
-            if(count($model_package)>0){
-                foreach($model_package as $value) {
+            $model_package = SignboardPackageSize::where('signboard_package_id', $id)->get();
+            if (count($model_package) > 0) {
+                foreach ($model_package as $value) {
                     $case = SignboardPackageSize::find($value['id']);
                     $case->delete();
                 }
@@ -397,26 +397,25 @@ class SignboardPackageController extends Controller
 
             DB::commit();
 
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             Session::flash('flash_message_error', 'Invalid Delete Process !');
         }
 
-        $model_package = SignboardPackage::where('id',$id)->first();
+        $model_package = SignboardPackage::where('id', $id)->first();
 
         DB::beginTransaction();
         try {
             if ($model_package->delete()) {
-                if(file_exists($model_package->image_path) || file_exists($model_package->image_thumb))
-                {
-                    unlink(public_path()."/".$model_package->image_path);
-                    unlink(public_path()."/".$model_package->image_thumb);
+                if (file_exists($model_package->image_path) || file_exists($model_package->image_thumb)) {
+                    unlink(public_path() . "/" . $model_package->image_path);
+                    unlink(public_path() . "/" . $model_package->image_thumb);
                 }
 
                 DB::commit();
                 Session::flash('message', 'Successfully deleted!');
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             Session::flash('flash_message_error', 'Invalid Delete Process !');
         }
@@ -425,26 +424,26 @@ class SignboardPackageController extends Controller
         return redirect()->route('signboard-package');
     }
 
-    public function image_upload($image,$file_type_required,$destinationPath)
+    public function image_upload($image, $file_type_required, $destinationPath)
     {
         if ($image != '') {
 
             $img_name = ($_FILES['image']['name']);
             $random_number = rand(111, 999);
 
-            $thumb_name = 'thumb_400x400_'.$random_number.'_'.$img_name;
+            $thumb_name = 'thumb_400x400_' . $random_number . '_' . $img_name;
 
-            $newWidth=400;
-            $targetFile=$destinationPath.$thumb_name;
-            $originalFile=$image;
+            $newWidth = 400;
+            $targetFile = $destinationPath . $thumb_name;
+            $originalFile = $image;
 
-            $resizedImages 	= ImageResize::resize($newWidth, $targetFile,$originalFile);
+            $resizedImages = ImageResize::resize($newWidth, $targetFile, $originalFile);
 
-            $thumb_image_destination=$destinationPath;
-            $thumb_image_name=$thumb_name;
+            $thumb_image_destination = $destinationPath;
+            $thumb_image_name = $thumb_name;
 
             //$rules = array('image' => 'required|mimes:png,jpeg,jpg');
-            $rules = array('image' => 'required|mimes:'.$file_type_required);
+            $rules = array('image' => 'required|mimes:' . $file_type_required);
             $validator = Validator::make(array('image' => $image), $rules);
             if ($validator->passes()) {
                 // Files destination
@@ -457,26 +456,23 @@ class SignboardPackageController extends Controller
                 $image_name = rand(111, 999) . $image_original_name;
                 $upload_success = $image->move($destinationPath, $image_name);
 
-                $file=array($destinationPath . $image_name, $thumb_image_destination.$thumb_image_name);
+                $file = array($destinationPath . $image_name, $thumb_image_destination . $thumb_image_name);
 
                 if ($upload_success) {
                     return $file_name = $file;
-                }
-                else{
+                } else {
                     return $file_name = '';
                 }
-            }
-            else{
+            } else {
                 return $file_name = '';
             }
         }
     }
 
 
-    public function image_upload_options($image,$image_data, $file_type_required,$destinationPath)
+    public function image_upload_options($image, $image_data, $file_type_required, $destinationPath)
     {
-        if ($image != '')
-        {
+        if ($image != '') {
 
             $img_name = $image;
             $image = $image_data;
@@ -484,19 +480,19 @@ class SignboardPackageController extends Controller
 
             $random_number = rand(111, 999);
 
-            $thumb_name = 'thumb_400x400_'.$random_number.'_'.$img_name;
+            $thumb_name = 'thumb_400x400_' . $random_number . '_' . $img_name;
 
-            $newWidth=80;
-            $targetFile=$destinationPath.$thumb_name;
-            $originalFile=$image;
+            $newWidth = 80;
+            $targetFile = $destinationPath . $thumb_name;
+            $originalFile = $image;
 
-            $resizedImages 	= ImageResize::resize($newWidth, $targetFile,$originalFile);
+            $resizedImages = ImageResize::resize($newWidth, $targetFile, $originalFile);
 
-            $thumb_image_destination=$destinationPath;
-            $thumb_image_name=$thumb_name;
+            $thumb_image_destination = $destinationPath;
+            $thumb_image_name = $thumb_name;
 
             //$rules = array('image' => 'required|mimes:png,jpeg,jpg');
-            $rules = array('image' => 'required|mimes:'.$file_type_required);
+            $rules = array('image' => 'required|mimes:' . $file_type_required);
             $validator = Validator::make(array('image' => $image), $rules);
             if ($validator->passes()) {
                 // Files destination
@@ -509,16 +505,14 @@ class SignboardPackageController extends Controller
                 $image_name = rand(111, 999) . $image_original_name;
                 $upload_success = $image->move($destinationPath, $image_name);
 
-                $file=array($destinationPath . $image_name, $thumb_image_destination.$thumb_image_name);
+                $file = array($destinationPath . $image_name, $thumb_image_destination . $thumb_image_name);
 
                 if ($upload_success) {
                     return $file_name = $file;
-                }
-                else{
+                } else {
                     return $file_name = '';
                 }
-            }
-            else{
+            } else {
                 return $file_name = '';
             }
         }

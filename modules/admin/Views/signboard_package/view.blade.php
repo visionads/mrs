@@ -10,67 +10,27 @@
 
 
 <div class="modal-body">
-    <div style="padding: 10px;">
-        <table id="" class="table table-bordered table-hover table-striped">
-            <h4 class="text-center">Signboard Package</h4>
-            <tr>
-                <th class="col-lg-2">Title</th>
-                <td class="col-lg-4">{{ isset($data[0]['title'])?$data[0]['title']:''}}</td>
-            </tr>
-            {{--<tr>
-                <th class="col-lg-2">Price</th>
-                <td class="col-lg-4">{{ isset($data[0]['price'])?$data[0]['price']:''}}</td>
-            </tr>
-            <tr>
-                <th class="col-lg-2">Description</th>
-                <td class="col-lg-4">{{ isset($data[0]['description'])?$data[0]['description']:''}}</td>
-            </tr>--}}
-            <tr>
-                <th class="col-lg-4">Image</th>
-                <td>
-                    <div>
-                        <a href="{{ route('signboard-image-show', $data[0]['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView"><img src="{{ URL::to($data[0]['image_thumb']) }}" alt="{{$data[0]['image_path']}}" />
-                        </a>
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-        @if(count($data[0]['relSignboardPackage'])>0)
-
-            <h4 class="text-center-header">Sizes</h4>
-
-            <div class="table-primary">
-                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example">
-                    <thead>
-                    <tr>
-                        <th>Title:</th>
-                        <th>Price:</th>
-                        <th width="100">Image</th>
-                        <th>Description:</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if(@$data[0]['relSignboardPackage'])
-                        @foreach($data[0]['relSignboardPackage'] as $values )
-                            <tr class="gradeX">
-                                <td>{{$values['title']}}</td>
-                                <td>{{$values['price']}}</td>
-                                <td>
-                                    @if(isset($values->image))
-                                        <img src="{{ URL::to($values->image) }}" width="80" height="60">
-                                    @else
-                                        <h5>No Image</h5>
-                                    @endif
-                                </td>
-                                <td>{{$values['description']}}</td>
-                            </tr>
-                        @endforeach
-                    @endif
-                    </tbody>
-                </table>
-            </div>
-        @endif
+    <div class="row">
+        <div class="col-md-6">
+            <table id="" class="table table-bordered table-hover table-striped">
+                <h4 class="text-center">Signboard Package</h4>
+                <tr>
+                    <th class="col-lg-2">Title</th>
+                    <td class="col-lg-4">{{ isset($data->title)?$data->title:''}}</td>
+                </tr>
+                <tr>
+                    <th class="col-lg-2">Price</th>
+                    <td class="col-lg-4">{{ isset($data->price)?$data->price:''}}</td>
+                </tr>
+                <tr>
+                    <th class="col-lg-2">Description</th>
+                    <td class="col-lg-4">{{ isset($data->description)?$data->description:''}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ route('signboard-image-show', $data->id) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView"><img src="{{ URL::to($data->image_thumb) }}" alt="{{$data->image_path}}" /></a>
+        </div>
     </div>
 </div>
 
