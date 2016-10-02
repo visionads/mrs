@@ -94,6 +94,7 @@ class QuoteController extends Controller
             'relQuoteLocalMedia',
             'relQuotePackage'
         )->first();
+        $prices=QuoteController::_getPrice($data['quote']);
         //print_r($data['quote']->relQuotePackage->id);exit();
         if(isset($data['quote']->relQuotePackage->id)) {
             $package_id = $data['quote']->relQuotePackage->id;
@@ -101,9 +102,10 @@ class QuoteController extends Controller
             //$data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
             $data['packages'] = Package::with('relPackageOption')->where('id', $package_id)->orderBy('type', 'ASC')->get();
         }
+//        dd($data['signboard_packages']);
         //$data['package_price'] = $data['quote']->relQuotePackage['price'];
         //print_r($data['package_price']);exit();
-        return view('main::quote.details',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
+        return view('main::quote.details',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data,'prices'=>$prices]);
     }
     /**
      * Show the form for creating a new resource.
@@ -168,11 +170,7 @@ class QuoteController extends Controller
         $pageTitle = 'MRS - Quote Details';
 
         $data['solution_types']= SolutionType::get();
-        $photography_packages_qr= PhotographyPackage::with('relPhotographyPackage')->get();
-        //print_r($package_qr);exit();
-        $signboard_packages_qr= SignboardPackage::with('relSignboardPackage')->get();
-        $print_materials_qr= PrintMaterial::with('relPrintMaterial')->get();
-        $local_medias_qr= LocalMedia::with('relLocalMedia')->get();
+
         $data['digital_medias']= DigitalMedia::get();
 
         $quote = Quote::with(
@@ -185,7 +183,59 @@ class QuoteController extends Controller
             'relQuotePackage'
             )->where('id', $quote_id)->first();
 
-        // ---------- For Complete Package===============================
+        // ---------- Getting Price ===============================
+        $prices=QuoteController::_getPrice($quote);
+
+        // To get the selling_price from property_details table
+        $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
+        $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
+        $vendor_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_signature_path: null;
+        $agent_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->agent_signature_path: null;
+        $agent_signature_date = $quote->relPropertyDetail ? $quote->relPropertyDetail->signature_date: null;
+
+        // For Local Media Price ------------------------------------------
+        /*$local_media_price = 0;
+        foreach($quote->relQuoteLocalMedia as $local_media_p)
+        {
+            $local_media_price += $local_media_p->price;
+        }*/
+
+
+        // Return to view Page-------------------------------------------
+        return view('main::quote.retrieve_quote_details',[
+            'pageTitle'=>$pageTitle,
+            'quote'=>$quote,
+            'quote_number'=>$quote_number,
+            'total'=>$prices['selling_price'],
+            'gst'=>$prices['gst'],
+            'total_with_gst'=>$prices['total_with_gst'],
+            'vendor_name' => $vendor_name,
+            'vendor_phone' => $vendor_phone,
+            'vendor_signature_path'=>$vendor_signature_path,
+            'agent_signature_path'=>$agent_signature_path,
+            'agent_signature_date'=>$agent_signature_date,
+            'local_media_price' => $prices['local_media_price'],
+            'local_media_str' => rtrim($prices['local_media_str'],','),
+            'photography_price'=>$prices['photography_price'],
+            'photography_package_str'=>rtrim($prices['photography_package_str'],','),
+            'signboard_price'=>$prices['signboard_price'],
+            'signboard_package_str'=>rtrim($prices['signboard_package_str'],','),
+            'print_material_price'=>$prices['print_material_price'],
+            'print_material_str'=>rtrim($prices['print_material_str'],','),
+            'package_price'=>$prices['package_price'],
+            'distributed_print_material_price'=>$prices['distributed_print_material_price'],
+            'package_str'=>$prices['package_str'],
+            'exist_package'=>$prices['package_id'],
+        ]);
+    }
+    public static function _getPrice($quote)
+    {
+        $photography_packages_qr= PhotographyPackage::with('relPhotographyPackage')->get();
+        $signboard_packages_qr= SignboardPackage::with('relSignboardPackage')->get();
+        $print_materials_qr= PrintMaterial::with('relPrintMaterial')->get();
+        $local_medias_qr= LocalMedia::with('relLocalMedia')->get();
+
+
         $package_str = '';
         $package_price = 0;
         if(isset($quote->package_head_id)){
@@ -263,7 +313,7 @@ class QuoteController extends Controller
                                     foreach($quote->relQuotePrintMaterial as $ppi){
                                         if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id){
 
-                                        $print_material_price+=$relPrintMaterial->price;
+                                            $print_material_price+=$relPrintMaterial->price;
                                         }
                                     }
                                 }
@@ -298,27 +348,13 @@ class QuoteController extends Controller
                 }
             }
         }
-        //print_r($local_media_price); exit();
 
-        // To get the selling_price from property_details table
-        $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
-        $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
-        $vendor_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_signature_path: null;
-        $agent_signature_path = $quote->relPropertyDetail ? $quote->relPropertyDetail->agent_signature_path: null;
-        $agent_signature_date = $quote->relPropertyDetail ? $quote->relPropertyDetail->signature_date: null;
-
-        // For Local Media Price ------------------------------------------
-        /*$local_media_price = 0;
-        foreach($quote->relQuoteLocalMedia as $local_media_p)
-        {
-            $local_media_price += $local_media_p->price;
-        }*/
 
         if(isset($quote['relPrintMaterialDistribution']->price))
         {
-        $distributed_print_material_price= $quote['relPrintMaterialDistribution']->price;
+            $distributed_print_material_price= $quote['relPrintMaterialDistribution']->price;
         }else{
-        $distributed_print_material_price= 0;
+            $distributed_print_material_price= 0;
         }
         // For Total Selling Price --------------------------------------
         $selling_price = $local_media_price + $photography_price + $signboard_price + $print_material_price + $package_price + $distributed_print_material_price;
@@ -327,32 +363,25 @@ class QuoteController extends Controller
         $gst = $selling_price * 0.1;
         $total_with_gst = $selling_price + $gst;
 
-        // Return to view Page-------------------------------------------
-        return view('main::quote.retrieve_quote_details',[
-            'pageTitle'=>$pageTitle,
-            'quote'=>$quote,
-            'quote_number'=>$quote_number,
-            'total'=>$selling_price,
-            'gst'=>$gst,
-            'total_with_gst'=>$total_with_gst,
-            'vendor_name' => $vendor_name,
-            'vendor_phone' => $vendor_phone,
-            'vendor_signature_path'=>$vendor_signature_path,
-            'agent_signature_path'=>$agent_signature_path,
-            'agent_signature_date'=>$agent_signature_date,
-            'local_media_price' => $local_media_price,
-            'local_media_str' => rtrim($local_media_str,','),
-            'photography_price'=>$photography_price,
-            'photography_package_str'=>rtrim($photography_package_str,','),
-            'signboard_price'=>$signboard_price,
-            'signboard_package_str'=>rtrim($signboard_package_str,','),
-            'print_material_price'=>$print_material_price,
-            'print_material_str'=>rtrim($print_material_str,','),
-            'package_price'=>$package_price,
-            'distributed_print_material_price'=>$distributed_print_material_price,
-            'package_str'=>$package_str,
-            'exist_package'=>$package_id,
-        ]);
+
+        $data['photography_package_str']=$photography_package_str;
+        $data['photography_price']=$photography_price;
+        $data['package_str']=$package_str;
+        $data['package_price']=$package_price;
+        $data['signboard_package_str']=$signboard_package_str;
+        $data['signboard_price']=$signboard_price;
+        $data['print_material_str']=$print_material_str;
+        $data['print_material_price']=$print_material_price;
+        $data['local_media_str']=$local_media_str;
+        $data['local_media_price']=$local_media_str;
+        $data['distributed_print_material_price']=$distributed_print_material_price;
+        $data['selling_price']=$selling_price;
+        $data['gst']=$gst;
+        $data['total_with_gst']=$total_with_gst;
+        $data['package_id']=$package_id;
+
+
+        return $data;
     }
     public function quote_summary($quote_id, $quote_number)
     {

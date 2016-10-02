@@ -27,7 +27,7 @@
 <script>
 
 
-    /*$(document).on("focus",'#update-table tr:last-child td:last-child',function(e) {
+    $(document).on("focus",'#update-table tr:last-child td:last-child',function(e) {
 
         e.preventDefault();
         var coa_name = $('#update-table tr:last-child td:first-child input').val();
@@ -40,7 +40,7 @@
             <div>{!! Form::text('title_size[]', Input::old('title_size'), ['title'=>'enter title', 'class' => 'form-control']) !!}</div>\
             </td>\
             \<td>\
-            <div>{!! Form::input('number','price[]', 0, ['title'=>'enter price', 'class' => 'form-control','readonly']) !!}</div>\
+            <div>{!! Form::input('number','price[]', 0, ['title'=>'enter price', 'class' => 'form-control']) !!}</div>\
             </td>\
             <td>\
                 <div>{!! Form::file('image_option[]', '', ['title'=>'enter Image', 'class' => 'form-control']) !!}</div>\
@@ -51,7 +51,7 @@
             </tr>';
             table.append(element);
         }
-    });*/
+    });
 
 
 

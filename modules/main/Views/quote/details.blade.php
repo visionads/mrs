@@ -156,16 +156,20 @@
                 @if(isset($data['quote']->relQuotePackage))
                     <table class="table table-responsive white size-18">
                         <tr>
-                            <th>Photography {{ ($photography_package_str!=='')? '[ '.rtrim($photography_package_str,',').' ]':'' }}</th>
-                            <td>{{ ($photography_price!=0)?'$ '.number_format($photography_price,2):'$ 0.00' }}</td>
+                            <th>Photography {{ ($prices['photography_package_str']!=='')? '[ '.rtrim($prices['photography_package_str'],',').' ]':'' }}</th>
+                            <td>{{ ($prices['photography_price']!=0)?'$ '.number_format($prices['photography_price'],2):'$ 0.00' }}</td>
                         </tr>
                         <tr>
                             <th>Package name : <span style="color: gold;">{{ $data['quote']->relQuotePackage['title'] }}</span> </th>
                             <td>{{ '$ '.number_format($data['quote']->relQuotePackage['price'],2) }}</td>
                         </tr>
+                        <tr>
+                            <th>Distribution of print material</th>
+                            <td>{{ ($prices['distributed_print_material_price']!=0)?'$ '.number_format($prices['distributed_print_material_price'],2):'$ 0.00' }}</td>
+                        </tr>
                         <tr style="color: orange">
                             <th>Total</th>
-                            <td><b>${{ number_format($data['quote']->relQuotePackage['price']+$photography_price,2) }}</b></td>
+                            <td><b>${{ number_format($prices['selling_price'],2) }}</b></td>
                         </tr>
                     </table>
                 @else
@@ -176,18 +180,22 @@
                             <td>{{ ($photography_price!=0)?'$ '.number_format($photography_price,2):'$ 0.00' }}</td>
                         </tr>--}}
                         <tr>
+                        <tr>
+                            <th>Photography {{ ($prices['photography_package_str']!=='')? '[ '.rtrim($prices['photography_package_str'],',').' ]':'' }}</th>
+                            <td>{{ ($prices['photography_price']!=0)?'$ '.number_format($prices['photography_price'],2):'$ 0.00' }}</td>
+                        </tr>
 
-                            <th>Signboard {{ ($signboard_package_str!=='')? '[ '.rtrim($signboard_package_str,',').' ]':'' }}</th>
-                            <td>{{ ($signboard_price!=0)?'$ '.number_format($signboard_price,2):'$ 0.00' }}</td>
+                            <th>Signboard {{ ($prices['signboard_package_str']!=='')? '[ '.rtrim($prices['signboard_package_str'],',').' ]':'' }}</th>
+                            <td>{{ ($prices['signboard_price']!=0)?'$ '.number_format($prices['signboard_price'],2):'$ 0.00' }}</td>
                         </tr>
                         <tr>
 
-                            <th>Print Material {{ ($print_material_str!=='')? '[ '.rtrim($print_material_str,',').' ]':'' }}</th>
-                            <td>{{ ($print_material_price!=0)?'$ '.number_format($print_material_price,2):'$ 0.00' }}</td>
+                            <th>Print Material {{ ($prices['print_material_str']!=='')? '[ '.rtrim($prices['print_material_str'],',').' ]':'' }}</th>
+                            <td>{{ ($prices['print_material_price']!=0)?'$ '.number_format($prices['print_material_price'],2):'$ 0.00' }}</td>
                         </tr>
                         <tr>
                             <th>Distribution of print material</th>
-                            <td>$ 0.00</td>
+                            <td>{{ ($prices['distributed_print_material_price']!=0)?'$ '.number_format($prices['distributed_print_material_price'],2):'$ 0.00' }}</td>
                         </tr>
                         {{--<tr>
                             <th>Digital Media</th>
@@ -199,7 +207,7 @@
                         </tr>--}}
                         <tr style="color: orange">
                             <th>Total</th>
-                            <td><b>${{ number_format($local_media_price+$print_material_price+$signboard_price+$photography_price,2) }}</b></td>
+                            <td><b>${{ number_format($prices['selling_price'],2) }}</b></td>
                         </tr>
                     </table>
                 @endif
@@ -348,6 +356,12 @@
                                     </div>
                                 @endforeach
                                 {{--<div class="center"><a role="tab" class="btn btn-warning" id="addphotography"> + ADD Photography Package</a></div>--}}
+                            @else
+                                <div class="row">
+                                    <div class="col-sm-12 note">
+                                        <p class="center">Sorry, No package selected.</p>
+                                    </div>
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -466,20 +480,9 @@
                                                         </label>
 
                                                         <div class="">
-                                                            <div class="white size-15" style="border:0px solid #909090;">
-                                                                @foreach($signboard_package->relSignboardPackage as $relSignboardPackage)
-                                                                    @if(isset($data['quote']->relQuoteSignboard))
-                                                                        @foreach($data['quote']->relQuoteSignboard as $ppi)
-                                                                            @if($ppi->signboard_size_id==$relSignboardPackage->id)
-                                                                                {{ $relSignboardPackage->title }}
-                                                                                <p>{{ $relSignboardPackage->description }}</p>
-                                                                                <h2 class="size-40 text-color text-normal">$ {{ $relSignboardPackage->price }}</h2>
-
-                                                                                <?php $signboard_price+=$relSignboardPackage->price; ?>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    @endif
-                                                                @endforeach
+                                                            <div class="white size-15" style="border:0px solid #909090;"><p>
+                                                                    {{ $signboard_package->description }}</p>
+                                                                <h2 class="size-40 text-color text-normal">$ {{ $signboard_package->price }}</h2>
                                                             </div>
                                                         </div>
                                                         <div class="pkg-img">
@@ -602,7 +605,9 @@
                                     <div class=" col-sm-12 size-15 center">
                                         <table class="table tbl">
                                             <tr><th>Total distribution of print material (Quantity)</th><td> : </td><td class="tdata">{{ $data['quote']->relPrintMaterialDistribution['quantity'] }}</td></tr>
-                                            <tr><th>Total distribution of print material Added by Agent (Quantity)</th><td> : </td><td class="tdata">{{ $data['quote']->relPrintMaterialDistribution['quantity_next'] }}</td></tr>
+                                            <tr><th>Total distribution of print material Added by Agent (Quantity)</th><td> : </td><td class="tdata">{{ $data['quote']->relPrintMaterialDistribution['distributed_quantity'] }}</td></tr>
+                                            <tr><th>Rest of the distribution (Quantity)</th><td> : </td><td class="tdata">{{ $data['quote']->relPrintMaterialDistribution['rest_quantity'] }}</td></tr>
+                                            <tr><th>Total Price</th><td> : </td><td class="tdata"> $ {{ $data['quote']->relPrintMaterialDistribution['price'] }}</td></tr>
                                             <tr><th>Distribution Area [ Post Code ]</th><td> : </td><td class="tdata">{{ $data['quote']->relPrintMaterialDistribution['distribution_area'] }}</td></tr>
                                             <tr><th>Date of Distribution</th><td> : </td><td class="tdata">{{ $data['quote']->relPrintMaterialDistribution['date_of_distribution'] }}</td></tr>
                                             <tr><th>Surrounding Status</th><td> : </td><td class="tdata"><?php if($data['quote']->relPrintMaterialDistribution['is_surrounded']=='1'){echo "Yes";}else{echo "No";} ?></td></tr>
@@ -803,7 +808,7 @@
                         @else
                             <div class="row">
                                 <div class="col-sm-12 note">
-                                    <p class="center">Sorry, No print material selected.</p>
+                                    <p class="center">Sorry, No data found.</p>
                                 </div>
                             </div>
                         @endif
