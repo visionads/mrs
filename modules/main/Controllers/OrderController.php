@@ -986,7 +986,7 @@ class OrderController extends Controller
                 $model_quote = Quote::findOrFail($quote_id);
                 $model_quote->print_material_distribution_id = $pmdid;
                 #$model_quote->status = 'invoiced';
-                $model_quote->status = 'placed-order';
+                $model_quote->status = 'invoiced';
 
                 //Quote::where('id',$quote_id)->update($quote_status);
 

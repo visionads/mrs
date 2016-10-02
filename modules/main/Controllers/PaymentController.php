@@ -8,6 +8,7 @@ namespace Modules\Main\Controllers;
  * Time: 1:55 PM
  */
 
+use App\Quote;
 use App\Transaction;
 use App\User;
 use App\GenerateNumber;
@@ -42,7 +43,6 @@ class PaymentController extends Controller
             $data=Transaction::with('relPayment')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
         }
 
-//        dd($data);
         return view("main::payment.index",['pageTitle'=>$pageTitle, 'transactions'=>$data]);
     } // -- Ram
     public function index_payment()
@@ -70,6 +70,7 @@ class PaymentController extends Controller
         $payment['transaction']=Transaction::findOrFail($id);
         $user['admin'] = \DB::table('user')->where('username', '=', 'super-admin')->first();
         $user['agent'] = User::findOrFail(\Auth::id());
+
 //        dd($user['admin']->email);
 //        return view('main::payment.mail',$payment);
 //        dd($payment);

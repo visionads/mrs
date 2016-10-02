@@ -19,10 +19,13 @@
                 <thead>
                 <tr>
                     <th>Quote No.</th>
+                    @if($role_name == 'admin' || $role_name == 'super-admin')
                     <th>Agent Name</th>
+                    @endif
                     <th>Property Owner Name</th>
-                    <th>Business Name</th>
                     <th>Date</th>
+                    <th>Business Name</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -31,11 +34,17 @@
                 @foreach($data as $quote)
                     <tr>
                         <td class="text-center"><a href="{{ route('payment-procedure', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="underline"> <strong>{{ $quote->quote_number }}</strong> </a></td>
+                        @if($role_name == 'admin' || $role_name == 'super-admin')
                         <td style="font-weight:normal;">{{ $quote->relUser['username'] }}</td>
+                        @endif
                         <td style="font-weight:normal;">{{ $quote->relPropertyDetail['owner_name'] }}</td>
-                        <td style="font-weight:normal;">{{ $quote->relBusiness['title'] }}</td>
                         <td class="text-center">{{ date('d M Y',strtotime($quote->created_at)) }}</td>
-                        <td><a href="{{ route('payment-procedure', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="btn btn-primary" data-placement="left" data-content="Details"><span class="fa fa-eye"></span></a></td>
+                        <td style="font-weight:normal;">{{ $quote->relBusiness['title'] }}</td>
+                        <td style="font-weight:normal;">{{ $quote->status }}</td>
+                        <td>
+                            <a href="{{ route('payment-procedure', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="btn btn-primary" data-placement="left" data-content="Payment"><span class="fa fa-credit-card"></span></a>
+                            <a href="{{ route('view-payment-detail',$quote->relTransaction->id)  }}" class="btn btn-info" data-placement="left" data-content="Invoice"><span class="fa fa-eye"></span></a>
+                        </td>
 
 
                     </tr>

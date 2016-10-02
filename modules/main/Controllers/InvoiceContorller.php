@@ -258,15 +258,15 @@ class InvoiceController extends Controller
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
             //$data = Transaction::getAllTransactionWithPayment();
-            $data = Quote::with('relBusiness','relUser')->orderBy('id','DESC')->paginate(10);
+            $data = Quote::with('relBusiness','relUser','relTransaction')->where('status','placed-order')->orWhere('status','invoiced')->orderBy('id','DESC')->paginate(10);
             //print_r($data); exit();
         }
         else
         {
             //$data = Transaction::getAllTransactionWithPaymentForAgent();
-            $data = Quote::with('relBusiness','relUser','relPropertyDetail')->where(['business_id'=> Auth::user()->business_id,'status'=>'placed-order'])->orderBy('id','DESC')->paginate(10);
+            $data = Quote::with('relBusiness','relUser','relPropertyDetail','relTransaction')->where('status','placed-order')->orWhere('status','invoiced')->where(['business_id'=> Auth::user()->business_id])->orderBy('id','DESC')->paginate(10);
         }
-        return view("main::main_pages.new_invoice_list",['pageTitle'=>$pageTitle, 'data'=>$data]);
+        return view("main::main_pages.new_invoice_list",['pageTitle'=>$pageTitle, 'data'=>$data,'role_name'=>$role_name]);
     } // -- Shajjad
 
 

@@ -73,7 +73,7 @@
                             data-email= {{ $user_data->email }}
                                     data-phone=''
                             data-allowedit="true"
-                            data-resulturl={{route('payment-success', ['transaction_id'=>$data->id,'paid_amount'=>$data->total_amount])}}
+                            data-resulturl={{url('main/payment-success', ['transaction_id'=>$data->id,'paid_amount'=>$data->total_amount])}}
                             >
                     </script>
                 </div>
