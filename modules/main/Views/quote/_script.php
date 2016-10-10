@@ -1,7 +1,7 @@
 <script>
     //=== For Packages (Yes/No)
     $(document).ready(function(){
-//        $(".pack-choise").hide();
+        $(".dflt_packs").hide();
         $(".photography").hide();
         $(".choose1").click(function(){
             $(".pack-choise").slideUp();
