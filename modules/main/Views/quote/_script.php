@@ -1,14 +1,14 @@
 <script>
     //=== For Packages (Yes/No)
     $(document).ready(function(){
-        $(".pack-choise").hide();
+//        $(".pack-choise").hide();
         $(".photography").hide();
-        $(".choose0").click(function(){
+        $(".choose1").click(function(){
             $(".pack-choise").slideUp();
             $(".dflt_packs").slideDown();
             $(".photography").slideUp();
         });
-        $(".choose1").click(function(){
+        $(".choose0").click(function(){
             $(".pack-choise").slideDown();
             $(".dflt_packs").slideUp();
             //$(".photography").slideUp();

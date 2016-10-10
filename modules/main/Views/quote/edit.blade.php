@@ -92,10 +92,10 @@
                         <div class="row text-center">
                             {{--Would you like to choose a Complete Package ?<br>--}}
                             <div class="col-sm-6">
-                                <label><input type="radio" name="package" class="choose0" value="0" @if($data['quote']->package_head_id == null) checked="checked" @endif> Customize your quote</label>
+                                <label><input type="radio" name="package" class="choose0" value="1" @if($data['quote']->package_head_id != null) checked="checked" @endif> Customize your quote</label>
                             </div>
                             <div class="col-sm-6">
-                                <label><input type="radio" name="package" class="choose1" value="1" @if($data['quote']->package_head_id != null) checked="checked" @endif> Complete Package</label>
+                                <label><input type="radio" name="package" class="choose1" value="0" @if($data['quote']->package_head_id == null) checked="checked" @endif>Complete Package </label>
                             </div>
                         </div>
 
@@ -158,6 +158,10 @@
 
                                                     {{--=== 2nd Loop ===--}}
                                                     @if(isset($package['relPackageOption']))
+                                                        <?php
+                                                            $totalItem=count($package['relPackageOption']);
+                                                            $x=1;
+                                                        ?>
                                                         @foreach($package['relPackageOption'] as $package_option)
                                                             <td>
                                                                 <span class="size-17 text-color">{{ $package_option->title }}</span><br>
@@ -168,9 +172,12 @@
                                                                     <span class="glyphicon glyphicon-picture" style="font-size: 64px;" title="No Image Available"></span>
                                                                 @endif
                                                             </td>
+                                                            @if($x < $totalItem)
                                                             <td> <span class="glyphicon glyphicon-plus text-color size-18"></span> </td>
+                                                                @endif
                                                             {{--<td align="right">{{ number_format($package_option->price,2) }}</td>--}}
-                                                        @endforeach
+                                                            <?php $x++; ?>
+                                                            @endforeach
                                                     @endif
 
                                                     {{--=== end loop ===--}}
@@ -256,7 +263,7 @@
                                     <div class="col-sm-2">
                                         <label style="width: 100%">
                                             <div  class="common-box1">
-                                                <input class="photography_package_id" type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}"
+                                                <input class="photography_package_id" type="radio" name="photography_package_id[]" value="{{ $photography_package->id }}"
                                                        @if(isset($data['quote']->relQuotePhotography))
                                                        @foreach($data['quote']->relQuotePhotography as $ppi)
                                                        @if($ppi->photography_package_id==$photography_package->id)

@@ -91,10 +91,10 @@
                                         {{--Would you like to choose a Complete Package ?<br>--}}
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><input type="radio" name="package" class="choose0" value="0" checked> Customize your quote</label>
+                                                <label><input type="radio" name="package" class="choose0" value="1" checked> Complete Package</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <label><input type="radio" name="package" class="choose1" value="1"> Complete Package</label>
+                                                <label><input type="radio" name="package" class="choose1" value="0" > Customize your quote</label>
                                             </div>
                                         </div>
                                     </div>
@@ -158,6 +158,10 @@
 
                                                             {{--=== 2nd Loop ===--}}
                                                             @if(isset($package['relPackageOption']))
+                                                                <?php
+                                                                $totalItem=count($package['relPackageOption']);
+                                                                $x=1;
+                                                                ?>
                                                                 @foreach($package['relPackageOption'] as $package_option)
                                                                     <td>
                                                                         <span class="size-17 text-color">{{ $package_option->title }}</span><br>
@@ -168,8 +172,11 @@
                                                                             <span class="glyphicon glyphicon-picture" style="font-size: 64px;" title="No Image Available"></span>
                                                                         @endif
                                                                     </td>
+                                                                    @if($x<$totalItem)
                                                                     <td> <span class="glyphicon glyphicon-plus text-color size-18"></span> </td>
+                                                                        @endif
                                                                     {{--<td align="right">{{ number_format($package_option->price,2) }}</td>--}}
+                                                                    <?php $x++; ?>
                                                                 @endforeach
                                                             @endif
                                                             {{--=== end loop ===--}}
@@ -243,7 +250,7 @@
                                                     <label style="width: 100%">
                                                         <div  class="common-box1">
                                                         {{--<label class="text-left-label">--}}
-                                                            <input class="photography_package_id" type="checkbox" name="photography_package_id[]" value="{{ $photography_package->id }}">
+                                                            <input class="photography_package_id" type="radio" name="photography_package_id[]" value="{{ $photography_package->id }}">
                                                             <span class="text-color size-18">{{  $photography_package->title }}</span><br>
                                                             <span class="text-color size-18">$ {{ $photography_package->price }}</span>
                                                         {{--</label>--}}
