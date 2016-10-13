@@ -1,8 +1,10 @@
 <script>
     //=== For Packages (Yes/No)
     $(document).ready(function(){
+        <?php if(!isset($data['quote'])){ ?>
         $(".dflt_packs").hide();
         $(".photography").hide();
+        <?php } ?>
         $(".choose1").click(function(){
             $(".pack-choise").slideUp();
             $(".dflt_packs").slideDown();

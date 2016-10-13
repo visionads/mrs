@@ -92,10 +92,11 @@
                         <div class="row text-center">
                             {{--Would you like to choose a Complete Package ?<br>--}}
                             <div class="col-sm-6">
-                                <label><input type="radio" name="package" class="choose0" value="1" @if($data['quote']->package_head_id != null) checked="checked" @endif> Customize your quote</label>
+                                {{--<label><input type="radio" name="package" class="choose0" value="1" checked> Complete Package</label>--}}
+                                <label><input type="radio" name="package" class="choose0" value="1" @if($data['quote']->package_head_id != null) checked="checked" @endif> Complete Package</label>
                             </div>
                             <div class="col-sm-6">
-                                <label><input type="radio" name="package" class="choose1" value="0" @if($data['quote']->package_head_id == null) checked="checked" @endif>Complete Package </label>
+                                <label><input type="radio" name="package" class="choose1" value="0" @if($data['quote']->package_head_id == null) checked="checked" @endif>Customize your quote </label>
                             </div>
                         </div>
 
@@ -299,7 +300,7 @@
                 </fieldset>
 
                 {{--========================================== Sign Board Package ***============================================--}}
-                <fieldset class="dflt_packs"><hr>
+                <fieldset class="dflt_packs" @if($data['quote']->package_head_id != null) style="display: none" @endif><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">SIGNBOARD</h3>
 
@@ -375,7 +376,7 @@
 
 
 
-                <fieldset class="dflt_packs"><hr>
+                <fieldset class="dflt_packs" @if($data['quote']->package_head_id != null) style="display: none" @endif><hr>
                     <div class="form-bottom">
                         <h3 class="instruction">PRINT MATERIAL</h3>
                         <div class="validationErrorPrintMaterial"></div>
