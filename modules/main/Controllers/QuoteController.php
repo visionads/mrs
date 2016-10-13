@@ -151,13 +151,13 @@ class QuoteController extends Controller
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
             //$data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(30);
-            $data = Quote::with('relBusiness','relUser')->orderBy('id','DESC')->paginate(10);
+            $data = Quote::with('relBusiness','relUser','relPropertyDetail')->orderBy('id','DESC')->paginate(10);
         }
         else
         {
             //exit('agent');
             //$data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'quote_confirmed'])->orderBy('id','DESC')->paginate(10);
-            $data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'open'])->orderBy('id','DESC')->paginate(10);
+            $data = Quote::with('relBusiness','relUser','relPropertyDetail')->where(['business_id'=> Auth::user()->business_id,'status'=>'open'])->orderBy('id','DESC')->paginate(10);
             //print_r($data); exit();
         }
 

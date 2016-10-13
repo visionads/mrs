@@ -19,6 +19,7 @@
                 <thead>
                 <tr>
                     <th>Quote No.</th>
+                    <th>Owner Name</th>
                     <th>Agent Name</th>
                     <th>Business Name</th>
                     <th>Date</th>
@@ -30,6 +31,7 @@
                 @foreach($data as $quote)
                     <tr>
                         <td class="text-center"><a href="{{ route('quote-details', ['quote_id'=>$quote->id, 'quote_no'=>$quote->quote_number])  }}" class="underline"> <strong>{{ $quote->quote_number }}</strong> </a></td>
+                        <td style="font-weight:normal;">{{ $quote->relPropertyDetail['owner_name'] }}</td>
                         <td style="font-weight:normal;">{{ $quote->relUser['username'] }}</td>
                         <td style="font-weight:normal;">{{ $quote->relBusiness['title'] }}</td>
                         <td class="text-center">{{ date('d M Y',strtotime($quote->created_at)) }}</td>
