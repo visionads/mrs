@@ -415,9 +415,10 @@
                                                                 </select>
                                                             </div>
                                                             <div class="text-color size-32">
-                                                                @foreach($print_material->relPrintMaterial as $relPrintMaterial)
-                                                                   $ {{ $relPrintMaterial->price }}
-                                                                @endforeach
+                                                                {{ '$'.$print_material->quantity_limit }}
+                                                                {{--@foreach($print_material->relPrintMaterial as $relPrintMaterial)--}}
+                                                                   {{--$ {{ $relPrintMaterial->price }}--}}
+                                                                {{--@endforeach--}}
                                                             </div>
                                                         </div>
                                                     </div>

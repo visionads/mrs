@@ -26,7 +26,7 @@
         {!! Form::textarea('description_hd', Input::old('description'), ['title'=>'enter description','rows'=>'2', 'class' => 'form-control','required']) !!}
     </div>--}}
     <div>
-        {!! Form::label('quantity_limit', 'Quantity Limit:', []) !!}
+        {!! Form::label('quantity_limit', 'Amount per 1000', []) !!}
         <small class="required">(Required)</small>
         {!! Form::input('number','quantity_limit', Input::old('quantity_limit'), ['title'=>'enter quantity', 'class' => 'form-control','required']) !!}
     </div>

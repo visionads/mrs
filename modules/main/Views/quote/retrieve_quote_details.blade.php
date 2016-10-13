@@ -155,11 +155,11 @@
                         <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                             <div class="col-sm-12">
                                 {!! Form::label('inspection_date', 'Inspection dates and times :', ['class' => 'control-label']) !!}
-                                <div class="input-group date">
-                                    {!! Form::text('inspection_date',isset($inspection_date)?$inspection_date:null /*@$generate_voucher_number? date('Y/m/d') : @$data[0]['inspection_date']*/, ['id'=>'date_id','placeholder'=>'Click here to choose Inspection Date','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                                    {!! Form::text('inspection_date',isset($inspection_date)?$inspection_date:null /*@$generate_voucher_number? date('Y/m/d') : @$data[0]['inspection_date']*/, ['placeholder'=>'Click here to choose Inspection Date','class' => 'form-control','title'=>'select date']) !!}
+                                {{--<div class="input-group date">--}}
                                     {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
+                                    {{--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>--}}
+                                {{--</div>--}}
                             </div>
                         </div>
 
