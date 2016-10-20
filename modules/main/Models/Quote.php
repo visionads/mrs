@@ -20,6 +20,7 @@ class Quote extends Model
         'solution_type_id',
         'property_detail_id',
         'package_head_id',
+        'is_distributed_package',
         'photography_package_id',
         'photography_package_comments',
         'signboard_package_id',

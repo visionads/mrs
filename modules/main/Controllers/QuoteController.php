@@ -169,6 +169,8 @@ class QuoteController extends Controller
         //exit('retrieve');
         $pageTitle = 'MRS - Quote Details';
 
+        $saturdays=$this->getSaturdays();
+
         $data['solution_types']= SolutionType::get();
 
         $data['digital_medias']= DigitalMedia::get();
@@ -199,11 +201,12 @@ class QuoteController extends Controller
         {
             $local_media_price += $local_media_p->price;
         }*/
-
+        //print_r($quote->is_distributed_package);exit();
 
         // Return to view Page-------------------------------------------
         return view('main::quote.retrieve_quote_details',[
             'pageTitle'=>$pageTitle,
+            'saturdays'=>$saturdays,
             'quote'=>$quote,
             'quote_number'=>$quote_number,
             'total'=>$prices['selling_price'],
@@ -418,6 +421,11 @@ class QuoteController extends Controller
                     if (isset($received['package_head_id'])) {
                         $data['package_head_id'] = $received['package_head_id'];
                     }
+                    if (isset($received['is_distributed_package'])) {
+                        $data['is_distributed_package'] = $received['is_distributed_package'];
+                    }else{
+                        $data['is_distributed_package'] = 'No';
+                    }
                     //print_r($data['package_head_id']);
                     //exit();
                 }
@@ -473,9 +481,11 @@ class QuoteController extends Controller
 
                 $distribution['distributed_quantity'] = $received['distributed_quantity'];
                 $distribution['rest_quantity'] = $received['rest_quantity'];
+
                 $distribution['distribution_area'] = $received['distribution_area'];
                 $distribution['date_of_distribution'] = $received['date_of_distribution'];
                 $distribution['is_surrounded'] = $received['is_surrounded'];
+
                 $distribution['price'] = $received['distribution_price'];
                 $distribution_id = PrintMaterialDistribution::create($distribution);
                 $data['print_material_distribution_id'] = $distribution_id->id;
@@ -619,6 +629,7 @@ class QuoteController extends Controller
      */
     public function edit($id)
     {
+        //exit('sf');
         $pageTitle = 'MRS - Edit Quote';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         $data['saturdays']=$this->getSaturdays();
@@ -635,7 +646,9 @@ class QuoteController extends Controller
         //print_r($data['quote']->relQuotePackage['price']);exit();
 
 //        dd($data['quote']);
-        return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
+        //print_r($data['quote']->is_distributed_package);exit();
+        $is_dist = $data['quote']->is_distributed_package;
+        return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'is_dist'=>$is_dist,'data'=>$data]);
     }
 
 
@@ -669,6 +682,13 @@ class QuoteController extends Controller
                 if (isset($received['package_head_id'])) {
                     $data['package_head_id'] = $received['package_head_id'];
                 }
+
+                if (isset($received['is_distributed_package'])) {
+                    $data['is_distributed_package'] = $received['is_distributed_package'];
+                }else{
+                    $data['is_distributed_package'] = 'No';
+                }
+
             }else{
                 $data['package_head_id'] = null;
             }

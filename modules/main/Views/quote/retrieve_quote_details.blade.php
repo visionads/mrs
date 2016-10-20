@@ -225,6 +225,48 @@
 
                         </div>
                     </div>
+
+
+                    {{-- If is_distributed_package chechk box is being checked at time of chossing a package from New Quote form --}}
+                    @if(isset($quote->is_distributed_package))
+                        @if($quote->is_distributed_package=='Yes')
+                        <div class="col-sm-12">
+                            <hr class="common-hr">
+                            <div class="form-group">
+                                <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label>
+                                            <input class="" type="radio" name="is_surrounded" value="0" checked="checked">
+                                            No
+                                        </label>
+                                        <label>
+                                            <input class="" type="radio" name="is_surrounded" value="1">
+                                            Yes
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label size-13">Distribution Area <small class="required"> [ Post Code ]</small></label>
+                                <input type="text" name="distribution_area" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label size-13 text-normal">Choose a Date of Distribution <span class="required">[ Distribution Commenses on Saturday and will be complete within 5 day window ]</span></label>
+                                <select name="date_of_distribution" class="form-control">
+                                    @foreach($saturdays as $saturday)
+                                        <option value="{{ $saturday }}">{{ date('d M Y D',strtotime($saturday)) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        @endif
+                    @endif
+                    {{-- End is_distributed_package --}}
+
+
+
                 </div>
             </div>
 

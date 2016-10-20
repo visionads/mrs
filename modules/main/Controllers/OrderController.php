@@ -93,22 +93,39 @@ class OrderController extends Controller
         DB::beginTransaction();
         try {
             $input = $request->all();
-//            dd($input);
+
             $quote = Quote::findOrFail($input['quote_id']);
             $quote->status = 'placed-order';
             $quote->save();
 
-                $property_details = PropertyDetail::findOrFail($quote->property_detail_id);
-                $property_details->main_selling_line = $input['main_selling_line'];
-                $property_details->property_description = $input['property_description'];
-                $property_details->inspection_date = $input['inspection_date'];
-                $property_details->inspection_features = $input['inspection_features'];
-                $property_details->other_features = $input['other_features'];
-                $property_details->selling_price = $input['selling_price'];
-                $property_details->auction_time = $input['auction_time'];
-                $property_details->offer = $input['offer'];
-                $property_details->note = $input['note'];
-                $property_details->save();
+            /*
+             * If is_distributed_package is being checked in the complete package of new quote form */
+            if($quote->package_head_id !== NULL)
+            {
+                $is_distributed_input_arr = [
+                    'is_surrounded' => $input['is_surrounded'],
+                    'distribution_area' => $input['distribution_area'],
+                    'date_of_distribution' => $input['date_of_distribution'],
+                ];
+
+                if(!empty($quote->print_material_distribution_id)) {
+                    $distribution_id = PrintMaterialDistribution::find($quote->print_material_distribution_id);
+                    $distribution_id->update($is_distributed_input_arr);
+                }
+            }
+            /* End is_distributed_package */
+
+            $property_details = PropertyDetail::findOrFail($quote->property_detail_id);
+            $property_details->main_selling_line = $input['main_selling_line'];
+            $property_details->property_description = $input['property_description'];
+            $property_details->inspection_date = $input['inspection_date'];
+            $property_details->inspection_features = $input['inspection_features'];
+            $property_details->other_features = $input['other_features'];
+            $property_details->selling_price = $input['selling_price'];
+            $property_details->auction_time = $input['auction_time'];
+            $property_details->offer = $input['offer'];
+            $property_details->note = $input['note'];
+            $property_details->save();
 
             if($quote->photography_package_id==null) {
 

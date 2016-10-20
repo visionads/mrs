@@ -1,3 +1,4 @@
+
 @extends('admin::layouts.master')
 
 {{--<div style="background-image:url('{{ URL::asset("assets/user/img/chain.jpg")}}') ;height: 100%; width: 100%; ">--}}
@@ -20,7 +21,6 @@
     {{--<div id="order_user_name"><span>John Smith</span></div>--}}
     {{--</div>--}}
     @include('main::quote._style')
-
     <div class="col-sm-12 font-droid" id="quote-div">
 
         {{-- <div class="row">--}}
@@ -131,9 +131,18 @@
                                                         <?php
                                                         //if($data['quote']->relQuotePackage['price'] == $package->price){$checked='checked';}else{$checked='';}
                                                         if($data['quote']->package_head_id == $package->id){$checked='checked';}else{$checked='';}
+                                                        if($data['quote']->is_distributed_pakcage == "Yes"){$checked1='checked'; }else{$checked1='';}
+                                                        if($is_dist == "Yes"){$hide = 'display:none';}else{ $hide='';}
                                                         ?>
                                                         <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
                                                         <span class="text-color">{{ $package->title }}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="left">
+                                                        <div class="checkbox">
+                                                            <label class="size-14"><input type="checkbox" name="is_distributed_package"  <?php echo $checked ?> value="Yes" class="is_dist">Is Distributed Package</label>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -514,11 +523,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6">
-
+                                <div class="col-sm-6 dist_print_optional" style="<?php echo $hide; ?>">
                                     <div class="form-group">
                                         <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span> : </label><br>
-
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label><input class="" type="radio" name="is_surrounded" value="0" @if($data['quote']->relPrintMaterialDistribution['is_surrounded'] == '0' || $data['quote']->relPrintMaterialDistribution['is_surrounded'] == null) checked="checked" @endif>No</label>
@@ -560,6 +567,18 @@
     </div>
 
     @include('main::quote._script')
+    <script>
+        $(document).ready(function () {
+            var ckbox = $('.is_dist');
+            $('input').on('click',function () {
+                if (ckbox.is(':checked')) {
+                    $(".dist_print_optional").hide();
+                } else {
+                    $(".dist_print_optional").show();
+                }
+            });
+        });
+    </script>
     @if($data['quote']->package_head_id == null)
         <script>
             $(".pack-choise").hide();

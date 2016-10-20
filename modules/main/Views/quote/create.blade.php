@@ -1,4 +1,4 @@
-@extends('admin::layouts.master')
+ @extends('admin::layouts.master')
 
 {{--<div style="background-image:url('{{ URL::asset("assets/user/img/chain.jpg")}}') ;height: 100%; width: 100%; ">--}}
 
@@ -133,6 +133,13 @@
                                                                 <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
                                                                 <span class="text-color">{{ $package->title }}</span>
                                                             {{--</label>--}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left">
+                                                                <div class="checkbox">
+                                                                    <label class="size-14"><input type="checkbox" name="is_distributed_package" value="Yes" class="is_dist">Is Distributed Package</label>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -493,7 +500,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6">
+
+
+                                            <div class="col-sm-6 dist_print_optional">
                                                 <div class="form-group">
                                                     <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
 
@@ -572,4 +581,19 @@
         {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/jquery.backstretch.min.js') }}"></script>--}}
         {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/scripts.js') }}"></script>--}}
         @include('main::quote._script')
+<script>
+
+    $(document).ready(function () {
+        var ckbox = $('.is_dist');
+
+        $('input').on('click',function () {
+            if (ckbox.is(':checked')) {
+                $(".dist_print_optional").hide();
+            } else {
+                $(".dist_print_optional").show();
+            }
+        });
+    });
+
+</script>
 @stop
