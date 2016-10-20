@@ -369,6 +369,7 @@ class CreateAdmin extends Migration
 
             $table->unsignedInteger('print_material_id')->nullable();
             $table->unsignedInteger('package_head_id')->nullable();
+            $table->enum('is_distributed_package', ['Yes', 'No'])->nullable();
             #$table->unsignedInteger('print_material_size_id')->nullable();
             $table->text('print_material_comments')->nullable();
             $table->smallInteger('is_distributed')->nullable();
