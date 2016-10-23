@@ -138,13 +138,15 @@
                                                         <span class="text-color">{{ $package->title }}</span>
                                                     </td>
                                                 </tr>
+                                                @if($package->type == "super-exposure-pack")
                                                 <tr>
                                                     <td align="left">
                                                         <div class="checkbox">
-                                                            <label class="size-14"><input type="checkbox" name="is_distributed_package"  <?php echo $checked ?> value="Yes" class="is_dist">Is Distributed Package</label>
+                                                            <label class="size-14"><input type="checkbox" name="is_distributed_package"  <?php echo $checked ?> value="yes" class="is_dist">Is Distributed Package</label>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                @endif
                                                 <tr>
                                                     {{--=== First part from left ===--}}
                                                     <td align="left" width="30%">
@@ -430,6 +432,10 @@
                                                     {{ $relPrintMaterial->description }}
                                                 @endforeach
                                             </p>
+                                            <label class="green size-15">
+                                                <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
+                                                USE FOR DISTRIBUTION
+                                            </label>
                                             <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>
                                             <div class="panel-body select">
                                                 <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">
@@ -468,89 +474,7 @@
 
                     </div>
                 </fieldset>
-                <fieldset class=""><hr>
-                    <div class="form-bottom">
-                        <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
-                        <div class="validationErrorDistributionPrintMaterial"></div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h4>Will you require distribution of print material ?</h4>
-                                <label>
-                                    <input class="noBtn btn-next" type="radio" name="distributedPrintMaterialChooseBtn" value="0" @if($data['quote']->print_material_distribution_id == null) checked="checked" @endif>
-                                    No
-                                </label>
-                                <label>
-                                    <input class="yesBtn" type="radio" name="distributedPrintMaterialChooseBtn" value="1" @if($data['quote']->print_material_distribution_id != null) checked="checked" @endif>
-                                    Yes
-                                </label>
 
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="optionalContentDiv @if($data['quote']->print_material_distribution_id == null) optional-content-div @endif">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location
-(Remainder will be sent to you the agency)','class="size-13"') !!}
-                                        <select class="quantity form-control" name="quantity" id="distributionQuantity"  style="color: black">
-                                            <option value="select">Please Select</option>
-                                            @for($i=1000;$i<=20000;$i+=1000)
-                                                <option @if($data['quote']->relPrintMaterialDistribution['quantity'] == $i) selected="selected" @endif  value="{{ $i }}">{{ $i }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label size-13">Min Quantity<span class="required"> (Price $65 per 1000)</span></label><br>
-                                                <input value="{{ $data['quote']->relPrintMaterialDistribution['distributed_quantity'] }}" class="form-control" id="minQuantity" name="distributed_quantity" type="number">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label size-13">Rest Quantity<span class="required"></span></label><br>
-                                                <input value="{{ $data['quote']->relPrintMaterialDistribution['rest_quantity'] }}" class="form-control" id="restQuantity" name="rest_quantity" type="number" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <p style="color: red"> Total Price : <price><b id="disPrice">$ {{ $data['quote']->relPrintMaterialDistribution['price'] }}</b></price></p>
-                                    <input value="{{ $data['quote']->relPrintMaterialDistribution['price'] }}" type="hidden" name="distribution_price" placeholder="Distribution Price" class="form-control" id="distributionPrice" readonly>
-                                    <div class="form-group">
-                                        <label>NOTE</label>
-                                        <textarea type="text" name="note" placeholder="Note" class="form-control" id="note">{{ $data['quote']->relPrintMaterialDistribution['note'] }}</textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6 dist_print_optional" style="<?php echo $hide; ?>">
-                                    <div class="form-group">
-                                        <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span> : </label><br>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <label><input class="" type="radio" name="is_surrounded" value="0" @if($data['quote']->relPrintMaterialDistribution['is_surrounded'] == '0' || $data['quote']->relPrintMaterialDistribution['is_surrounded'] == null) checked="checked" @endif>No</label>
-                                                <label><input class="" type="radio" name="is_surrounded" value="1" @if($data['quote']->relPrintMaterialDistribution['is_surrounded'] == '1') checked="checked" @endif>Yes</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label size-13">Distribution Area <span class="required"> [ Post Code ]</span></label>
-                                        <input type="text" name="distribution_area" value="{{ isset($data['quote']->relPrintMaterialDistribution['distribution_area'])?$data['quote']->relPrintMaterialDistribution['distribution_area']:'' }}" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label size-13">Choose a Date of Distribution <span class="required">&nbsp;</span></label>
-                                        <select name="date_of_distribution" class="form-control">
-                                            @foreach($data['saturdays'] as $saturday)
-                                                <option @if(date('Y-m-d',strtotime($data['quote']->relPrintMaterialDistribution['date_of_distribution']))==$saturday) selected @endif value="{{ $saturday }}">{{ date('d M Y D',strtotime($saturday)) }}</option>
-                                            @endforeach
-                                        </select>
-                                        {{--                                        <input type="text" id="date_id" name="date_of_distribution" value="{{ isset($data['quote']->relPrintMaterialDistribution['date_of_distribution'])?$data['quote']->relPrintMaterialDistribution['date_of_distribution']:'' }}" class="form-control">--}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
                 <div class="row">
                     <div class="col-sm-12 center">
                         <input name="quote" value="Update" type="submit" class="btn new_button proceedBtn">
