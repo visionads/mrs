@@ -445,7 +445,8 @@
                                 </div>
                             </fieldset>
                             {{--===== Distribution of print material starts from here =============================================================================--}}
-                            <fieldset class="dflt_packs"><hr>
+                            {{--<fieldset class="dflt_packs"><hr>
+
                                 <div class="form-bottom">
                                     <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
                                     <div class="validationErrorDistributionPrintMaterial"></div>
@@ -519,28 +520,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{--<div class="form-group">
-                                                    <div style="width: 100%; height: 15px"></div>
-                                                    <label class="control-label size-13">Quantity<small class="required"> [ Just type Quantity ]</small></label>
-                                                    <input type="number" name="quantity_next" class="form-control">
-                                                </div>--}}
+
                                                 <div class="form-group">
                                                     <label class="control-label size-13">Distribution Area <small class="required"> [ Post Code ]</small></label>
                                                     <input type="text" name="distribution_area" class="form-control">
                                                 </div>
-                                                   {{--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-                                                <link rel="stylesheet" href="/resources/demos/style.css">
-                                                <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-                                                <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-                                                <script>
-                                                    $( function() {
-                                                        $("#dpicker").datepicker({
-                                                            beforeShowDay: function(date) {
-                                                                return [date.getDay() == 5];
-                                                            }
-                                                        });
-                                                    } );
-                                                </script>--}}
                                                 <div class="form-group">
                                                     <label class="control-label size-13 text-normal">Choose a Date of Distribution <span class="required">[ Distribution Commenses on Saturday and will be complete within 5 day window ]</span></label>
                                                     <select name="date_of_distribution" class="form-control">
@@ -548,19 +532,13 @@
                                                             <option value="{{ $saturday }}">{{ date('d M Y D',strtotime($saturday)) }}</option>
                                                         @endforeach
                                                     </select>
-                                                    {{--<input type="text" id="distributionDate" name="date_of_distribution" class="form-control">--}}
-                                                    {{--<input type="text" id="dpicker" name="date_of_distribution">--}}
-                                                    {{--<p>Date: <input type="text" id="datepicker"></p>--}}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {{--<button type="button" class="btn btn-previous pull-left new_button"><span class="glyphicon glyphicon-chevron-left"></span> Previous</button>
-                                    <button id="distributedPrintMaterialNextBtn" type="button" class="btn pull-right new_button">Next <span class="glyphicon glyphicon-chevron-right"></span></button>--}}
-
-
                                 </div>
-                            </fieldset>
+
+                            </fieldset>--}}
                             {{--===== Distribution of Print material end || Digital Media starts=======================================================--}}
 
                             <div class="row sbmt">
