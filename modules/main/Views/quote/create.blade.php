@@ -135,6 +135,7 @@
                                                             {{--</label>--}}
                                                             </td>
                                                         </tr>
+                                                        @if($package->type == "super-exposure-pack")
                                                         <tr>
                                                             <td align="left">
                                                                 <div class="checkbox">
@@ -142,6 +143,7 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        @endif
                                                         <tr>
                                                             {{--=== First part from left ===--}}
                                                             <td align="left" width="30%">
@@ -399,7 +401,7 @@
                                                     <div class="col-sm-2">
                                                         <div class="sign-box" style="height: 550px;">
                                                             <label class="size-15 text-color">
-                                                                <input type="checkbox" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
+                                                                <input type="radio" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
                                                                 {{ $print_material->title }}
 
                                                             </label>
@@ -409,10 +411,10 @@
                                                                     {{ $relPrintMaterial->description }}
                                                                 @endforeach
                                                             </p>
-                                                            {{--<label class="green size-15">--}}
-                                                                {{--<input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">--}}
-                                                                {{--USE FOR DISTRIBUTION--}}
-                                                            {{--</label>--}}
+                                                            <label class="green size-15">
+                                                                <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
+                                                                USE FOR DISTRIBUTION
+                                                            </label>
                                                             <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>
                                                             <div class="panel-body select">
                                                                 <select name="print_material_size_id[{{ $print_material->id }}]" class="form-control">

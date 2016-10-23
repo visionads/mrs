@@ -228,6 +228,9 @@ class QuoteController extends Controller
             'package_price'=>$prices['package_price'],
             'distributed_print_material_price'=>$prices['distributed_print_material_price'],
             'package_str'=>$prices['package_str'],
+            'package_type'=>$prices['package_type'],
+            'print_material_quantity'=>$prices['print_material_quantity'],
+            'print_material_use_for_distribution'=>$prices['print_material_use_for_distribution'],
             'exist_package'=>$prices['package_id'],
         ]);
     }
@@ -240,11 +243,13 @@ class QuoteController extends Controller
 
 
         $package_str = '';
+        $package_type = '';
         $package_price = 0;
         if(isset($quote->package_head_id)){
             $package_qr= Package::with('relPackageOption')->findOrFail($quote->package_head_id);
             $package_price = $package_qr->price;
             $package_str = $package_qr->title;
+            $package_type = $package_qr->type;
         }
         //print_r($package_price);
         //exit();
@@ -298,10 +303,14 @@ class QuoteController extends Controller
         // ----------------- For Print Material====================================
         $print_material_str = '';
         $print_material_price = 0;
+        $print_material_quantity = 0;
+        $print_material_use_for_distribution = 0;
         if(isset($quote->print_material_id) && $quote->print_material_id==1){
             foreach($print_materials_qr as $print_material){
                 if(isset($quote->relQuotePrintMaterial)){
                     foreach($quote->relQuotePrintMaterial as $ppi){
+                        $print_material_use_for_distribution = $ppi->is_distributed;
+                        //print_r($print_material_use_for_distribution);exit();
                         if($ppi->print_material_id==$print_material->id){
                             $print_material_str .= $print_material->title.',';
                             if(isset($quote->relQuotePrintMaterial)) {
@@ -317,6 +326,7 @@ class QuoteController extends Controller
                                         if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id){
 
                                             $print_material_price+=$relPrintMaterial->price;
+                                            $print_material_quantity = $relPrintMaterial->title;
                                         }
                                     }
                                 }
@@ -370,10 +380,13 @@ class QuoteController extends Controller
         $data['photography_package_str']=$photography_package_str;
         $data['photography_price']=$photography_price;
         $data['package_str']=$package_str;
+        $data['package_type']=$package_type;
         $data['package_price']=$package_price;
         $data['signboard_package_str']=$signboard_package_str;
         $data['signboard_price']=$signboard_price;
         $data['print_material_str']=$print_material_str;
+        $data['print_material_quantity']=$print_material_quantity;
+        $data['print_material_use_for_distribution']=$print_material_use_for_distribution;
         $data['print_material_price']=$print_material_price;
         $data['local_media_str']=$local_media_str;
         $data['local_media_price']=$local_media_str;
@@ -543,13 +556,13 @@ class QuoteController extends Controller
                                 $pm->print_material_size_id = $received['print_material_size_id'][$pmi];
                                 $pm->price = PrintMaterialSize::findOrFail($received['print_material_size_id'][$pmi])->price;
                             }
-                            /*if (isset($received['is_distributed'])) {
+                            if (isset($received['is_distributed'])) {
                                 if (isset($received['is_distributed'][$pmi])) {
                                     $pm->is_distributed = 1;
                                 } else {
                                     $pm->is_distributed = 0;
                                 }
-                            }*/
+                            }
                             $pm->save();
                         }
                     }

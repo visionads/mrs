@@ -227,43 +227,142 @@
                     </div>
 
 
-                    {{-- If is_distributed_package chechk box is being checked at time of chossing a package from New Quote form --}}
-                    @if(isset($quote->is_distributed_package))
-                        @if($quote->is_distributed_package=='Yes')
-                        <div class="col-sm-12">
-                            <hr class="common-hr">
-                            <div class="form-group">
-                                <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
+                    <!--============================================================================================== ***
+                    COMPLETE PACKAGE
+                    If is_distributed_package chechk box is being checked at the time of chossing a package from New Quote form
+                    *** ===============================================================================================-->
+                    {{--{{ $package_type }}--}}
+                    @if($package_type!=='')
+                        @if($package_type == "super-exposure-pack")
+                            @if(isset($quote->is_distributed_package))
+                                @if($quote->is_distributed_package=='yes')
+                                <div class="col-sm-12">
+                                    <hr class="common-hr">
+                                    <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
+                                    <div class="form-group">
+                                        <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
 
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <label>
-                                            <input class="" type="radio" name="is_surrounded" value="0" checked="checked">
-                                            No
-                                        </label>
-                                        <label>
-                                            <input class="" type="radio" name="is_surrounded" value="1">
-                                            Yes
-                                        </label>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label>
+                                                    <input class="" type="radio" name="is_surrounded" value="0" checked="checked">
+                                                    No
+                                                </label>
+                                                <label>
+                                                    <input class="" type="radio" name="is_surrounded" value="1">
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label size-13">Distribution Area <small class="required"> [ Post Code ]</small></label>
+                                        <input type="text" name="distribution_area" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label size-13 text-normal">Choose a Date of Distribution <span class="required">[ Distribution Commenses on Saturday and will be complete within 5 day window ]</span></label>
+                                        <select name="date_of_distribution" class="form-control">
+                                            @foreach($saturdays as $saturday)
+                                                <option value="{{ $saturday }}">{{ date('d M Y D',strtotime($saturday)) }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                @endif
+                            @endif
+                        @endif
+                    @endif
+                    <!-- ===================================================================================================***
+                    End print Materila Distribution form with is_distributed_package
+                    ***=====================================================================================================-->
+
+
+                    <!--=================================================================================================== ***
+                    CUSTOM PACKAGE
+                    If Print Material is Selected with "Use for Distribution" from New Quote form
+                    *** ====================================================================================================-->
+                    {{--{{ $print_material_use_for_distribution }}--}}
+                    @if($print_material_quantity!= 0)
+                        @if($print_material_use_for_distribution = 1)
+                            <div class="col-md-12">
+                                <hr class="common-hr">
+                                <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location (Remainder will be sent to you the agency)','class="controll-label size-13"') !!}
+
+                                        {{--<select class="quantity form-control" name="quantity" id="distributionQuantity"  style="color: black">
+                                            <option value="select">Please Select</option>
+                                            @for($i=1000;$i<=20000;$i+=1000)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                        </select>--}}
+                                        {{--<input class="form-control" type="number" name="quantity" id="distributionQuantity" value="{{ $print_material_quantity }}">--}}
+                                        <select class="quantity form-control" name="quantity" id="distributionQuantity"  style="color: black">
+                                            <option value="select">Please Select</option>
+                                            <option value="{{ $print_material_quantity }}">{{ $print_material_quantity }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label size-13">Min Quantity<span class="required"> (Price $65 per 1000)</span></label><br>
+                                                <input class="form-control" id="minQuantity" name="distributed_quantity" type="number">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label size-13">Rest Quantity<span class="required"></span></label><br>
+                                                <input class="form-control" id="restQuantity" name="rest_quantity" type="number" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p style="color: red">Total Price : <price></price></p>
+
+                                    <input type="hidden" name="distribution_price" placeholder="Distribution Price" class="form-control" id="distributionPrice" readonly>
+                                    <div class="form-group">
+                                        <label>NOTE</label>
+                                        <textarea type="text" name="note" placeholder="Note" class="form-control" id="note"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
+
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label>
+                                                    <input class="" type="radio" name="is_surrounded" value="0" checked="checked">
+                                                    No
+                                                </label>
+                                                <label>
+                                                    <input class="" type="radio" name="is_surrounded" value="1">
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label size-13">Distribution Area <small class="required"> [ Post Code ]</small></label>
+                                        <input type="text" name="distribution_area" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label size-13 text-normal">Choose a Date of Distribution <span class="required">[ Distribution Commenses on Saturday and will be complete within 5 day window ]</span></label>
+                                        <select name="date_of_distribution" class="form-control">
+                                            @foreach($saturdays as $saturday)
+                                                <option value="{{ $saturday }}">{{ date('d M Y D',strtotime($saturday)) }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label size-13">Distribution Area <small class="required"> [ Post Code ]</small></label>
-                                <input type="text" name="distribution_area" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label size-13 text-normal">Choose a Date of Distribution <span class="required">[ Distribution Commenses on Saturday and will be complete within 5 day window ]</span></label>
-                                <select name="date_of_distribution" class="form-control">
-                                    @foreach($saturdays as $saturday)
-                                        <option value="{{ $saturday }}">{{ date('d M Y D',strtotime($saturday)) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+
                         @endif
                     @endif
-                    {{-- End is_distributed_package --}}
+                    <!-- ===================================================================================================***
+                    End print material distribution
+                    ***=====================================================================================================-->
 
 
 
@@ -435,5 +534,6 @@
 
 
     @include('main::order._script')
+    @include('main::quote._script')
 
 @stop

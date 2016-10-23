@@ -96,10 +96,10 @@ class OrderController extends Controller
 
             $quote = Quote::findOrFail($input['quote_id']);
             $quote->status = 'placed-order';
-            $quote->save();
+            //$quote->save();
 
             /*
-             * If is_distributed_package is being checked in the complete package of new quote form */
+             * If is_distributed_package and Super Exposure package is being checked in the complete package of new quote form */
             if($quote->package_head_id !== NULL)
             {
                 $is_distributed_input_arr = [
@@ -107,13 +107,38 @@ class OrderController extends Controller
                     'distribution_area' => $input['distribution_area'],
                     'date_of_distribution' => $input['date_of_distribution'],
                 ];
-
-                if(!empty($quote->print_material_distribution_id)) {
-                    $distribution_id = PrintMaterialDistribution::find($quote->print_material_distribution_id);
-                    $distribution_id->update($is_distributed_input_arr);
-                }
+                $distribution_id = PrintMaterialDistribution::create($is_distributed_input_arr);
+                /* To Update the quote table :: print_material_distribution_id column*/
+                $quote->print_material_distribution_id = $distribution_id->id;
             }
-            /* End is_distributed_package */
+            /* ==== End ==== */
+
+            /*
+             * For Custom Package print material distribution*/
+            if(!empty($input['quantity']))
+            {
+                //exit($input['quantity']);
+                $distribution = [
+                    'quantity' => $input['quantity'],
+                    'note' => $input['note'],
+                    'distributed_quantity' => $input['distributed_quantity'],
+                    'rest_quantity' => $input['rest_quantity'],
+                    'price' => $input['distribution_price'],
+
+                    'is_surrounded' => $input['is_surrounded'],
+                    'distribution_area' => $input['distribution_area'],
+                    'date_of_distribution' => $input['date_of_distribution'],
+                ];
+                //print_r($distribution);exit();
+                $distribution_id = PrintMaterialDistribution::create($distribution);
+                $data['print_material_distribution_id'] = $distribution_id->id;
+                /* To Update the quote table :: print_material_distribution_id column*/
+                $quote->print_material_distribution_id = $distribution_id->id;
+            }
+            /* ==== End ==== */
+
+            $quote->save();
+
 
             $property_details = PropertyDetail::findOrFail($quote->property_detail_id);
             $property_details->main_selling_line = $input['main_selling_line'];
