@@ -91,7 +91,7 @@
                                         {{--Would you like to choose a Complete Package ?<br>--}}
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><input type="radio" name="package" class="choose0" value="1" checked> Complete Package</label>
+                                                <label><input type="radio" name="package" class="choose0" value="1"> Complete Package</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <label><input type="radio" name="package" class="choose1" value="0" > Customize your quote</label>
@@ -203,7 +203,7 @@
                             </fieldset>
                             {{--========================================= Package End =============================================--}}
 
-                            <fieldset><hr>
+                            <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Photography</h3>
                                     <br>
@@ -445,7 +445,7 @@
                                 </div>
                             </fieldset>
                             {{--===== Distribution of print material starts from here =============================================================================--}}
-                            <fieldset class=""><hr>
+                            <fieldset class="dflt_packs"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
                                     <div class="validationErrorDistributionPrintMaterial"></div>
@@ -563,7 +563,7 @@
                             </fieldset>
                             {{--===== Distribution of Print material end || Digital Media starts=======================================================--}}
 
-                            <div class="row">
+                            <div class="row sbmt">
                                 <div class="col-sm-12 center">
                                     <input value="Save" name="save" type="submit" class="btn new_button proceedBtn">
                                     <input name="quote" value="Continue" type="submit" class="btn new_button proceedBtn">
@@ -582,15 +582,27 @@
         {{--<script type="text/javascript" src="{{ URL::asset('assets/quote/js/scripts.js') }}"></script>--}}
         @include('main::quote._script')
 <script>
-
-    $(document).ready(function () {
+    /* Checking For is_distribution_package is checked or not */
+    /*$(document).ready(function () {
         var ckbox = $('.is_dist');
-
         $('input').on('click',function () {
             if (ckbox.is(':checked')) {
                 $(".dist_print_optional").hide();
             } else {
                 $(".dist_print_optional").show();
+            }
+        });
+    });*/
+    /* For Submit button show and hide */
+    $(document).ready(function () {
+        $(".sbmt").hide();
+        var ckbox1 = $('.choose1');
+        var ckbox0 = $('.choose0');
+        $('input').on('click',function () {
+            if (ckbox1.is(':checked') || ckbox0.is(':checked')) {
+                $(".sbmt").slideDown();
+            } else {
+                $(".sbmt").hide();
             }
         });
     });

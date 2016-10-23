@@ -4,6 +4,7 @@
         <?php if(!isset($data['quote'])){ ?>
         $(".dflt_packs").hide();
         $(".photography").hide();
+        $(".pack-choise").hide();
         <?php } ?>
         $(".choose1").click(function(){
             $(".pack-choise").slideUp();
