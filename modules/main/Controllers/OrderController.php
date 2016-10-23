@@ -107,14 +107,21 @@ class OrderController extends Controller
                     'distribution_area' => $input['distribution_area'],
                     'date_of_distribution' => $input['date_of_distribution'],
                 ];
-                $distribution_id = PrintMaterialDistribution::create($is_distributed_input_arr);
-                /* To Update the quote table :: print_material_distribution_id column*/
-                $quote->print_material_distribution_id = $distribution_id->id;
+                //print_r($is_distributed_input_arr);exit();
+
+                if(!empty($quote->print_material_distribution_id)) {
+                    $distribution_id = PrintMaterialDistribution::find($quote->print_material_distribution_id);
+                    $distribution_id->update($is_distributed_input_arr);
+                }else{
+                    $distribution_id = PrintMaterialDistribution::create($is_distributed_input_arr);
+                    /* To Update the quote table :: print_material_distribution_id column*/
+                    $quote->print_material_distribution_id = $distribution_id->id;
+                }
             }
             /* ==== End ==== */
 
             /*
-             * For Custom Package print material distribution*/
+             * For Custom Package print material distribution */
             if(!empty($input['quantity']))
             {
                 //exit($input['quantity']);
@@ -130,10 +137,15 @@ class OrderController extends Controller
                     'date_of_distribution' => $input['date_of_distribution'],
                 ];
                 //print_r($distribution);exit();
-                $distribution_id = PrintMaterialDistribution::create($distribution);
-                $data['print_material_distribution_id'] = $distribution_id->id;
-                /* To Update the quote table :: print_material_distribution_id column*/
-                $quote->print_material_distribution_id = $distribution_id->id;
+                if(!empty($quote->print_material_distribution_id)) {
+                    $distribution_id = PrintMaterialDistribution::find($quote->print_material_distribution_id);
+                    $distribution_id->update($distribution);
+                }else{
+                    $distribution_id = PrintMaterialDistribution::create($distribution);
+                    $data['print_material_distribution_id'] = $distribution_id->id;
+                    /* To Update the quote table :: print_material_distribution_id column*/
+                    $quote->print_material_distribution_id = $distribution_id->id;
+                }
             }
             /* ==== End ==== */
 
