@@ -49,7 +49,7 @@
                                     <td>&nbsp; : &nbsp;</td>
                                     <td>$ {{ number_format($photography_price,2) }}</td>
                                 </tr>
-                                <tr><td>+ Distribution of Print Material</td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>
+                                {{--<tr><td>+ Distribution of Print Material</td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>--}}
                                 <tr style="border-bottom: 3px double #909090;">
                                     <td>+ Package Name : {!! ($package_str!=='')?' <span class="items"> '.$package_str.' </span>' : '' !!}</td>
                                     <td>&nbsp; : &nbsp;</td>
@@ -68,7 +68,7 @@
                                 {{--<tr><td width="auto" >+ Photography {!! ($photography_package_str!=='')?'[<span class="items"> '.$photography_package_str.' </span>]':'' !!}</td><td width="20">:</td><td>$ {{ number_format($photography_price,2) }}</td></tr>--}}
                                 <tr><td>+ Signboard Package {!! ($signboard_package_str!=='')?'[<span class="items"> '.$signboard_package_str.' </span>]':'' !!}</td><td>:</td><td width="20%">$ {{ number_format($signboard_price,2) }}</td></tr>
                                 <tr><td>+ Print Material {!! ($print_material_str!=='')?'[<span class="items"> '.$print_material_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
-                                <tr style="border-bottom: 3px double #909090;"><td>+ Distribution of Print Material</td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>
+                                {{--<tr style="border-bottom: 3px double #909090;"><td>+ Distribution of Print Material</td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>--}}
                                 {{--<tr><td>+ Digital Media</td><td>:</td><td>$ 0.00--}}{{--{{ number_format($print_material_price,2) }}--}}{{--</td></tr>--}}
                                 {{--<tr style="border-bottom: 3px double #909090;"><td>+ Local Media {!! ($local_media_str!=='')?'[<span class="items"> '.$local_media_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($local_media_price,2) }}</td></tr>--}}
                                 <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>:</td><td>$ {{ number_format($total,2) }}</td></tr>
@@ -184,8 +184,8 @@
                         <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
                             <div class="col-sm-12">
                                 {!! Form::label('selling_price', 'Selling Price:', ['class' => 'control-label']) !!}
-                                <small class="required size-13">(Required)</small>
-                                {!! Form::input('text','selling_price', isset($selling_price)?$selling_price:null, ['id'=>'selling_price', 'class' => 'form-control','placeholder'=>'Numeric Value only e.g.- 1100','title'=>'enter selling price','required']) !!}
+                                {{--<small class="required size-13">(Required)</small>--}}
+                                {!! Form::input('text','selling_price', isset($selling_price)?$selling_price:null, ['id'=>'selling_price', 'class' => 'form-control','placeholder'=>'Numeric Value only e.g.- 1100','title'=>'enter selling price']) !!}
                             </div>
                         </div>
 
@@ -193,11 +193,12 @@
                             <div class="col-sm-12">
                                 {!! Form::label('auction_time', 'Auction Times :', ['class' => 'control-label']) !!}
 
-                                <div class="input-group date" style="position:relative;">
-                                    {!! Form::text('auction_time',isset($auction_time)?$auction_time:null /*@$generate_voucher_number? date('Y/m/d') : @$data[0]['auction_time']*/, ['id'=>'date_id','placeholder'=>'Click here to choose Auction Date','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
-                                    {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
+                                {{--<div class="input-group date" style="position:relative;">
+                                    {!! Form::text('auction_time',isset($auction_time)?$auction_time:null, ['id'=>'date_id','placeholder'=>'Click here to choose Auction Date','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
+                                </div>--}}
+                                {!! Form::text('auction_time',isset($auction_time)?$auction_time:null, ['placeholder'=>'Write Date and time','class' => 'form-control','title'=>'select date']) !!}
+
                             </div>
                         </div>
 
@@ -270,6 +271,39 @@
                                 </div>
                                 @endif
                             @endif
+                        @else
+                            <div class="col-sm-12">
+                                <hr class="common-hr">
+                                <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
+                                <div class="form-group">
+                                    <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label>
+                                                <input class="" type="radio" name="is_surrounded" value="0" checked="checked">
+                                                No
+                                            </label>
+                                            <label>
+                                                <input class="" type="radio" name="is_surrounded" value="1">
+                                                Yes
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label size-13">Distribution Area <small class="required"> [ Post Code ]</small></label>
+                                    <input type="text" name="distribution_area" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label size-13 text-normal">Choose a Date of Distribution <span class="required">[ Distribution Commenses on Saturday and will be complete within 5 day window ]</span></label>
+                                    <select name="date_of_distribution" class="form-control">
+                                        @foreach($saturdays as $saturday)
+                                            <option value="{{ $saturday }}">{{ date('d M Y D',strtotime($saturday)) }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         @endif
                     @endif
                     <!-- ===================================================================================================***
@@ -298,8 +332,8 @@
                                             @endfor
                                         </select>--}}
                                         {{--<input class="form-control" type="number" name="quantity" id="distributionQuantity" value="{{ $print_material_quantity }}">--}}
-                                        <select class="quantity form-control" name="quantity" id="distributionQuantity"  style="color: black">
-                                            <option value="select">Please Select</option>
+                                        <select class="quantity form-control" name="quantity" id="distributionQuantity" required  style="color: black">
+                                            <option value="">Please Select</option>
                                             <option value="{{ $print_material_quantity }}">{{ $print_material_quantity }}</option>
                                         </select>
                                     </div>
@@ -307,7 +341,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label size-13">Min Quantity<span class="required"> (Price $65 per 1000)</span></label><br>
-                                                <input class="form-control" id="minQuantity" name="distributed_quantity" type="number">
+                                                <input class="form-control" id="minQuantity" name="distributed_quantity" type="number" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -365,76 +399,73 @@
                     ***=====================================================================================================-->
 
 
-
-                </div>
-            </div>
-
-
-
-
-
-            @if($quote->photography_package_id==null)
-            <div class="container pages new_order font-droid">
-                <hr class="common-hr">
-                <div class="row form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                    <div class="col-md-12">
-                        <div class="col-sm-12" id="new_order_title"><span class="label size-25">Photography</span><br><br></div>
-                    </div>
-                    <div class="col-sm-12">
-                        <h4 style="color:#f31f21">Will you take photography by yourself ?</h4>
-
-                        <label>
-                            <input type="radio" name="quote_property_access" value="0" class="" id="property_access_close" checked> &nbsp; No
-                        </label>
-                        <label>
-                            <input type="radio" name="quote_property_access" value="1" class="btn-next" id="property_access_open"> &nbsp; Yes
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="container pages new_order font-droid step-four" style="display: none">
-
-                <div class="col-sm-12">
-
-                    <div class="col-sm-12">
-                        {!! Form::label('date', 'Preferred Date and Time :', []) !!}
-                        <div class="input-group date">
-                            {!! Form::text('prefered_date', null, ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
-                            {{--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>--}}
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12">
-
-                        {!! Form::label('Special Request for photography', 'Special Request for photography :', []) !!}
-
-                        <div class="col-md-12 image-center">
-                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                                <div class="fileupload-new thumbnail" style="width: 120px; height: 120px;   ">
-                                    {{--@if($data['image'] != '')
-                                        <a href="{{ route('gal_image.image.show', $data['id']) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#imageView"><img src="{{ URL::to($data['image']) }}" height="50px" width="50px" alt="{{$data['image']}}" />
-                                        </a>
-                                    @else--}}
-                                    <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
-                                    {{--{!! Form::file('images[]', array('multiple'=>true)) !!}--}}
-                                    {{--@endif--}}
+                    <!-- ===================================================================================================***
+                    PHOTOGRAPHY Starts
+                    ***=====================================================================================================-->
+                    {{--@if($quote->photography_package_id==null)--}}
+                        {{--<div class="container pages new_order font-droid">
+                            <hr class="common-hr">
+                            <div class="row form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+                                <div class="col-md-12">
+                                    <div class="col-sm-12" id="new_order_title"><span class="label size-25">Photography</span><br><br></div>
                                 </div>
-                                <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-                                <div class="image-center">
-                                    <input type="file" name="image[]" id="image" class="default" multiple />
+                                <div class="col-sm-12">
+                                    <h4 style="color:#f31f21">Will you take photography by yourself ?</h4>
+
+                                    <label>
+                                        <input type="radio" name="quote_property_access" value="0" class="" id="property_access_close" checked> &nbsp; No
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="quote_property_access" value="1" class="btn-next" id="property_access_open"> &nbsp; Yes
+                                    </label>
                                 </div>
                             </div>
-                            <span class="label label-danger"><font size="1">NOTE!</font></span>
-                            <span style="color: white"><font size="1">System will allow these types of image(png,jpeg,jpg Format)</font></span>
-                        </div>
-                    </div>
+                        </div>--}}
 
-                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                        <div class="col-sm-12">
-                            {!! Form::label('property_access_information', 'Property Access Information :', ['class' => 'control-label']) !!}<br>
+
+                        {{--<div class="container pages new_order font-droid step-four" style="display: block">--}}
+
+                        <div class="col-md-12">
+
+                        {{--<div class="col-sm-12">
+                            {!! Form::label('date', 'Preferred Date and Time :', []) !!}
+                            <div class="input-group date">
+                                {!! Form::text('prefered_date', null, ['id'=>'date_id','class' => 'bs-datepicker-component form-control','title'=>'select date']) !!}
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>--}}
+
+
+
+                        {{--{!! Form::label('Special Request for photography', 'Special Request for photography :', ['class'=>'text-center']) !!}--}}
+
+                        <hr class="common-hr">
+                        <h3 class="instruction">PHOTOGRAPHY</h3>
+                            @if($quote->photography_package_id==null)
+
+                        {{--<div class="col-md-12">--}}
+                            {{--<div class="fileupload fileupload-new" data-provides="fileupload">--}}
+                            {{--<div class="fileupload-new thumbnail" style="width: 120px; height: 120px;   ">
+                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                            </div>
+                            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>--}}
+                            <div class="form-group" style="text-align: center !important;">
+                                <i class="fa fa-image" style="font-size: 72px;"></i><br>
+                                <label class="control-label">Upload Photographs</label>
+                                <input type="file" name="image[]" id="image" class="form-control" style="width:200px; margin: auto !important;" multiple >
+                                <span class="label label-danger"><font size="1">NOTE!</font></span>
+                                <span style="color: white"><font size="1">System will allow these types of image(png,jpeg,jpg Format)</font></span>
+                            </div>
+                            {{--</div>--}}
+
+                        {{--</div>--}}
+
+
+                        @else
+                        {{--<div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">--}}
+
+                        <div class="form-group">
+                            {!! Form::label('property_access_information', 'Property Access Information :', ['class' => 'control-label orange size-20']) !!}<br>
                             <label>
                                 <input type="radio" name="property_access_options" value="tennant" checked> &nbsp; Tennant
                             </label>
@@ -448,50 +479,54 @@
                                 <input type="radio" name="property_access_options" value="other" > &nbsp; Other, pick up keys from
                             </label>
                         </div>
-                    </div>
+                        {{--</div>--}}
+                        {{--<div class="col-md-12">--}}
+                            <div class="form-group">
+                                {!! Form::label('contact_name', 'Contact Name : ', ['class'=>'control-label']) !!}
+                                {!! Form::text('contact_name', null, ['id'=>'contact_name', 'class' => 'form-control','title'=>'contact name','required']) !!}
+                            </div>
 
-                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                        <div class="col-sm-12">
-                            {!! Form::label('contact_name', 'Contact Name : ', []) !!}
-                            {!! Form::text('contact_name', null, ['id'=>'contact_name', 'class' => 'form-control','title'=>'contact name']) !!}
+                            <div class="form-group">
+                                {!! Form::label('contact_number', 'Contact Number : ', []) !!}
+                                {!! Form::text('contact_number', null, ['id'=>'contact_number', 'class' => 'form-control','title'=>'contact number','required']) !!}
+                            </div>
+
+                            <div class="form-group">
+                                {!! Form::label('contact_alternate_number', 'Contact Alternate Number : ', []) !!}
+                                {!! Form::text('contact_alternate_number', null, ['id'=>'contact_alternate_number', 'class' => 'form-control','title'=>'contact alternate number']) !!}
+                            </div>
+
+                            <div class="form-group">
+                                {!! Form::label('contact_email', 'Contact Email : ', []) !!}
+                                {!! Form::text('contact_email', null, ['id'=>'contact_email', 'class' => 'form-control','title'=>'contact email']) !!}
+                            </div>
+
+                            <div class="form-group">
+                                {!! Form::label('property_note', 'Note :', ['class' => 'control-label']) !!}
+                                {!! Form::textarea('property_note', null,['size' => '6x2','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
+                            </div>
+                        {{--</div>--}}
                         </div>
-                    </div>
+                        {{--</div>--}}
 
-                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                        <div class="col-sm-12">
-                            {!! Form::label('contact_number', 'Contact Number : ', []) !!}
-                            {!! Form::text('contact_number', null, ['id'=>'contact_number', 'class' => 'form-control','title'=>'contact number']) !!}
-                        </div>
-                    </div>
-
-                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                        <div class="col-sm-12">
-                            {!! Form::label('contact_alternate_number', 'Contact Alternate Number : ', []) !!}
-                            {!! Form::text('contact_alternate_number', null, ['id'=>'contact_alternate_number', 'class' => 'form-control','title'=>'contact alternate number']) !!}
-                        </div>
-                    </div>
-
-                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                        <div class="col-sm-12">
-                            {!! Form::label('contact_email', 'Contact Email : ', []) !!}
-                            {!! Form::text('contact_email', null, ['id'=>'contact_email', 'class' => 'form-control','title'=>'contact email']) !!}
-                        </div>
-                    </div>
+                    @endif
+                    <!-- ===================================================================================================***
+                    PHOTOGRAPHY Ends
+                    ***=====================================================================================================-->
 
 
 
-                    <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                        <div class="col-sm-12">
-                            {!! Form::label('property_note', 'Note :', ['class' => 'control-label']) !!}
-                            {!! Form::textarea('property_note', null,['size' => '6x2','title'=>'Type Note','id'=>'note','placeholder'=>'Write Note here..','spellcheck'=>'true','class' => 'form-control text-left']) !!}
-                        </div>
-                    </div>
                 </div>
             </div>
-            @endif
 
 
-            <div class="col-sm-12 text-right">
+
+
+
+
+
+
+            <div class="col-sm-12" style="text-align: center !important;">
                 {{--{!! Form::submit('Confirmed Quote', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;--}}
 {{--                {!! Form::submit('Confirm',['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','data-toggle'=>'modal','data-target'=>'#confirmModal']) !!}--}}
                 {!! Form::submit('Confirm',['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement']) !!}

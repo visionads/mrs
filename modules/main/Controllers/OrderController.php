@@ -98,6 +98,7 @@ class OrderController extends Controller
             $quote->status = 'placed-order';
             //$quote->save();
 
+
             /*
              * If is_distributed_package and Super Exposure package is being checked in the complete package of new quote form */
             if($quote->package_head_id !== NULL)
@@ -122,6 +123,7 @@ class OrderController extends Controller
 
             /*
              * For Custom Package print material distribution */
+            //print_r($input['quantity']);exit();
             if(!empty($input['quantity']))
             {
                 //exit($input['quantity']);
@@ -165,24 +167,11 @@ class OrderController extends Controller
             $property_details->save();
 
             if($quote->photography_package_id==null) {
-
-//            if ($input['quote_property_access'] == 1) {
-                $quote_property_access = new QuotePropertyAccess();
-                $quote_property_access->quote_id = $input['quote_id'];
-                $quote_property_access->prefered_date = $input['prefered_date'];
-                $quote_property_access->property_access_options = $input['property_access_options'];
-                $quote_property_access->contact_name = $input['contact_name'];
-                $quote_property_access->contact_number = $input['contact_number'];
-                $quote_property_access->contact_alternate_number = $input['contact_alternate_number'];
-                $quote_property_access->contact_email = $input['contact_email'];
-                $quote_property_access->property_note = $input['property_note'];
-                $quote_property_access->save();
                 if ($input['image'][0] != null) {
                     $file_type_required = 'png,jpeg,jpg';
                     $destinationPath = 'uploads/property_access/';
 
                     foreach ($input['image'] as $image) {
-
                         $file_name = $this->image_upload($image, $file_type_required, $destinationPath);
                         if ($file_name != '') {
                             $quote_image = new QuotePropertyImage();
@@ -195,22 +184,41 @@ class OrderController extends Controller
                         }
                     }
                 }
-//            }
-
-
+            }else{
+                $quote_property_access = new QuotePropertyAccess();
+                $quote_property_access->quote_id = $input['quote_id'];
+                //$quote_property_access->prefered_date = $input['prefered_date'];//quote_property_access
+                $quote_property_access->property_access_options = $input['property_access_options'];
+                $quote_property_access->contact_name = $input['contact_name'];
+                $quote_property_access->contact_number = $input['contact_number'];
+                $quote_property_access->contact_alternate_number = $input['contact_alternate_number'];
+                $quote_property_access->contact_email = $input['contact_email'];
+                $quote_property_access->property_note = $input['property_note'];
+                $quote_property_access->save();
             }
 
+            if(!empty($input['quantity'])){
+                $total = $input['total'] + $input['distribution_price'];
+                $gst = $total * 0.1;
+                $total_amnt = $total + $gst;
+            }else{
+                $total = $input['total'];
+                $gst = $input['gst'];
+                $total_amnt = $input['total_with_gst'];
+            }
+
+            //print_r($total);exit();
 
             // check if transaction exists for the quote and invoice number
             $trn_exists = Transaction::where('quote_id',$input['quote_id'] )->exists();
             if($trn_exists)
             {
                 $transaction_model = Transaction::where('quote_id',$input['quote_id'] )->first();
-                $transaction_model->amount = $input['total'];  //TODO::check price
+                $transaction_model->amount = $total;//$input['total'];  //TODO::check price
                 //$transaction_model->gst = (10/100 * $transaction_model->amount) ;
-                $transaction_model->gst = $input['gst'] ;
+                $transaction_model->gst = $gst;//$input['gst'] ;
                 //$transaction_model->total_amount = $transaction_model->amount + $transaction_model->gst;
-                $transaction_model->total_amount = $input['total_with_gst'];
+                $transaction_model->total_amount = $total_amnt;
                 $transaction_model->status = "active";
                 $transaction_model->save();
             }
@@ -224,9 +232,9 @@ class OrderController extends Controller
                 $transaction_model->quote_id = $input['quote_id'];
                 $transaction_model->invoice_no = $invoice_number['generated_number'];
                 $transaction_model->currency = "AUD";
-                $transaction_model->amount = $input['total']; //TODO::check price
-                $transaction_model->gst = $input['gst'] ;
-                $transaction_model->total_amount = $input['total_with_gst'];
+                $transaction_model->amount = $total; //$input['total']; //TODO::check price
+                $transaction_model->gst = $gst;//$input['gst'] ;
+                $transaction_model->total_amount = $total_amnt;
                 $transaction_model->status = "active";
                 if($transaction_model->save())
                 {

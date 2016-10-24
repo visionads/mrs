@@ -205,7 +205,7 @@
                             </fieldset>
                             {{--========================================= Package End =============================================--}}
 
-                            <fieldset class="dflt_packs"><hr>
+                            <fieldset class="photography"><hr>
                                 <div class="form-bottom">
                                     <h3 class="instruction">Photography</h3>
                                     <br>

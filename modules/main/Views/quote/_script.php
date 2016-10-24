@@ -9,12 +9,12 @@
         $(".choose1").click(function(){
             $(".pack-choise").slideUp();
             $(".dflt_packs").slideDown();
-            $(".photography").slideUp();
+            $(".photography").slideDown();
         });
         $(".choose0").click(function(){
             $(".pack-choise").slideDown();
             $(".dflt_packs").slideUp();
-            //$(".photography").slideUp();
+            $(".photography").slideDown();
         });
     });
 

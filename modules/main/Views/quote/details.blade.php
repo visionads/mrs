@@ -749,9 +749,9 @@
                     <div class="form-bottom">
                         <h3 class="instruction">Quote Property Access Information</h3>
                         <br>
-                        @if(count($data['quote_property'])>0)
+                        {{--@if(count($data['quote_property'])>0)--}}
                             <div class="row">
-
+                                @if(count($data['quote_property'])>0)
                                 <style>
                                     .tbl { background:none; color:#fff;}
                                     .tbl th { text-align:right; width: 48%; background:none !important;}
@@ -793,7 +793,7 @@
                                         <tr><th>Property Note</th><td> : </td><td class="tdata">{{ isset($data['quote_property'][0]->property_note)?$data['quote_property'][0]->property_note:'' }}</td></tr>
                                     </table>
                                 </div>
-
+                                @else
                                 <div class="col-sm-12 center">
                                     @if(count($data['quote_image'])>0)
                                         @foreach($data['quote_image'] as $quote_images)
@@ -801,17 +801,21 @@
                                                 <img width="100%" height="150" src="{{ asset($quote_images->image) }}">
                                             </label>
                                         @endforeach
+                                    @else
+                                        <div class="col-sm-12 note">
+                                            <p class="center">Sorry, No data found.</p>
+                                        </div>
                                     @endif
                                 </div>
-
+                                @endif
                             </div>
-                        @else
-                            <div class="row">
+                        {{--@else--}}
+                            {{--<div class="row">
                                 <div class="col-sm-12 note">
                                     <p class="center">Sorry, No data found.</p>
                                 </div>
-                            </div>
-                        @endif
+                            </div>--}}
+                        {{--@endif--}}
                     </div>
 
                     <div class="row">
