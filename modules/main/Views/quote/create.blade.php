@@ -109,7 +109,6 @@
                                             ?>
                                             {{--=== 1st Loop ===--}}
                                             @foreach($data['packages'] as $package)
-
                                                 <?php
                                                     $pack_type_unique[$j] = $package->type;
                                                     if($j > 0){
@@ -121,7 +120,6 @@
                                                     }
                                                     $j++;
                                                 ?>
-
                                                 {{--<div class="col-md-12 text-color center size-25">{{ $package->type }}</div>--}}
                                                 <div class="col-sm-12 package1">
                                                     <label style="width: 100%;">
@@ -135,7 +133,7 @@
                                                             {{--</label>--}}
                                                             </td>
                                                         </tr>
-                                                        @if($package->type == "super-exposure-pack")
+                                                        {{--@if($package->type == "super-exposure-pack")
                                                         <tr>
                                                             <td align="left">
                                                                 <div class="checkbox">
@@ -143,7 +141,7 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                        @endif
+                                                        @endif--}}
                                                         <tr>
                                                             {{--=== First part from left ===--}}
                                                             <td align="left" width="30%">

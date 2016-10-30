@@ -42,7 +42,7 @@ class UserRequest extends Request
 
             return [
                 'email'   => 'required|unique:user,email,' . $id,
-                'username'   => 'required|unique:user,username,' . $id
+                //'username'   => 'required|unique:user,username,' . $id
             ];
 
         }else{

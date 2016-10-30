@@ -15,11 +15,20 @@
         <small class="required">(Required)</small>
         {!! Form::input('number','price', Input::old('price'), ['id'=>'price', 'class' => 'form-control','title'=>'enter price','required']) !!}
     </div>
-    <div class="">
-        {!! Form::label('status', 'Status:', ['class'=>'control-label']) !!}
-        <div class="form-group">
-            <label class="radio radio-inline"><input type="radio" name="status" value="open" checked ><span style="left:15px!important; top:3px; position:inherit;">Open</span></label>
-            <label class="radio radio-inline"><input type="radio" name="status" value="close" class="corm-control" ><span style="left:15px!important; top:3px; position:inherit;">Close</span></label>
+    <div class="row">
+        <div class="col-md-6">
+            {!! Form::label('status', 'Status:', ['class'=>'control-label']) !!}
+            <div class="form-group">
+                <label class="radio radio-inline"><input type="radio" name="status" value="open" checked ><span style="left:15px!important; top:3px; position:inherit;">Open</span></label>
+                <label class="radio radio-inline"><input type="radio" name="status" value="close" class="corm-control" ><span style="left:15px!important; top:3px; position:inherit;">Close</span></label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            {!! Form::label('is_distributed_package', 'Is Distributed Package:', ['class'=>'control-label']) !!}
+            <div class="form-group">
+                <label class="radio radio-inline"><input type="radio" name="is_distributed_package" value="yes" ><span style="left:15px!important; top:3px; position:inherit;">Yes</span></label>
+                <label class="radio radio-inline"><input type="radio" name="is_distributed_package" value="no" checked class="corm-control" ><span style="left:15px!important; top:3px; position:inherit;">No</span></label>
+            </div>
         </div>
     </div>
     <div>

@@ -136,6 +136,7 @@ class CreateAdmin extends Migration
             $table->float('price')->nullable();
             $table->string('image_path', 128)->nullable();
             $table->string('image_thumb', 128)->nullable();
+            $table->enum('is_distributed_package', ['yes', 'no'])->nullable();
             $table->enum('status',array('open','close'))->nullable();
             $table->enum('type',array('medium-packages','large-range-packages','super-exposure-pack'))->nullable();
             $table->integer('created_by', false, 11);
@@ -369,7 +370,7 @@ class CreateAdmin extends Migration
 
             $table->unsignedInteger('print_material_id')->nullable();
             $table->unsignedInteger('package_head_id')->nullable();
-            $table->enum('is_distributed_package', ['Yes', 'No'])->nullable();
+            #$table->enum('is_distributed_package', ['yes', 'no'])->nullable();
             #$table->unsignedInteger('print_material_size_id')->nullable();
             $table->text('print_material_comments')->nullable();
             $table->smallInteger('is_distributed')->nullable();

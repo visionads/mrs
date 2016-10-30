@@ -202,6 +202,7 @@ class QuoteController extends Controller
             $local_media_price += $local_media_p->price;
         }*/
         //print_r($quote->is_distributed_package);exit();
+        //print_r($prices['is_distributed_package']);exit('null');
 
         // Return to view Page-------------------------------------------
         return view('main::quote.retrieve_quote_details',[
@@ -229,6 +230,7 @@ class QuoteController extends Controller
             'distributed_print_material_price'=>$prices['distributed_print_material_price'],
             'package_str'=>$prices['package_str'],
             'package_type'=>$prices['package_type'],
+            'is_distributed_package'=>$prices['is_distributed_package'],
             'print_material_quantity'=>$prices['print_material_quantity'],
             'print_material_use_for_distribution'=>$prices['print_material_use_for_distribution'],
             'exist_package'=>$prices['package_id'],
@@ -245,11 +247,13 @@ class QuoteController extends Controller
         $package_str = '';
         $package_type = '';
         $package_price = 0;
+        $is_distributed_package = '';
         if(isset($quote->package_head_id)){
             $package_qr= Package::with('relPackageOption')->findOrFail($quote->package_head_id);
             $package_price = $package_qr->price;
             $package_str = $package_qr->title;
             $package_type = $package_qr->type;
+            $is_distributed_package = $package_qr->is_distributed_package;
         }
         //print_r($package_price);
         //exit();
@@ -381,6 +385,7 @@ class QuoteController extends Controller
         $data['photography_price']=$photography_price;
         $data['package_str']=$package_str;
         $data['package_type']=$package_type;
+        $data['is_distributed_package']=$is_distributed_package;
         $data['package_price']=$package_price;
         $data['signboard_package_str']=$signboard_package_str;
         $data['signboard_price']=$signboard_price;
@@ -434,11 +439,11 @@ class QuoteController extends Controller
                     if (isset($received['package_head_id'])) {
                         $data['package_head_id'] = $received['package_head_id'];
                     }
-                    if (isset($received['is_distributed_package'])) {
+                    /*if (isset($received['is_distributed_package'])) {
                         $data['is_distributed_package'] = $received['is_distributed_package'];
                     }else{
                         $data['is_distributed_package'] = 'No';
-                    }
+                    }*/
                     //print_r($data['package_head_id']);
                     //exit();
                 }
@@ -660,8 +665,8 @@ class QuoteController extends Controller
 
 //        dd($data['quote']);
         //print_r($data['quote']->is_distributed_package);exit();
-        $is_dist = $data['quote']->is_distributed_package;
-        return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'is_dist'=>$is_dist,'data'=>$data]);
+        //$is_dist = $data['quote']->is_distributed_package;
+        return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
 
 
@@ -696,11 +701,11 @@ class QuoteController extends Controller
                     $data['package_head_id'] = $received['package_head_id'];
                 }
 
-                if (isset($received['is_distributed_package'])) {
+                /*if (isset($received['is_distributed_package'])) {
                     $data['is_distributed_package'] = $received['is_distributed_package'];
                 }else{
                     $data['is_distributed_package'] = 'No';
-                }
+                }*/
 
             }else{
                 $data['package_head_id'] = null;

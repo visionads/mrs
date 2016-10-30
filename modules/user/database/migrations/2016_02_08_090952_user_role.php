@@ -41,8 +41,14 @@ class UserRole extends Migration
 
         Schema::create('user', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username', 64)->nullable();
+            $table->string('username', 64)->default(0);
             $table->string('email', 64)->unique();
+
+            $table->string('full_name', 64)->nullable();
+            //$table->string('agency', 64)->nullable();
+            $table->text('address')->nullable();
+            $table->string('phone', 32)->nullable();
+
             $table->string('password', 64)->nullable();
             $table->string('auth_key', 128)->nullable();
             $table->string('access_token', 256)->nullable();

@@ -13,13 +13,14 @@
     <div class="col-sm-12">
         <div class="panel">
             <div class="panel-heading">
-                <span class="panel-title">{{ $pageTitle }}</span>&nbsp;&nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-content="<em>we can show all user in this page<br> and add new user, update, delete from this page</em>">(?)</span>
+                <span class="panel-title">@if(Session::get('user-role')=='agent') Agent user list @else{{ $pageTitle }}@endif</span>&nbsp;&nbsp;&nbsp;<span style="color: #A54A7B" class="user-guideline" data-content="<em>we can show all user in this page<br> and add new user, update, delete from this page</em>">(?)</span>
                 <a class="btn btn-primary btn-xs pull-right pop" data-toggle="modal" href="#addData" data-placement="left" data-content="click 'add user' button to add new user">
                     <strong>Add User</strong>
                 </a>
             </div>
 
             <div class="panel-body">
+                @if(Session::get('user-role')!=='agent')
                 {{-------------- Filter :Starts -------------------------------------------}}
                 {!! Form::open(['method' =>'GET','route'=>'search-user']) !!}
                 <div class="col-sm-12">
@@ -36,6 +37,9 @@
                 </div>
                 {!! Form::close() !!}
                 <p> &nbsp;</p>
+                @endif
+
+                {{--{{ Auth::user()->id }}--}}
 
                 {{------------- Filter :Ends -------------------------------------------}}
                 <div class="table-primary">
@@ -51,21 +55,44 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(isset($model))
-                            @foreach($model as $values)
-                                <tr class="gradeX">
-                                    <td>{{ucfirst($values->username)}}</td>
-                                    <td>{{$values->email}}</td>
-                                    <td>{{ucfirst($values->status)}}</td>
-                                    <td>{{$values->expire_date}}</td>
-                                    <td>
-                                        <a href="{{ route('show-user', $values->id) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#etsbModal" data-placement="top" data-content="view"><i class="fa fa-eye"></i></a>
-                                        <a href="{{ route('edit-user', $values->id) }}" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#etsbModal" data-placement="top" data-content="update"><i class="fa fa-edit"></i></a>
-                                        <a href="{{ route('delete-user', $values->id) }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to Delete?')" data-placement="top" data-content="delete"><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                        @if(Session::get('user-role')=='super-admin' || Session::get('user-role')=='admin')
+                            {{-- for Super-admin and Admin--}}
+                            @if(isset($model))
+                                @foreach($model as $values)
+                                    <tr class="gradeX">
+                                        <td>@if(ucfirst($values->username) == '0') N/A @else {{ucfirst($values->username)}} @endif</td>
+                                        <td>{{$values->email}}</td>
+                                        <td>{{ucfirst($values->status)}}</td>
+                                        <td>{{$values->expire_date}}</td>
+                                        <td>
+                                            <a href="{{ route('show-user', $values->id) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#etsbModal" data-placement="top" data-content="view"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ route('edit-user', $values->id) }}" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#etsbModal" data-placement="top" data-content="update"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('delete-user', $values->id) }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to Delete?')" data-placement="top" data-content="delete"><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        @else
+                            {{-- For Agent and other users except super/admin --}}
+                            @if(isset($model))
+                                @foreach($model as $values)
+                                    @if($values->created_by == Auth::user()->id)
+                                        <tr class="gradeX">
+                                            <td>@if(ucfirst($values->username) == '0') N/A @else {{ucfirst($values->username)}} @endif</td>
+                                            <td>{{$values->email}}</td>
+                                            <td>{{ucfirst($values->status)}}</td>
+                                            <td>{{$values->expire_date}}</td>
+                                            <td>
+                                                <a href="{{ route('show-user', $values->id) }}" class="btn btn-info btn-xs" data-toggle="modal" data-target="#etsbModal" data-placement="top" data-content="view"><i class="fa fa-eye"></i></a>
+                                                <a href="{{ route('edit-user', $values->id) }}" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#etsbModal" data-placement="top" data-content="update"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('delete-user', $values->id) }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to Delete?')" data-placement="top" data-content="delete"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @endif
                         @endif
+
                         </tbody>
                     </table>
                 </div>

@@ -24,6 +24,7 @@ class Package extends Model
         'image_path',
         'image_thumb',
         'type',
+        'is_distributed_package',
         'status'
     ];
 

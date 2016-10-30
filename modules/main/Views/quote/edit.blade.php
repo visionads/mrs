@@ -131,8 +131,8 @@
                                                         <?php
                                                         //if($data['quote']->relQuotePackage['price'] == $package->price){$checked='checked';}else{$checked='';}
                                                         if($data['quote']->package_head_id == $package->id){$checked='checked';}else{$checked='';}
-                                                        if($data['quote']->is_distributed_pakcage == "Yes"){$checked1='checked'; }else{$checked1='';}
-                                                        if($is_dist == "Yes"){$hide = 'display:none';}else{ $hide='';}
+                                                        //if($data['quote']->is_distributed_pakcage == "Yes"){$checked1='checked'; }else{$checked1='';}
+                                                        //if($data['quote']->is_distributed_package == "Yes"){$hide = 'display:none';}else{ $hide='';}
                                                         ?>
                                                         <input type="radio" name="package_head_id" <?php echo $checked ?> value="{{ $package->id }}">
                                                         <span class="text-color">{{ $package->title }}</span>

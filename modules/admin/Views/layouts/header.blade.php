@@ -100,12 +100,12 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{route('user-profile')}}">Profile</a></li>
+                                    <li><a href="{{route('user-list')}}">User List</a></li>
                                     {{--<li><a href="#">User Settings</a></li>--}}
                                     @if(Session::get('user-role')=='super-admin' || Session::get('user-role')=='admin')
-                                    <li><a href="{{route('settings')}}">Settings</a></li>
-                                    <li><a href="{{route('index-permission-role')}}">Permissions of roles</a></li>
-                                    <li><a href="{{route('index-role-user')}}">User Roles</a></li>
-                                    <li><a href="{{route('user-list')}}">User List</a></li>
+                                        <li><a href="{{route('index-role-user')}}">User Roles</a></li>
+                                        <li><a href="{{route('settings')}}">Settings</a></li>
+                                        <li><a href="{{route('index-permission-role')}}">Permissions of roles</a></li>
                                     @endif
                                     <li role="separator" class="divider"></li>
                                     <li><a href="{{route('user-logout')}}">Log Out</a></li>

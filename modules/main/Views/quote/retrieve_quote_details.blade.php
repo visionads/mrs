@@ -230,13 +230,14 @@
 
                     <!--============================================================================================== ***
                     COMPLETE PACKAGE
-                    If is_distributed_package chechk box is being checked at the time of chossing a package from New Quote form
+                    If package is "is_distributed_package"
                     *** ===============================================================================================-->
                     {{--{{ $package_type }}--}}
                     @if($package_type!=='')
-                        @if($package_type == "super-exposure-pack")
-                            @if(isset($quote->is_distributed_package))
-                                @if($quote->is_distributed_package=='yes')
+                        {{--@if($package_type == "super-exposure-pack")--}}
+                        @if($is_distributed_package == "yes")
+                            {{--@if(isset($quote->is_distributed_package))--}}
+                                {{--@if($quote->is_distributed_package=='yes')--}}
                                 <div class="col-sm-12">
                                     <hr class="common-hr">
                                     <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
@@ -269,10 +270,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                @endif
-                            @endif
-                        @else
-                            <div class="col-sm-12">
+                                {{--@endif--}}
+                            {{--@endif--}}
+                        {{--@else--}}
+                            {{--<div class="col-sm-12">
                                 <hr class="common-hr">
                                 <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
                                 <div class="form-group">
@@ -303,7 +304,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div>--}}
                         @endif
                     @endif
                     <!-- ===================================================================================================***

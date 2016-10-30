@@ -15,11 +15,19 @@
 
     <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
         <div class="row">
+            @if(Session::get('user-role') == 'agent')
+                <div class="col-sm-6">
+                    {!! Form::label('full_name', 'Agent Name:', ['class' => 'control-label']) !!}
+                    <small class="required">(Required)</small>
+                    {!! Form::text('full_name',Input::old('full_name'),['class' => 'form-control','placeholder'=>'Enter Full Name','required','autofocus', 'title'=>'Enter Full Name']) !!}
+                </div>
+            @else
             <div class="col-sm-6">
                 {!! Form::label('username', 'UserName:', ['class' => 'control-label']) !!}
                 <small class="required">(Required)</small>
                 {!! Form::text('username',Input::old('username'),['class' => 'form-control','placeholder'=>'User Name','required','autofocus', 'title'=>'Enter User Name']) !!}
             </div>
+            @endif
             <div class="col-sm-6">
                 {!! Form::label('email', 'Email Address:', ['class' => 'control-label']) !!}
                 <small class="required">(Required)</small>
@@ -27,7 +35,7 @@
             </div>
         </div>
     </div>
-
+    @if(Session::get('user-role') !== 'agent')
     <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
         <div class="row">
             <div class="col-sm-6">
@@ -40,7 +48,7 @@
                 </div>
                 <div id="pass-old">
                     {!! Form::hidden('password',$data['password']) !!}
-                    {!! Form::text('password1',null,['class' => 'form-control','placeholder'=>'Password','title'=>'Enter User Password','readonly']) !!}
+                    {!! Form::text('password1',null,['class' => 'form-control','placeholder'=>'Password','title'=>'Enter User Password']) !!}
                 </div>
                 <div style="display: none;" id="field-password">
                     {!! Form::password('password2',['id'=>'edit-user-password','class' => 'form-control','placeholder'=>'Password','title'=>'Enter User Password']) !!}
@@ -50,7 +58,7 @@
                 <div style="margin-top: 20px;">
                     {!! Form::label('confirm_password', 'Confirm Password') !!}
                     <div id="re-pass">
-                        {!! Form::password('re_password',['class' => 'form-control','placeholder'=>'Re-Enter New Password','name'=>'re_password','onkeyup'=>"validation()",'title'=>'Enter Confirm Password That Must Be Match With New Passowrd.','readonly']) !!}
+                        {!! Form::password('re_password',['class' => 'form-control','placeholder'=>'Re-Enter New Password','name'=>'re_password','onkeyup'=>"validation()",'title'=>'Enter Confirm Password That Must Be Match With New Passowrd.']) !!}
                     </div>
                     <div style="display: none" id="field-con-password">
                         {!! Form::password('re_password',['class' => 'form-control','placeholder'=>'Re-Enter New Password','id'=>'user-re-password','name'=>'re_password','onkeyup'=>"validation()",'title'=>'Enter Confirm Password That Must Be Match With New Passowrd.']) !!}
@@ -61,15 +69,24 @@
             </div>
         </div>
     </div>
+    @endif
 
     <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
         <div class="row">
+            @if(Session::get('user-role') == 'agent')
+                <div class="col-sm-6">
+                    {!! Form::label('phone', 'Phone') !!}
+                    <small class="required">(Required)</small>
+                    {!! Form::text('phone',Input::old('phone'),['class' => 'form-control','placeholder'=>'Enter Phone','required','title'=>'Enter Phone']) !!}
+                </div>
+                <input type="hidden" name="role_id" value="{{ Input::old('role_id') }}">
+            @else
             <div class="col-sm-6">
                 {!! Form::label('role_id', 'User Role:', ['class' => 'control-label']) !!}
                 <small class="required">(Required)</small>
                 {!! Form::Select('role_id',$role, $user_role? $user_role->role_id : Input::old('role_id'),['style'=>'text-transform:capitalize','class' => 'form-control','required','title'=>'select role name']) !!}
             </div>
-
+            @endif
             <div class="col-sm-6">
                 {!! Form::label('business_title', 'Company Name:', ['class' => 'control-label']) !!}
                 {!! Form::text('business_title', null ,['class' => 'form-control','title'=>'select branch name']) !!}
@@ -91,6 +108,17 @@
             </div>
         </div>
     </div>--}}
+    @if(Session::get('user-role') == 'agent')
+        <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
+            <div class="row">
+                <div class="col-sm-12">
+                    {!! Form::label('address', 'Address:', ['class' => 'control-label']) !!}
+                    <small class="required">(Required)</small>
+                    {!! Form::text('address',Input::old('address'),['class' => 'form-control','placeholder'=>'Enter Address','required','title'=>'Write Address']) !!}
+                </div>
+            </div>
+        </div>
+    @else
     <div class="form-group form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
         <div class="row">
             <div class="col-sm-6">
@@ -112,7 +140,7 @@
             </div>
         </div>
     </div>
-
+    @endif
     <div class="form-margin-btn">
         {!! Form::submit('Save changes', ['id'=>'user-btn-disabled','class' => 'btn btn-primary','data-placement'=>'top','data-content'=>'click save changes button for save role information']) !!}
         <a href="{{route('user-list')}}" class=" btn btn-default" data-placement="top" data-content="click close button for close this entry form">Close</a>

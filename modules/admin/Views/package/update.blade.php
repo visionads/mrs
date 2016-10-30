@@ -19,18 +19,34 @@
             <small class="required">(Required)</small>
             {!! Form::input('number','price', @$data[0]['price'], ['id'=>'price', 'class' => 'form-control','title'=>'enter price','required']) !!}
         </div>
-        <div>
-            {!! Form::label('status', 'Status:', ['class'=>'control-label']) !!}
-            <div class="">
-                @if(isset($data[0]['status']))
-                    @if($data[0]['status']=='open')
-                        <label class="radio radio-inline"><input type="radio" name="status" value="{{ @$data[0]['status'] }}" checked ><span style="left:15px!important; top:3px; position:inherit;">Open</span></label>
-                        <label class="radio radio-inline"><input type="radio" name="status" value="close" ><span style="left:15px!important; top:3px; position:inherit;">Close</span></label>
-                    @else
-                        <label class="radio radio-inline"><input type="radio" name="status" value="open"  ><span style="left:15px!important; top:3px; position:inherit;">Open</span></label>
-                        <label class="radio radio-inline"><input type="radio" name="status" value="{{ @$data[0]['status'] }}" checked ><span style="left:15px!important; top:3px; position:inherit;">Close</span></label>
+        <div class="row">
+            <div class="col-md-6">
+                {!! Form::label('status', 'Status:', ['class'=>'control-label']) !!}
+                <div class="form-group">
+                    @if(isset($data[0]['status']))
+                        @if($data[0]['status']=='open')
+                            <label class="radio radio-inline"><input type="radio" name="status" value="{{ @$data[0]['status'] }}" checked ><span style="left:15px!important; top:3px; position:inherit;">Open</span></label>
+                            <label class="radio radio-inline"><input type="radio" name="status" value="close" ><span style="left:15px!important; top:3px; position:inherit;">Close</span></label>
+                        @else
+                            <label class="radio radio-inline"><input type="radio" name="status" value="open"  ><span style="left:15px!important; top:3px; position:inherit;">Open</span></label>
+                            <label class="radio radio-inline"><input type="radio" name="status" value="{{ @$data[0]['status'] }}" checked ><span style="left:15px!important; top:3px; position:inherit;">Close</span></label>
+                        @endif
                     @endif
-                @endif
+                </div>
+            </div>
+            <div class="col-md-6">
+                {!! Form::label('is_distributed_package', 'Is Distributed Package:', ['class'=>'control-label']) !!}
+                <div class="form-group">
+                    @if(isset($data[0]['is_distributed_package']))
+                        @if($data[0]['is_distributed_package']=='yes')
+                            <label class="radio radio-inline"><input type="radio" name="is_distributed_package" value="{{ @$data[0]['is_distributed_package'] }}" checked ><span style="left:15px!important; top:3px; position:inherit;">Yes</span></label>
+                            <label class="radio radio-inline"><input type="radio" name="is_distributed_package" value="no" ><span style="left:15px!important; top:3px; position:inherit;">No</span></label>
+                        @else
+                            <label class="radio radio-inline"><input type="radio" name="is_distributed_package" value="yes"  ><span style="left:15px!important; top:3px; position:inherit;">Yes</span></label>
+                            <label class="radio radio-inline"><input type="radio" name="is_distributed_package" value="{{ @$data[0]['status'] }}" checked ><span style="left:15px!important; top:3px; position:inherit;">No</span></label>
+                        @endif
+                    @endif
+                </div>
             </div>
         </div>
         <div>

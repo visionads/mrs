@@ -232,8 +232,9 @@ class UserController extends Controller
     {
         $pageTitle = "User List";
 
+        //$model = User::where('status','!=','cancel')->where('username','!=','super-admin')->orderBy('id', 'DESC')->paginate(30);
         $model = User::where('status','!=','cancel')->where('username','!=','super-admin')->orderBy('id', 'DESC')->paginate(30);
-
+//print_r($model);exit();
         $role =  [''=>'Select Role'] +  Role::where('role.title', '!=', 'super-admin')->lists('title','id')->all();
 
         /*set 30days for expire-date to user*/
@@ -310,17 +311,37 @@ class UserController extends Controller
                 $business->save();
                 $business_id =$business->id;
             }
-
-            $input_data = [
-                'username'=>$input['username'],
-                'email'=>$input['email'],
-                'password'=>Hash::make($input['password']),
-                'csrf_token'=> str_random(30),
-                'ip_address'=> getHostByName(getHostName()),
-                'expire_date'=> '2020-12-12 12:12:12', //$input['expire_date'],
-                'status'=> $input['status'],
-                'business_id'=> isset($business_id)?$business_id: null
-            ];
+            $sess_user = Session::get('user-role');
+            //print_r($sess_user);exit();
+            if($sess_user == 'agent'){
+                $input_data = [
+                    'full_name'=>$input['full_name'],
+                    'phone'=>$input['phone'],
+                    'address'=>$input['address'],
+                    //'username'=>$input['username'],
+                    'email'=>$input['email'],
+                    //'password'=>Hash::make($input['password']),
+                    //'csrf_token'=> str_random(30),
+                    //'ip_address'=> getHostByName(getHostName()),
+                    //'expire_date'=> '2020-12-12 12:12:12', //$input['expire_date'],
+                    'status'=> 'active',
+                    'business_id'=> isset($business_id)?$business_id: null
+                ];
+            }else{
+                $input_data = [
+                    //'full_name'=>$input['full_name'],
+                    ///'phone'=>$input['phone'],
+                    //'address'=>$input['address'],
+                    'username'=>$input['username'],
+                    'email'=>$input['email'],
+                    'password'=>Hash::make($input['password']),
+                    'csrf_token'=> str_random(30),
+                    'ip_address'=> getHostByName(getHostName()),
+                    'expire_date'=> '2020-12-12 12:12:12', //$input['expire_date'],
+                    'status'=> $input['status'],
+                    'business_id'=> isset($business_id)?$business_id: null
+                ];
+            }
 
             if($user = User::create($input_data)){
                 $role_user = [
@@ -392,28 +413,52 @@ class UserController extends Controller
         $input = Input::all();
         $model1 = User::findOrFail($id);
 
-        if($input['password2']!=Null){
-            $password = Hash::make($input['password2']);
-        }else{
-            $password =  $input['password'];
+        $sess_user = Session::get('user-role');
+        if($sess_user !== 'agent') {
+            if ($input['password2'] != Null) {
+                $password = Hash::make($input['password2']);
+            } else {
+                $password = $input['password'];
+            }
         }
-        $input_data = [
-            'username'=>$input['username'],
-            'email'=>$input['email'],
-            'password'=>$password,
-            'csrf_token'=> str_random(30),
-            'ip_address'=> getHostByName(getHostName()),
-            'expire_date'=> '2020-12-12 12:12:12', //$input['expire_date'],
-            'status'=> $input['status'],
-        ];
+
+        //print_r($sess_user);exit();
+        if($sess_user == 'agent'){
+            $input_data = [
+                'full_name'=>$input['full_name'],
+                'phone'=>$input['phone'],
+                'address'=>$input['address'],
+                //'username'=>$input['username'],
+                'email'=>$input['email'],
+                //'password'=>$password,
+                //'csrf_token'=> str_random(30),
+                //'ip_address'=> getHostByName(getHostName()),
+                //'expire_date'=> '2020-12-12 12:12:12', //$input['expire_date'],
+                //'status'=> $input['status'],
+            ];
+        }else{
+            $input_data = [
+                //'full_name'=>$input['full_name'],
+                //'phone'=>$input['phone'],
+                //'address'=>$input['address'],
+                'username'=>$input['username'],
+                'email'=>$input['email'],
+                'password'=>$password,
+                'csrf_token'=> str_random(30),
+                'ip_address'=> getHostByName(getHostName()),
+                'expire_date'=> '2020-12-12 12:12:12', //$input['expire_date'],
+                'status'=> $input['status'],
+            ];
+        }
+
         DB::beginTransaction();
         try{
             $model1->update($input_data);
-
-            DB::table('role_user')
-                ->where('user_id', $model1->id)
-                ->update(['role_id' => $input['role_id']]);
-
+            if($sess_user !== 'agent') {
+                DB::table('role_user')
+                    ->where('user_id', $model1->id)
+                    ->update(['role_id' => $input['role_id']]);
+            }
             DB::commit();
             Session::flash('message', "Successfully Updated");
             ###LogFileHelper::log_info('update-user', 'Successfully Updated!', ['Username:'.$input['username']]);

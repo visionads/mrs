@@ -92,6 +92,7 @@ class PackageController extends Controller
                 'slug' => str_slug($input['title']),
                 'price' => $input['price'],
                 'status' => $input['status'],
+                'is_distributed_package' => $input['is_distributed_package'],
                 'type' => $input['type'],
                 'image_path' => $input['image_path'],
                 'image_thumb' => $input['image_thumb']
@@ -102,6 +103,7 @@ class PackageController extends Controller
                 'slug' => str_slug($input['title']),
                 'price' => $input['price'],
                 'type' => $input['type'],
+                'is_distributed_package' => $input['is_distributed_package'],
                 'status' => $input['status']
             ];
         }
@@ -280,6 +282,7 @@ class PackageController extends Controller
                 'price'=>@$input['price'],
                 'status'=>@$input['status'],
                 'type'=>@$input['type'],
+                'is_distributed_package'=>@$input['is_distributed_package'],
                 'image_path'=>@$input['image_path'],
                 'image_thumb'=>@$input['image_thumb']
             ];
@@ -289,6 +292,7 @@ class PackageController extends Controller
                 'title'=>@$input['title'],
                 'price'=>@$input['price'],
                 'type'=>@$input['type'],
+                'is_distributed_package'=>@$input['is_distributed_package'],
                 'status'=>@$input['status']
             ];
         }
