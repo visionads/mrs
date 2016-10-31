@@ -414,14 +414,17 @@ class UserController extends Controller
         $model1 = User::findOrFail($id);
 
         $sess_user = Session::get('user-role');
-        if($sess_user !== 'agent') {
+        //print_r($sess_user);exit();
+        if($sess_user == 'agent') {
+            $password = '';
+        }else{
             if ($input['password2'] != Null) {
                 $password = Hash::make($input['password2']);
             } else {
-                $password = $input['password'];
+                $password = Hash::make($input['password1']);
             }
         }
-
+        //print_r($password);exit();
         //print_r($sess_user);exit();
         if($sess_user == 'agent'){
             $input_data = [
