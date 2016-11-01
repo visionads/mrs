@@ -238,6 +238,19 @@
             var total= (quantity*65)/1000;
             $('price').append('<b id="disPrice">$ '+total+'</b>');
             $('#distributionPrice').val(total);
+
+            /* ====== For Quote Summary ============ */
+            var ttlprice = $('#ttlprice').val();
+
+            var totalCost = parseInt(ttlprice) + parseInt(total);
+            var newgst = totalCost * 0.1;
+            var newTotal = parseInt(totalCost) + parseInt(newgst);
+            //alert(totalCost);
+            $('.dist_price_in_summary').empty().append(total.toFixed(2));
+
+            $('.totalToScript').empty().append(totalCost.toFixed(2));
+            $('.newgst').empty().append(newgst);
+            $('.newtotal').empty().append(newTotal.toFixed(2));
         }
 
     });

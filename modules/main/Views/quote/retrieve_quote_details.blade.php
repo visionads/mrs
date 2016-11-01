@@ -50,12 +50,18 @@
                                     <td>$ {{ number_format($photography_price,2) }}</td>
                                 </tr>
                                 {{--<tr><td>+ Distribution of Print Material</td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>--}}
+
+                                @if($print_material_quantity!= 0)
+                                    @if($print_material_use_for_distribution = 1)
+                                        <tr><td>+ Distribution of Print Material</td><td>:  $</td><td class="dist_price_in_summary">0.00</td></tr>
+                                    @endif
+                                @endif
                                 <tr style="border-bottom: 3px double #909090;">
                                     <td>+ Package Name : {!! ($package_str!=='')?' <span class="items"> '.$package_str.' </span>' : '' !!}</td>
                                     <td>&nbsp; : &nbsp;</td>
                                     <td>$ {{ number_format($package_price,2) }}</td>
                                 </tr>
-                                <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>:</td><td>$ {{ number_format($total,2) }}</td></tr>
+                                <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>:</td><td class="totalToScript">$ {{ number_format($total,2) }}</td></tr>
 
                             </table>
                         @else
@@ -66,12 +72,19 @@
                                     <td>$ {{ number_format($photography_price,2) }}</td>
                                 </tr>
                                 {{--<tr><td width="auto" >+ Photography {!! ($photography_package_str!=='')?'[<span class="items"> '.$photography_package_str.' </span>]':'' !!}</td><td width="20">:</td><td>$ {{ number_format($photography_price,2) }}</td></tr>--}}
-                                <tr><td>+ Signboard Package {!! ($signboard_package_str!=='')?'[<span class="items"> '.$signboard_package_str.' </span>]':'' !!}</td><td>:</td><td width="20%">$ {{ number_format($signboard_price,2) }}</td></tr>
-                                <tr><td>+ Print Material {!! ($print_material_str!=='')?'[<span class="items"> '.$print_material_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
+                                <tr><td>+ Signboard Package {!! ($signboard_package_str!=='')?'[<span class="items"> '.$signboard_package_str.' </span>]':'' !!}</td><td>&nbsp; : &nbsp;</td><td width="20%">$ {{ number_format($signboard_price,2) }}</td></tr>
+                                <tr><td>+ Print Material {!! ($print_material_str!=='')?'[<span class="items"> '.$print_material_str.' </span>]':'' !!}</td><td>&nbsp; : &nbsp;</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
                                 {{--<tr style="border-bottom: 3px double #909090;"><td>+ Distribution of Print Material</td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>--}}
+
+                                @if($print_material_quantity!= 0)
+                                    @if($print_material_use_for_distribution = 1)
+                                        <tr style="border-bottom: 3px double #909090;"><td>+ Distribution of Print Material</td><td>&nbsp; : &nbsp;</td><td>$ <span class="dist_price_in_summary">0.00</span></td></tr>
+                                    @endif
+                                @endif
                                 {{--<tr><td>+ Digital Media</td><td>:</td><td>$ 0.00--}}{{--{{ number_format($print_material_price,2) }}--}}{{--</td></tr>--}}
                                 {{--<tr style="border-bottom: 3px double #909090;"><td>+ Local Media {!! ($local_media_str!=='')?'[<span class="items"> '.$local_media_str.' </span>]':'' !!}</td><td>:</td><td>$ {{ number_format($local_media_price,2) }}</td></tr>--}}
-                                <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>:</td><td>$ {{ number_format($total,2) }}</td></tr>
+                                <tr style="font-weight: bold;"><td style="text-align: right">Total&nbsp;</td><td>:</td><td class="totalToScript">$ {{ number_format($total,2) }}</td></tr>
+                                <input type="hidden" id="ttlprice" value="{{ $total }}" name="ttlprice">
                             </table>
                         @endif
                     </div>
@@ -80,9 +93,13 @@
 
 
             <div class="col-sm-6 text-right">
-                <h2 style="color:#f36f21">Total : $ {{ (isset($total))?number_format($total,2):'0.00' }}</h2>
+                {{--<h2 style="color:#f36f21">Total : $ {{ (isset($total))?number_format($total,2):'0.00' }}</h2>
                 <h2 style="color:#f36f21">GST : $ {{ (isset($gst))?number_format($gst,2):'0.00' }} </h2>
-                <h2 style="color:#f36f21">Total COST Inc GST : $ {{ (isset($total_with_gst))?number_format($total_with_gst,2):'0.00' }} </h2>
+                <h2 style="color:#f36f21">Total COST Inc GST : $ {{ (isset($total_with_gst))?number_format($total_with_gst,2):'0.00' }} </h2>--}}
+
+                <h2 style="color:#f36f21">Total : $ <span class="totalToScript">{{ (isset($total))?number_format($total,2):'0.00' }}</span></h2>
+                <h2 style="color:#f36f21">GST : $ <span class="newgst">{{ (isset($gst))?number_format($gst,2):'0.00' }}</span> </h2>
+                <h2 style="color:#f36f21">Total COST Inc GST : $ <span class="newtotal">{{ (isset($total_with_gst))?number_format($total_with_gst,2):'0.00' }}</span> </h2>
             </div>
             <div class="col-md-12">
                 <p>
@@ -521,12 +538,6 @@
             </div>
 
 
-
-
-
-
-
-
             <div class="col-sm-12" style="text-align: center !important;">
                 {{--{!! Form::submit('Confirmed Quote', ['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','onclick'=>'return confirm("Are you sure!")']) !!}&nbsp;--}}
 {{--                {!! Form::submit('Confirm',['class' => 'btn btn new_button','data-placement'=>'top','data-content'=>'click to confirm Agreement','data-toggle'=>'modal','data-target'=>'#confirmModal']) !!}--}}
@@ -566,8 +577,6 @@
 
     {!! Form::close() !!}
     </div>
-
-
 
     @include('main::order._script')
     @include('main::quote._script')
