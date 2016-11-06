@@ -20,8 +20,16 @@
         <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label size-25">{{ $pageTitle }}</span><br><br></div>
         </div>
+            @if($print_material_quantity != 0)
+            <script>
+                $(document).ready(function(){
+                     $('.keep_hide').hide();
+                });
+            </script>
+            @endif
+
         <div class="col-md-12">
-            <div class="col-sm-6">
+            <div class="col-sm-6 keep_hide">
 
                     <div class="col-sm-12">
                         <h1 class="size-25">Quote summary</h1>
@@ -92,7 +100,7 @@
             </div>
 
 
-            <div class="col-sm-6 text-right">
+            <div class="col-sm-6 text-right keep_hide">
                 {{--<h2 style="color:#f36f21">Total : $ {{ (isset($total))?number_format($total,2):'0.00' }}</h2>
                 <h2 style="color:#f36f21">GST : $ {{ (isset($gst))?number_format($gst,2):'0.00' }} </h2>
                 <h2 style="color:#f36f21">Total COST Inc GST : $ {{ (isset($total_with_gst))?number_format($total_with_gst,2):'0.00' }} </h2>--}}

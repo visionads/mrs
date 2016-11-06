@@ -201,6 +201,9 @@
         });
         $('#distributionQuantity').change(function () {
             var quantity= $(this).val();
+            if(quantity != ''){
+                $('.keep_hide').slideDown();
+            }
             var minQuantity=7000;
             if(quantity>7000)
             {
