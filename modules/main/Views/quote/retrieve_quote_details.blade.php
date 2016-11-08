@@ -346,7 +346,7 @@
                         @if($print_material_use_for_distribution = 1)
                             <div class="col-md-12">
                                 <hr class="common-hr">
-                                <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL</h3>
+                                <h3 class="instruction">COST OF DISTRIBUTION </h3>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location (Remainder will be sent to you the agency)','class="controll-label size-13"') !!}
