@@ -61,7 +61,7 @@
 
                                 @if($print_material_quantity!= 0)
                                     @if($print_material_use_for_distribution = 1)
-                                        <tr><td>+ Distribution of Print Material</td><td>:  $</td><td class="dist_price_in_summary">0.00</td></tr>
+                                        <tr><td>+ Cost of Distribution </td><td>:  $</td><td class="dist_price_in_summary">0.00</td></tr>
                                     @endif
                                 @endif
                                 <tr style="border-bottom: 3px double #909090;">
@@ -86,7 +86,7 @@
 
                                 @if($print_material_quantity!= 0)
                                     @if($print_material_use_for_distribution = 1)
-                                        <tr style="border-bottom: 3px double #909090;"><td>+ Distribution of Print Material</td><td>&nbsp; : &nbsp;</td><td>$ <span class="dist_price_in_summary">0.00</span></td></tr>
+                                        <tr style="border-bottom: 3px double #909090;"><td>+ Cost of Distribution </td><td>&nbsp; : &nbsp;</td><td>$ <span class="dist_price_in_summary">0.00</span></td></tr>
                                     @endif
                                 @endif
                                 {{--<tr><td>+ Digital Media</td><td>:</td><td>$ 0.00--}}{{--{{ number_format($print_material_price,2) }}--}}{{--</td></tr>--}}
@@ -578,7 +578,7 @@
 
                                 @if($print_material_quantity!= 0)
                                     @if($print_material_use_for_distribution = 1)
-                                        <tr><td>+ Distribution of Print Material</td><td>:  $</td><td class="dist_price_in_summary">0.00</td></tr>
+                                        <tr><td>+ Cost of Distribution </td><td>:  $</td><td class="dist_price_in_summary">0.00</td></tr>
                                     @endif
                                 @endif
                                 <tr style="border-bottom: 3px double #909090;">
@@ -603,7 +603,7 @@
 
                                 @if($print_material_quantity!= 0)
                                     @if($print_material_use_for_distribution = 1)
-                                        <tr style="border-bottom: 3px double #909090;"><td>+ Distribution of Print Material</td><td>&nbsp; : &nbsp;</td><td>$ <span class="dist_price_in_summary">0.00</span></td></tr>
+                                        <tr style="border-bottom: 3px double #909090;"><td>+ Cost of Distribution </td><td>&nbsp; : &nbsp;</td><td>$ <span class="dist_price_in_summary">0.00</span></td></tr>
                                     @endif
                                 @endif
                                 {{--<tr><td>+ Digital Media</td><td>:</td><td>$ 0.00--}}{{--{{ number_format($print_material_price,2) }}--}}{{--</td></tr>--}}
