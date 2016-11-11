@@ -360,7 +360,7 @@
                                         {{--<input class="form-control" type="number" name="quantity" id="distributionQuantity" value="{{ $print_material_quantity }}">--}}
                                         <select class="quantity form-control" name="quantity" id="distributionQuantity" required  style="color: black">
                                             <option value="">Please Select</option>
-                                            <option value="{{ $print_material_quantity }}">{{ $print_material_quantity }}</option>
+                                            <option value="{{ $print_material_quantity }}" selected >{{ $print_material_quantity }}</option>
                                         </select>
                                     </div>
                                     <div class="row">
