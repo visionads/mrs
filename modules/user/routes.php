@@ -24,133 +24,148 @@ Route::group(array('prefix' => 'user','modules'=>'User', 'namespace' => 'Modules
             echo $value->getPath() .'<br>';
         }
     });*/
-Route::any('user-list', [
-    'middleware' => 'acl_access:user/user-list',
-    'as' => 'user-list',
-    'uses' => 'UserController@index'
-]);
+    Route::any('create-a-new-account', [
+        #'middleware' => 'acl_access:user/user-list',
+        'as' => 'create-a-new-account',
+        'uses' => 'UserController@create_an_account'
+    ]);
 
-Route::any('add-user', [
-    'middleware' => 'acl_access:user/add-user',
-    'as' => 'add-user',
-    'uses' => 'UserController@add_user'
-]);
-
-Route::any('search-user', [
-    'middleware' => 'acl_access:user/search-user',
-    'as' => 'search-user',
-    'uses' => 'UserController@search_user'
-]);
-
-Route::any('show-user/{id}', [
-    'middleware' => 'acl_access:user/show-user/{id}',
-    'as' => 'show-user',
-    'uses' => 'UserController@show_user'
-]);
-
-Route::any('edit-user/{id}', [
-    'middleware' => 'acl_access:user/edit-user/{id}',
-    'as' => 'edit-user',
-    'uses' => 'UserController@edit_user'
-]);
-
-Route::any('update-user/{id}', [
-    'middleware' => 'acl_access:user/update-user/{id}',
-    'as' => 'update-user',
-    'uses' => 'UserController@update_user'
-]);
-
-Route::any('delete-user/{id}', [
-    'middleware' => 'acl_access:user/delete-user/{id}',
-    'as' => 'delete-user',
-    'uses' => 'UserController@destroy_user'
-]);
+    Route::any('add-new-agent', [
+        #'middleware' => 'acl_access:user/user-list',
+        'as' => 'add-new-agent',
+        'uses' => 'UserController@add_new_agent'
+    ]);
 
 
-Route::any('create-sign-up', [
-    //'middleware' => 'acl_access:user/create-sign-up',
-    'as' => 'create-sign-up',
-    'uses' => 'UserController@create_sign_up'
-]);
 
-Route::any('forget-password-view', [
-    //'middleware' => 'acl_access:user/forget-password-view',
-    'as' => 'forget-password-view',
-    'uses' => 'UserController@forget_password_view'
-]);
 
-Route::any('forget-password', [
-    //'middleware' => 'acl_access:user/forget-password-view',
-    'as' => 'forget-password',
-    'uses' => 'UserController@forget_password'
-]);
+    Route::any('user-list', [
+        'middleware' => 'acl_access:user/user-list',
+        'as' => 'user-list',
+        'uses' => 'UserController@index'
+    ]);
 
-Route::any('password-reset-confirm/{reset_password_token}', [
-    //'middleware' => 'acl_access:user/password-reset-confirm/{reset_password_token}',
-    'as' => 'password-reset-confirm',
-    'uses' => 'UserController@password_reset_confirm'
-]);
+    Route::any('add-user', [
+        'middleware' => 'acl_access:user/add-user',
+        'as' => 'add-user',
+        'uses' => 'UserController@add_user'
+    ]);
 
-Route::any('user-save-new-password',[
-    //'middleware' => 'acl_access:user/user-save-new-password',
-        'as'=>'user-save-new-password',
-        'uses'=>'UserController@save_new_password']);
+    Route::any('search-user', [
+        'middleware' => 'acl_access:user/search-user',
+        'as' => 'search-user',
+        'uses' => 'UserController@search_user'
+    ]);
 
-Route::any('signup', [
-    //'middleware' => 'acl_access:user/signup',
-    'as' => 'signup',
-    'uses' => 'UserController@store_signup_info'
-]);
+    Route::any('show-user/{id}', [
+        'middleware' => 'acl_access:user/show-user/{id}',
+        'as' => 'show-user',
+        'uses' => 'UserController@show_user'
+    ]);
 
-Route::get('user-logout', [
-    //'middleware' => 'acl_access:user/user-logout',
-    'as' => 'user-logout',
-    'uses' => 'UserController@logout'
-]);
+    Route::any('edit-user/{id}', [
+        'middleware' => 'acl_access:user/edit-user/{id}',
+        'as' => 'edit-user',
+        'uses' => 'UserController@edit_user'
+    ]);
 
-Route::any('add-user', [
-    'middleware' => 'acl_access:user/add-user',
-    'as' => 'add-user',
-    'uses' => 'UserController@add_user'
-]);
+    Route::any('update-user/{id}', [
+        'middleware' => 'acl_access:user/update-user/{id}',
+        'as' => 'update-user',
+        'uses' => 'UserController@update_user'
+    ]);
 
-/*Role */
+    Route::any('delete-user/{id}', [
+        'middleware' => 'acl_access:user/delete-user/{id}',
+        'as' => 'delete-user',
+        'uses' => 'UserController@destroy_user'
+    ]);
 
-Route::any('role', [
-    'middleware' => 'acl_access:user/role',
-    'as' => 'role',
-    'uses' => 'RoleController@index'
-]);
 
-Route::any('store-role', [
-    'middleware' => 'acl_access:user/store-role',
-    'as' => 'store-role',
-    'uses' => 'RoleController@store_role'
-]);
+    Route::any('create-sign-up', [
+        //'middleware' => 'acl_access:user/create-sign-up',
+        'as' => 'create-sign-up',
+        'uses' => 'UserController@create_sign_up'
+    ]);
 
-Route::any('view-role/{slug}', [
-    'middleware' => 'acl_access:user/view-role/{slug}',
-    'as' => 'view-role',
-    'uses' => 'RoleController@show'
-]);
+    Route::any('forget-password-view', [
+        //'middleware' => 'acl_access:user/forget-password-view',
+        'as' => 'forget-password-view',
+        'uses' => 'UserController@forget_password_view'
+    ]);
 
-Route::any('edit-role/{slug}', [
-    'middleware' => 'acl_access:user/edit-role/{slug}',
-    'as' => 'edit-role',
-    'uses' => 'RoleController@edit'
-]);
+    Route::any('forget-password', [
+        //'middleware' => 'acl_access:user/forget-password-view',
+        'as' => 'forget-password',
+        'uses' => 'UserController@forget_password'
+    ]);
 
-Route::any('update-role/{slug}', [
-    'middleware' => 'acl_access:user/update-role/{slug}',
-    'as' => 'update-role',
-    'uses' => 'RoleController@update'
-]);
+    Route::any('password-reset-confirm/{reset_password_token}', [
+        //'middleware' => 'acl_access:user/password-reset-confirm/{reset_password_token}',
+        'as' => 'password-reset-confirm',
+        'uses' => 'UserController@password_reset_confirm'
+    ]);
 
-Route::any('delete-role/{slug}', [
-    'middleware' => 'acl_access:user/delete-role/{slug}',
-    'as' => 'delete-role',
-    'uses' => 'RoleController@destroy'
-]);
+    Route::any('user-save-new-password',[
+        //'middleware' => 'acl_access:user/user-save-new-password',
+            'as'=>'user-save-new-password',
+            'uses'=>'UserController@save_new_password']);
+
+    Route::any('signup', [
+        //'middleware' => 'acl_access:user/signup',
+        'as' => 'signup',
+        'uses' => 'UserController@store_signup_info'
+    ]);
+
+    Route::get('user-logout', [
+        //'middleware' => 'acl_access:user/user-logout',
+        'as' => 'user-logout',
+        'uses' => 'UserController@logout'
+    ]);
+
+    Route::any('add-user', [
+        'middleware' => 'acl_access:user/add-user',
+        'as' => 'add-user',
+        'uses' => 'UserController@add_user'
+    ]);
+
+    /*Role */
+
+    Route::any('role', [
+        'middleware' => 'acl_access:user/role',
+        'as' => 'role',
+        'uses' => 'RoleController@index'
+    ]);
+
+    Route::any('store-role', [
+        'middleware' => 'acl_access:user/store-role',
+        'as' => 'store-role',
+        'uses' => 'RoleController@store_role'
+    ]);
+
+    Route::any('view-role/{slug}', [
+        'middleware' => 'acl_access:user/view-role/{slug}',
+        'as' => 'view-role',
+        'uses' => 'RoleController@show'
+    ]);
+
+    Route::any('edit-role/{slug}', [
+        'middleware' => 'acl_access:user/edit-role/{slug}',
+        'as' => 'edit-role',
+        'uses' => 'RoleController@edit'
+    ]);
+
+    Route::any('update-role/{slug}', [
+        'middleware' => 'acl_access:user/update-role/{slug}',
+        'as' => 'update-role',
+        'uses' => 'RoleController@update'
+    ]);
+
+    Route::any('delete-role/{slug}', [
+        'middleware' => 'acl_access:user/delete-role/{slug}',
+        'as' => 'delete-role',
+        'uses' => 'RoleController@destroy'
+    ]);
 
     /*Role User*/
 

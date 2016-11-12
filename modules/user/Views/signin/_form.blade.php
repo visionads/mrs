@@ -48,7 +48,7 @@
         <input type="submit" value="LOG IN" class="sign_button">
     </div>
     <div class="form-group" id="sign">
-        <a href="{{--{{ route('forget') }}--}}" class="white size-15">need help signing in?</a>
+        <a href="{{ route('create-a-new-account') }}" class="white size-15">or Create A New Account?</a>
     </div>
 </div>
 

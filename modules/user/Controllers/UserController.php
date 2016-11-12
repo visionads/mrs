@@ -1053,4 +1053,61 @@ class UserController extends Controller
         }
     }
 
+
+
+
+    /**
+     * create a new agent account
+     */
+
+    public function create_an_account()
+    {
+        $pageTitle = 'MRS | Create a new account';
+
+        return view('user::signup._form_agent');
+    }
+
+    
+    public function add_new_agent(Request $request)
+    {
+        $input = $request->all();
+        date_default_timezone_set("Asia/Dacca");
+
+        $input_data = [
+            'full_name'=>$input['full_name'],
+            'phone'=>$input['phone'],
+            'address'=>$input['address'],
+            'username'=>$input['email'],
+            'email'=>$input['email'],
+            'status'=> 'inactive',
+            'business_id'=> null
+        ];
+
+        /* Transaction Start Here */
+        DB::beginTransaction();
+        try {
+
+            if($user = User::create($input_data))
+            {
+                /*$role_user = [
+                    'user_id'=>$user['id'],
+                    'role_id'=>$input['role_id'],
+                    'status'=>'active',
+                ];
+                RoleUser::create($role_user);*/
+            }
+
+            DB::commit();
+            Session::flash('message', 'Successfully added!');
+        }catch (\Exception $e){
+            //If there are any exceptions, rollback the transaction`
+            DB::rollback();
+            Session::flash('danger', $e->getMessage());
+        }
+
+        return redirect()->route('get-user-login');
+    }
+
+
+
 }
