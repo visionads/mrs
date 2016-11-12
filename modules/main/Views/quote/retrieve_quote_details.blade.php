@@ -16,6 +16,63 @@
         .items { color:orange;}
     </style>
     <div class="container pages font-droid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <!--=================================================================================================== ***
+                    CUSTOM PACKAGE
+                    If Print Material is Selected with "Use for Distribution" from New Quote form
+                    *** ====================================================================================================-->
+                {{--{{ $print_material_use_for_distribution }}--}}
+                @if($print_material_quantity!= 0)
+                    @if($print_material_use_for_distribution = 1)
+                        <div class="col-md-12">
+
+                            <h3 class="instruction">COST OF DISTRIBUTION   </h3>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location (Remainder will be sent to you the agency)','class="controll-label size-13"') !!}
+
+                                    <select class="quantity form-control" name="quantity" id="distributionQuantity" required  style="color: black">
+                                        <option value="">Please Select</option>
+                                        <option value="{{ $print_material_quantity }}" selected >{{ $print_material_quantity }}</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label size-13">Min Quantity<span class="required"> (Price $65 per 1000)</span></label><br>
+                                            <input class="form-control" id="minQuantity" name="distributed_quantity" type="number" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label size-13">Rest Quantity<span class="required"></span></label><br>
+                                            <input class="form-control" id="restQuantity" name="rest_quantity" type="number" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p style="color: red">Total Price : <price></price></p>
+
+                                <input type="hidden" name="distribution_price" placeholder="Distribution Price" class="form-control" id="distributionPrice" readonly>
+                                <div class="form-group">
+                                    <label>NOTE</label>
+                                    <textarea type="text" name="note" placeholder="Note" class="form-control" id="note"></textarea>
+                                </div>
+                            </div>
+                            <hr class="common-hr">
+
+                        </div>
+
+                @endif
+            @endif
+            <!-- ===================================================================================================***
+                    End print material distribution
+                    ***=====================================================================================================-->
+            </div>
+        </div>
+
+
         <div class="row">
         <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label size-25">{{ $pageTitle }}</span><br><br></div>
@@ -266,7 +323,7 @@
                                 {{--@if($quote->is_distributed_package=='yes')--}}
                                 <div class="col-sm-12">
                                     <hr class="common-hr">
-                                    <h3 class="instruction">COST OF DISTRIBUTION </h3>
+                                    <h3 class="instruction">COST OF DISTRIBUTION  </h3>
                                     <div class="form-group">
                                         <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
 
@@ -347,18 +404,12 @@
                         @if($print_material_use_for_distribution = 1)
                             <div class="col-md-12">
                                 <hr class="common-hr">
-                                <h3 class="instruction">COST OF DISTRIBUTION </h3>
-                                <div class="col-sm-6">
+                                <h3 class="instruction"> DISTRIBUTION  OF PRINT MATERIAL  </h3>
+                                {{--<div class="col-sm-6">
                                     <div class="form-group">
                                         {!! Form::label('quantity','Please select below from the total print material above what quantity will be used for distribution to your specified location (Remainder will be sent to you the agency)','class="controll-label size-13"') !!}
 
-                                        {{--<select class="quantity form-control" name="quantity" id="distributionQuantity"  style="color: black">
-                                            <option value="select">Please Select</option>
-                                            @for($i=1000;$i<=20000;$i+=1000)
-                                                <option value="{{ $i }}">{{ $i }}</option>
-                                            @endfor
-                                        </select>--}}
-                                        {{--<input class="form-control" type="number" name="quantity" id="distributionQuantity" value="{{ $print_material_quantity }}">--}}
+
                                         <select class="quantity form-control" name="quantity" id="distributionQuantity" required  style="color: black">
                                             <option value="">Please Select</option>
                                             <option value="{{ $print_material_quantity }}" selected >{{ $print_material_quantity }}</option>
@@ -385,9 +436,9 @@
                                         <label>NOTE</label>
                                         <textarea type="text" name="note" placeholder="Note" class="form-control" id="note"></textarea>
                                     </div>
-                                </div>
+                                </div>--}}
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
 
