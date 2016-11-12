@@ -323,7 +323,7 @@
                                 {{--@if($quote->is_distributed_package=='yes')--}}
                                 <div class="col-sm-12">
                                     <hr class="common-hr">
-                                    <h3 class="instruction">COST OF DISTRIBUTION  </h3>
+                                    <h3 class="instruction">DISTRIBUTION OF PRINT MATERIAL  </h3>
                                     <div class="form-group">
                                         <label class="control-label size-13">Location of Distribution in the surrounding properties<span class="required"></span></label><br>
 
