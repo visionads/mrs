@@ -82,7 +82,8 @@
                                 {{--<tr><td width="auto" >+ Photography {!! ($photography_package_str!=='')?'[<span class="items"> '.$photography_package_str.' </span>]':'' !!}</td><td width="20">:</td><td>$ {{ number_format($photography_price,2) }}</td></tr>--}}
                                 <tr><td>+ Signboard Package {!! ($signboard_package_str!=='')?'[<span class="items"> '.$signboard_package_str.' </span>]':'' !!}</td><td>&nbsp; : &nbsp;</td><td width="20%">$ {{ number_format($signboard_price,2) }}</td></tr>
                                 <tr><td>+ Print Material {!! ($print_material_str!=='')?'[<span class="items"> '.$print_material_str.' </span>]':'' !!}</td><td>&nbsp; : &nbsp;</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
-                                {{--<tr style="border-bottom: 3px double #909090;"><td>+ Distribution of Print Material</td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>--}}
+                                {{--<tr style="border-bottom: 3px double #909090;"><td>+ Distribution
+                                </td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>--}}
 
                                 @if($print_material_quantity!= 0)
                                     @if($print_material_use_for_distribution = 1)

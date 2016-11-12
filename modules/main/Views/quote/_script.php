@@ -221,6 +221,7 @@
             var minQuantity= $(this).val();
             if(parseInt(minQuantity) <= parseInt(quantity))
             {
+                $('.keep_hide').slideDown();
                 $('#restQuantity').val(quantity-minQuantity);
                 distributionPrice();
             }else{
