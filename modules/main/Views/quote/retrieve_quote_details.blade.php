@@ -672,8 +672,8 @@
                     <h2 style="color:#f36f21">GST : $ {{ (isset($gst))?number_format($gst,2):'0.00' }} </h2>
                     <h2 style="color:#f36f21">Total COST Inc GST : $ {{ (isset($total_with_gst))?number_format($total_with_gst,2):'0.00' }} </h2>--}}
 
-                    <h2 style="color:#f36f21">Total : $ <span class="totalToScript">{{ (isset($total))?number_format($total,2):'0.00' }}</span></h2>
-                    <h2 style="color:#f36f21">GST : $ <span class="newgst">{{ (isset($gst))?number_format($gst,2):'0.00' }}</span> </h2>
+                    <h2 style="color:#f36f21">Total : $ <span class="totalToScript">{{ (isset($total))?number_format($total, 2):'0.00' }}</span></h2>
+                    <h2 style="color:#f36f21">GST : $ <span class="newgst">{{ (isset($gst))?number_format($gst, 2):'0.00' }}</span> </h2>
                     <h2 style="color:#f36f21">Total COST Inc GST : $ <span class="newtotal">{{ (isset($total_with_gst))?number_format($total_with_gst,2):'0.00' }}</span> </h2>
                 </div>
             </div>
