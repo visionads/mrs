@@ -527,13 +527,23 @@
                                 <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
                             </div>
                             <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>--}}
-                            <div class="form-group" style="text-align: center !important;">
-                                <i class="fa fa-image" style="font-size: 72px;"></i><br>
-                                <label class="control-label">Upload Photographs</label>
-                                <input type="file" name="image[]" id="image" class="form-control" style="width:200px; margin: auto !important;" multiple >
-                                <span class="label label-danger"><font size="1">NOTE!</font></span>
-                                <span style="color: white"><font size="1">System will allow these types of image(png,jpeg,jpg Format)</font></span>
+                            <div class="col-md-8">
+                                <div class="form-group pull-right" style="text-align: center !important;">
+                                    <i class="fa fa-image" style="font-size: 72px;"></i><br>
+                                    <label class="control-label">Upload Photographs</label> <br> <input type="checkbox" checked> Primary
+                                    <input type="file" name="image[]" id="image" class="form-control" style="width:200px; margin: auto !important;" multiple >
+
+                                    <span class="label label-danger"><font size="1">NOTE!</font></span>
+                                    <span style="color: white"><font size="1">System will allow these types of image(png,jpeg,jpg Format)</font></span>
+                                </div>
                             </div>
+                            <div class="col-md-4" style="text-align: center">
+                                <p>Upload More</p>
+                                <input type="file" name="image[]" id="image" class="form-control" style="width:200px; margin: auto !important;" > <br>
+                                <input type="file" name="image[]" id="image" class="form-control" style="width:200px; margin: auto !important;" ><br>
+                                <input type="file" name="image[]" id="image" class="form-control" style="width:200px; margin: auto !important;" ><br>
+                            </div>
+
                             {{--</div>--}}
 
                         {{--</div>--}}

@@ -399,7 +399,7 @@
                                                     <div class="col-sm-2">
                                                         <div class="sign-box" style="height: 550px;">
                                                             <label class="size-15 text-color">
-                                                                <input type="radio" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
+                                                                <input type="checkbox" class="print_material_id" name="print_material_id[]" value="{{ $print_material->id }}">
                                                                 {{ $print_material->title }}
 
                                                             </label>
@@ -410,7 +410,7 @@
                                                                 @endforeach
                                                             </p>
                                                             <label class="green size-15">
-                                                                <input type="checkbox" name="is_distributed[{{ $print_material->id }}]" value="{{ $print_material->id }}">
+                                                                <input type="radio" name="is_distributed[]" value="{{ $print_material->id }}">
                                                                 USE FOR DISTRIBUTION
                                                             </label>
                                                             <div class="pkg-img"><img width="100%" src="{{ asset($print_material->image_path) }}"></div>

@@ -418,13 +418,10 @@ class QuoteController extends Controller
      */
     public function store(Request $request)
     {
-        #print_r("123");exit;
-        //print_r($request['package']);exit();
 
-        \DB::beginTransaction();
+        DB::beginTransaction();
         $received=$request->except('_token');
-        //print_r($received['package_head_id']);exit();
-//        dd($received);
+
         try {
                 if(isset($received['solution_type_id'])){
                     $data['solution_type_id'] = $received['solution_type_id'];
@@ -453,7 +450,7 @@ class QuoteController extends Controller
                  * */
                 $property['owner_name'] = $received['owner_name'];
                 $property['address'] = $received['address'];
-//                $property['vendor_name'] = $received['vendor_name'];
+                #$property['vendor_name'] = $received['vendor_name'];
                 $property['vendor_email'] = $received['vendor_email'];
                 $property['vendor_phone'] = $received['vendor_phone'];
                 $property_id = PropertyDetail::create($property);
@@ -465,13 +462,10 @@ class QuoteController extends Controller
                 $data['quote_number']=$quote_number['generated_number'];
                 #print_r($data);exit;
 
-    //            dd($data);
-                //print_r($data);exit();
                 $quote=Quote::create($data);
                 //print_r($quote);exit();
                 GenerateNumber::update_row($quote_number['setting_id'],$quote_number['number']);
-//            dd($quote->id);
-//            $quote=Quote::findOrFail(30);
+
 
             /*
              * getting photography info
