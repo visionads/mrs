@@ -202,9 +202,6 @@ class QuoteController extends Controller
             $local_media_price += $local_media_p->price;
         }*/
 
-        print_r($prices['print_material_quantity']);
-        print_r($prices['print_material_use_for_distribution']);
-
 
         // Return to view Page-------------------------------------------
         return view('main::quote.retrieve_quote_details',[
