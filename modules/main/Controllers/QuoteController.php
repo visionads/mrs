@@ -188,6 +188,7 @@ class QuoteController extends Controller
 
 
 
+
         // To get the selling_price from property_details table
         $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
         $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
@@ -306,25 +307,54 @@ class QuoteController extends Controller
         $print_material_price = 0;
         $print_material_quantity = 0;
         $print_material_use_for_distribution = 0;
-        if(isset($quote->print_material_id) && $quote->print_material_id==1){
-            foreach($print_materials_qr as $print_material){
-                if(isset($quote->relQuotePrintMaterial)){
-                    foreach($quote->relQuotePrintMaterial as $ppi){
-                        $print_material_use_for_distribution = $ppi->is_distributed;
+        if(isset($quote->print_material_id) && $quote->print_material_id==1)
+        {
 
-                        if($ppi->print_material_id==$print_material->id){
+
+            foreach($print_materials_qr as $print_material)
+            {
+
+                if(isset($quote->relQuotePrintMaterial))
+                {
+
+                    foreach($quote->relQuotePrintMaterial as $ppi)
+                    {
+                        #$print_material_use_for_distribution = $ppi->is_distributed;
+
+                        if($ppi->is_distributed == 1)
+                        {
+                            $print_material_size_id= $ppi->print_material_size_id;
+                            $print_material_size_data = PrintMaterialSize::findOrFail($print_material_size_id);
+                            $print_material_use_for_distribution = $print_material_size_data->title;
+                        }
+
+
+                        if($ppi->print_material_id==$print_material->id)
+                        {
+
                             $print_material_str .= $print_material->title.',';
-                            if(isset($quote->relQuotePrintMaterial)) {
-                                foreach ($quote->relQuotePrintMaterial as $ppi) {
-                                    if ($ppi->print_material_id == $print_material->id && $ppi->is_distributed == 1) {
-
-                                    }
-                                }
-                            }
-                            foreach($print_material->relPrintMaterial as $relPrintMaterial){
-                                if(isset($quote->relQuotePrintMaterial)){
-                                    foreach($quote->relQuotePrintMaterial as $ppi){
-                                        if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id){
+                            #if(isset($quote->relQuotePrintMaterial))
+                            #{
+                                #foreach ($quote->relQuotePrintMaterial as $ppi)
+                                #{
+                                    #if ($ppi->print_material_id == $print_material->id && $ppi->is_distributed == 1)
+                                    #if ($ppi->is_distributed == 1)
+                                    #{
+                                    #    $print_material_size_id= $ppi->print_material_size_id;
+                                    #    $print_material_size_data = PrintMaterialSize::findOrFail($print_material_size_id);
+                                    #    $print_material_use_for_distribution = $print_material_size_data->title;
+                                        #print_r($print_material_use_for_distribution);
+                                    #}
+                                #}
+                            #}
+                            foreach($print_material->relPrintMaterial as $relPrintMaterial)
+                            {
+                                if(isset($quote->relQuotePrintMaterial))
+                                {
+                                    foreach($quote->relQuotePrintMaterial as $ppi)
+                                    {
+                                        if($ppi->print_material_id==$print_material->id && $ppi->print_material_size_id==$relPrintMaterial->id)
+                                        {
 
                                             $print_material_price+=$relPrintMaterial->price;
                                             $print_material_quantity = $relPrintMaterial->title;
@@ -333,7 +363,12 @@ class QuoteController extends Controller
                                 }
                             }
                         }
+
+
+
+
                     }
+
                 }
             }
         }
