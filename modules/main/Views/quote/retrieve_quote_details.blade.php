@@ -24,7 +24,8 @@
                     If Print Material is Selected with "Use for Distribution" from New Quote form
                     *** ====================================================================================================-->
                 {{--{{ $print_material_use_for_distribution }}--}}
-                @if($print_material_quantity!= 0)
+                @if($print_material_quantity)
+
                     @if($print_material_use_for_distribution = 1)
                         <div class="col-md-12">
 
@@ -77,7 +78,7 @@
         <div class="col-md-12">
             <div class="col-sm-12" id="new_order_title"><span class="label size-25">{{ $pageTitle }}</span><br><br></div>
         </div>
-            @if($print_material_quantity != 0)
+            @if($print_material_quantity )
             <script>
                 $(document).ready(function(){
                      $('.keep_hide').hide();
@@ -116,7 +117,7 @@
                                 </tr>
                                 {{--<tr><td>+ Distribution of Print Material</td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>--}}
 
-                                @if($print_material_quantity!= 0)
+                                @if($print_material_quantity)
                                     @if($print_material_use_for_distribution = 1)
                                         <tr><td>+ Cost of Distribution </td><td>:  $</td><td class="dist_price_in_summary">0.00</td></tr>
                                     @endif
@@ -142,7 +143,7 @@
                                 {{--<tr style="border-bottom: 3px double #909090;"><td>+ Distribution
                                 </td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>--}}
 
-                                @if($print_material_quantity!= 0)
+                                @if($print_material_quantity)
                                     @if($print_material_use_for_distribution = 1)
                                         <tr style="border-bottom: 3px double #909090;"><td>+ Cost of Distribution </td><td>&nbsp; : &nbsp;</td><td>$ <span class="dist_price_in_summary">0.00</span></td></tr>
                                     @endif
@@ -400,7 +401,7 @@
                     If Print Material is Selected with "Use for Distribution" from New Quote form
                     *** ====================================================================================================-->
                     {{--{{ $print_material_use_for_distribution }}--}}
-                    @if($print_material_quantity!= 0)
+                    @if($print_material_quantity)
                         @if($print_material_use_for_distribution = 1)
                             <div class="col-md-12">
                                 <hr class="common-hr">
@@ -638,7 +639,7 @@
                                 </tr>
                                 {{--<tr><td>+ Distribution of Print Material</td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>--}}
 
-                                @if($print_material_quantity!= 0)
+                                @if($print_material_quantity)
                                     @if($print_material_use_for_distribution = 1)
                                         <tr><td>+ Cost of Distribution </td><td>:  $</td><td class="dist_price_in_summary">0.00</td></tr>
                                     @endif
@@ -663,7 +664,7 @@
                                 <tr><td>+ Print Material {!! ($print_material_str!=='')?'[<span class="items"> '.$print_material_str.' </span>]':'' !!}</td><td>&nbsp; : &nbsp;</td><td>$ {{ number_format($print_material_price,2) }}</td></tr>
                                 {{--<tr style="border-bottom: 3px double #909090;"><td>+ Distribution of Print Material</td><td>:  $</td><td>{{ number_format($distributed_print_material_price,2) }}</td></tr>--}}
 
-                                @if($print_material_quantity!= 0)
+                                @if($print_material_quantity)
                                     @if($print_material_use_for_distribution = 1)
                                         <tr style="border-bottom: 3px double #909090;"><td>+ Cost of Distribution </td><td>&nbsp; : &nbsp;</td><td>$ <span class="dist_price_in_summary">0.00</span></td></tr>
                                     @endif

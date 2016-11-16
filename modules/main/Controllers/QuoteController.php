@@ -53,7 +53,7 @@ class QuoteController extends Controller
         $pageTitle = 'MRS - Order List';
 
         $role_name = User::getRole(Auth::user()->id) ;   // output admin/agent
-        //print_r($user); exit();
+
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
             //$data = Quote::orderBy('id','DESC')->paginate(10);
@@ -61,7 +61,7 @@ class QuoteController extends Controller
         }
         else
         {
-            //exit('slkfjd');
+
             //$data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
             $data = Quote::with('relBusiness','relUser')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(10);
         }
@@ -78,8 +78,7 @@ class QuoteController extends Controller
         $data['quote_property']= QuotePropertyAccess::where('quote_id',$id)->get();
         $data['quote_image']= QuotePropertyImage::where('quote_id',$id)->get();
         //$data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
-        //echo $id.'----';
-        //print_r(count($data['quote_image']));exit;
+
 
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         //$data['print_material_dist']=PrintMaterialDistribution::with('relPrintMaterialDistribution')->get();
@@ -95,16 +94,16 @@ class QuoteController extends Controller
             'relQuotePackage'
         )->first();
         $prices=QuoteController::_getPrice($data['quote']);
-        //print_r($data['quote']->relQuotePackage->id);exit();
+
         if(isset($data['quote']->relQuotePackage->id)) {
             $package_id = $data['quote']->relQuotePackage->id;
-            //print_r($package_id);exit();
+
             //$data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
             $data['packages'] = Package::with('relPackageOption')->where('id', $package_id)->orderBy('type', 'ASC')->get();
         }
-//        dd($data['signboard_packages']);
+
         //$data['package_price'] = $data['quote']->relQuotePackage['price'];
-        //print_r($data['package_price']);exit();
+
         return view('main::quote.details',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data,'prices'=>$prices]);
     }
     /**
@@ -132,14 +131,13 @@ class QuoteController extends Controller
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         $data['solution_types']= SolutionType::get();
         $data['photography_packages']= PhotographyPackage::with('relPhotographyPackage')->orderBy('type','ASC')->get();
-        //print_r($data['photography_packages']);exit();
+
         $data['signboard_packages']= SignboardPackage::with('relSignboardPackage')->get();
         $data['print_materials']= PrintMaterial::with('relPrintMaterial')->get();
         $data['local_medias']= LocalMedia::with('relLocalMedia')->get();
         $data['digital_medias']= DigitalMedia::get();
         $data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
-        //print_r($data['packages']);exit();
-//        dd($data['signboard_packages']);
+
         return view('main::quote.create',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
     }
     public function retrieve()
@@ -147,7 +145,7 @@ class QuoteController extends Controller
         $pageTitle = 'MRS - Retrieve Quote';
 //        $data = DB::table('quote')->orderBy('id','DESC')->paginate(30);
         $role_name = User::getRole(Auth::user()->id) ;
-        //print_r(Auth::user()->business_id); exit();
+
         if($role_name == 'admin' || $role_name == 'super-admin')
         {
             //$data = Quote::with('relSolutionType')->where('business_id', Auth::user()->business_id)->orderBy('id','DESC')->paginate(30);
@@ -155,18 +153,18 @@ class QuoteController extends Controller
         }
         else
         {
-            //exit('agent');
+
             //$data = Quote::with('relBusiness','relUser')->where(['business_id'=> Auth::user()->business_id,'status'=>'quote_confirmed'])->orderBy('id','DESC')->paginate(10);
             $data = Quote::with('relBusiness','relUser','relPropertyDetail')->where(['business_id'=> Auth::user()->business_id,'status'=>'open'])->orderBy('id','DESC')->paginate(10);
-            //print_r($data); exit();
+
         }
 
-//        dd($data);
+
         return view('main::quote.retrieve_quote',['pageTitle'=>$pageTitle, 'data'=>$data]);
     }
     public function retrieve_details_demo($quote_id, $quote_number)
     {
-        //exit('retrieve');
+
         $pageTitle = 'MRS - Quote Details';
 
         $saturdays=$this->getSaturdays();
@@ -188,6 +186,8 @@ class QuoteController extends Controller
         // ---------- Getting Price ===============================
         $prices=QuoteController::_getPrice($quote);
 
+
+
         // To get the selling_price from property_details table
         $vendor_name = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_name: null;
         $vendor_phone = $quote->relPropertyDetail ? $quote->relPropertyDetail->vendor_phone: null;
@@ -201,8 +201,10 @@ class QuoteController extends Controller
         {
             $local_media_price += $local_media_p->price;
         }*/
-        //print_r($quote->is_distributed_package);exit();
-        //print_r($prices['is_distributed_package']);exit('null');
+
+        print_r($prices['print_material_quantity']);
+        print_r($prices['print_material_use_for_distribution']);
+
 
         // Return to view Page-------------------------------------------
         return view('main::quote.retrieve_quote_details',[
@@ -238,6 +240,7 @@ class QuoteController extends Controller
     }
     public static function _getPrice($quote)
     {
+
         $photography_packages_qr= PhotographyPackage::with('relPhotographyPackage')->get();
         $signboard_packages_qr= SignboardPackage::with('relSignboardPackage')->get();
         $print_materials_qr= PrintMaterial::with('relPrintMaterial')->get();
@@ -255,10 +258,8 @@ class QuoteController extends Controller
             $package_type = $package_qr->type;
             $is_distributed_package = $package_qr->is_distributed_package;
         }
-        //print_r($package_price);
-        //exit();
-        //print_r($package_price); exit();
-//        $package_id = null;
+
+        #$package_id = null;
         $package_id = $quote->package_head_id;
 
         // ---------- For photography Package===============================
@@ -276,7 +277,6 @@ class QuoteController extends Controller
                 }
             }
         }
-        //print_r($photography_price); exit();
 
         // ---------------- For Signboard Package==========================
         $signboard_package_str = '';
@@ -302,7 +302,7 @@ class QuoteController extends Controller
                 }
             }
         }
-//        print_r($signboard_price); exit();
+
 
         // ----------------- For Print Material====================================
         $print_material_str = '';
@@ -314,7 +314,7 @@ class QuoteController extends Controller
                 if(isset($quote->relQuotePrintMaterial)){
                     foreach($quote->relQuotePrintMaterial as $ppi){
                         $print_material_use_for_distribution = $ppi->is_distributed;
-                        //print_r($print_material_use_for_distribution);exit();
+
                         if($ppi->print_material_id==$print_material->id){
                             $print_material_str .= $print_material->title.',';
                             if(isset($quote->relQuotePrintMaterial)) {
@@ -340,7 +340,7 @@ class QuoteController extends Controller
                 }
             }
         }
-        //print_r($print_material_price); exit();
+
 
         //--------------- For Local Media===========================
         $local_media_str = '';
@@ -422,6 +422,7 @@ class QuoteController extends Controller
         DB::beginTransaction();
         $received=$request->except('_token');
 
+
         try {
                 if(isset($received['solution_type_id'])){
                     $data['solution_type_id'] = $received['solution_type_id'];
@@ -441,8 +442,7 @@ class QuoteController extends Controller
                     }else{
                         $data['is_distributed_package'] = 'No';
                     }*/
-                    //print_r($data['package_head_id']);
-                    //exit();
+
                 }
 
                 /*
@@ -545,9 +545,12 @@ class QuoteController extends Controller
                 /*
                  * getting print material info
                  * */
-                if (isset($received['printMaterialChooseBtn']) && !empty($received['printMaterialChooseBtn']) && $received['printMaterialChooseBtn'] == 1) {
-                    if (isset($received['print_material_id'])) {
-                        foreach ($received['print_material_id'] as $pmi) {
+                if (isset($received['printMaterialChooseBtn']) && !empty($received['printMaterialChooseBtn']) && $received['printMaterialChooseBtn'] == 1)
+                {
+                    if (isset($received['print_material_id']))
+                    {
+                        foreach ($received['print_material_id'] as $pmi)
+                        {
                             $pm = new QuotePrintMaterial;
                             $pm->quote_id = $quote->id;
                             $pm->print_material_id = $pmi;
@@ -555,13 +558,16 @@ class QuoteController extends Controller
                                 $pm->print_material_size_id = $received['print_material_size_id'][$pmi];
                                 $pm->price = PrintMaterialSize::findOrFail($received['print_material_size_id'][$pmi])->price;
                             }
-                            if (isset($received['is_distributed'])) {
-                                if (isset($received['is_distributed'][$pmi])) {
+                            if (isset($received['is_distributed']))
+                            {
+                                if ($received['is_distributed'][0] == $pmi)
+                                {
                                     $pm->is_distributed = 1;
                                 } else {
                                     $pm->is_distributed = 0;
                                 }
                             }
+
                             $pm->save();
                         }
                     }
@@ -641,7 +647,7 @@ class QuoteController extends Controller
      */
     public function edit($id)
     {
-        //exit('sf');
+
         $pageTitle = 'MRS - Edit Quote';
         $user_image = UserImage::where('user_id',Auth::user()->id)->first();
         $data['saturdays']=$this->getSaturdays();
@@ -653,11 +659,7 @@ class QuoteController extends Controller
         $data['digital_medias']= DigitalMedia::get();
         $data['packages'] = Package::with('relPackageOption')->where('status','open')->orderBy('type','ASC')->get();
         $data['quote']= Quote::where('id',$id)->with('relPropertyDetail','relPrintMaterialDistribution','relQuotePhotography','relQuoteSignboard','relQuotePrintMaterial','relQuoteDigitalMedia','relQuoteLocalMedia','relQuotePackage','relQuotePropertyImage')->first();
-//        dd($data['quote']);
-//        dd(count($data['quote']->relQuotePropertyImage));
-        //print_r($data['quote']->relQuotePackage['price']);exit();
 
-//        dd($data['quote']);
         //print_r($data['quote']->is_distributed_package);exit();
         //$is_dist = $data['quote']->is_distributed_package;
         return view('main::quote.edit',['pageTitle'=>$pageTitle,'user_image'=>$user_image,'data'=>$data]);
@@ -704,7 +706,7 @@ class QuoteController extends Controller
             }else{
                 $data['package_head_id'] = null;
             }
-            //print_r($data['package_head_id']);exit();
+
 
 
             /*
